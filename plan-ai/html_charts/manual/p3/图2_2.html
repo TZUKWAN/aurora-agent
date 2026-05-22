@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0f0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#d500f9; letter-spacing:2px; text-shadow:0 0 20px rgba(213,0,249,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#7c4dff; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(213,0,249,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(213,0,249,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; height:100%; }
+.mod { border:1px solid rgba(213,0,249,0.2); border-radius:14px; padding:14px 16px; background:rgba(255,255,255,0.02); }
+.mh { font-size:13px; font-weight:700; color:#d500f9; margin-bottom:8px; }
+.feat { margin:5px 0; padding:8px; border-radius:6px; background:rgba(255,255,255,0.03); border-left:2px solid; font-size:10px; color:#b39ddb; }
+.feat strong { color:#fff; }
+.f1 { border-left-color:#d500f9; }
+.f2 { border-left-color:#00e5ff; }
+.f3 { border-left-color:#ffea00; }
+.f4 { border-left-color:#ff5252; }
+.tier { display:flex; gap:6px; margin-top:6px; }
+.t { flex:1; text-align:center; padding:6px; border-radius:6px; font-size:9px; }
+.t1 { background:rgba(213,0,249,0.1); color:#d500f9; }
+.t2 { background:rgba(0,229,255,0.1); color:#00e5ff; }
+.t3 { background:rgba(255,234,0,0.1); color:#ffea00; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-2 产品功能矩阵 — 元宇宙级仿真三层体系</div>
+<div class="subtitle">FEATURE MATRIX · 探索版 · 专业版 · 企业版 · 功能梯度与定价</div>
+<div class="canvas">
+  <div class="grid">
+    <div class="mod">
+      <div class="mh">🌌 数字孪生模块</div>
+      <div class="feat f1"><strong>基础孪生库</strong> — 10+城市预置孪生<br><span style="color:#9575cd;">✓ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f2"><strong>城市级重建</strong> — NeRF自动三维建模<br><span style="color:#9575cd;">✗ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f3"><strong>实时动态同步</strong> — 孪生世界实时更新<br><span style="color:#9575cd;">✗ 探索版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f4"><strong>私有孪生部署</strong> — 本地化孪生资产<br><span style="color:#9575cd;">✗ 探索版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="tier"><div class="t t1">探索版<br>¥10万/年</div><div class="t t2">专业版<br>¥50万/年</div><div class="t t3">企业版<br>¥200万/年</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">⚡ 极端场景模块</div>
+      <div class="feat f1"><strong>标准场景库</strong> — 1000+预置极端场景<br><span style="color:#9575cd;">✓ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f2"><strong>AI边界探索</strong> — 强化学习自动挖掘<br><span style="color:#9575cd;">✗ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f3"><strong>LLM行为模拟</strong> — 社会化智能体建模<br><span style="color:#9575cd;">✗ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f4"><strong>定制化探索</strong> — 针对特定算法弱点<br><span style="color:#9575cd;">✗ 探索版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="tier"><div class="t t1">探索版<br>¥10万/年</div><div class="t t2">专业版<br>¥50万/年</div><div class="t t3">企业版<br>¥200万/年</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">🧪 虚实融合模块</div>
+      <div class="feat f1"><strong>基础仿真</strong> — 单机运行标准测试<br><span style="color:#9575cd;">✓ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f2"><strong>云端并行</strong> — 100场景并发仿真<br><span style="color:#9575cd;">✗ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f3"><strong>一致性验证</strong> — 仿真-真实差异量化<br><span style="color:#9575cd;">✗ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f4"><strong>大规模回归</strong> — 万级场景批量验证<br><span style="color:#9575cd;">✗ 探索版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="tier"><div class="t t1">探索版<br>¥10万/年</div><div class="t t2">专业版<br>¥50万/年</div><div class="t t3">企业版<br>¥200万/年</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">🎥 感知仿真</div>
+      <div class="feat f1"><strong>相机仿真</strong> — 物理级光线追踪<br><span style="color:#9575cd;">✓ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f2"><strong>LiDAR仿真</strong> — 波动光学建模<br><span style="color:#9575cd;">✗ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f3"><strong>域随机化</strong> — 天气/光照/噪声<br><span style="color:#9575cd;">✗ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f4"><strong>故障注入</strong> — 传感器失效模拟<br><span style="color:#9575cd;">✗ 探索版 | ✗ 专业版 | ✓ 企业版</span></div>
+    </div>
+    <div class="mod">
+      <div class="mh">🎮 元宇宙体验</div>
+      <div class="feat f1"><strong>Web浏览</strong> — 基础孪生可视化<br><span style="color:#9575cd;">✓ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f2"><strong>VR沉浸式</strong> — 头显身临其境体验<br><span style="color:#9575cd;">✗ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f3"><strong>场景交易</strong> — NFT场景资产买卖<br><span style="color:#9575cd;">✗ 探索版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f4"><strong>社交协作</strong> — 多人协同仿真评审<br><span style="color:#9575cd;">✗ 探索版 | ✗ 专业版 | ✓ 企业版</span></div>
+    </div>
+    <div class="mod">
+      <div class="mh">☁️ 平台服务</div>
+      <div class="feat f1"><strong>Web控制台</strong> — 基础操作界面<br><span style="color:#9575cd;">✓ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f2"><strong>API接入</strong> — RESTful/gRPC<br><span style="color:#9575cd;">✗ 探索版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f3"><strong>专属支持</strong> — 7×24技术团队<br><span style="color:#9575cd;">✗ 探索版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f4"><strong>定制开发</strong> — 私有化定制服务<br><span style="color:#9575cd;">✗ 探索版 | ✗ 专业版 | ✓ 企业版</span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

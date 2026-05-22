@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:60px; top:130px; width:1200px; height:800px; }
+
+/* Grafana 风格 */
+.panel {
+  background:#fff; border:2px solid #e3eaf5;
+  border-radius:12px; padding:20px;
+  height:100%;
+}
+.panel-header {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:16px;
+}
+.ph-title { font-size:16px; font-weight:700; color:#1a237e; }
+.ph-badge { padding:4px 12px; border-radius:6px; background:#e8f5e9; color:#2e7d32; font-size:11px; font-weight:700; }
+
+.chart-area {
+  position:relative; height:620px;
+  border-left:1px solid #e3eaf5;
+  border-bottom:1px solid #e3eaf5;
+}
+
+.grid-line {
+  position:absolute; left:0; right:0;
+  border-top:1px dashed #e3eaf5;
+}
+.grid-label {
+  position:absolute; left:-60px;
+  font-size:10px; color:#90a4ae;
+  transform:translateY(-50%);
+}
+
+.x-label {
+  position:absolute; bottom:-30px;
+  font-size:11px; color:#78909c;
+  text-align:center;
+  transform:translateX(-50%);
+}
+
+.value-point {
+  position:absolute;
+  width:12px; height:12px; border-radius:50%;
+  border:3px solid #fff;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  transform:translate(-50%,-50%);
+}
+.value-label {
+  position:absolute;
+  font-size:11px; font-weight:700;
+  transform:translate(-50%, -160%);
+  background:#fff; padding:3px 8px;
+  border-radius:6px; box-shadow:0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* 右侧指标 */
+.metrics {
+  position:absolute; right:60px; top:130px;
+  width:520px;
+}
+.m-card {
+  background:#fff; border:2px solid #e3eaf5;
+  border-radius:12px; padding:16px 20px;
+  margin-bottom:12px;
+}
+.m-title { font-size:13px; font-weight:700; color:#1a237e; margin-bottom:10px; }
+.m-row { display:flex; justify-content:space-between; margin:6px 0; font-size:12px; }
+.m-label { color:#78909c; }
+.m-val { font-weight:700; color:#263238; }
+.m-bar { width:100%; height:6px; background:#e3eaf5; border-radius:3px; margin-top:4px; }
+.m-bar-fill { height:100%; border-radius:3px; }
+</style>
+</head>
+<body>
+<div class="title">图2-19 云跃引擎收入增长趋势 — 时序增长曲线</div>
+<div class="subtitle">REVENUE GROWTH · MRR 月度经常性收入 · 单位: 万元人民币 · 2023.01 - 2024.12E</div>
+
+<div class="canvas">
+  <div class="panel">
+    <div class="panel-header">
+      <span class="ph-title">📈 月度经常性收入 MRR 增长</span>
+      <span class="ph-badge">CAGR 285%</span>
+    </div>
+    <div class="chart-area">
+      <!-- Y轴 -->
+      <div class="grid-line" style="top:0%"><span class="grid-label">200</span></div>
+      <div class="grid-line" style="top:20%"><span class="grid-label">160</span></div>
+      <div class="grid-line" style="top:40%"><span class="grid-label">120</span></div>
+      <div class="grid-line" style="top:60%"><span class="grid-label">80</span></div>
+      <div class="grid-line" style="top:80%"><span class="grid-label">40</span></div>
+      <div class="grid-line" style="top:100%"><span class="grid-label">0</span></div>
+
+      <!-- X轴 -->
+      <span class="x-label" style="left:0%">23.01</span>
+      <span class="x-label" style="left:9.1%">23.03</span>
+      <span class="x-label" style="left:18.2%">23.05</span>
+      <span class="x-label" style="left:27.3%">23.07</span>
+      <span class="x-label" style="left:36.4%">23.09</span>
+      <span class="x-label" style="left:45.5%">23.11</span>
+      <span class="x-label" style="left:54.5%">24.01</span>
+      <span class="x-label" style="left:63.6%">24.03</span>
+      <span class="x-label" style="left:72.7%">24.05</span>
+      <span class="x-label" style="left:81.8%">24.07</span>
+      <span class="x-label" style="left:90.9%">24.09</span>
+      <span class="x-label" style="left:100%">24.11</span>
+
+      <!-- 曲线 -->
+      <svg style="position:absolute; left:0; top:0; width:100%; height:100%;" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3949ab" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#3949ab" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M 0,620 L 45,600 L 90,560 L 135,520 L 180,480 L 225,440 L 270,400 L 315,360 L 360,320 L 405,280 L 450,240 L 495,200 L 540,180 L 585,160 L 630,140 L 675,120 L 720,100 L 765,85 L 810,70 L 855,60 L 900,50 L 990,40 L 1080,35 L 1170,30 L 1260,25 L 1350,20 L 1440,15 L 1530,12 L 1620,10 L 1710,8 L 1800,5 L 1800,620 Z" fill="url(#g1)"/>
+        <path d="M 0,620 L 45,600 L 90,560 L 135,520 L 180,480 L 225,440 L 270,400 L 315,360 L 360,320 L 405,280 L 450,240 L 495,200 L 540,180 L 585,160 L 630,140 L 675,120 L 720,100 L 765,85 L 810,70 L 855,60 L 900,50 L 990,40 L 1080,35 L 1170,30 L 1260,25 L 1350,20 L 1440,15 L 1530,12 L 1620,10 L 1710,8 L 1800,5" stroke="#3949ab" stroke-width="3" fill="none"/>
+      </svg>
+
+      <!-- 数据点 -->
+      <div class="value-point" style="left:0%; top:100%; background:#78909c;"></div>
+      <div class="value-label" style="left:0%; top:100%; color:#78909c;">¥3万</div>
+
+      <div class="value-point" style="left:18.2%; top:90%; background:#78909c;"></div>
+      <div class="value-label" style="left:18.2%; top:90%; color:#78909c;">¥8万</div>
+
+      <div class="value-point" style="left:36.4%; top:72%; background:#78909c;"></div>
+      <div class="value-label" style="left:36.4%; top:72%; color:#78909c;">¥22万</div>
+
+      <div class="value-point" style="left:54.5%; top:50%; background:#3949ab;"></div>
+      <div class="value-label" style="left:54.5%; top:50%; color:#3949ab;">¥55万</div>
+
+      <div class="value-point" style="left:72.7%; top:30%; background:#3949ab;"></div>
+      <div class="value-label" style="left:72.7%; top:30%; color:#3949ab;">¥95万</div>
+
+      <div class="value-point" style="left:90.9%; top:12%; background:#3949ab;"></div>
+      <div class="value-label" style="left:90.9%; top:12%; color:#3949ab;">¥165万</div>
+
+      <div class="value-point" style="left:100%; top:2%; background:#00c853;"></div>
+      <div class="value-label" style="left:100%; top:2%; color:#00c853;">¥220万</div>
+    </div>
+  </div>
+</div>
+
+<!-- 右侧指标 -->
+<div class="metrics">
+  <div class="m-card">
+    <div class="m-title">📊 增长核心指标</div>
+    <div class="m-row"><span class="m-label">2023 年初 MRR</span><span class="m-val">¥3 万</span></div>
+    <div class="m-bar"><div class="m-bar-fill" style="width:5%; background:#78909c"></div></div>
+    <div class="m-row"><span class="m-label">2024 年末 MRR (E)</span><span class="m-val" style="color:#1a237e;">¥220 万</span></div>
+    <div class="m-bar"><div class="m-bar-fill" style="width:95%; background:#3949ab"></div></div>
+    <div class="m-row"><span class="m-label">总增长倍数</span><span class="m-val" style="color:#2e7d32;">73x</span></div>
+  </div>
+
+  <div class="m-card">
+    <div class="m-title">🎯 增长驱动因素</div>
+    <div class="m-row"><span class="m-label">新客获取 (Marketing)</span><span class="m-val">+45%</span></div>
+    <div class="m-bar"><div class="m-bar-fill" style="width:45%; background:#3949ab"></div></div>
+    <div class="m-row"><span class="m-label">存量增购 (Expansion)</span><span class="m-val">+35%</span></div>
+    <div class="m-bar"><div class="m-bar-fill" style="width:35%; background:#00838f"></div></div>
+    <div class="m-row"><span class="m-label">客单价提升 (Price)</span><span class="m-val">+20%</span></div>
+    <div class="m-bar"><div class="m-bar-fill" style="width:20%; background:#ff9100"></div></div>
+  </div>
+
+  <div class="m-card">
+    <div class="m-title">💰 单位经济学</div>
+    <div class="m-row"><span class="m-label">LTV (客户终身价值)</span><span class="m-val">¥35.7 万</span></div>
+    <div class="m-row"><span class="m-label">CAC (获客成本)</span><span class="m-val">¥8,500</span></div>
+    <div class="m-row"><span class="m-label">LTV/CAC 比率</span><span class="m-val" style="color:#2e7d32;">4.2x ✅</span></div>
+    <div class="m-row"><span class="m-label">月流失率</span><span class="m-val" style="color:#2e7d32;">2.1% ✅</span></div>
+    <div class="m-row"><span class="m-label">回本周期</span><span class="m-val">14 个月</span></div>
+  </div>
+</div>
+
+</body>
+</html>

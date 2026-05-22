@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:40px; top:120px; width:1840px; height:920px; }
+
+/* K8s 架构风格 */
+.cp-panel {
+  position:absolute; left:40px; top:40px;
+  width:500px; height:800px;
+  background:#f5f7fa; border:2px solid #3949ab;
+  border-radius:12px; padding:20px;
+}
+.cp-title {
+  font-size:16px; font-weight:700; color:#3949ab;
+  text-align:center; margin-bottom:16px;
+  padding-bottom:12px; border-bottom:2px solid #e3eaf5;
+}
+
+.node-panel {
+  position:absolute; right:40px; top:40px;
+  width:1200px; height:800px;
+  display:flex; gap:20px;
+}
+
+.worker-node {
+  flex:1; background:#f5f7fa;
+  border:2px solid #78909c;
+  border-radius:12px; padding:16px;
+}
+.wn-title {
+  font-size:14px; font-weight:700; color:#78909c;
+  text-align:center; margin-bottom:12px;
+  padding-bottom:10px; border-bottom:2px solid #e3eaf5;
+}
+
+/* 组件卡片 */
+.component {
+  background:#fff; border:2px solid;
+  border-radius:8px; padding:10px 12px;
+  margin:8px 0;
+  text-align:center;
+}
+.comp-name { font-size:12px; font-weight:700; }
+.comp-desc { font-size:9px; color:#78909c; margin-top:3px; }
+
+/* Control Plane 组件色 */
+.cp-api { border-color:#1565c0; }
+.cp-api .comp-name { color:#1565c0; }
+.cp-etcd { border-color:#7b1fa2; }
+.cp-etcd .comp-name { color:#7b1fa2; }
+.cp-sched { border-color:#ef6c00; }
+.cp-sched .comp-name { color:#ef6c00; }
+.cp-ctrl { border-color:#2e7d32; }
+.cp-ctrl .comp-name { color:#2e7d32; }
+.cp-cloud { border-color:#00838f; }
+.cp-cloud .comp-name { color:#00838f; }
+
+/* Worker Node 组件色 */
+.wn-kubelet { border-color:#3949ab; }
+.wn-kubelet .comp-name { color:#3949ab; }
+.wn-proxy { border-color:#78909c; }
+.wn-proxy .comp-name { color:#78909c; }
+.wn-runtime { border-color:#c62828; }
+.wn-runtime .comp-name { color:#c62828; }
+.wn-pod { border-color:#e3eaf5; background:#fafafa; }
+.wn-pod .comp-name { color:#546e7a; font-size:10px; }
+
+/* 连接线 */
+.conn-svg { position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none; z-index:5; }
+.conn-line { fill:none; stroke:#c5cae9; stroke-width:2; stroke-dasharray:6,4; }
+.conn-arrow { fill:#c5cae9; }
+
+/* 图例 */
+.legend {
+  position:absolute; left:40px; bottom:30px;
+  display:flex; gap:24px;
+}
+.leg-item { display:flex; align-items:center; gap:6px; font-size:11px; color:#546e7a; }
+.leg-box { width:14px; height:14px; border:2px solid; border-radius:4px; }
+</style>
+</head>
+<body>
+<div class="title">图2-5 云跃引擎系统技术架构 — K8s 控制平面与计算节点</div>
+<div class="subtitle">SYSTEM ARCHITECTURE · 左侧=Control Plane（大脑）· 右侧=Worker Nodes（执行器）· 连线=控制流</div>
+
+<div class="canvas">
+  <svg class="conn-svg" viewBox="0 0 1840 920">
+    <!-- Control Plane 到 Worker Nodes 的连线 -->
+    <line class="conn-line" x1="540" y1="200" x2="620" y2="180"/>
+    <line class="conn-line" x1="540" y1="200" x2="620" y2="380"/>
+    <line class="conn-line" x1="540" y1="200" x2="620" y2="580"/>
+    <line class="conn-line" x1="540" y1="200" x2="620" y2="780"/>
+    
+    <line class="conn-line" x1="540" y1="340" x2="620" y2="200"/>
+    <line class="conn-line" x1="540" y1="340" x2="620" y2="400"/>
+    <line class="conn-line" x1="540" y1="340" x2="620" y2="600"/>
+    <line class="conn-line" x1="540" y1="340" x2="620" y2="800"/>
+    
+    <line class="conn-line" x1="540" y1="480" x2="620" y2="220"/>
+    <line class="conn-line" x1="540" y1="480" x2="620" y2="420"/>
+    <line class="conn-line" x1="540" y1="480" x2="620" y2="620"/>
+    <line class="conn-line" x1="540" y1="480" x2="620" y2="820"/>
+    
+    <line class="conn-line" x1="540" y1="620" x2="620" y2="240"/>
+    <line class="conn-line" x1="540" y1="620" x2="620" y2="440"/>
+    <line class="conn-line" x1="540" y1="620" x2="620" y2="640"/>
+    <line class="conn-line" x1="540" y1="620" x2="620" y2="840"/>
+    
+    <line class="conn-line" x1="540" y1="760" x2="620" y2="260"/>
+    <line class="conn-line" x1="540" y1="760" x2="620" y2="460"/>
+    <line class="conn-line" x1="540" y1="760" x2="620" y2="660"/>
+    <line class="conn-line" x1="540" y1="760" x2="620" y2="860"/>
+  </svg>
+
+  <!-- Control Plane -->
+  <div class="cp-panel">
+    <div class="cp-title">🧠 Control Plane<br><span style="font-size:11px; color:#78909c; font-weight:400">集群控制中枢</span></div>
+    
+    <div class="component cp-api">
+      <div class="comp-name">API Server</div>
+      <div class="comp-desc">RESTful API 入口 · 认证鉴权 · 请求路由</div>
+    </div>
+    
+    <div class="component cp-etcd">
+      <div class="comp-name">etcd</div>
+      <div class="comp-desc">分布式键值存储 · 集群状态持久化</div>
+    </div>
+    
+    <div class="component cp-sched">
+      <div class="comp-name">Scheduler</div>
+      <div class="comp-desc">Pod 调度决策 · 资源匹配 · 亲和性规则</div>
+    </div>
+    
+    <div class="component cp-ctrl">
+      <div class="comp-name">Controller Manager</div>
+      <div class="comp-desc">Deployment / Service / HPA 控制器</div>
+    </div>
+    
+    <div class="component cp-cloud">
+      <div class="comp-name">Cloud Controller</div>
+      <div class="comp-desc">多云适配器 · 负载均衡 · 存储卷管理</div>
+    </div>
+  </div>
+
+  <!-- Worker Nodes -->
+  <div class="node-panel">
+    <div class="worker-node">
+      <div class="wn-title">🖥 Worker Node 1<br><span style="font-size:10px; color:#78909c;">高性能计算节点</span></div>
+      <div class="component wn-kubelet">
+        <div class="comp-name">Kubelet</div>
+        <div class="comp-desc">节点代理 · Pod 生命周期管理</div>
+      </div>
+      <div class="component wn-proxy">
+        <div class="comp-name">Kube-proxy</div>
+        <div class="comp-desc">服务代理 · iptables/IPVS 规则</div>
+      </div>
+      <div class="component wn-runtime">
+        <div class="comp-name">Container Runtime</div>
+        <div class="comp-desc">containerd / CRI-O</div>
+      </div>
+      <div class="component wn-pod">
+        <div class="comp-name">Pod: 灰度发布引擎</div>
+        <div class="comp-desc">流量分割 · 金丝雀 · A/B</div>
+      </div>
+      <div class="component wn-pod">
+        <div class="comp-name">Pod: 部署控制器</div>
+        <div class="comp-desc">GitOps · 滚动更新 · 回滚</div>
+      </div>
+    </div>
+
+    <div class="worker-node">
+      <div class="wn-title">🖥 Worker Node 2<br><span style="font-size:10px; color:#78909c;">智能调度节点</span></div>
+      <div class="component wn-kubelet">
+        <div class="comp-name">Kubelet</div>
+        <div class="comp-desc">节点代理 · Pod 生命周期管理</div>
+      </div>
+      <div class="component wn-proxy">
+        <div class="comp-name">Kube-proxy</div>
+        <div class="comp-desc">服务代理 · iptables/IPVS 规则</div>
+      </div>
+      <div class="component wn-runtime">
+        <div class="comp-name">Container Runtime</div>
+        <div class="comp-desc">containerd / CRI-O</div>
+      </div>
+      <div class="component wn-pod">
+        <div class="comp-name">Pod: RL 调度器</div>
+        <div class="comp-desc">强化学习 · 成本优化 · 预测</div>
+      </div>
+      <div class="component wn-pod">
+        <div class="comp-name">Pod: 资源监控</div>
+        <div class="comp-desc">Metrics · Prometheus · cAdvisor</div>
+      </div>
+    </div>
+
+    <div class="worker-node">
+      <div class="wn-title">🖥 Worker Node 3<br><span style="font-size:10px; color:#78909c;">观测与数据节点</span></div>
+      <div class="component wn-kubelet">
+        <div class="comp-name">Kubelet</div>
+        <div class="comp-desc">节点代理 · Pod 生命周期管理</div>
+      </div>
+      <div class="component wn-proxy">
+        <div class="comp-name">Kube-proxy</div>
+        <div class="comp-desc">服务代理 · iptables/IPVS 规则</div>
+      </div>
+      <div class="component wn-runtime">
+        <div class="comp-name">Container Runtime</div>
+        <div class="comp-desc">containerd / CRI-O</div>
+      </div>
+      <div class="component wn-pod">
+        <div class="comp-name">Pod: 日志聚合</div>
+        <div class="comp-desc">ELK Stack · Fluentd · Loki</div>
+      </div>
+      <div class="component wn-pod">
+        <div class="comp-name">Pod: 追踪分析</div>
+        <div class="comp-desc">Jaeger · Zipkin · OpenTelemetry</div>
+      </div>
+    </div>
+
+    <div class="worker-node">
+      <div class="wn-title">🖥 Worker Node 4<br><span style="font-size:10px; color:#78909c;">安全与策略节点</span></div>
+      <div class="component wn-kubelet">
+        <div class="comp-name">Kubelet</div>
+        <div class="comp-desc">节点代理 · Pod 生命周期管理</div>
+      </div>
+      <div class="component wn-proxy">
+        <div class="comp-name">Kube-proxy</div>
+        <div class="comp-desc">服务代理 · iptables/IPVS 规则</div>
+      </div>
+      <div class="component wn-runtime">
+        <div class="comp-name">Container Runtime</div>
+        <div class="comp-desc">containerd / CRI-O</div>
+      </div>
+      <div class="component wn-pod">
+        <div class="comp-name">Pod: 策略引擎</div>
+        <div class="comp-desc">OPA · Kyverno · 准入控制</div>
+      </div>
+      <div class="component wn-pod">
+        <div class="comp-name">Pod: 安全扫描</div>
+        <div class="comp-desc">Trivy · Falco · 镜像审计</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 图例 -->
+  <div class="legend">
+    <div class="leg-item"><span class="leg-box" style="border-color:#1565c0; background:#e3f2fd"></span>API 与通信</div>
+    <div class="leg-item"><span class="leg-box" style="border-color:#7b1fa2; background:#f3e5f5"></span>数据存储</div>
+    <div class="leg-item"><span class="leg-box" style="border-color:#ef6c00; background:#fff3e0"></span>调度决策</div>
+    <div class="leg-item"><span class="leg-box" style="border-color:#2e7d32; background:#e8f5e9"></span>控制循环</div>
+    <div class="leg-item"><span class="leg-box" style="border-color:#3949ab; background:#e8eaf6"></span>节点代理</div>
+    <div class="leg-item"><span class="leg-box" style="border-color:#c62828; background:#ffebee"></span>运行时</div>
+  </div>
+</div>
+
+</body>
+</html>

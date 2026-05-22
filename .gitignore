@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Output files
+output/
+output_v2/
+D:*
+
+# Temp files
+*.tmp
+*.temp
+
+# Large generated files
+content_*.json
+batch_*.json
+content_long_*.json
+content_small_*.json
+run_*.json
+*.png
+temp_content.txt
+img_insert_progress.json
+test_extracted.png
+test_middle.png
+test_newest.png

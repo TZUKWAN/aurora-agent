@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.ip { margin:8px 0; padding:12px; border-radius:8px; background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.1); }
+.ip-t { font-size:13px; font-weight:700; color:#fff; margin-bottom:4px; }
+.ip-d { font-size:11px; color:#90a4ae; line-height:1.5; }
+.ip-s { display:flex; gap:8px; margin-top:6px; }
+.ip-tag { padding:2px 8px; border-radius:10px; font-size:9px; }
+.t1 { background:rgba(0,229,255,0.1); color:#00e5ff; }
+.t2 { background:rgba(124,77,255,0.1); color:#7c4dff; }
+.t3 { background:rgba(0,230,118,0.1); color:#00e676; }
+.chart { position:relative; height:220px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-13 知识产权布局 — 专利与软著全景</div>
+<div class="subtitle">IP PORTFOLIO · 发明专利 · 实用新型 · 软件著作权 · 商标 · 技术秘密</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">📜 知识产权清单</div>
+      <div class="ip"><div class="ip-t">🎨 基于 GAN 的自动驾驶场景生成方法</div><div class="ip-d">发明专利 | 申请中 | 核心技术，覆盖端到端场景合成</div><div class="ip-s"><span class="ip-tag t1">发明专利</span><span class="ip-tag t2">申请中</span></div></div>
+      <div class="ip"><div class="ip-t">🔍 Corner Case 自动挖掘与对抗生成系统</div><div class="ip-d">发明专利 | 申请中 | 算法薄弱点自动发现技术</div><div class="ip-s"><span class="ip-tag t1">发明专利</span><span class="ip-tag t2">申请中</span></div></div>
+      <div class="ip"><div class="ip-t">📡 多传感器物理级仿真方法及装置</div><div class="ip-d">发明专利 | 申请中 | LiDAR/Camera/Radar 联合仿真</div><div class="ip-s"><span class="ip-tag t1">发明专利</span><span class="ip-tag t2">申请中</span></div></div>
+      <div class="ip"><div class="ip-t">🧪 大规模并行仿真调度方法</div><div class="ip-d">发明专利 | 申请中 | GPU 集群任务调度优化</div><div class="ip-s"><span class="ip-tag t1">发明专利</span><span class="ip-tag t2">申请中</span></div></div>
+      <div class="ip"><div class="ip-t">🛡️ 自动驾驶功能安全评估引擎</div><div class="ip-d">发明专利 | 申请中 | SOTIF 合规自动化检查</div><div class="ip-s"><span class="ip-tag t1">发明专利</span><span class="ip-tag t2">申请中</span></div></div>
+      <div class="ip"><div class="ip-t">💻 元界智驾仿真测试平台 V1.0</div><div class="ip-d">软件著作权 | 已登记 | 平台核心代码保护</div><div class="ip-s"><span class="ip-tag t3">软著</span><span class="ip-tag t1">已登记</span></div></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">📊 IP 布局分析</div>
+      <div class="chart">
+        <svg width="100%" height="100%" viewBox="0 0 600 220">
+          <g transform="translate(60,20)">
+            <text x="0" y="12" font-size="11" fill="#78909c">数量</text>
+            <line x1="40" y1="180" x2="500" y2="180" stroke="rgba(255,255,255,0.1)"/>
+            <text x="60" y="195" font-size="10" fill="#546e7a" text-anchor="middle">场景生成</text>
+            <rect x="35" y="60" width="50" height="120" fill="#00e5ff" rx="4" opacity="0.8"/>
+            <text x="60" y="130" font-size="12" fill="#0a0a1a" text-anchor="middle" font-weight="700">5</text>
+            <text x="160" y="195" font-size="10" fill="#546e7a" text-anchor="middle">传感器仿真</text>
+            <rect x="135" y="100" width="50" height="80" fill="#7c4dff" rx="4" opacity="0.8"/>
+            <text x="160" y="145" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">3</text>
+            <text x="260" y="195" font-size="10" fill="#546e7a" text-anchor="middle">调度优化</text>
+            <rect x="235" y="120" width="50" height="60" fill="#00e676" rx="4" opacity="0.8"/>
+            <text x="260" y="155" font-size="12" fill="#0a0a1a" text-anchor="middle" font-weight="700">2</text>
+            <text x="360" y="195" font-size="10" fill="#546e7a" text-anchor="middle">安全评估</text>
+            <rect x="335" y="120" width="50" height="60" fill="#ff9100" rx="4" opacity="0.8"/>
+            <text x="360" y="155" font-size="12" fill="#0a0a1a" text-anchor="middle" font-weight="700">2</text>
+            <text x="460" y="195" font-size="10" fill="#546e7a" text-anchor="middle">软著/商标</text>
+            <rect x="435" y="80" width="50" height="100" fill="#ff5252" rx="4" opacity="0.8"/>
+            <text x="460" y="135" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">4</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">🎯 IP 战略规划</div>
+      <div style="font-size:12px;color:#90a4ae;line-height:1.8;">
+        • <strong style="color:#00e5ff;">2024年：</strong>完成 5 项发明专利申请 + 3 项软著登记<br>
+        • <strong style="color:#00e5ff;">2025年：</strong>累计 15 项发明专利 + 8 项软著 + 2 项国际 PCT<br>
+        • <strong style="color:#00e5ff;">2026年：</strong>累计 30 项发明专利 + 形成专利池壁垒<br>
+        • <strong style="color:#00e5ff;">商标保护：</strong>"元界智驾" 全类注册 + 英文商标 "MetaDrive"<br>
+        • <strong style="color:#00e5ff;">技术秘密：</strong>核心生成模型权重、场景标注规范内部保密
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

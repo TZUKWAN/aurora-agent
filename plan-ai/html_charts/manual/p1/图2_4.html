@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:40px; top:120px; width:1840px; height:920px; }
+.layer { display:flex; align-items:center; gap:16px; padding:14px 20px; margin:8px 0; border-radius:10px; }
+.layer-label { width:120px; font-size:12px; font-weight:700; text-align:center; flex-shrink:0; }
+.layer-items { flex:1; display:flex; gap:12px; }
+.mod { flex:1; background:#fff; border:2px solid; border-radius:10px; padding:12px 14px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+.mod-icon { font-size:20px; margin-bottom:6px; }
+.mod-name { font-size:12px; font-weight:700; }
+.mod-desc { font-size:9px; color:#757575; margin-top:4px; }
+.layer-arrow { text-align:center; font-size:18px; color:#bdbdbd; margin:2px 0; }
+.l1 { background:#e3f2fd; } .l1 .layer-label { color:#1565c0; } .l1 .mod { border-color:#90caf9; }
+.l2 { background:#fff3e0; } .l2 .layer-label { color:#ef6c00; } .l2 .mod { border-color:#ffcc80; }
+.l3 { background:#e8f5e9; } .l3 .layer-label { color:#2e7d32; } .l3 .mod { border-color:#a5d6a7; }
+.l4 { background:#e0f7fa; } .l4 .layer-label { color:#00838f; } .l4 .mod { border-color:#4dd0e1; }
+.l5 { background:#f3e5f5; } .l5 .layer-label { color:#7b1fa2; } .l5 .mod { border-color:#ce93d8; }
+</style>
+</head>
+<body>
+<div class="title">图2-4 储能先知产品功能架构 — 储能系统分层视图</div>
+<div class="subtitle">PRODUCT ARCHITECTURE · 自上而下=云平台→EMS→PCS→BMS→电芯</div>
+<div class="canvas">
+  <div class="layer l1">
+    <div class="layer-label">☁<br>云平台层</div>
+    <div class="layer-items">
+      <div class="mod"><div class="mod-icon">📊</div><div class="mod-name">数字孪生大屏</div><div class="mod-desc">3D 电站可视化</div></div>
+      <div class="mod"><div class="mod-icon">📈</div><div class="mod-name">AI 分析引擎</div><div class="mod-desc">预测性维护 + 优化</div></div>
+      <div class="mod"><div class="mod-icon">📱</div><div class="mod-name">移动运维 APP</div><div class="mod-desc">工单 + 告警推送</div></div>
+      <div class="mod"><div class="mod-icon">🔗</div><div class="mod-name">电网调度接口</div><div class="mod-desc">AGC/AVC 协议</div></div>
+    </div>
+  </div>
+  <div class="layer-arrow">⬇ 能量管理指令</div>
+  <div class="layer l2">
+    <div class="layer-label">⚡<br>EMS 层</div>
+    <div class="layer-items">
+      <div class="mod"><div class="mod-icon">🧮</div><div class="mod-name">能量调度策略</div><div class="mod-desc">峰谷套利 + 需量</div></div>
+      <div class="mod"><div class="mod-icon">📡</div><div class="mod-name">功率控制</div><div class="mod-desc">充放电功率分配</div></div>
+      <div class="mod"><div class="mod-icon">📋</div><div class="mod-name">电力交易代理</div><div class="mod-desc">现货/辅助服务</div></div>
+      <div class="mod"><div class="mod-icon">🔥</div><div class="mod-name">安全联动</div><div class="mod-desc">消防 + 电网保护</div></div>
+    </div>
+  </div>
+  <div class="layer-arrow">⬇ 功率转换控制</div>
+  <div class="layer l3">
+    <div class="layer-label">🔌<br>PCS 层</div>
+    <div class="layer-items">
+      <div class="mod"><div class="mod-icon">🔄</div><div class="mod-name">AC/DC 变换</div><div class="mod-desc">双向功率变换</div></div>
+      <div class="mod"><div class="mod-icon">⚡</div><div class="mod-name">谐波治理</div><div class="mod-desc">THD &lt;3%</div></div>
+      <div class="mod"><div class="mod-icon">🛡</div><div class="mod-name">孤岛保护</div><div class="mod-desc">防孤岛检测</div></div>
+      <div class="mod"><div class="mod-icon">📊</div><div class="mod-name">并网点监测</div><div class="mod-desc">电压/频率/相位</div></div>
+    </div>
+  </div>
+  <div class="layer-arrow">⬇ 电池管理</div>
+  <div class="layer l4">
+    <div class="layer-label">🔋<br>BMS 层</div>
+    <div class="layer-items">
+      <div class="mod"><div class="mod-icon">🎯</div><div class="mod-name">SOC/SOH 估算</div><div class="mod-desc">卡尔曼 + 神经网络</div></div>
+      <div class="mod"><div class="mod-icon">🔥</div><div class="mod-name">热失控预警</div><div class="mod-desc">多物理场 + AI</div></div>
+      <div class="mod"><div class="mod-icon">⚖</div><div class="mod-name">主动均衡</div><div class="mod-desc">能量转移均衡</div></div>
+      <div class="mod"><div class="mod-icon">🔒</div><div class="mod-name">绝缘监测</div><div class="mod-desc">高压绝缘检测</div></div>
+    </div>
+  </div>
+  <div class="layer-arrow">⬇ 电化学反应</div>
+  <div class="layer l5">
+    <div class="layer-label">⚛<br>电芯层</div>
+    <div class="layer-items">
+      <div class="mod"><div class="mod-icon">📦</div><div class="mod-name">磷酸铁锂模组</div><div class="mod-desc">280Ah 大容量</div></div>
+      <div class="mod"><div class="mod-icon">🌡</div><div class="mod-name">液冷管路</div><div class="mod-desc">温差 &lt;3°C</div></div>
+      <div class="mod"><div class="mod-icon">🧯</div><div class="mod-name">Pack 级消防</div><div class="mod-desc">气溶胶 + 喷淋</div></div>
+      <div class="mod"><div class="mod-icon">📡</div><div class="mod-name">NTC 温度传感</div><div class="mod-desc">每模组 4 点</div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

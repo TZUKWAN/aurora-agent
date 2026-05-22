@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0f0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#d500f9; letter-spacing:2px; text-shadow:0 0 20px rgba(213,0,249,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#7c4dff; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(213,0,249,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(213,0,249,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { display:flex; flex-direction:column; gap:16px; }
+.c1 { flex:1.2; }
+.c2 { flex:1; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(213,0,249,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#d500f9; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.layer { margin:6px 0; padding:12px; border-radius:10px; border:1px solid; }
+.lh { font-size:13px; font-weight:700; margin-bottom:6px; }
+.ld { display:flex; gap:8px; flex-wrap:wrap; }
+.li { padding:5px 10px; border-radius:6px; font-size:10px; }
+.l1 { border-color:rgba(213,0,249,0.3); background:rgba(213,0,249,0.05); }
+.l1 .lh { color:#d500f9; } .l1 .li { background:rgba(213,0,249,0.1); color:#d500f9; }
+.l2 { border-color:rgba(0,229,255,0.3); background:rgba(0,229,255,0.05); }
+.l2 .lh { color:#00e5ff; } .l2 .li { background:rgba(0,229,255,0.1); color:#00e5ff; }
+.l3 { border-color:rgba(255,234,0,0.3); background:rgba(255,234,0,0.05); }
+.l3 .lh { color:#ffea00; } .l3 .li { background:rgba(255,234,0,0.1); color:#ffea00; }
+.l4 { border-color:rgba(255,82,82,0.3); background:rgba(255,82,82,0.05); }
+.l4 .lh { color:#ff5252; } .l4 .li { background:rgba(255,82,82,0.1); color:#ff5252; }
+.l5 { border-color:rgba(124,77,255,0.3); background:rgba(124,77,255,0.05); }
+.l5 .lh { color:#7c4dff; } .l5 .li { background:rgba(124,77,255,0.1); color:#7c4dff; }
+.kpi { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.kc { text-align:center; padding:14px; border-radius:8px; background:rgba(255,255,255,0.03); border:1px solid rgba(213,0,249,0.15); }
+.kv { font-size:20px; font-weight:700; }
+.kl { font-size:10px; color:#7c4dff; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-6 部署架构 — 元宇宙级混合云仿真平台</div>
+<div class="subtitle">DEPLOYMENT ARCHITECTURE · 超算中心 · 边缘节点 · 实时渲染 · 区块链确权</div>
+<div class="canvas">
+  <div class="col c1">
+    <div class="card">
+      <div class="ch">🏗️ 混合云部署架构</div>
+      <div class="layer l5"><div class="lh">🌐 元宇宙接入层</div><div class="ld"><div class="li">VR/AR头显</div><div class="li">WebXR浏览器</div><div class="li">5G边缘接入</div><div class="li">CDN全球加速</div></div></div>
+      <div class="layer l1"><div class="lh">🖥️ 应用服务层</div><div class="ld"><div class="li">元宇宙门户</div><div class="li">API Gateway</div><div class="li">数字身份</div><div class="li">场景交易</div></div></div>
+      <div class="layer l2"><div class="lh">⚙️ 仿真引擎层</div><div class="ld"><div class="li">UE5实时渲染</div><div class="li">NeRF重建</div><div class="li">物理仿真</div><div class="li">AI场景生成</div></div></div>
+      <div class="layer l3"><div class="lh">💾 数据资产层</div><div class="ld"><div class="li">数字孪生库</div><div class="li">场景NFT</div><div class="li">区块链确权</div><div class="li">分布式存储</div></div></div>
+      <div class="layer l4"><div class="lh">🖥️ 算力基础设施</div><div class="ld"><div class="li">GPU超算集群</div><div class="li">实时渲染农场</div><div class="li">MEC边缘计算</div><div class="li">量子计算预留</div></div></div>
+    </div>
+  </div>
+  <div class="col c2">
+    <div class="card">
+      <div class="ch">☁️ 部署模式</div>
+      <div style="margin:8px 0;padding:12px;border-radius:10px;background:rgba(213,0,249,0.05);border:1px solid rgba(213,0,249,0.2);">
+        <div style="font-size:13px;font-weight:700;color:#d500f9;margin-bottom:6px;">🏢 元宇宙SaaS</div>
+        <div style="font-size:11px;color:#b39ddb;line-height:1.6;">沉浸式Web体验 · 按场景数计费 · VR/AR支持 · 全球CDN · 社交协作</div>
+      </div>
+      <div style="margin:8px 0;padding:12px;border-radius:10px;background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.2);">
+        <div style="font-size:13px;font-weight:700;color:#00e5ff;margin-bottom:6px;">🏭 企业私有云</div>
+        <div style="font-size:11px;color:#b39ddb;line-height:1.6;">本地化数字孪生 · 数据主权保障 · 定制场景库 · 专属算力集群</div>
+      </div>
+      <div style="margin:8px 0;padding:12px;border-radius:10px;background:rgba(255,234,0,0.05);border:1px solid rgba(255,234,0,0.2);">
+        <div style="font-size:13px;font-weight:700;color:#ffea00;margin-bottom:6px;">📦 边缘渲染节点</div>
+        <div style="font-size:11px;color:#b39ddb;line-height:1.6;">车载/路侧边缘 · 实时轻量孪生 · 5G低延迟 · OTA持续更新</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">📊 算力资源配置</div>
+      <div class="kpi">
+        <div class="kc"><div class="kv" style="color:#d500f9">256×</div><div class="kl">A100 GPU</div></div>
+        <div class="kc"><div class="kv" style="color:#00e5ff">512×</div><div class="kl">渲染节点</div></div>
+        <div class="kc"><div class="kv" style="color:#ffea00">20,000+</div><div class="kl">CPU核心</div></div>
+        <div class="kc"><div class="kv" style="color:#ff5252">10PB</div><div class="kl">存储容量</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

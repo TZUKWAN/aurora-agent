@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.flow { display:flex; align-items:center; gap:8px; margin:8px 0; }
+.fbox { flex:1; padding:12px 14px; border-radius:10px; font-size:12px; color:#fff; border:1px solid; }
+.fbox strong { display:block; margin-bottom:4px; font-size:13px; }
+.farr { font-size:20px; color:#00e5ff; }
+.f1 { background:rgba(0,229,255,0.08); border-color:#00e5ff; }
+.f2 { background:rgba(124,77,255,0.08); border-color:#7c4dff; }
+.f3 { background:rgba(0,230,118,0.08); border-color:#00e676; }
+.f4 { background:rgba(255,145,0,0.08); border-color:#ff9100; }
+.layer { margin:10px 0; padding:14px; border-radius:10px; border-left:3px solid; }
+.lh { font-size:13px; font-weight:700; color:#fff; margin-bottom:6px; }
+.ld { font-size:11px; color:#90a4ae; line-height:1.6; }
+.l1 { border-left-color:#00e5ff; background:rgba(0,229,255,0.05); }
+.l2 { border-left-color:#7c4dff; background:rgba(124,77,255,0.05); }
+.l3 { border-left-color:#00e676; background:rgba(0,230,118,0.05); }
+.l4 { border-left-color:#ff9100; background:rgba(255,145,0,0.05); }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-2 技术架构分层 — 五层仿真引擎栈</div>
+<div class="subtitle">TECH STACK · 物理仿真 · 场景生成 · 算法验证 · 数据闭环</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">🏗️ 技术架构分层</div>
+      <div class="layer l4"><div class="lh">⑤ 应用服务层</div><div class="ld">Web 管理平台 · 测试报告可视化 · 团队协作 · CI/CD 集成 · 第三方 API 接入</div></div>
+      <div class="layer l3"><div class="lh">④ 算法验证层</div><div class="ld">端到端算法测试 · 规控算法验证 · 感知算法评估 · 安全边界分析 · 性能退化检测</div></div>
+      <div class="layer l2"><div class="lh">③ 场景生成层</div><div class="ld">GAN 场景合成 · Diffusion 图像生成 · 对抗样本挖掘 · 参数化场景配置 · 交通流建模</div></div>
+      <div class="layer l1"><div class="lh">② 物理仿真层</div><div class="ld">车辆动力学 · 传感器模型(相机/LiDAR/Radar) · 环境物理(光照/天气/路面) · 高精度地图</div></div>
+      <div class="layer l1"><div class="lh">① 基础设施层</div><div class="ld">GPU 集群 · 分布式存储 · K8s 编排 · 弹性计算 · 数据管道(ROS2/Protobuf)</div></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">🔄 数据闭环流程</div>
+      <div class="flow">
+        <div class="fbox f1"><strong>真实路测</strong>采集传感器数据、人工标注 Corner Case</div>
+        <div class="farr">→</div>
+        <div class="fbox f2"><strong>场景挖掘</strong>AI 提取关键场景、参数化泛化</div>
+      </div>
+      <div class="flow">
+        <div class="fbox f2"><strong>场景生成</strong>GAN/Diffusion 合成虚拟场景</div>
+        <div class="farr">→</div>
+        <div class="fbox f3"><strong>仿真验证</strong>在虚拟环境测试算法表现</div>
+      </div>
+      <div class="flow">
+        <div class="fbox f3"><strong>结果分析</strong>覆盖率统计、性能退化评估</div>
+        <div class="farr">→</div>
+        <div class="fbox f4"><strong>反馈优化</strong>算法迭代、场景库更新</div>
+      </div>
+      <div class="flow">
+        <div class="fbox f4"><strong>回归测试</strong>新算法全量场景验证</div>
+        <div class="farr">→</div>
+        <div class="fbox f1"><strong>部署上车</strong>OTA 更新、持续监控</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">⚡ 核心技术指标</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="text-align:center;padding:12px;background:rgba(0,229,255,0.05);border-radius:8px;border:1px solid rgba(0,229,255,0.2);"><div style="font-size:22px;font-weight:700;color:#00e5ff;">10M+</div><div style="font-size:10px;color:#78909c;margin-top:4px;">仿真场景库规模</div></div>
+        <div style="text-align:center;padding:12px;background:rgba(124,77,255,0.05);border-radius:8px;border:1px solid rgba(124,77,255,0.2);"><div style="font-size:22px;font-weight:700;color:#7c4dff;">99.7%</div><div style="font-size:10px;color:#78909c;margin-top:4px;">Corner Case 覆盖率</div></div>
+        <div style="text-align:center;padding:12px;background:rgba(0,230,118,0.05);border-radius:8px;border:1px solid rgba(0,230,118,0.2);"><div style="font-size:22px;font-weight:700;color:#00e676;">1000×</div><div style="font-size:10px;color:#78909c;margin-top:4px;">测试效率提升</div></div>
+        <div style="text-align:center;padding:12px;background:rgba(255,145,0,0.05);border-radius:8px;border:1px solid rgba(255,145,0,0.2);"><div style="font-size:22px;font-weight:700;color:#ff9100;">&lt;50ms</div><div style="font-size:10px;color:#78909c;margin-top:4px;">单场景生成耗时</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

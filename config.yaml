@@ -1,0 +1,30 @@
+model:
+  provider: openai-compat
+  name: gpt-4o
+  base_url: https://api.openai.com/v1
+  api_key: ${AURORA_API_KEY}
+  max_turns: 50
+
+session:
+  db_path: ~/.aurora-agent/sessions.db
+  workspace: ~/AuroraWorkspace
+
+competition:
+  cache_ttl_hours: 24
+  update_interval_days: 7
+
+evaluation:
+  default_dimensions: ["innovation", "team", "business", "employment", "education"]
+  confidence_threshold: 0.7
+
+guardrail:
+  max_consecutive_calls: 5
+  max_calls_per_minute: 60
+
+context:
+  max_tokens: 8192
+  compress_threshold: 0.65
+  keep_recent: 5
+
+loop:
+  max_concurrent: 3

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+
+/* 需求层次金字塔 */
+.pyramid {
+  position:absolute; left:60px; top:40px;
+  width:700px; height:780px;
+}
+.pyramid-layer {
+  display:flex; align-items:center; justify-content:center;
+  margin:6px auto;
+  border-radius:8px;
+  color:#fff; font-size:13px; font-weight:700;
+  position:relative;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+.pl-items { position:absolute; left:20px; font-size:10px; font-weight:400; opacity:0.9; }
+.pl-items div { margin:2px 0; }
+
+.pl-1 { width:280px; height:90px; background:linear-gradient(135deg,#c62828,#ef5350); }
+.pl-2 { width:400px; height:100px; background:linear-gradient(135deg,#ef6c00,#ff9800); }
+.pl-3 { width:520px; height:110px; background:linear-gradient(135deg,#f9a825,#ffeb3b); color:#5d4037; }
+.pl-4 { width:640px; height:120px; background:linear-gradient(135deg,#2e7d32,#66bb6a); }
+.pl-5 { width:700px; height:130px; background:linear-gradient(135deg,#1565c0,#42a5f5); }
+
+/* 右侧需求矩阵 */
+.demand-matrix {
+  position:absolute; right:60px; top:40px;
+  width:900px;
+}
+.dm-title {
+  font-size:16px; font-weight:700; color:#1a237e;
+  margin-bottom:16px; padding-bottom:10px;
+  border-bottom:2px solid #e3eaf5;
+}
+
+.dm-table {
+  width:100%; border-collapse:separate; border-spacing:0 8px;
+}
+.dm-th {
+  text-align:left; padding:10px 14px;
+  font-size:11px; font-weight:700; color:#78909c;
+  text-transform:uppercase; letter-spacing:1px;
+}
+.dm-row {
+  background:#fff; border:2px solid #e3eaf5;
+  border-radius:10px;
+}
+.dm-row td {
+  padding:12px 14px; font-size:12px; color:#455a64;
+}
+.dm-priority {
+  padding:4px 12px; border-radius:12px;
+  font-size:10px; font-weight:700;
+  display:inline-block;
+}
+.p-p0 { background:#ffebee; color:#c62828; }
+.p-p1 { background:#fff3e0; color:#ef6c00; }
+.p-p2 { background:#fff8e1; color:#f9a825; }
+.p-p3 { background:#e8f5e9; color:#2e7d32; }
+
+.dm-bar { width:100px; height:6px; background:#e3eaf5; border-radius:3px; overflow:hidden; }
+.dm-bar-fill { height:100%; border-radius:3px; }
+
+.dm-satisfaction {
+  display:flex; align-items:center; gap:4px;
+}
+.star { font-size:14px; }
+.star.filled { color:#ffca28; }
+.star.empty { color:#e3eaf5; }
+</style>
+</head>
+<body>
+<div class="title">图2-12 云跃引擎客户需求分析 — Kano 层次模型</div>
+<div class="subtitle">CUSTOMER DEMAND ANALYSIS · 金字塔=需求层次 · 矩阵=优先级 × 满意度 × 实现状态</div>
+
+<div class="canvas">
+  <!-- 左侧金字塔 -->
+  <div class="pyramid">
+    <div class="pyramid-layer pl-5">
+      🚀 兴奋需求 (Delighters)
+      <div class="pl-items">
+        <div>• AI 预测性扩缩容</div>
+        <div>• 混沌工程自动演练</div>
+        <div>• 成本优化智能建议</div>
+      </div>
+    </div>
+    <div class="pyramid-layer pl-4">
+      ⭐ 期望需求 (Performance)
+      <div class="pl-items">
+        <div>• 一键回滚 &lt;30s</div>
+        <div>• 多维度灰度分流</div>
+        <div>• 多云统一管理</div>
+        <div>• 实时可观测大盘</div>
+      </div>
+    </div>
+    <div class="pyramid-layer pl-3">
+      📊 基本需求 (Basic)
+      <div class="pl-items">
+        <div>• 容器化部署自动化</div>
+        <div>• 健康检查与自愈</div>
+        <div>• 日志与监控采集</div>
+        <div>• 配置管理与版本控制</div>
+      </div>
+    </div>
+    <div class="pyramid-layer pl-2">
+      🔒 安全需求 (Security)
+      <div class="pl-items">
+        <div>• RBAC 权限管控</div>
+        <div>• 镜像安全扫描</div>
+        <div>• 网络策略隔离</div>
+        <div>• 审计日志合规</div>
+      </div>
+    </div>
+    <div class="pyramid-layer pl-1">
+      🏗 基础需求 (Foundation)
+      <div class="pl-items">
+        <div>• K8s 集群安装部署</div>
+        <div>• 应用发布与更新</div>
+        <div>• 服务发现与负载均衡</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 右侧需求矩阵 -->
+  <div class="demand-matrix">
+    <div class="dm-title">📋 核心需求优先级矩阵</div>
+    <table class="dm-table">
+      <tr>
+        <th class="dm-th" style="width:30%">需求项</th>
+        <th class="dm-th" style="width:12%">优先级</th>
+        <th class="dm-th" style="width:15%">客户提及率</th>
+        <th class="dm-th" style="width:15%">满意度权重</th>
+        <th class="dm-th" style="width:15%">当前实现</th>
+        <th class="dm-th" style="width:13%">竞争力</th>
+      </tr>
+      <tr class="dm-row">
+        <td><b>零配置容器部署</b><br><span style="font-size:10px; color:#78909c">YAML 自动生成，一键部署</span></td>
+        <td><span class="dm-priority p-p0">P0 · 必须有</span></td>
+        <td>
+          <div class="dm-bar"><div class="dm-bar-fill" style="width:92%; background:#c62828"></div></div>
+          <span style="font-size:10px; color:#78909c;">92%</span>
+        </td>
+        <td>
+          <div class="dm-satisfaction">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+          </div>
+        </td>
+        <td><span style="color:#2e7d32; font-weight:700">✓ 已实现</span></td>
+        <td><span style="color:#c62828; font-weight:700">核心优势</span></td>
+      </tr>
+      <tr class="dm-row">
+        <td><b>多维灰度发布</b><br><span style="font-size:10px; color:#78909c">用户/地域/设备/流量多维度</span></td>
+        <td><span class="dm-priority p-p0">P0 · 必须有</span></td>
+        <td>
+          <div class="dm-bar"><div class="dm-bar-fill" style="width:85%; background:#c62828"></div></div>
+          <span style="font-size:10px; color:#78909c;">85%</span>
+        </td>
+        <td>
+          <div class="dm-satisfaction">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+          </div>
+        </td>
+        <td><span style="color:#2e7d32; font-weight:700">✓ 已实现</span></td>
+        <td><span style="color:#c62828; font-weight:700">核心优势</span></td>
+      </tr>
+      <tr class="dm-row">
+        <td><b>智能调度优化</b><br><span style="font-size:10px; color:#78909c">基于 RL 的成本-性能双目标</span></td>
+        <td><span class="dm-priority p-p1">P1 · 重要</span></td>
+        <td>
+          <div class="dm-bar"><div class="dm-bar-fill" style="width:68%; background:#ef6c00"></div></div>
+          <span style="font-size:10px; color:#78909c;">68%</span>
+        </td>
+        <td>
+          <div class="dm-satisfaction">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span>
+          </div>
+        </td>
+        <td><span style="color:#ef6c00; font-weight:700">◐ Beta</span></td>
+        <td><span style="color:#ef6c00; font-weight:700">差异化</span></td>
+      </tr>
+      <tr class="dm-row">
+        <td><b>多云统一管理</b><br><span style="font-size:10px; color:#78909c">AWS/阿里/腾讯/华为云纳管</span></td>
+        <td><span class="dm-priority p-p1">P1 · 重要</span></td>
+        <td>
+          <div class="dm-bar"><div class="dm-bar-fill" style="width:72%; background:#ef6c00"></div></div>
+          <span style="font-size:10px; color:#78909c;">72%</span>
+        </td>
+        <td>
+          <div class="dm-satisfaction">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span>
+          </div>
+        </td>
+        <td><span style="color:#2e7d32; font-weight:700">✓ 已实现</span></td>
+        <td><span style="color:#ef6c00; font-weight:700">差异化</span></td>
+      </tr>
+      <tr class="dm-row">
+        <td><b>全链路可观测</b><br><span style="font-size:10px; color:#78909c">日志/指标/追踪一体化</span></td>
+        <td><span class="dm-priority p-p2">P2 · 期望</span></td>
+        <td>
+          <div class="dm-bar"><div class="dm-bar-fill" style="width:58%; background:#f9a825"></div></div>
+          <span style="font-size:10px; color:#78909c;">58%</span>
+        </td>
+        <td>
+          <div class="dm-satisfaction">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span>
+          </div>
+        </td>
+        <td><span style="color:#2e7d32; font-weight:700">✓ 已实现</span></td>
+        <td><span style="color:#78909c; font-weight:700">基础能力</span></td>
+      </tr>
+      <tr class="dm-row">
+        <td><b>安全合规审计</b><br><span style="font-size:10px; color:#78909c">RBAC/镜像扫描/网络策略</span></td>
+        <td><span class="dm-priority p-p2">P2 · 期望</span></td>
+        <td>
+          <div class="dm-bar"><div class="dm-bar-fill" style="width:55%; background:#f9a825"></div></div>
+          <span style="font-size:10px; color:#78909c;">55%</span>
+        </td>
+        <td>
+          <div class="dm-satisfaction">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span>
+          </div>
+        </td>
+        <td><span style="color:#2e7d32; font-weight:700">✓ 已实现</span></td>
+        <td><span style="color:#78909c; font-weight:700">基础能力</span></td>
+      </tr>
+      <tr class="dm-row">
+        <td><b>AI 预测性运维</b><br><span style="font-size:10px; color:#78909c">异常预测/自动扩缩容</span></td>
+        <td><span class="dm-priority p-p3">P3 · 加分</span></td>
+        <td>
+          <div class="dm-bar"><div class="dm-bar-fill" style="width:35%; background:#2e7d32"></div></div>
+          <span style="font-size:10px; color:#78909c;">35%</span>
+        </td>
+        <td>
+          <div class="dm-satisfaction">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span><span class="star empty">★</span>
+          </div>
+        </td>
+        <td><span style="color:#78909c; font-weight:700">○ 规划中</span></td>
+        <td><span style="color:#2e7d32; font-weight:700">未来壁垒</span></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

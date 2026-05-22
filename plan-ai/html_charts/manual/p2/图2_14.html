@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; height:100%; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; display:flex; flex-direction:column; }
+.ch { font-size:14px; font-weight:700; color:#00e5ff; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.case { margin:8px 0; padding:12px; border-radius:8px; background:rgba(255,255,255,0.03); border-left:3px solid; }
+.ct { font-size:13px; font-weight:700; color:#fff; margin-bottom:4px; }
+.cd { font-size:11px; color:#90a4ae; line-height:1.5; }
+.cr { display:flex; gap:8px; margin-top:8px; }
+.cr-tag { padding:3px 10px; border-radius:10px; font-size:9px; }
+.kpi { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:8px; margin-top:auto; padding-top:12px; border-top:1px solid rgba(255,255,255,0.05); }
+.kc { text-align:center; padding:10px; border-radius:6px; background:rgba(255,255,255,0.02); }
+.kv { font-size:16px; font-weight:700; }
+.kl { font-size:9px; color:#78909c; margin-top:2px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-14 应用案例展示 — 元界智驾客户成功故事</div>
+<div class="subtitle">CUSTOMER SUCCESS · 车企 · 初创 · Tier1 · 高校 · 量化价值</div>
+<div class="canvas">
+  <div class="grid">
+    <div class="card">
+      <div class="ch">🏭 案例一：某头部新势力车企</div>
+      <div class="case" style="border-left-color:#00e5ff;"><div class="ct">🔴 挑战</div><div class="cd">城市 NOA 功能即将上市，需在 3 个月内完成 10 万公里等效测试，真实路测时间不足且存在安全风险。</div></div>
+      <div class="case" style="border-left-color:#00e676;"><div class="ct">✅ 方案</div><div class="cd">使用元界智驾生成 50,000+ 城市场景，覆盖早晚高峰/施工路段/学校区域等复杂场景，并行仿真 7×24 小时执行。</div></div>
+      <div class="case" style="border-left-color:#ff9100;"><div class="ct">📊 成果</div><div class="cd">3 周内完成等效 15 万公里测试，发现 23 个 Corner Case 缺陷，算法修复后通过率达 99.1%，按时上市。</div></div>
+      <div class="kpi">
+        <div class="kc"><div class="kv" style="color:#00e5ff;">3周</div><div class="kl">测试周期</div></div>
+        <div class="kc"><div class="kv" style="color:#7c4dff;">50K+</div><div class="kl">场景数</div></div>
+        <div class="kc"><div class="kv" style="color:#00e676;">23</div><div class="kl">缺陷发现</div></div>
+        <div class="kc"><div class="kv" style="color:#ff9100;">99.1%</div><div class="kl">最终通过率</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">🚀 案例二：某自动驾驶初创公司</div>
+      <div class="case" style="border-left-color:#00e5ff;"><div class="ct">🔴 挑战</div><div class="cd">Seed 轮公司，无足够预算购买路测车队，需在有限资金下验证 L4 算法可靠性以争取 A 轮融资。</div></div>
+      <div class="case" style="border-left-color:#00e676;"><div class="ct">✅ 方案</div><div class="cd">订阅元界智驾专业版(¥20万/年)，利用 10万+ 场景库进行算法验证，CI/CD 集成实现每次代码提交自动回归。</div></div>
+      <div class="case" style="border-left-color:#ff9100;"><div class="ct">📊 成果</div><div class="cd">6 个月内算法迭代 120 次，每次迭代验证 5000+ 场景，融资路演时展示 99.5% 场景通过率，成功获得 A 轮。</div></div>
+      <div class="kpi">
+        <div class="kc"><div class="kv" style="color:#00e5ff;">¥20万</div><div class="kl">年成本</div></div>
+        <div class="kc"><div class="kv" style="color:#7c4dff;">120次</div><div class="kl">算法迭代</div></div>
+        <div class="kc"><div class="kv" style="color:#00e676;">99.5%</div><div class="kl">通过率</div></div>
+        <div class="kc"><div class="kv" style="color:#ff9100;">A轮</div><div class="kl">融资成功</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">🔧 案例三：某 Tier1 供应商</div>
+      <div class="case" style="border-left-color:#00e5ff;"><div class="ct">🔴 挑战</div><div class="cd">向 OEM 客户交付前视摄像头感知算法，客户要求提供完整测试报告与功能安全合规证明。</div></div>
+      <div class="case" style="border-left-color:#00e676;"><div class="ct">✅ 方案</div><div class="cd">使用元界智驾企业版进行 20万+ 场景验证，自动生成 ISO 26262 格式报告 + SOTIF 评估文档。</div></div>
+      <div class="case" style="border-left-color:#ff9100;"><div class="ct">📊 成果</div><div class="cd">2 周生成完整合规文档，客户审核一次通过，项目提前 1 个月交付，获得客户年度优秀供应商奖。</div></div>
+      <div class="kpi">
+        <div class="kc"><div class="kv" style="color:#00e5ff;">2周</div><div class="kl">报告周期</div></div>
+        <div class="kc"><div class="kv" style="color:#7c4dff;">200K+</div><div class="kl">验证场景</div></div>
+        <div class="kc"><div class="kv" style="color:#00e676;">1次过</div><div class="kl">客户审核</div></div>
+        <div class="kc"><div class="kv" style="color:#ff9100;">+1月</div><div class="kl">提前交付</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">🎓 案例四：某高校自动驾驶实验室</div>
+      <div class="case" style="border-left-color:#00e5ff;"><div class="ct">🔴 挑战</div><div class="cd">研究生课程需让学生体验 Corner Case 场景，但真实路测危险且成本高，传统仿真软件操作复杂。</div></div>
+      <div class="case" style="border-left-color:#00e676;"><div class="ct">✅ 方案</div><div class="cd">申请元界智驾教育版(免费)，学生通过 Web 界面自主配置场景参数，可视化观察算法在不同场景下的决策过程。</div></div>
+      <div class="case" style="border-left-color:#ff9100;"><div class="ct">📊 成果</div><div class="cd">100+ 学生一学期完成 2000+ 场景实验，课程满意度 4.8/5，2 名学生基于平台成果发表顶会论文。</div></div>
+      <div class="kpi">
+        <div class="kc"><div class="kv" style="color:#00e5ff;">免费</div><div class="kl">教育版</div></div>
+        <div class="kc"><div class="kv" style="color:#7c4dff;">100+</div><div class="kl">学生数</div></div>
+        <div class="kc"><div class="kv" style="color:#00e676;">2000+</div><div class="kl">实验场景</div></div>
+        <div class="kc"><div class="kv" style="color:#ff9100;">4.8/5</div><div class="kl">满意度</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

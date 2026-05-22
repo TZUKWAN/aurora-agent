@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+
+/* Release Pipeline 时间线 */
+.timeline-main {
+  position:absolute; left:0; top:60px;
+  width:1700px; height:6px;
+  background:linear-gradient(90deg,#e3eaf5,#3949ab,#1a237e,#3949ab,#e3eaf5);
+  border-radius:3px;
+}
+
+/* Release 节点 */
+.release {
+  position:absolute; top:20px;
+  width:280px;
+}
+.release-dot {
+  position:absolute; left:50%; top:42px; transform:translateX(-50%);
+  width:20px; height:20px; border-radius:50%;
+  background:#fff; border:4px solid;
+  z-index:10;
+}
+.release-dot::after {
+  content:""; position:absolute; left:50%; top:24px; transform:translateX(-50%);
+  width:2px; height:50px; background:#c5cae9;
+}
+
+.release-card {
+  background:#fff; border:2px solid;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+}
+.rc-header {
+  padding:10px 14px; color:#fff;
+  font-size:12px; font-weight:700;
+  display:flex; align-items:center; gap:8px;
+}
+.rc-icon { width:22px; height:22px; border-radius:50%; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-size:11px; }
+.rc-body { padding:12px 14px; }
+.rc-title { font-size:13px; font-weight:700; color:#263238; margin-bottom:6px; }
+.rc-desc { font-size:10px; color:#78909c; line-height:1.5; }
+.rc-meta { margin-top:10px; display:flex; gap:6px; flex-wrap:wrap; }
+.rc-tag {
+  padding:3px 10px; border-radius:10px;
+  font-size:9px; font-weight:700;
+}
+.rc-impact {
+  margin-top:10px; padding-top:10px;
+  border-top:1px dashed #e3eaf5;
+  font-size:10px; color:#546e7a;
+}
+.rc-impact strong { color:#1a237e; }
+
+/* 状态色 */
+.status-released .release-dot { border-color:#00c853; }
+.status-released .release-card { border-color:#00c853; }
+.status-released .rc-header { background:#00c853; }
+.status-released .rc-tag { background:#e8f5e9; color:#2e7d32; }
+
+.status-active .release-dot { border-color:#3949ab; animation:pulse 2s infinite; }
+.status-active .release-card { border-color:#3949ab; }
+.status-active .rc-header { background:#3949ab; }
+.status-active .rc-tag { background:#e8eaf6; color:#3949ab; }
+
+.status-upcoming .release-dot { border-color:#ff9100; }
+.status-upcoming .release-card { border-color:#ff9100; }
+.status-upcoming .rc-header { background:#ff9100; }
+.status-upcoming .rc-tag { background:#fff3e0; color:#ef6c00; }
+
+@keyframes pulse {
+  0% { box-shadow:0 0 0 0 rgba(57,73,171,0.4); }
+  70% { box-shadow:0 0 0 10px rgba(57,73,171,0); }
+  100% { box-shadow:0 0 0 0 rgba(57,73,171,0); }
+}
+
+/* 底部标签 */
+.timeline-labels {
+  position:absolute; left:0; top:420px;
+  width:1700px;
+  display:flex; justify-content:space-between;
+}
+.tl-item { text-align:center; }
+.tl-year { font-size:14px; font-weight:700; color:#1a237e; }
+.tl-phase { font-size:11px; color:#78909c; margin-top:4px; }
+
+/* 影响评估面板 */
+.impact-panel {
+  position:absolute; right:0; top:20px;
+  width:280px;
+  background:#f5f7fa; border-radius:12px;
+  padding:18px; border:2px solid #e3eaf5;
+}
+.ip-title { font-size:14px; font-weight:700; color:#1a237e; margin-bottom:14px; }
+.ip-item { margin:12px 0; }
+.ip-label { font-size:11px; color:#78909c; margin-bottom:4px; }
+.ip-bar { height:8px; background:#e3eaf5; border-radius:4px; overflow:hidden; }
+.ip-bar-fill { height:100%; border-radius:4px; }
+.ip-value { font-size:12px; font-weight:700; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="title">图2-3 云原生行业政策支持时间线 — Release Pipeline</div>
+<div class="subtitle">POLICY TIMELINE AS RELEASE NOTES · 政策=版本发布 · 状态=已发布/进行中/规划中 · Tag=影响范围</div>
+
+<div class="canvas">
+  <div class="timeline-main"></div>
+
+  <!-- Release 1: 已发布 -->
+  <div class="release status-released" style="left:0px;">
+    <div class="release-dot"></div>
+    <div class="release-card">
+      <div class="rc-header">
+        <div class="rc-icon">✓</div>
+        v2019.05 · 已发布
+      </div>
+      <div class="rc-body">
+        <div class="rc-title">"推动企业上云"政策</div>
+        <div class="rc-desc">工信部发布《推动企业上云实施指南》，明确提出2020年全国新增上云企业100万家目标。</div>
+        <div class="rc-meta">
+          <span class="rc-tag">工信部</span>
+          <span class="rc-tag">国家级</span>
+        </div>
+        <div class="rc-impact">
+          <strong>影响:</strong> 云原生基础设施需求激增，容器化部署成为标配
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Release 2: 已发布 -->
+  <div class="release status-released" style="left:340px;">
+    <div class="release-dot"></div>
+    <div class="release-card">
+      <div class="rc-header">
+        <div class="rc-icon">✓</div>
+        v2021.03 · 已发布
+      </div>
+      <div class="rc-body">
+        <div class="rc-title">"十四五"数字经济规划</div>
+        <div class="rc-desc">国务院发布《"十四五"数字经济发展规划》，将云原生列为关键数字技术。</div>
+        <div class="rc-meta">
+          <span class="rc-tag">国务院</span>
+          <span class="rc-tag">五年规划</span>
+        </div>
+        <div class="rc-impact">
+          <strong>影响:</strong> 央国企容器化率从12%提升至38%
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Release 3: 已发布 -->
+  <div class="release status-released" style="left:680px;">
+    <div class="release-dot"></div>
+    <div class="release-card">
+      <div class="rc-header">
+        <div class="rc-icon">✓</div>
+        v2022.06 · 已发布
+      </div>
+      <div class="rc-body">
+        <div class="rc-title">《云计算综合标准化体系建设指南》</div>
+        <div class="rc-desc">工信部与国家市场监管总局联合发布，规范容器、微服务、DevOps标准。</div>
+        <div class="rc-meta">
+          <span class="rc-tag">工信部</span>
+          <span class="rc-tag">标准化</span>
+        </div>
+        <div class="rc-impact">
+          <strong>影响:</strong> 行业标准统一，云跃引擎可直接对标认证
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Release 4: 进行中 -->
+  <div class="release status-active" style="left:1020px;">
+    <div class="release-dot"></div>
+    <div class="release-card">
+      <div class="rc-header">
+        <div class="rc-icon">●</div>
+        v2023-Now · 进行中
+      </div>
+      <div class="rc-body">
+        <div class="rc-title">各地"云改数转"专项补贴</div>
+        <div class="rc-desc">广东、浙江、北京等地出台企业上云补贴政策，最高补贴 50% 云支出。</div>
+        <div class="rc-meta">
+          <span class="rc-tag">地方政府</span>
+          <span class="rc-tag">补贴</span>
+        </div>
+        <div class="rc-impact">
+          <strong>影响:</strong> 中小企业采购意愿强烈，降低云跃客户获客成本
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Release 5: 规划中 -->
+  <div class="release status-upcoming" style="left:1360px;">
+    <div class="release-dot"></div>
+    <div class="release-card">
+      <div class="rc-header">
+        <div class="rc-icon">◐</div>
+        v2025+ · 规划中
+      </div>
+      <div class="rc-body">
+        <div class="rc-title">信创替代三年行动计划</div>
+        <div class="rc-desc">预计出台国产云原生平台替代计划，要求金融、政务等领域完成信创改造。</div>
+        <div class="rc-meta">
+          <span class="rc-tag">信创办</span>
+          <span class="rc-tag">国产化</span>
+        </div>
+        <div class="rc-impact">
+          <strong>影响:</strong> 国产PaaS平台迎来爆发窗口期
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部时间标签 -->
+  <div class="timeline-labels">
+    <div class="tl-item">
+      <div class="tl-year">2019-2020</div>
+      <div class="tl-phase">政策启蒙期</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2021-2022</div>
+      <div class="tl-phase">标准建设期</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023-2024</div>
+      <div class="tl-phase">落地补贴期</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025+</div>
+      <div class="tl-phase">信创爆发期</div>
+    </div>
+  </div>
+
+  <!-- 右侧影响评估 -->
+  <div class="impact-panel">
+    <div class="ip-title">📊 政策红利量化评估</div>
+    <div class="ip-item">
+      <div class="ip-label">直接市场规模拉动</div>
+      <div class="ip-bar"><div class="ip-bar-fill" style="width:85%; background:#1a237e;"></div></div>
+      <div class="ip-value" style="color:#1a237e;">预计新增 ¥120 亿/年</div>
+    </div>
+    <div class="ip-item">
+      <div class="ip-label">中小企业上云补贴覆盖率</div>
+      <div class="ip-bar"><div class="ip-bar-fill" style="width:60%; background:#3949ab;"></div></div>
+      <div class="ip-value" style="color:#3949ab;">60% 目标客户可获补贴</div>
+    </div>
+    <div class="ip-item">
+      <div class="ip-label">央国企容器化强制要求</div>
+      <div class="ip-bar"><div class="ip-bar-fill" style="width:75%; background:#00838f;"></div></div>
+      <div class="ip-value" style="color:#00838f;">2025 年前须完成 80%</div>
+    </div>
+    <div class="ip-item">
+      <div class="ip-label">信创替代合规窗口期</div>
+      <div class="ip-bar"><div class="ip-bar-fill" style="width:45%; background:#ff9100;"></div></div>
+      <div class="ip-value" style="color:#ff9100;">2025-2027 黄金三年</div>
+    </div>
+    <div class="ip-item">
+      <div class="ip-label">云跃引擎政策匹配度</div>
+      <div class="ip-bar"><div class="ip-bar-fill" style="width:92%; background:#00c853;"></div></div>
+      <div class="ip-value" style="color:#00c853;">高度契合 (92/100)</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

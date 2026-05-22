@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.score-cards { display:flex; gap:16px; margin-bottom:20px; }
+.sc-card { flex:1; background:#fff; border:2px solid #e0e0e0; border-radius:12px; padding:16px; text-align:center; }
+.sc-card.hl { border-color:#e65100; background:#fff3e0; }
+.sc-name { font-size:12px; font-weight:700; color:#757575; margin-bottom:8px; }
+.sc-score { font-size:32px; font-weight:700; color:#212121; }
+.sc-rank { font-size:10px; color:#757575; margin-top:4px; }
+table { width:100%; border-collapse:separate; border-spacing:4px; }
+th { padding:12px 14px; text-align:center; font-size:11px; font-weight:700; color:#757575; background:#f5f5f5; border-radius:8px; }
+td { padding:14px 16px; text-align:center; font-size:12px; color:#424242; border-radius:8px; font-weight:600; }
+.s-full { background:#e8f5e9; color:#2e7d32; border:2px solid #a5d6a7; }
+.s-partial { background:#fff3e0; color:#ef6c00; border:2px solid #ffcc80; }
+.s-none { background:#ffebee; color:#c62828; border:2px solid #ef9a9a; }
+.row-head { text-align:left !important; font-weight:700 !important; background:#fff !important; border:2px solid #e0e0e0 !important; color:#212121 !important; }
+.col-hl { background:linear-gradient(180deg,#fff3e0,#fff) !important; }
+.ph { padding:12px !important; border-radius:8px 8px 0 0 !important; font-size:12px !important; }
+.ph-hl { background:#e65100 !important; color:#fff !important; }
+.ph-ct { background:#424242 !important; color:#fff !important; }
+.sp { position:absolute; right:0; top:0; width:320px; }
+.sp-t { font-size:14px; font-weight:700; color:#212121; margin-bottom:12px; }
+.sp-item { margin:10px 0; }
+.sp-l { font-size:11px; color:#757575; margin-bottom:4px; }
+.sp-bar { height:8px; background:#e0e0e0; border-radius:4px; overflow:hidden; }
+.sp-f { height:100%; border-radius:4px; }
+.sp-v { font-size:12px; font-weight:700; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="title">图2-13 储能先知产品优势对比 — 电力设备招标参数表</div>
+<div class="subtitle">PRODUCT COMPARISON · 维度=核心技术参数 · 评分=满足招标要求程度</div>
+<div class="canvas">
+  <div class="score-cards">
+    <div class="sc-card hl"><div class="sc-name">🔥 储能先知</div><div class="sc-score" style="color:#e65100;">4.5</div><div class="sc-rank">综合评分 / 5.0 · 第 1</div></div>
+    <div class="sc-card"><div class="sc-name">阳光电源</div><div class="sc-score">4.0</div><div class="sc-rank">综合评分 / 5.0 · 第 2</div></div>
+    <div class="sc-card"><div class="sc-name">海博思创</div><div class="sc-score">3.7</div><div class="sc-rank">综合评分 / 5.0 · 第 3</div></div>
+    <div class="sc-card"><div class="sc-name">宁德时代</div><div class="sc-score">3.5</div><div class="sc-rank">综合评分 / 5.0 · 第 4</div></div>
+    <div class="sc-card"><div class="sc-name">比亚迪</div><div class="sc-score">3.3</div><div class="sc-rank">综合评分 / 5.0 · 第 5</div></div>
+  </div>
+  <table>
+    <tr><th style="width:22%">技术参数</th><th class="ph ph-hl" style="width:15.6%">🔥 储能先知</th><th class="ph ph-ct" style="width:15.6%">阳光电源</th><th class="ph ph-ct" style="width:15.6%">海博思创</th><th class="ph ph-ct" style="width:15.6%">宁德时代</th><th class="ph ph-ct" style="width:15.6%">比亚迪</th></tr>
+    <tr><td class="row-head">热失控预警提前时间</td><td class="s-full col-hl">✓ 15-30min</td><td class="s-partial">△ 5-10min</td><td class="s-partial">△ 5-10min</td><td class="s-partial">△ 3-5min</td><td class="s-partial">△ 3-5min</td></tr>
+    <tr><td class="row-head">预警准确率</td><td class="s-full col-hl">✓ 92%</td><td class="s-partial">△ 80%</td><td class="s-partial">△ 78%</td><td class="s-partial">△ 75%</td><td class="s-partial">△ 72%</td></tr>
+    <tr><td class="row-head">动态调度收益提升</td><td class="s-full col-hl">✓ 15-25%</td><td class="s-partial">△ 8-12%</td><td class="s-partial">△ 10-15%</td><td class="s-none">✗ 无</td><td class="s-none">✗ 无</td></tr>
+    <tr><td class="row-head">SOC 估算精度</td><td class="s-full col-hl">✓ ±2%</td><td class="s-partial">△ ±3%</td><td class="s-partial">△ ±3%</td><td class="s-partial">△ ±3%</td><td class="s-partial">△ ±4%</td></tr>
+    <tr><td class="row-head">电池寿命延长</td><td class="s-full col-hl">✓ +20%</td><td class="s-partial">△ +10%</td><td class="s-partial">△ +8%</td><td class="s-partial">△ +5%</td><td class="s-partial">△ +5%</td></tr>
+    <tr><td class="row-head">调度响应速度</td><td class="s-full col-hl">✓ &lt;100ms</td><td class="s-full">✓ &lt;100ms</td><td class="s-full">✓ &lt;100ms</td><td class="s-partial">△ &lt;200ms</td><td class="s-partial">△ &lt;200ms</td></tr>
+    <tr><td class="row-head">电芯自研能力</td><td class="s-none col-hl">✗ 无</td><td class="s-none">✗ 无</td><td class="s-none">✗ 无</td><td class="s-full">✓ 有</td><td class="s-full">✓ 有</td></tr>
+    <tr><td class="row-head">电力交易代理</td><td class="s-full col-hl">✓ 支持</td><td class="s-none">✗ 无</td><td class="s-none">✗ 无</td><td class="s-none">✗ 无</td><td class="s-none">✗ 无</td></tr>
+    <tr><td class="row-head">消防联动</td><td class="s-full col-hl">✓ Pack级</td><td class="s-full">✓ 集装箱级</td><td class="s-full">✓ 集装箱级</td><td class="s-full">✓ 集装箱级</td><td class="s-full">✓ 集装箱级</td></tr>
+    <tr><td class="row-head">价格竞争力</td><td class="s-full col-hl">✓ 中</td><td class="s-partial">△ 中高</td><td class="s-partial">△ 中高</td><td class="s-none">✗ 高</td><td class="s-none">✗ 高</td></tr>
+  </table>
+  <div class="sp">
+    <div class="sp-t">📊 功能覆盖评分</div>
+    <div class="sp-item"><div class="sp-l">🔥 储能先知</div><div class="sp-bar"><div class="sp-f" style="width:90%; background:#e65100"></div></div><div class="sp-v" style="color:#e65100;">9/10 · 90%</div></div>
+    <div class="sp-item"><div class="sp-l">阳光电源</div><div class="sp-bar"><div class="sp-f" style="width:70%; background:#ff9800"></div></div><div class="sp-v" style="color:#ff9800;">7/10 · 70%</div></div>
+    <div class="sp-item"><div class="sp-l">海博思创</div><div class="sp-bar"><div class="sp-f" style="width:65%; background:#ff9800"></div></div><div class="sp-v" style="color:#ff9800;">6.5/10 · 65%</div></div>
+    <div class="sp-item"><div class="sp-l">宁德时代</div><div class="sp-bar"><div class="sp-f" style="width:60%; background:#ff9800"></div></div><div class="sp-v" style="color:#ff9800;">6/10 · 60%</div></div>
+    <div class="sp-item"><div class="sp-l">比亚迪</div><div class="sp-bar"><div class="sp-f" style="width:55%; background:#ff9100"></div></div><div class="sp-v" style="color:#ff9100;">5.5/10 · 55%</div></div>
+  </div>
+</div>
+</body>
+</html>

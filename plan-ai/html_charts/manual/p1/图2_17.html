@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:22px; height:100%; }
+.card { background:#fff; border:2px solid #e0e0e0; border-radius:14px; padding:20px 22px; display:flex; flex-direction:column; }
+.ch { font-size:15px; font-weight:700; color:#212121; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.cm { margin:10px 0; padding:12px; border-radius:8px; background:#f5f5f5; }
+.cmt { font-size:12px; font-weight:700; color:#424242; margin-bottom:6px; display:flex; justify-content:space-between; }
+.cms { font-size:11px; color:#616161; line-height:1.6; }
+.cmt span { font-size:10px; color:#9e9e9e; background:#fff; padding:2px 8px; border-radius:10px; }
+.adv { background:#e8f5e9 !important; border-left:4px solid #2e7d32; }
+.dis { background:#ffebee !important; border-left:4px solid #c62828; }
+.quad { position:relative; height:320px; border:1px solid #e0e0e0; border-radius:10px; background:#fafafa; }
+.ql { position:absolute; font-size:11px; color:#9e9e9e; font-weight:700; }
+.qc { position:absolute; width:100px; height:80px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; text-align:center; padding:8px; }
+.swot { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.sw { padding:12px; border-radius:8px; font-size:12px; line-height:1.6; }
+.sw strong { display:block; margin-bottom:4px; font-size:13px; }
+.sw-s { background:#e3f2fd; color:#1565c0; }
+.sw-w { background:#fff3e0; color:#e65100; }
+.sw-o { background:#e8f5e9; color:#2e7d32; }
+.sw-t { background:#ffebee; color:#c62828; }
+</style>
+</head>
+<body>
+<div class="title">图2-17 市场竞争分析 — 储能AI运维赛道竞争格局</div>
+<div class="subtitle">COMPETITIVE LANDSCAPE · 直接竞品 vs 间接竞品 · 差异化定位 · SWOT 分析</div>
+<div class="canvas">
+  <div class="grid">
+    <div class="card">
+      <div class="ch">🎯 竞争矩阵</div>
+      <div class="quad">
+        <span class="ql" style="left:8px;top:6px;">低价格</span>
+        <span class="ql" style="right:8px;top:6px;">高价格</span>
+        <span class="ql" style="left:8px;bottom:6px;">弱技术</span>
+        <span class="ql" style="right:8px;bottom:6px;">强技术</span>
+        <line x1="50%" y1="10" x2="50%" y2="310" style="position:absolute;left:50%;top:10px;height:300px;width:1px;background:#e0e0e0;"/>
+        <line style="position:absolute;left:10px;top:50%;width:calc(100%-20px);height:1px;background:#e0e0e0;"/>
+        <div class="qc" style="left:8%;top:12%;background:#e65100;color:#fff;width:120px;">储能先知<br><span style="font-size:10px;font-weight:400">AI SaaS 模式</span></div>
+        <div class="qc" style="right:8%;top:8%;background:#bdbdbd;color:#fff;">远景智能<br>OS</div>
+        <div class="qc" style="right:8%;top:45%;background:#bdbdbd;color:#fff;">华为数字能源</div>
+        <div class="qc" style="left:8%;bottom:12%;background:#bdbdbd;color:#fff;">传统 EMS<br>厂商</div>
+        <div class="qc" style="right:25%;bottom:15%;background:#bdbdbd;color:#fff;">NREL<br>开源工具</div>
+        <div class="qc" style="left:30%;top:55%;background:#00acc1;color:#fff;width:110px;">储能云平台<br><span style="font-size:10px;font-weight:400">互联网跨界</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">⚔️ 竞品对比</div>
+      <div class="cm"><div class="cmt">华为数字能源 <span>综合巨头</span></div><div class="cms">✓ 品牌强、硬件全栈  ✗ 价格高、交付重、非独立软件商<br>定价: 硬件+软件捆绑 ¥500万+ | 定位: 大型电站总包</div></div>
+      <div class="cm"><div class="cmt">远景智能OS <span>风机跨界</span></div><div class="cms">✓ AI能力强、IoT经验丰富  ✗ 储能场景理解浅<br>定价: 订阅制 ¥30-80万/年 | 定位: 风电储能一体化</div></div>
+      <div class="cm adv"><div class="cmt">储能先知 <span>专注储能</span></div><div class="cms">✓ 垂直深耕、AI预警领先、轻量SaaS  ✗ 品牌知名度低<br>定价: SaaS ¥5-20万/年 | 定位: 储能AI运维专家</div></div>
+    </div>
+    <div class="card">
+      <div class="ch">📋 SWOT 分析</div>
+      <div class="swot">
+        <div class="sw sw-s"><strong>💪 优势 S</strong>• AI预警准确率 99.2%<br>• 轻量SaaS，部署快<br>• 垂直场景深度</div>
+        <div class="sw sw-w"><strong>😰 劣势 W</strong>• 品牌知名度低<br>• 资金有限<br>• 销售网络弱</div>
+        <div class="sw sw-o"><strong>🚀 机会 O</strong>• 储能装机爆发<br>• 政策强制安全<br>• 运维人才短缺</div>
+        <div class="sw sw-t"><strong>⚠️ 威胁 T</strong>• 巨头入场<br>• 价格战风险<br>• 技术迭代快</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

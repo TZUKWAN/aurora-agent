@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.swot-grid { display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap:16px; height:100%; }
+.swot-panel { border-radius:14px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.08); border:3px solid; }
+.sp-header { padding:14px 18px; color:#fff; font-size:16px; font-weight:700; display:flex; align-items:center; gap:10px; }
+.sp-icon { width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-size:16px; }
+.sp-body { padding:18px; background:#fff; height:calc(100% - 60px); }
+.sp-item { display:flex; align-items:flex-start; gap:10px; font-size:12px; color:#424242; margin:10px 0; line-height:1.5; }
+.sp-item::before { content:"▸"; font-weight:700; }
+.sp-metric { margin-top:14px; padding-top:14px; border-top:2px dashed #e0e0e0; }
+.sm-val { font-size:24px; font-weight:700; }
+.sm-label { font-size:10px; color:#757575; margin-top:2px; }
+.s { border-color:#2e7d32; }
+.s .sp-header { background:linear-gradient(135deg,#2e7d32,#66bb6a); }
+.s .sp-item::before { color:#2e7d32; }
+.s .sm-val { color:#2e7d32; }
+.w { border-color:#ff9100; }
+.w .sp-header { background:linear-gradient(135deg,#ef6c00,#ff9800); }
+.w .sp-item::before { color:#ef6c00; }
+.w .sm-val { color:#ef6c00; }
+.o { border-color:#1565c0; }
+.o .sp-header { background:linear-gradient(135deg,#1565c0,#42a5f5); }
+.o .sp-item::before { color:#1565c0; }
+.o .sm-val { color:#1565c0; }
+.t { border-color:#c62828; }
+.t .sp-header { background:linear-gradient(135deg,#c62828,#ef5350); }
+.t .sp-item::before { color:#c62828; }
+.t .sm-val { color:#c62828; }
+.center-badge { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:100px; height:100px; background:#212121; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#fff; box-shadow:0 8px 32px rgba(33,33,33,0.3); z-index:100; }
+.cb-main { font-size:14px; font-weight:700; }
+.cb-sub { font-size:9px; opacity:0.7; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="title">图1-3 储能先知 SWOT — 热力学状态四象限</div>
+<div class="subtitle">SWOT AS THERMODYNAMIC PHASE DIAGRAM · 温度=市场热度 · 压力=竞争强度 · 相态=战略状态</div>
+<div class="canvas">
+  <div class="swot-grid">
+    <div class="swot-panel s">
+      <div class="sp-header"><div class="sp-icon">▲</div>优势 (Solid) · 低温高压稳定态</div>
+      <div class="sp-body">
+        <div class="sp-item">电化学热失控预警算法精度达 92%，行业领先</div>
+        <div class="sp-item">BMS 动态寻优调度，电站收益提升 15-25%</div>
+        <div class="sp-item">核心团队来自宁德时代/比亚迪，电芯+算法双背景</div>
+        <div class="sp-item">已获 3 项发明专利，2 篇 SCI 论文</div>
+        <div class="sp-metric">
+          <div class="sm-val">92%</div>
+          <div class="sm-label">预警准确率 · 行业 Top 1</div>
+        </div>
+      </div>
+    </div>
+    <div class="swot-panel w">
+      <div class="sp-header"><div class="sp-icon">!</div>劣势 (Liquid) · 高温低压流动态</div>
+      <div class="sp-body">
+        <div class="sp-item">品牌知名度低，客户获取成本高</div>
+        <div class="sp-item">电芯制造无自有产线，依赖供应商</div>
+        <div class="sp-item">大型储能项目垫资压力大</div>
+        <div class="sp-item">海外市场渠道尚未建立</div>
+        <div class="sp-metric">
+          <div class="sm-val">¥15万</div>
+          <div class="sm-label">大客户 CAC · 高于行业均值</div>
+        </div>
+      </div>
+    </div>
+    <div class="swot-panel o">
+      <div class="sp-header"><div class="sp-icon">↑</div>机会 (Gas) · 高温高压膨胀态</div>
+      <div class="sp-body">
+        <div class="sp-item">双碳政策下储能装机量 CAGR 60%+</div>
+        <div class="sp-item">电力市场化改革，峰谷价差扩大至 3-4 倍</div>
+        <div class="sp-item">新型储能纳入电网调度，辅助服务市场开放</div>
+        <div class="sp-item">出海欧洲/东南亚，电价高企驱动储能需求</div>
+        <div class="sp-metric">
+          <div class="sm-val">CAGR 60%</div>
+          <div class="sm-label">中国储能装机增速 · 2023-2028</div>
+        </div>
+      </div>
+    </div>
+    <div class="swot-panel t">
+      <div class="sp-header"><div class="sp-icon">⚠</div>威胁 (Plasma) · 超高温不稳定态</div>
+      <div class="sp-body">
+        <div class="sp-item">宁德时代/比亚迪/阳光电源全产业链布局</div>
+        <div class="sp-item">储能电站安全事故引发监管收紧</div>
+        <div class="sp-item">锂价波动影响电芯成本与项目利润</div>
+        <div class="sp-item">技术迭代快，固态电池可能颠覆现有 BMS</div>
+        <div class="sp-metric">
+          <div class="sm-val">Top 3</div>
+          <div class="sm-label">巨头市占率 · 合计 65%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="center-badge">
+    <div class="cb-main">SWOT</div>
+    <div class="cb-sub">相图中心</div>
+  </div>
+</div>
+</body>
+</html>

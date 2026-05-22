@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0f0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#d500f9; letter-spacing:2px; text-shadow:0 0 20px rgba(213,0,249,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#7c4dff; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(213,0,249,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(213,0,249,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(213,0,249,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#d500f9; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.pie-wrap { display:flex; align-items:center; justify-content:center; gap:30px; padding:10px; }
+.pie-info { display:flex; flex-direction:column; gap:8px; }
+.pi { display:flex; align-items:center; gap:8px; }
+.pc { width:14px; height:14px; border-radius:3px; }
+.pt { font-size:12px; color:#d1c4e9; }
+.pv { font-size:12px; font-weight:700; }
+.mod { margin:8px 0; padding:12px; border-radius:8px; background:rgba(255,255,255,0.03); border-left:3px solid; font-size:11px; color:#b39ddb; line-height:1.6; }
+.mod strong { color:#fff; display:block; margin-bottom:3px; font-size:12px; }
+.m1 { border-left-color:#d500f9; }
+.m2 { border-left-color:#00e5ff; }
+.m3 { border-left-color:#ffea00; }
+.m4 { border-left-color:#ff5252; }
+.m5 { border-left-color:#7c4dff; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-3 核心算法模块 — 元宇宙级仿真技术栈</div>
+<div class="subtitle">ALGORITHM MODULES · 数字孪生 · 极端场景 · 感知仿真 · 智能体 · 虚实融合</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">🧠 算法模块占比</div>
+      <div class="pie-wrap">
+        <svg width="220" height="220" viewBox="0 0 220 220">
+          <g transform="translate(110,110)">
+            <path d="M 0,-100 A 100,100 0 0,1 70.71,-70.71 L 0,0 Z" fill="#d500f9"/>
+            <path d="M 70.71,-70.71 A 100,100 0 0,1 100,0 L 0,0 Z" fill="#00e5ff"/>
+            <path d="M 100,0 A 100,100 0 0,1 58.78,80.9 L 0,0 Z" fill="#ffea00"/>
+            <path d="M 58.78,80.9 A 100,100 0 0,1 -58.78,80.9 L 0,0 Z" fill="#ff5252"/>
+            <path d="M -58.78,80.9 A 100,100 0 0,1 -100,0 L 0,0 Z" fill="#7c4dff"/>
+            <path d="M -100,0 A 100,100 0 0,1 -70.71,-70.71 L 0,0 Z" fill="#78909c"/>
+            <path d="M -70.71,-70.71 A 100,100 0 0,1 0,-100 L 0,0 Z" fill="#4a148c"/>
+            <circle r="42" fill="#0f0a1a"/>
+            <text x="0" y="4" text-anchor="middle" font-size="10" fill="#d500f9" font-weight="700">7大模块</text>
+          </g>
+        </svg>
+        <div class="pie-info">
+          <div class="pi"><div class="pc" style="background:#d500f9"></div><div class="pt">数字孪生重建</div><div class="pv" style="color:#d500f9">22%</div></div>
+          <div class="pi"><div class="pc" style="background:#00e5ff"></div><div class="pt">极端场景生成</div><div class="pv" style="color:#00e5ff">18%</div></div>
+          <div class="pi"><div class="pc" style="background:#ffea00"></div><div class="pt">感知仿真</div><div class="pv" style="color:#ffea00">15%</div></div>
+          <div class="pi"><div class="pc" style="background:#ff5252"></div><div class="pt">智能体行为</div><div class="pv" style="color:#ff5252">15%</div></div>
+          <div class="pi"><div class="pc" style="background:#7c4dff"></div><div class="pt">虚实融合</div><div class="pv" style="color:#7c4dff">12%</div></div>
+          <div class="pi"><div class="pc" style="background:#78909c"></div><div class="pt">实时渲染</div><div class="pv" style="color:#78909c">10%</div></div>
+          <div class="pi"><div class="pc" style="background:#4a148c"></div><div class="pt">安全评估</div><div class="pv" style="color:#9575cd">8%</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">📈 算法性能指标</div>
+      <svg width="100%" height="180" viewBox="0 0 700 180">
+        <g transform="translate(60,20)">
+          <text x="0" y="12" font-size="11" fill:#9575cd>指标值</text>
+          <line x1="50" y1="140" x2="600" y2="140" stroke="rgba(255,255,255,0.1)"/>
+          <text x="80" y="155" font-size="10" fill:#7c4dff text-anchor="middle">孪生精度</text>
+          <rect x="55" y="30" width="50" height="110" fill="#d500f9" rx="4" opacity="0.8"/>
+          <text x="80" y="90" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">98%</text>
+          <text x="210" y="155" font-size="10" fill:#7c4dff text-anchor="middle">场景覆盖</text>
+          <rect x="185" y="20" width="50" height="120" fill="#00e5ff" rx="4" opacity="0.8"/>
+          <text x="210" y="85" font-size="11" fill="#0f0a1a" text-anchor="middle" font-weight="700">99.9%</text>
+          <text x="340" y="155" font-size="10" fill:#7c4dff text-anchor="middle">渲染帧率</text>
+          <rect x="315" y="50" width="50" height="90" fill="#ffea00" rx="4" opacity="0.8"/>
+          <text x="340" y="100" font-size="11" fill="#0f0a1a" text-anchor="middle" font-weight="700">60FPS</text>
+          <text x="470" y="155" font-size="10" fill:#7c4dff text-anchor="middle">效率提升</text>
+          <rect x="445" y="40" width="50" height="100" fill="#ff5252" rx="4" opacity="0.8"/>
+          <text x="470" y="95" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">5000×</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">🎯 七大核心算法模块</div>
+      <div class="mod m1"><strong>🌌 城市级数字孪生重建</strong>基于神经辐射场(NeRF)的城市三维重建，支持厘米级精度，实时动态更新交通状态</div>
+      <div class="mod m2"><strong>⚡ 极端场景对抗生成</strong>基于强化学习的边界探索算法，自动发现算法失效临界点，生成罕见但危险的测试场景</div>
+      <div class="mod m3"><strong>🎥 物理级多传感器仿真</strong>基于光线追踪和波动光学，精确模拟相机/LiDAR/Radar在极端条件下的感知特性</div>
+      <div class="mod m4"><strong>🚶 社会化智能体行为模型</strong>基于大语言模型的交通参与者决策系统，模拟人类驾驶员的情绪化、非理性行为</div>
+      <div class="mod m5"><strong>🔄 虚实融合一致性引擎</strong>仿真-真实差异量化与在线校准，确保数字孪生世界与物理世界的高度一致</div>
+      <div class="mod m1"><strong>🎮 实时渲染管线</strong>基于UE5的自定义渲染管线，支持照片级真实感，单帧渲染 &lt;30ms</div>
+      <div class="mod m2"><strong>🛡️ 预期功能安全评估</strong>基于SOTIF框架的未知场景安全评估，量化算法在开放世界中的安全边界</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

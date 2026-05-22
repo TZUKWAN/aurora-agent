@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:40px; top:120px; width:1840px; height:920px; }
+.layer { display:flex; align-items:center; gap:16px; padding:14px 20px; margin:10px 0; border-radius:10px; position:relative; }
+.layer-label { width:140px; font-size:13px; font-weight:700; text-align:center; flex-shrink:0; }
+.layer-items { flex:1; display:flex; gap:12px; }
+.svc { flex:1; background:#fff; border:2px solid; border-radius:10px; padding:12px 14px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+.svc-icon { font-size:20px; margin-bottom:6px; }
+.svc-name { font-size:12px; font-weight:700; }
+.svc-desc { font-size:9px; color:#757575; margin-top:4px; }
+.l1 { background:#e3f2fd; } .l1 .layer-label { color:#1565c0; } .l1 .svc { border-color:#90caf9; }
+.l2 { background:#fff3e0; } .l2 .layer-label { color:#ef6c00; } .l2 .svc { border-color:#ffcc80; }
+.l3 { background:#e8f5e9; } .l3 .layer-label { color:#2e7d32; } .l3 .svc { border-color:#a5d6a7; }
+.l4 { background:#fce4ec; } .l4 .layer-label { color:#c62828; } .l4 .svc { border-color:#f48fb1; }
+.layer-arrow { text-align:center; font-size:18px; color:#e65100; margin:4px 0; }
+</style>
+</head>
+<body>
+<div class="title">图1-7 储能先知服务体系架构 — 电力系统分层调度</div>
+<div class="subtitle">SERVICE ARCHITECTURE · 自上而下=调度中心→变电站→储能单元→监控终端</div>
+<div class="canvas">
+  <div class="layer l1">
+    <div class="layer-label">🔧<br>售前服务层</div>
+    <div class="layer-items">
+      <div class="svc"><div class="svc-icon">📋</div><div class="svc-name">储能方案设计</div><div class="svc-desc">容量测算 + 收益模型</div></div>
+      <div class="svc"><div class="svc-icon">🧮</div><div class="svc-name">投资测算服务</div><div class="svc-desc">IRR/LCOE 计算</div></div>
+      <div class="svc"><div class="svc-icon">🏗</div><div class="svc-name">现场勘查</div><div class="svc-desc">地质/电网/消防评估</div></div>
+      <div class="svc"><div class="svc-icon">📄</div><div class="svc-name">并网申报代办</div><div class="svc-desc">电网接入审批</div></div>
+    </div>
+  </div>
+  <div class="layer-arrow">⬇ 项目签约</div>
+  <div class="layer l2">
+    <div class="layer-label">⚡<br>交付实施层</div>
+    <div class="layer-items">
+      <div class="svc"><div class="svc-icon">📦</div><div class="svc-name">设备供应</div><div class="svc-desc">电芯/BMS/PCS/集装箱</div></div>
+      <div class="svc"><div class="svc-icon">🔧</div><div class="svc-name">安装调试</div><div class="svc-desc">现场施工 + 系统联调</div></div>
+      <div class="svc"><div class="svc-icon">✅</div><div class="svc-name">并网验收</div><div class="svc-desc">电网验收 + 消防验收</div></div>
+      <div class="svc"><div class="svc-icon">🎓</div><div class="svc-name">人员培训</div><div class="svc-desc">运维培训 + 应急演练</div></div>
+    </div>
+  </div>
+  <div class="layer-arrow">⬇ 电站投运</div>
+  <div class="layer l3">
+    <div class="layer-label">📡<br>运维服务层</div>
+    <div class="layer-items">
+      <div class="svc"><div class="svc-icon">🖥</div><div class="svc-name">远程监控</div><div class="svc-desc">7×24 云平台监控</div></div>
+      <div class="svc"><div class="svc-icon">🔥</div><div class="svc-name">热失控预警</div><div class="svc-desc">AI 早期预警 + 自动消防</div></div>
+      <div class="svc"><div class="svc-icon">⚡</div><div class="svc-name">智能调度</div><div class="svc-desc">峰谷套利 + 辅助服务</div></div>
+      <div class="svc"><div class="svc-icon">🔧</div><div class="svc-name">定期检修</div><div class="svc-desc">季度巡检 + 容量标定</div></div>
+    </div>
+  </div>
+  <div class="layer-arrow">⬇ 全生命周期</div>
+  <div class="layer l4">
+    <div class="layer-label">♻<br>增值服务层</div>
+    <div class="layer-items">
+      <div class="svc"><div class="svc-icon">💹</div><div class="svc-name">电力交易</div><div class="svc-desc">代理购电 + 现货交易</div></div>
+      <div class="svc"><div class="svc-icon">🔋</div><div class="svc-name">梯次利用</div><div class="svc-desc">退役电池二次利用</div></div>
+      <div class="svc"><div class="svc-icon">🔄</div><div class="svc-name">容量扩容</div><div class="svc-desc">模组级更换升级</div></div>
+      <div class="svc"><div class="svc-icon">📊</div><div class="svc-name">数据服务</div><div class="svc-desc">运行报告 + 优化建议</div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

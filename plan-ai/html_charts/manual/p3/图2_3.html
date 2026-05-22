@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0f0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#d500f9; letter-spacing:2px; text-shadow:0 0 20px rgba(213,0,249,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#7c4dff; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(213,0,249,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(213,0,249,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(213,0,249,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#d500f9; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.persona { display:flex; align-items:center; gap:12px; margin:8px 0; padding:12px; border-radius:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(213,0,249,0.15); }
+.pa { width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; background:linear-gradient(135deg,#d500f9,#aa00ff); }
+.pi { flex:1; }
+.pn { font-size:13px; font-weight:700; color:#fff; }
+.pp { font-size:10px; color:#d500f9; margin-top:2px; }
+.pd { font-size:10px; color:#9575cd; margin-top:3px; line-height:1.5; }
+.scene { margin:6px 0; padding:10px; border-radius:8px; background:rgba(255,255,255,0.03); border-left:3px solid; }
+.st { font-size:12px; font-weight:700; color:#fff; margin-bottom:3px; }
+.sd { font-size:10px; color:#9575cd; line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-3 用户画像与使用场景 — 元宇宙仿真用户分层</div>
+<div class="subtitle">USER PERSONA · 算法工程师 · 安全工程师 · 产品经理 · 元宇宙开发者</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">👤 核心用户画像</div>
+      <div class="persona"><div class="pa">👨‍💻</div><div class="pi"><div class="pn">算法工程师 小陈</div><div class="pp">30岁 | 自动驾驶公司 | 5年经验</div><div class="pd">"需要在虚拟城市中验证算法在暴雨/夜间/施工等极端场景的表现"</div></div></div>
+      <div class="persona"><div class="pa" style="background:linear-gradient(135deg,#00e5ff,#0091ea);">🛡️</div><div class="pi"><div class="pn">安全工程师 李工</div><div class="pp">36岁 | 车企研究院 | 8年经验</div><div class="pd">"需要量化算法在开放世界中的安全边界，证明SOTIF合规"</div></div></div>
+      <div class="persona"><div class="pa" style="background:linear-gradient(135deg,#ffea00,#ffab00);">👩‍💼</div><div class="pi"><div class="pn">产品经理 王总监</div><div class="pp">38岁 | 新势力车企 | 10年经验</div><div class="pd">"需要向管理层展示城市NOA的仿真验证成果，加速上市决策"</div></div></div>
+      <div class="persona"><div class="pa" style="background:linear-gradient(135deg,#ff5252,#d50000);">🎮</div><div class="pi"><div class="pn">元宇宙开发者 小张</div><div class="pp">26岁 | 游戏公司 | 3年经验</div><div class="pd">"需要高质量自动驾驶仿真场景资产用于元宇宙世界构建"</div></div></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">🎯 典型使用场景</div>
+      <div class="scene" style="border-left-color:#d500f9;"><div class="st">场景一：城市级数字孪生验证</div><div class="sd">算法工程师在虚拟北京五环内测试城市NOA，NeRF重建真实道路环境，AI生成暴雨+夜间+施工组合极端场景。</div></div>
+      <div class="scene" style="border-left-color:#00e5ff;"><div class="st">场景二：SOTIF安全边界量化</div><div class="sd">安全工程师使用强化学习探索算法失效临界点，量化未知场景安全边界，生成ISO 26262/SOTIF合规报告。</div></div>
+      <div class="scene" style="border-left-color:#ffea00;"><div class="st">场景三：VR沉浸式仿真评审</div><div class="sd">产品团队戴上VR头显进入数字孪生城市，身临其境体验算法决策过程，发现2D屏幕无法感知的交互问题。</div></div>
+      <div class="scene" style="border-left-color:#ff5252;"><div class="st">场景四：场景NFT资产交易</div><div class="sd">元宇宙开发者在场景交易市场购买高质量的极端天气场景NFT，用于构建虚拟世界中的自动驾驶演示体验。</div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

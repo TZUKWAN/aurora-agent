@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+
+/* 用户画像卡片 */
+.persona-grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap:24px; height:100%;
+}
+
+.persona-card {
+  background:#fff; border:2px solid;
+  border-radius:14px; overflow:hidden;
+  box-shadow:0 4px 16px rgba(0,0,0,0.06);
+  display:flex; flex-direction:column;
+}
+.pc-header {
+  padding:16px 20px; color:#fff;
+  display:flex; align-items:center; gap:14px;
+}
+.pc-avatar {
+  width:56px; height:56px; border-radius:50%;
+  background:rgba(255,255,255,0.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px;
+}
+.pc-info { flex:1; }
+.pc-name { font-size:18px; font-weight:700; }
+.pc-role { font-size:12px; opacity:0.9; margin-top:2px; }
+.pc-tag {
+  padding:4px 12px; border-radius:20px;
+  background:rgba(255,255,255,0.2);
+  font-size:10px;
+}
+
+.pc-body { padding:18px 20px; flex:1; }
+.pc-section { margin:12px 0; }
+.pc-section-title {
+  font-size:11px; font-weight:700; color:#78909c;
+  text-transform:uppercase; letter-spacing:1px;
+  margin-bottom:8px;
+}
+.pc-item {
+  display:flex; align-items:center; gap:8px;
+  font-size:12px; color:#455a64; margin:6px 0;
+}
+.pc-item::before { content:"•"; color:#c5cae9; }
+
+.pc-metrics {
+  display:flex; gap:10px; margin-top:auto; padding-top:14px;
+  border-top:1px dashed #e3eaf5;
+}
+.pc-metric {
+  flex:1; text-align:center;
+  padding:8px; border-radius:8px;
+}
+.pc-metric-val { font-size:16px; font-weight:700; }
+.pc-metric-label { font-size:9px; color:#78909c; margin-top:2px; }
+
+/* 配色 */
+.p1 { border-color:#3949ab; }
+.p1 .pc-header { background:linear-gradient(135deg,#3949ab,#5c6bc0); }
+.p1 .pc-metric { background:#e8eaf6; }
+.p1 .pc-metric-val { color:#3949ab; }
+
+.p2 { border-color:#00838f; }
+.p2 .pc-header { background:linear-gradient(135deg,#00838f,#00acc1); }
+.p2 .pc-metric { background:#e0f7fa; }
+.p2 .pc-metric-val { color:#00838f; }
+
+.p3 { border-color:#ef6c00; }
+.p3 .pc-header { background:linear-gradient(135deg,#ef6c00,#ff9800); }
+.p3 .pc-metric { background:#fff3e0; }
+.p3 .pc-metric-val { color:#ef6c00; }
+</style>
+</head>
+<body>
+<div class="title">图2-11 云跃引擎目标客户画像 — 角色卡视图</div>
+<div class="subtitle">TARGET PERSONAS · 三类核心决策者 · 痛点=需求触发点 · 指标=角色权重</div>
+
+<div class="canvas">
+  <div class="persona-grid">
+    <!-- Persona 1: 技术决策者 -->
+    <div class="persona-card p1">
+      <div class="pc-header">
+        <div class="pc-avatar">👨‍💻</div>
+        <div class="pc-info">
+          <div class="pc-name">张明远</div>
+          <div class="pc-role">技术总监 / CTO</div>
+        </div>
+        <span class="pc-tag">核心决策者</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-section">
+          <div class="pc-section-title">📍 画像标签</div>
+          <div class="pc-item">年龄 35-45 岁，10年+ 技术管理经验</div>
+          <div class="pc-item">曾任职于阿里/腾讯/字节等互联网大厂</div>
+          <div class="pc-item">主导过至少一次大规模容器化改造</div>
+          <div class="pc-item">关注技术 ROI 和团队效能提升</div>
+        </div>
+        <div class="pc-section">
+          <div class="pc-section-title">⚡ 核心痛点</div>
+          <div class="pc-item">部署流程复杂，发布事故频发</div>
+          <div class="pc-item">K8s YAML 编写耗时且易出错</div>
+          <div class="pc-item">多环境配置漂移难以管控</div>
+          <div class="pc-item">缺乏统一的灰度发布能力</div>
+        </div>
+        <div class="pc-section">
+          <div class="pc-section-title">🎯 决策动机</div>
+          <div class="pc-item">降低发布风险，提升 MTTR</div>
+          <div class="pc-item">减少运维人力投入 50%+</div>
+          <div class="pc-item">实现 GitOps 全链路自动化</div>
+        </div>
+        <div class="pc-metrics">
+          <div class="pc-metric">
+            <div class="pc-metric-val">35%</div>
+            <div class="pc-metric-label">客户占比</div>
+          </div>
+          <div class="pc-metric">
+            <div class="pc-metric-val">¥15万</div>
+            <div class="pc-metric-label">客单价</div>
+          </div>
+          <div class="pc-metric">
+            <div class="pc-metric-val">92%</div>
+            <div class="pc-metric-label">决策权</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Persona 2: 运维负责人 -->
+    <div class="persona-card p2">
+      <div class="pc-header">
+        <div class="pc-avatar">👩‍💼</div>
+        <div class="pc-info">
+          <div class="pc-name">李思琪</div>
+          <div class="pc-role">SRE 负责人 / 运维经理</div>
+        </div>
+        <span class="pc-tag">关键影响者</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-section">
+          <div class="pc-section-title">📍 画像标签</div>
+          <div class="pc-item">年龄 28-38 岁，5年+ DevOps/SRE 经验</div>
+          <div class="pc-item">持有 CKA/CKS 等 K8s 认证</div>
+          <div class="pc-item">日常处理大量部署和告警工单</div>
+          <div class="pc-item">对稳定性指标极度敏感</div>
+        </div>
+        <div class="pc-section">
+          <div class="pc-section-title">⚡ 核心痛点</div>
+          <div class="pc-item">凌晨发布值班，疲劳度高</div>
+          <div class="pc-item">回滚操作复杂，平均耗时 15min+</div>
+          <div class="pc-item">缺乏全链路可观测性</div>
+          <div class="pc-item">多云环境配置碎片化</div>
+        </div>
+        <div class="pc-section">
+          <div class="pc-section-title">🎯 决策动机</div>
+          <div class="pc-item">实现无人值守发布</div>
+          <div class="pc-item">一键回滚 &lt;30s</div>
+          <div class="pc-item">统一的可观测大盘</div>
+        </div>
+        <div class="pc-metrics">
+          <div class="pc-metric">
+            <div class="pc-metric-val">40%</div>
+            <div class="pc-metric-label">客户占比</div>
+          </div>
+          <div class="pc-metric">
+            <div class="pc-metric-val">¥8万</div>
+            <div class="pc-metric-label">客单价</div>
+          </div>
+          <div class="pc-metric">
+            <div class="pc-metric-val">75%</div>
+            <div class="pc-metric-label">技术评估权</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Persona 3: 架构师 -->
+    <div class="persona-card p3">
+      <div class="pc-header">
+        <div class="pc-avatar">👨‍🔬</div>
+        <div class="pc-info">
+          <div class="pc-name">王浩然</div>
+          <div class="pc-role">首席架构师</div>
+        </div>
+        <span class="pc-tag">技术把关者</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-section">
+          <div class="pc-section-title">📍 画像标签</div>
+          <div class="pc-item">年龄 32-42 岁，8年+ 系统架构经验</div>
+          <div class="pc-item">深度参与过微服务架构设计</div>
+          <div class="pc-item">活跃于技术社区，有技术博客/公众号</div>
+          <div class="pc-item">对新技术敏感，愿意尝试开源方案</div>
+        </div>
+        <div class="pc-section">
+          <div class="pc-section-title">⚡ 核心痛点</div>
+          <div class="pc-item">技术选型缺乏统一评估框架</div>
+          <div class="pc-item">灰度策略设计复杂，容易遗漏场景</div>
+          <div class="pc-item">难以量化发布变更的影响面</div>
+          <div class="pc-item">多团队协作时配置冲突频发</div>
+        </div>
+        <div class="pc-section">
+          <div class="pc-section-title">🎯 决策动机</div>
+          <div class="pc-item">标准化部署流程与规范</div>
+          <div class="pc-item">可扩展的多维度灰度能力</div>
+          <div class="pc-item">与现有 GitLab/Jenkins 集成</div>
+        </div>
+        <div class="pc-metrics">
+          <div class="pc-metric">
+            <div class="pc-metric-val">25%</div>
+            <div class="pc-metric-label">客户占比</div>
+          </div>
+          <div class="pc-metric">
+            <div class="pc-metric-val">¥12万</div>
+            <div class="pc-metric-label">客单价</div>
+          </div>
+          <div class="pc-metric">
+            <div class="pc-metric-val">60%</div>
+            <div class="pc-metric-label">架构评审权</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

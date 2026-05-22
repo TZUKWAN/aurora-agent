@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:40px; top:120px; width:1840px; height:920px; }
+
+/* ETL Pipeline 风格 - 从左到右的数据流 */
+.stage {
+  position:absolute;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+}
+.stage-header {
+  padding:10px 16px;
+  color:#fff; font-size:14px; font-weight:700;
+  display:flex; align-items:center; gap:8px;
+}
+.stage-icon { width:24px; height:24px; border-radius:6px; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-size:12px; }
+.stage-body { padding:14px; background:#fff; border:2px solid; border-top:none; border-radius:0 0 12px 12px; min-height:200px; }
+
+.channel {
+  display:flex; align-items:center; gap:8px;
+  padding:8px 10px; margin:6px 0;
+  background:#f5f7fa; border-radius:8px;
+  font-size:11px; color:#37474f;
+}
+.channel-icon { font-size:14px; }
+.channel-name { font-weight:600; }
+.channel-stat { margin-left:auto; font-size:10px; color:#78909c; }
+.channel-bar { width:50px; height:4px; background:#e3eaf5; border-radius:2px; overflow:hidden; }
+.channel-bar-fill { height:100%; border-radius:2px; }
+
+/* 箭头连接 */
+.connector {
+  position:absolute;
+  display:flex; align-items:center;
+}
+.conn-line-h { height:3px; background:#c5cae9; flex:1; }
+.conn-arrow-r { width:0; height:0; border-top:8px solid transparent; border-bottom:8px solid transparent; border-left:12px solid #c5cae9; }
+.conn-metric {
+  position:absolute; top:-20px; left:50%; transform:translateX(-50%);
+  background:#fff; border:1px solid #e3eaf5; border-radius:8px;
+  padding:3px 10px; font-size:10px; font-weight:700; color:#3949ab;
+  white-space:nowrap;
+}
+
+/* 漏斗底部统计 */
+.funnel-summary {
+  position:absolute; right:40px; top:140px;
+  width:280px;
+  background:#f5f7fa; border-radius:12px;
+  padding:20px; border:2px solid #e3eaf5;
+}
+.fs-title { font-size:14px; font-weight:700; color:#1a237e; margin-bottom:12px; }
+.fs-item { display:flex; justify-content:space-between; align-items:center; margin:10px 0; font-size:12px; }
+.fs-label { color:#546e7a; }
+.fs-val { font-weight:700; color:#1a237e; }
+.fs-bar { width:100%; height:6px; background:#e3eaf5; border-radius:3px; margin-top:4px; }
+.fs-bar-fill { height:100%; border-radius:3px; }
+
+/* 各阶段配色 */
+.s1 { left:40px; top:60px; width:300px; }
+.s1 .stage-header { background:linear-gradient(135deg,#3949ab,#5c6bc0); }
+.s1 .stage-body { border-color:#3949ab; }
+.s1 .channel-bar-fill { background:#3949ab; }
+
+.s2 { left:400px; top:60px; width:300px; }
+.s2 .stage-header { background:linear-gradient(135deg,#00838f,#00acc1); }
+.s2 .stage-body { border-color:#00838f; }
+.s2 .channel-bar-fill { background:#00838f; }
+
+.s3 { left:760px; top:60px; width:300px; }
+.s3 .stage-header { background:linear-gradient(135deg,#2e7d32,#66bb6a); }
+.s3 .stage-body { border-color:#2e7d32; }
+.s3 .channel-bar-fill { background:#2e7d32; }
+
+.s4 { left:1120px; top:60px; width:300px; }
+.s4 .stage-header { background:linear-gradient(135deg,#ef6c00,#ff9800); }
+.s4 .stage-body { border-color:#ef6c00; }
+.s4 .channel-bar-fill { background:#ef6c00; }
+
+/* 底部大图 - 转化漏斗可视化 */
+.funnel-viz {
+  position:absolute; left:40px; top:420px;
+  width:1380px; height:420px;
+}
+.funnel-layer {
+  display:flex; align-items:center; justify-content:center;
+  margin:8px 0; border-radius:8px;
+  color:#fff; font-size:13px; font-weight:700;
+  position:relative;
+}
+.funnel-layer .fl-stat {
+  position:absolute; right:20px;
+  font-size:11px; opacity:0.9;
+}
+</style>
+</head>
+<body>
+<div class="title">图1-8 云跃引擎营销渠道架构 — 数据流转管道</div>
+<div class="subtitle">MARKETING AS DATA PIPELINE · 阶段=数据处理节点 · 渠道=数据源 · 统计=吞吐量/转化率</div>
+
+<div class="canvas">
+  <!-- Stage 1: 获客 (Acquisition) -->
+  <div class="stage s1">
+    <div class="stage-header">
+      <div class="stage-icon">📥</div>
+      Stage 1: 获客 (Acquisition)
+    </div>
+    <div class="stage-body">
+      <div class="channel">
+        <span class="channel-icon">🔍</span>
+        <span class="channel-name">SEO/SEM</span>
+        <span class="channel-stat">月UV 12,000</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:85%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">📱</span>
+        <span class="channel-name">技术社区</span>
+        <span class="channel-stat">GitHub 5.2k Stars</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:72%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">🎤</span>
+        <span class="channel-name">技术峰会</span>
+        <span class="channel-stat">Q3 参会 800+</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:60%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">📝</span>
+        <span class="channel-name">内容营销</span>
+        <span class="channel-stat">博客 150+ 篇</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:55%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">🤝</span>
+        <span class="channel-name">渠道合作</span>
+        <span class="channel-stat">ISV 伙伴 25 家</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:45%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connector 1→2 -->
+  <div class="connector" style="left:340px; top:180px; width:60px;">
+    <div class="conn-line-h"></div>
+    <div class="conn-arrow-r"></div>
+    <div class="conn-metric">→ 转化率 18%</div>
+  </div>
+
+  <!-- Stage 2: 激活 (Activation) -->
+  <div class="stage s2">
+    <div class="stage-header">
+      <div class="stage-icon">⚡</div>
+      Stage 2: 激活 (Activation)
+    </div>
+    <div class="stage-body">
+      <div class="channel">
+        <span class="channel-icon">🎁</span>
+        <span class="channel-name">免费试用</span>
+        <span class="channel-stat">注册 2,160</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">🎓</span>
+        <span class="channel-name">在线 Demo</span>
+        <span class="channel-stat">体验 1,450</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:65%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">📧</span>
+        <span class="channel-name">邮件培育</span>
+        <span class="channel-stat">打开率 42%</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:50%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">💬</span>
+        <span class="channel-name">技术咨询</span>
+        <span class="channel-stat">会话 890</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:40%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connector 2→3 -->
+  <div class="connector" style="left:700px; top:180px; width:60px;">
+    <div class="conn-line-h"></div>
+    <div class="conn-arrow-r"></div>
+    <div class="conn-metric">→ 转化率 35%</div>
+  </div>
+
+  <!-- Stage 3: 转化 (Conversion) -->
+  <div class="stage s3">
+    <div class="stage-header">
+      <div class="stage-icon">💰</div>
+      Stage 3: 转化 (Conversion)
+    </div>
+    <div class="stage-body">
+      <div class="channel">
+        <span class="channel-icon">📋</span>
+        <span class="channel-name">POC 项目</span>
+        <span class="channel-stat">立项 42</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:75%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">📄</span>
+        <span class="channel-name">方案报价</span>
+        <span class="channel-stat">发出 38</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:68%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">🤝</span>
+        <span class="channel-name">商务谈判</span>
+        <span class="channel-stat">推进 25</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:45%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">✍</span>
+        <span class="channel-name">合同签署</span>
+        <span class="channel-stat">成交 18</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:32%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connector 3→4 -->
+  <div class="connector" style="left:1060px; top:180px; width:60px;">
+    <div class="conn-line-h"></div>
+    <div class="conn-arrow-r"></div>
+    <div class="conn-metric">→ 续约率 85%</div>
+  </div>
+
+  <!-- Stage 4: 留存/推荐 (Retention) -->
+  <div class="stage s4">
+    <div class="stage-header">
+      <div class="stage-icon">🔄</div>
+      Stage 4: 留存 (Retention)
+    </div>
+    <div class="stage-body">
+      <div class="channel">
+        <span class="channel-icon">⭐</span>
+        <span class="channel-name">客户成功</span>
+        <span class="channel-stat">CSAT 4.7/5</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:95%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">📈</span>
+        <span class="channel-name">增购扩容</span>
+        <span class="channel-stat">ARR 增长 120%</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:70%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">👥</span>
+        <span class="channel-name">口碑推荐</span>
+        <span class="channel-stat">NPS 72</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:60%"></div></div>
+      </div>
+      <div class="channel">
+        <span class="channel-icon">🏆</span>
+        <span class="channel-name">案例打造</span>
+        <span class="channel-stat">标杆 8 家</span>
+        <div class="channel-bar"><div class="channel-bar-fill" style="width:45%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 漏斗可视化 -->
+  <div class="funnel-viz">
+    <div class="funnel-layer" style="width:1380px; height:70px; background:linear-gradient(90deg,#3949ab,#5c6bc0);">
+      获客层 (Acquisition) — 总触达 45,000 / 月
+      <span class="fl-stat">100%</span>
+    </div>
+    <div class="funnel-layer" style="width:1100px; height:70px; background:linear-gradient(90deg,#00838f,#00acc1); margin-left:140px;">
+      激活层 (Activation) — 有效互动 8,100 / 月
+      <span class="fl-stat">18%</span>
+    </div>
+    <div class="funnel-layer" style="width:820px; height:70px; background:linear-gradient(90deg,#2e7d32,#66bb6a); margin-left:280px;">
+      转化层 (Conversion) — 付费客户 18 / 季
+      <span class="fl-stat">0.4%</span>
+    </div>
+    <div class="funnel-layer" style="width:540px; height:70px; background:linear-gradient(90deg,#ef6c00,#ff9800); margin-left:420px;">
+      留存层 (Retention) — 续约客户 15 / 季
+      <span class="fl-stat">85% 续约</span>
+    </div>
+    <div class="funnel-layer" style="width:260px; height:70px; background:linear-gradient(90deg,#c62828,#ef5350); margin-left:560px;">
+      推荐层 (Referral) — 转介绍成交 5 / 季
+      <span class="fl-stat">LTV/CAC = 4.2</span>
+    </div>
+  </div>
+
+  <!-- 右侧统计 -->
+  <div class="funnel-summary">
+    <div class="fs-title">📊 营销漏斗核心指标</div>
+    <div class="fs-item">
+      <span class="fs-label">CAC (获客成本)</span>
+      <span class="fs-val">¥8,500</span>
+    </div>
+    <div class="fs-bar"><div class="fs-bar-fill" style="width:65%; background:#3949ab"></div></div>
+    <div class="fs-item">
+      <span class="fs-label">LTV (客户终身价值)</span>
+      <span class="fs-val">¥35,700</span>
+    </div>
+    <div class="fs-bar"><div class="fs-bar-fill" style="width:85%; background:#2e7d32"></div></div>
+    <div class="fs-item">
+      <span class="fs-label">LTV/CAC 比率</span>
+      <span class="fs-val">4.2x ✅</span>
+    </div>
+    <div class="fs-bar"><div class="fs-bar-fill" style="width:90%; background:#00c853"></div></div>
+    <div class="fs-item">
+      <span class="fs-label">平均销售周期</span>
+      <span class="fs-val">45 天</span>
+    </div>
+    <div class="fs-bar"><div class="fs-bar-fill" style="width:55%; background:#ff9100"></div></div>
+    <div class="fs-item">
+      <span class="fs-label">月经常性收入 MRR</span>
+      <span class="fs-val">¥186,000</span>
+    </div>
+    <div class="fs-bar"><div class="fs-bar-fill" style="width:70%; background:#00838f"></div></div>
+  </div>
+</div>
+
+</body>
+</html>

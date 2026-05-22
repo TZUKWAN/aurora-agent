@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:18px; }
+.card { background:#fff; border:2px solid #e0e0e0; border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#212121; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.org { display:flex; flex-direction:column; align-items:center; gap:16px; }
+.l1 { width:280px; height:56px; background:linear-gradient(135deg,#e65100,#ff9800); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; font-weight:700; }
+.l2r { display:flex; gap:20px; }
+.l2 { width:200px; height:48px; background:#fff; border:2px solid #e65100; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:#e65100; }
+.l3r { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; max-width:900px; }
+.l3 { width:140px; padding:10px 8px; background:#fff3e0; border:1px solid #ffcc80; border-radius:8px; text-align:center; font-size:11px; color:#424242; }
+.l3 strong { display:block; font-size:12px; color:#e65100; margin-bottom:4px; }
+.conn { width:2px; height:16px; background:#e65100; }
+.hc { display:flex; align-items:center; gap:14px; margin:10px 0; }
+.ha { width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,#e65100,#ff9800); display:flex; align-items:center; justify-content:center; color:#fff; font-size:22px; font-weight:700; }
+.hi { flex:1; }
+.hn { font-size:14px; font-weight:700; color:#212121; }
+.hp { font-size:11px; color:#e65100; font-weight:600; margin-top:2px; }
+.hd { font-size:11px; color:#616161; margin-top:4px; line-height:1.5; }
+.tg { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:12px; }
+.tc { background:#f5f5f5; border-radius:8px; padding:12px; text-align:center; }
+.tcv { font-size:24px; font-weight:700; }
+.tcl { font-size:10px; color:#757575; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="title">图2-19 团队架构 — 储能先知核心团队</div>
+<div class="subtitle">TEAM STRUCTURE · 创始人背景 · 技术团队 · 顾问委员会 · 股权结构</div>
+<div class="canvas">
+  <div class="col" style="flex:1.2;">
+    <div class="card">
+      <div class="ch">🏗️ 组织架构</div>
+      <div class="org">
+        <div class="l1">CEO / 联合创始人</div>
+        <div class="conn"></div>
+        <div class="l2r">
+          <div class="l2">CTO / 技术负责人</div>
+          <div class="l2">COO / 运营负责人</div>
+          <div class="l2">CMO / 市场负责人</div>
+        </div>
+        <div class="conn"></div>
+        <div class="l3r">
+          <div class="l3"><strong>AI算法组</strong>8人<br>预警·调度·数字孪生</div>
+          <div class="l3"><strong>软件开发组</strong>6人<br>前后端·平台·APP</div>
+          <div class="l3"><strong>硬件集成组</strong>4人<br>BMS·PCS·传感器</div>
+          <div class="l3"><strong>产品组</strong>3人<br>需求·UX·项目管理</div>
+          <div class="l3"><strong>销售组</strong>5人<br>直销·渠道·大客户</div>
+          <div class="l3"><strong>运维支持组</strong>4人<br>交付·培训·售后</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">📊 团队规模</div>
+      <div class="tg">
+        <div class="tc"><div class="tcv" style="color:#e65100">30</div><div class="tcl">总人数</div></div>
+        <div class="tc"><div class="tcv" style="color:#ff9800">60%</div><div class="tcl">研发占比</div></div>
+        <div class="tc"><div class="tcv" style="color:#00acc1">18</div><div class="tcl">硕博学历</div></div>
+        <div class="tc"><div class="tcv" style="color:#2e7d32">5年+</div><div class="tcl">核心平均经验</div></div>
+        <div class="tc"><div class="tcv" style="color:#5e35b1">8</div><div class="tcl">储能行业背景</div></div>
+        <div class="tc"><div class="tcv" style="color:#ef6c00">12</div><div class="tcl">AI/算法背景</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">👤 核心创始团队</div>
+      <div class="hc">
+        <div class="ha">张</div>
+        <div class="hi"><div class="hn">张明远 CEO</div><div class="hp">清华大学电机系博士</div><div class="hd">曾任职国家电网电科院，8年储能系统研发经验，主导3个百MW级储能项目</div></div>
+      </div>
+      <div class="hc">
+        <div class="ha" style="background:linear-gradient(135deg,#ff9800,#ffb74d);">李</div>
+        <div class="hi"><div class="hn">李思涵 CTO</div><div class="hp">中科院自动化所博士</div><div class="hd">前百度AI Lab高级算法工程师，专注时序预测与异常检测，顶会论文12篇</div></div>
+      </div>
+      <div class="hc">
+        <div class="ha" style="background:linear-gradient(135deg,#00acc1,#4dd0e1);">王</div>
+        <div class="hi"><div class="hn">王浩然 COO</div><div class="hp">北大光华MBA</div><div class="hd">前远景智能销售总监，储能行业渠道资源深厚，管理年销售 5 亿团队</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">🎓 顾问委员会</div>
+      <div class="hc">
+        <div class="ha" style="background:#2e7d32;width:42px;height:42px;font-size:16px;">陈</div>
+        <div class="hi"><div class="hn">陈院士 首席科学顾问</div><div class="hd">中国工程院院士，电力系统专家，储能标准制定牵头人</div></div>
+      </div>
+      <div class="hc">
+        <div class="ha" style="background:#5e35b1;width:42px;height:42px;font-size:16px;">刘</div>
+        <div class="hi"><div class="hn">刘教授 算法顾问</div><div class="hd">清华交叉信息研究院，强化学习方向，IEEE Fellow</div></div>
+      </div>
+      <div class="hc">
+        <div class="ha" style="background:#ef6c00;width:42px;height:42px;font-size:16px;">赵</div>
+        <div class="hi"><div class="hn">赵总 产业顾问</div><div class="hd">前宁德时代储能事业部总经理，产业资源丰富</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

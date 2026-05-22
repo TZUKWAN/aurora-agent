@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.pie-wrap { display:flex; align-items:center; justify-content:center; gap:30px; padding:10px; }
+.pie-info { display:flex; flex-direction:column; gap:8px; }
+.pi { display:flex; align-items:center; gap:8px; }
+.pc { width:14px; height:14px; border-radius:3px; }
+.pt { font-size:12px; color:#cfd8dc; }
+.pv { font-size:12px; font-weight:700; }
+.dev { display:flex; align-items:center; gap:12px; margin:10px 0; padding:12px; border-radius:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.1); }
+.dev-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; background:rgba(0,229,255,0.1); }
+.dev-t { font-size:13px; font-weight:700; color:#fff; }
+.dev-d { font-size:11px; color:#90a4ae; margin-top:2px; }
+.dev-p { margin-left:auto; font-size:11px; color:#00e5ff; background:rgba(0,229,255,0.1); padding:4px 10px; border-radius:10px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-3 核心算法模块 — AI 仿真测试技术栈</div>
+<div class="subtitle">ALGORITHM MODULES · 场景生成 · 感知仿真 · 规控验证 · 安全评估</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">🧠 算法模块占比</div>
+      <div class="pie-wrap">
+        <svg width="220" height="220" viewBox="0 0 220 220">
+          <g transform="translate(110,110)">
+            <path d="M 0,-100 A 100,100 0 0,1 70.71,-70.71 L 0,0 Z" fill="#00e5ff"/>
+            <path d="M 70.71,-70.71 A 100,100 0 0,1 100,0 L 0,0 Z" fill="#7c4dff"/>
+            <path d="M 100,0 A 100,100 0 0,1 70.71,70.71 L 0,0 Z" fill="#00e676"/>
+            <path d="M 70.71,70.71 A 100,100 0 0,1 0,100 L 0,0 Z" fill="#ff9100"/>
+            <path d="M 0,100 A 100,100 0 0,1 -70.71,70.71 L 0,0 Z" fill="#ff5252"/>
+            <path d="M -70.71,70.71 A 100,100 0 0,1 -100,0 L 0,0 Z" fill="#bdbdbd"/>
+            <path d="M -100,0 A 100,100 0 0,1 -70.71,-70.71 L 0,0 Z" fill="#78909c"/>
+            <path d="M -70.71,-70.71 A 100,100 0 0,1 0,-100 L 0,0 Z" fill="#607d8b"/>
+            <circle r="42" fill="#0a0a1a"/>
+            <text x="0" y="4" text-anchor="middle" font-size="11" fill="#00e5ff" font-weight="700">8大模块</text>
+          </g>
+        </svg>
+        <div class="pie-info">
+          <div class="pi"><div class="pc" style="background:#00e5ff"></div><div class="pt">场景生成 GAN</div><div class="pv" style="color:#00e5ff">20%</div></div>
+          <div class="pi"><div class="pc" style="background:#7c4dff"></div><div class="pt">Diffusion 渲染</div><div class="pv" style="color:#7c4dff">18%</div></div>
+          <div class="pi"><div class="pc" style="background:#00e676"></div><div class="pt">传感器仿真</div><div class="pv" style="color:#00e676">15%</div></div>
+          <div class="pi"><div class="pc" style="background:#ff9100"></div><div class="pt">车辆动力学</div><div class="pv" style="color:#ff9100">12%</div></div>
+          <div class="pi"><div class="pc" style="background:#ff5252"></div><div class="pt">交通流建模</div><div class="pv" style="color:#ff5252">12%</div></div>
+          <div class="pi"><div class="pc" style="background:#bdbdbd"></div><div class="pt">规控验证</div><div class="pv" style="color:#bdbdbd">10%</div></div>
+          <div class="pi"><div class="pc" style="background:#78909c"></div><div class="pt">覆盖率分析</div><div class="pv" style="color:#78909c">8%</div></div>
+          <div class="pi"><div class="pc" style="background:#607d8b"></div><div class="pt">安全评估</div><div class="pv" style="color:#607d8b">5%</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">📈 算法性能指标</div>
+      <svg width="100%" height="180" viewBox="0 0 700 180">
+        <g transform="translate(60,20)">
+          <text x="0" y="12" font-size="11" fill="#78909c">指标值</text>
+          <line x1="50" y1="140" x2="600" y2="140" stroke:rgba(255,255,255,0.1)/>
+          <text x="80" y="155" font-size="10" fill="#546e7a" text-anchor="middle">场景生成</text>
+          <rect x="55" y="40" width="50" height="100" fill="#00e5ff" rx="4" opacity="0.8"/>
+          <text x="80" y="90" font-size="11" fill="#0a0a1a" text-anchor="middle" font-weight="700">95%</text>
+          <text x="80" y="30" font-size="9" fill:#00e5ff text-anchor="middle">真实度</text>
+          <text x="220" y="155" font-size="10" fill="#546e7a" text-anchor="middle">感知仿真</text>
+          <rect x="195" y="50" width="50" height="90" fill:#7c4dff rx="4" opacity="0.8"/>
+          <text x="220" y="95" font-size="11" fill:#fff text-anchor="middle" font-weight="700">92%</text>
+          <text x="220" y="40" font-size="9" fill:#7c4dff text-anchor="middle">精度</text>
+          <text x="360" y="155" font-size="10" fill="#546e7a" text-anchor="middle">Corner Case</text>
+          <rect x="335" y="20" width="50" height="120" fill:#00e676 rx="4" opacity="0.8"/>
+          <text x="360" y="80" font-size="11" fill:#0a0a1a text-anchor="middle" font-weight="700">99.7%</text>
+          <text x="360" y="12" font-size="9" fill:#00e676 text-anchor="middle">覆盖率</text>
+          <text x="500" y="155" font-size="10" fill="#546e7a" text-anchor="middle">测试加速</text>
+          <rect x="475" y="30" width="50" height="110" fill:#ff9100 rx="4" opacity="0.8"/>
+          <text x="500" y="85" font-size="11" fill:#0a0a1a text-anchor="middle" font-weight="700">1000×</text>
+          <text x="500" y="22" font-size="9" fill:#ff9100 text-anchor="middle">效率</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">🎯 八大核心算法模块</div>
+      <div class="dev"><div class="dev-icon">🎨</div><div><div class="dev-t">场景生成 GAN 引擎</div><div class="dev-d">基于 StyleGAN3 的场景合成，支持天气/光照/交通密度参数化控制</div></div><span class="dev-p">v2.1</span></div>
+      <div class="dev"><div class="dev-icon" style="background:rgba(124,77,255,0.1);">🌌</div><div><div class="dev-t">Diffusion 图像渲染</div><div class="dev-d">Stable Diffusion 微调，生成高真实感相机图像，支持域随机化</div></div><span class="dev-p">v1.5</span></div>
+      <div class="dev"><div class="dev-icon" style="background:rgba(0,230,118,0.1);">📡</div><div><div class="dev-t">LiDAR/Radar 传感器仿真</div><div class="dev-d">基于物理的射线追踪，模拟噪声/遮挡/多路径效应</div></div><span class="dev-p">v2.0</span></div>
+      <div class="dev"><div class="dev-icon" style="background:rgba(255,145,0,0.1);">🚗</div><div><div class="dev-t">车辆动力学模型</div><div class="dev-d">CarSim 级别精度，支持轮胎/悬架/转向系统建模</div></div><span class="dev-p">v1.8</span></div>
+      <div class="dev"><div class="dev-icon" style="background:rgba(255,82,82,0.1);">🚦</div><div><div class="dev-t">智能交通流建模</div><div class="dev-d">SUMO + 深度学习混合模型，支持交互式交通行为</div></div><span class="dev-p">v1.3</span></div>
+      <div class="dev"><div class="dev-icon" style="background:rgba(189,189,189,0.1);">🧭</div><div><div class="dev-t">规控算法验证框架</div><div class="dev-d">开放/闭环测试，支持 ROS2/Apollo/Autoware 接入</div></div><span class="dev-p">v2.2</span></div>
+      <div class="dev"><div class="dev-icon" style="background:rgba(120,144,156,0.1);">📊</div><div><div class="dev-t">覆盖率分析与缺口检测</div><div class="dev-d">基于 ODD 的覆盖度量化，自动识别测试盲区</div></div><span class="dev-p">v1.0</span></div>
+      <div class="dev"><div class="dev-icon" style="background:rgba(96,125,139,0.1);">🛡️</div><div><div class="dev-t">功能安全评估引擎</div><div class="dev-d">ISO 26262 / SOTIF 合规检查，FMEA/FTA 自动化</div></div><span class="dev-p">v1.2</span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

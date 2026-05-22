@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:40px; top:130px; width:1840px; height:880px; }
+.pipeline { display:flex; align-items:flex-start; gap:0; padding-top:40px; }
+.stage { width:320px; position:relative; }
+.st-header { background:linear-gradient(135deg,#212121,#424242); color:#fff; padding:12px 16px; border-radius:10px 10px 0 0; font-size:14px; font-weight:700; display:flex; align-items:center; gap:10px; }
+.st-badge { padding:3px 10px; border-radius:20px; background:rgba(255,255,255,0.2); font-size:10px; }
+.st-body { background:#fff; border:3px solid #424242; border-top:none; border-radius:0 0 10px 10px; padding:16px; min-height:300px; }
+.job { background:#f5f5f5; border:2px solid #e0e0e0; border-radius:8px; padding:10px 12px; margin:8px 0; display:flex; align-items:center; gap:10px; }
+.job-icon { width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.job-info { flex:1; }
+.job-name { font-size:12px; font-weight:600; color:#212121; }
+.job-desc { font-size:10px; color:#757575; margin-top:2px; }
+.job-status { padding:3px 10px; border-radius:12px; font-size:9px; font-weight:700; flex-shrink:0; }
+.st-conn { position:absolute; right:-30px; top:70px; width:60px; height:40px; display:flex; align-items:center; justify-content:center; z-index:10; }
+.conn-arr { width:0; height:0; border-top:12px solid transparent; border-bottom:12px solid transparent; border-left:18px solid #e65100; }
+.conn-line { position:absolute; left:-8px; top:50%; width:36px; height:3px; background:#e65100; transform:translateY(-50%); }
+.artifact { position:absolute; bottom:80px; left:50%; transform:translateX(-50%); background:#fff; border:2px dashed #e65100; border-radius:8px; padding:8px 14px; font-size:11px; color:#e65100; font-weight:600; text-align:center; white-space:nowrap; }
+.s1 .job-icon { background:#fff3e0; color:#e65100; }
+.s1 .job-status { background:#fff3e0; color:#e65100; }
+.s2 .job-icon { background:#e0f7fa; color:#00838f; }
+.s2 .job-status { background:#e0f7fa; color:#00838f; }
+.s3 .job-icon { background:#e8f5e9; color:#2e7d32; }
+.s3 .job-status { background:#e8f5e9; color:#2e7d32; }
+.s4 .job-icon { background:#e3f2fd; color:#1565c0; }
+.s4 .job-status { background:#e3f2fd; color:#1565c0; }
+.s5 .job-icon { background:#f3e5f5; color:#7b1fa2; }
+.s5 .job-status { background:#f3e5f5; color:#7b1fa2; }
+</style>
+</head>
+<body>
+<div class="title">图1-5 储能先知研发路线图 — 电池材料合成流程</div>
+<div class="subtitle">R&D AS MATERIAL SYNTHESIS PIPELINE · Stage=工艺阶段 · Job=反应步骤 · Artifact=产物</div>
+<div class="canvas">
+  <div class="pipeline">
+    <div class="stage s1">
+      <div class="st-header">Stage 1: 材料筛选 <span class="st-badge">Month 1-3</span></div>
+      <div class="st-body">
+        <div class="job"><div class="job-icon">🔍</div><div class="job-info"><div class="job-name">电极材料选型</div><div class="job-desc">LFP/NCM/钠离子对比评估</div></div><div class="job-status">已完成</div></div>
+        <div class="job"><div class="job-icon">🧪</div><div class="job-info"><div class="job-name">电解液配方验证</div><div class="job-desc">阻燃添加剂 + 低温性能</div></div><div class="job-status">已完成</div></div>
+        <div class="job"><div class="job-icon">📊</div><div class="job-info"><div class="job-name">热失控特征库构建</div><div class="job-desc">1000+ 组实验数据收集</div></div><div class="job-status">已完成</div></div>
+      </div>
+      <div class="artifact">📦 材料数据库 + 热失控特征集</div>
+      <div class="st-conn"><div class="conn-line"></div><div class="conn-arr"></div></div>
+    </div>
+    <div class="stage s2">
+      <div class="st-header">Stage 2: BMS 算法 <span class="st-badge">Month 3-8</span></div>
+      <div class="st-body">
+        <div class="job"><div class="job-icon">🧠</div><div class="job-info"><div class="job-name">SOC/SOH 估算模型</div><div class="job-desc">卡尔曼滤波 + 神经网络融合</div></div><div class="job-status">进行中</div></div>
+        <div class="job"><div class="job-icon">🔥</div><div class="job-info"><div class="job-name">热失控预警算法</div><div class="job-desc">多物理场耦合 + 早期信号捕捉</div></div><div class="job-status">核心开发</div></div>
+        <div class="job"><div class="job-icon">⚡</div><div class="job-info"><div class="job-name">动态调度策略</div><div class="job-desc">收益最大化 + 寿命保护约束</div></div><div class="job-status">开发中</div></div>
+      </div>
+      <div class="artifact">📦 BMS v1.0 SDK + 预警模型</div>
+      <div class="st-conn"><div class="conn-line"></div><div class="conn-arr"></div></div>
+    </div>
+    <div class="stage s3">
+      <div class="st-header">Stage 3: 系统集成 <span class="st-badge">Month 8-12</span></div>
+      <div class="st-body">
+        <div class="job"><div class="job-icon">🏗</div><div class="job-info"><div class="job-name">PCS + 储能集装箱</div><div class="job-desc">功率转换系统 + 热管理集成</div></div><div class="job-status">待开始</div></div>
+        <div class="job"><div class="job-icon">🔗</div><div class="job-info"><div class="job-name">电网并网调试</div><div class="job-desc">AGC/AVC + 调度协议对接</div></div><div class="job-status">待开始</div></div>
+        <div class="job"><div class="job-icon">📡</div><div class="job-info"><div class="job-name">云平台对接</div><div class="job-desc">远程监控 + 大数据训练闭环</div></div><div class="job-status">待开始</div></div>
+      </div>
+      <div class="artifact">📦 储能系统整机 + 云平台</div>
+      <div class="st-conn"><div class="conn-line"></div><div class="conn-arr"></div></div>
+    </div>
+    <div class="stage s4">
+      <div class="st-header">Stage 4: 示范验证 <span class="st-badge">Month 12-16</span></div>
+      <div class="st-body">
+        <div class="job"><div class="job-icon">🏭</div><div class="job-info"><div class="job-name">示范电站部署</div><div class="job-desc">3 座 100MWh 级电站投运</div></div><div class="job-status">待开始</div></div>
+        <div class="job"><div class="job-icon">✅</div><div class="job-info"><div class="job-name">第三方检测认证</div><div class="job-desc">CNAS/CMA + 电网入网检测</div></div><div class="job-status">待开始</div></div>
+        <div class="job"><div class="job-icon">📈</div><div class="job-info"><div class="job-name">运行数据验证</div><div class="job-desc">6 个月连续运行 + 收益测算</div></div><div class="job-status">待开始</div></div>
+      </div>
+      <div class="artifact">📦 检测报告 + 运行白皮书</div>
+      <div class="st-conn"><div class="conn-line"></div><div class="conn-arr"></div></div>
+    </div>
+    <div class="stage s5">
+      <div class="st-header">Stage 5: 量产迭代 <span class="st-badge">Month 16-24</span></div>
+      <div class="st-body">
+        <div class="job"><div class="job-icon">🏭</div><div class="job-info"><div class="job-name">产线标准化</div><div class="job-desc">半自动组装 + 一致性管控</div></div><div class="job-status">规划中</div></div>
+        <div class="job"><div class="job-icon">🌐</div><div class="job-info"><div class="job-name">出海适配</div><div class="job-desc">IEC/UL 认证 + 海外电网协议</div></div><div class="job-status">规划中</div></div>
+        <div class="job"><div class="job-icon">🔄</div><div class="job-info"><div class="job-name">下一代技术储备</div><div class="job-desc">固态电池 BMS + 钠电适配</div></div><div class="job-status">规划中</div></div>
+      </div>
+      <div class="artifact">📦 量产机型 + 海外版 BMS</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

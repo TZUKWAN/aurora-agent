@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:40px; top:130px; width:1840px; height:880px; }
+.pipeline { display:flex; align-items:flex-start; gap:0; height:100%; }
+.stage { width:300px; padding:0 10px; position:relative; }
+.st-header { padding:10px 16px; border-radius:10px 10px 0 0; color:#fff; font-size:14px; font-weight:700; text-align:center; }
+.st-body { background:#fff; border:3px solid; border-top:none; border-radius:0 0 10px 10px; padding:14px; min-height:500px; }
+.data-block { background:#f5f5f5; border:1px solid #e0e0e0; border-radius:8px; padding:10px 12px; margin:8px 0; font-size:11px; color:#424242; }
+.data-block .db-label { font-size:9px; color:#757575; margin-bottom:3px; }
+.data-block .db-val { font-weight:600; color:#212121; }
+.col-conn { display:flex; align-items:center; justify-content:center; width:50px; padding-top:40px; }
+.conn-arr-box { width:45px; height:45px; border-radius:50%; background:#e65100; color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; box-shadow:0 4px 12px rgba(230,81,0,0.3); }
+.conn-label { text-align:center; font-size:10px; color:#757575; margin-top:8px; font-weight:600; }
+.s1 .st-header { background:#78909c; } .s1 .st-body { border-color:#78909c; }
+.s2 .st-header { background:#e65100; } .s2 .st-body { border-color:#e65100; }
+.s3 .st-header { background:#ff9800; } .s3 .st-body { border-color:#ff9800; }
+.s4 .st-header { background:#00838f; } .s4 .st-body { border-color:#00838f; }
+.s5 .st-header { background:#2e7d32; } .s5 .st-body { border-color:#2e7d32; }
+.s6 .st-header { background:#1565c0; } .s6 .st-body { border-color:#1565c0; }
+.algo-core { background:linear-gradient(135deg,#fff3e0,#ffe0b2); border:2px solid #e65100; border-radius:10px; padding:14px; margin:10px 0; }
+.ac-title { font-size:12px; font-weight:700; color:#e65100; margin-bottom:8px; }
+.ac-item { font-size:10px; color:#424242; margin:4px 0; display:flex; align-items:center; gap:6px; }
+.ac-item::before { content:"▸"; color:#e65100; }
+.am { position:absolute; right:0; top:20px; width:280px; background:#212121; border-radius:12px; padding:18px; color:#fff; }
+.am-t { font-size:14px; font-weight:700; color:#ffeb3b; margin-bottom:14px; }
+.am-row { display:flex; justify-content:space-between; margin:6px 0; font-size:11px; }
+.am-l { color:#9e9e9e; }
+.am-v { font-weight:700; }
+</style>
+</head>
+<body>
+<div class="title">图2-6 储能先知核心算法流程 — 电化学反应监测管道</div>
+<div class="subtitle">ALGORITHM PIPELINE · 输入→特征提取→多物理场耦合→预警决策→执行→反馈</div>
+<div class="canvas">
+  <div class="pipeline">
+    <div class="stage s1">
+      <div class="st-header">📥 输入层 (Input)</div>
+      <div class="st-body">
+        <div class="data-block"><div class="db-label">SENSOR 1</div><div class="db-val">单体电压 (0-5V, 1Hz)</div></div>
+        <div class="data-block"><div class="db-label">SENSOR 2</div><div class="db-val">表面温度 (NTC, 4点/模组)</div></div>
+        <div class="data-block"><div class="db-label">SENSOR 3</div><div class="db-val">内部气压 (微压传感器)</div></div>
+        <div class="data-block"><div class="db-label">SENSOR 4</div><div class="db-val">气体成分 (CO/VOC/烟雾)</div></div>
+        <div class="data-block"><div class="db-label">SENSOR 5</div><div class="db-val">电流/阻抗谱 (EIS, 0.1Hz-1kHz)</div></div>
+      </div>
+    </div>
+    <div class="col-conn"><div><div class="conn-arr-box">→</div><div class="conn-label">信号滤波<br>+ 去噪</div></div></div>
+    <div class="stage s2">
+      <div class="st-header">🔧 预处理 (Preprocess)</div>
+      <div class="st-body">
+        <div class="data-block"><div class="db-label">STEP 1</div><div class="db-val">异常值检测 (3σ 原则)</div></div>
+        <div class="data-block"><div class="db-label">STEP 2</div><div class="db-val">时间窗口对齐 (滑动 60s)</div></div>
+        <div class="data-block"><div class="db-label">STEP 3</div><div class="db-val">特征工程 (统计/频域/熵特征)</div></div>
+        <div class="data-block"><div class="db-label">STEP 4</div><div class="db-val">归一化 + 降维 (PCA)</div></div>
+      </div>
+    </div>
+    <div class="col-conn"><div><div class="conn-arr-box">→</div><div class="conn-label">特征向量<br>256-dim</div></div></div>
+    <div class="stage s3">
+      <div class="st-header">🔥 算法1: 热失控预警</div>
+      <div class="st-body">
+        <div class="algo-core">
+          <div class="ac-title">Multi-Physics Fusion Model</div>
+          <div class="ac-item">电化学模型: SEI 膜分解动力学</div>
+          <div class="ac-item">热模型: 三维热传导 + 对流</div>
+          <div class="ac-item">气体模型: 产气速率 + 扩散</div>
+          <div class="ac-item">AI 增强: LSTM + Attention</div>
+        </div>
+        <div class="data-block"><div class="db-label">OUTPUT</div><div class="db-val">热失控概率 P(t) ∈ [0,1]</div></div>
+        <div class="data-block"><div class="db-label">CONSTRAINT</div><div class="db-val">误报率 &lt;2% · 漏报率 = 0</div></div>
+      </div>
+    </div>
+    <div class="col-conn"><div><div class="conn-arr-box">→</div><div class="conn-label">联合优化<br>收益-安全</div></div></div>
+    <div class="stage s4">
+      <div class="st-header">⚡ 算法2: 动态调度</div>
+      <div class="st-body">
+        <div class="algo-core">
+          <div class="ac-title">MPC + Deep RL Scheduler</div>
+          <div class="ac-item">状态: SOC/电价/寿命衰减/温度</div>
+          <div class="ac-item">动作: 充放电功率 + 启停</div>
+          <div class="ac-item">奖励: 收益 - 寿命损耗成本</div>
+          <div class="ac-item">约束: 安全温度 + 电网调度</div>
+        </div>
+        <div class="data-block"><div class="db-label">OUTPUT</div><div class="db-val">最优功率曲线 P*(t)</div></div>
+        <div class="data-block"><div class="db-label">CONSTRAINT</div><div class="db-val">温度 &lt;45°C · 电网指令跟踪误差 &lt;3%</div></div>
+      </div>
+    </div>
+    <div class="col-conn"><div><div class="conn-arr-box">→</div><div class="conn-label">执行控制<br>+ 监控</div></div></div>
+    <div class="stage s5">
+      <div class="st-header">✅ 输出层 (Output)</div>
+      <div class="st-body">
+        <div class="data-block"><div class="db-label">ALERT</div><div class="db-val">三级预警（注意/警告/紧急）</div></div>
+        <div class="data-block"><div class="db-label">FIRE</div><div class="db-val">自动消防联动指令</div></div>
+        <div class="data-block"><div class="db-label">POWER</div><div class="db-val">PCS 功率设定值更新</div></div>
+        <div class="data-block"><div class="db-label">REPORT</div><div class="db-val">日报/异常事件报告</div></div>
+      </div>
+    </div>
+    <div class="col-conn"><div><div class="conn-arr-box" style="background:#1565c0;">↻</div><div class="conn-label">反馈闭环<br>在线学习</div></div></div>
+    <div class="stage s6">
+      <div class="st-header">↻ 反馈闭环 (Feedback)</div>
+      <div class="st-body">
+        <div class="data-block"><div class="db-label">METRIC 1</div><div class="db-val">预警准确率 (Target &gt;90%)</div></div>
+        <div class="data-block"><div class="db-label">METRIC 2</div><div class="db-val">电站收益提升比例</div></div>
+        <div class="data-block"><div class="db-label">METRIC 3</div><div class="db-val">电池循环寿命衰减</div></div>
+        <div class="data-block"><div class="db-label">METRIC 4</div><div class="db-val">安全事故次数 (Target = 0)</div></div>
+        <div class="data-block"><div class="db-label">UPDATE</div><div class="db-val">模型参数在线微调</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="am">
+    <div class="am-t">🎯 核心算法指标</div>
+    <div class="am-row"><span class="am-l">热失控预警准确率</span><span class="am-v" style="color:#ffeb3b;">92%</span></div>
+    <div class="am-row"><span class="am-l">预警提前时间</span><span class="am-v" style="color:#ffeb3b;">15-30 min</span></div>
+    <div class="am-row"><span class="am-l">误报率</span><span class="am-v" style="color:#00bcd4;">&lt; 2%</span></div>
+    <div class="am-row"><span class="am-l">调度收益提升</span><span class="am-v" style="color:#2e7d32;">+15-25%</span></div>
+    <div class="am-row"><span class="am-l">寿命延长</span><span class="am-v" style="color:#2e7d32;">+20%</span></div>
+    <div class="am-row"><span class="am-l">算法决策延迟</span><span class="am-v" style="color:#00bcd4;">&lt; 100ms</span></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+
+/* 兼容性矩阵 */
+.matrix-table {
+  width:100%; border-collapse:separate; border-spacing:4px;
+}
+.matrix-table th {
+  padding:12px 14px; text-align:center;
+  font-size:11px; font-weight:700; color:#78909c;
+  background:#f5f7fa; border-radius:8px;
+}
+.matrix-table td {
+  padding:14px 16px; text-align:center;
+  font-size:12px; border-radius:8px;
+  font-weight:600;
+}
+
+/* 状态色 */
+.s-full { background:#e8f5e9; color:#2e7d32; border:2px solid #a5d6a7; }
+.s-partial { background:#fff3e0; color:#ef6c00; border:2px solid #ffcc80; }
+.s-none { background:#ffebee; color:#c62828; border:2px solid #ef9a9a; }
+.s-na { background:#eceff1; color:#78909c; border:2px solid #cfd8dc; }
+
+/* 行头 */
+.row-head {
+  text-align:left !important; font-weight:700 !important;
+  background:#fff !important; border:2px solid #e3eaf5 !important;
+  color:#1a237e !important;
+}
+
+/* 高亮列 */
+.col-highlight {
+  background:linear-gradient(180deg,#e8eaf6,#f5f7fa) !important;
+}
+
+/* 顶部产品头 */
+.prod-head {
+  padding:12px !important; border-radius:8px 8px 0 0 !important;
+  font-size:12px !important;
+}
+.ph-yunyue { background:#3949ab !important; color:#fff !important; }
+.ph-ack { background:#ff6a00 !important; color:#fff !important; }
+.ph-tke { background:#00a3ff !important; color:#fff !important; }
+.ph-rancher { background:#0075a8 !important; color:#fff !important; }
+.ph-os { background:#ee0000 !important; color:#fff !important; }
+
+/* 右侧评分 */
+.score-panel {
+  position:absolute; right:0; top:0;
+  width:320px;
+}
+.sp-title { font-size:14px; font-weight:700; color:#1a237e; margin-bottom:12px; }
+.sp-item { margin:10px 0; }
+.sp-label { font-size:11px; color:#78909c; margin-bottom:4px; }
+.sp-bar { height:8px; background:#e3eaf5; border-radius:4px; overflow:hidden; }
+.sp-fill { height:100%; border-radius:4px; }
+.sp-val { font-size:12px; font-weight:700; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="title">图2-20 云跃引擎竞争格局矩阵 — 功能兼容性矩阵</div>
+<div class="subtitle">COMPETITION MATRIX · 维度=核心功能 · ✓=完全支持 · △=部分支持 · ✗=不支持 · —=不适用</div>
+
+<div class="canvas">
+  <table class="matrix-table">
+    <tr>
+      <th style="width:22%">功能维度</th>
+      <th class="prod-head ph-yunyue" style="width:15.6%">🔥 云跃引擎</th>
+      <th class="prod-head ph-ack" style="width:15.6%">阿里云 ACK</th>
+      <th class="prod-head ph-tke" style="width:15.6%">腾讯云 TKE</th>
+      <th class="prod-head ph-rancher" style="width:15.6%">Rancher</th>
+      <th class="prod-head ph-os" style="width:15.6%">OpenShift</th>
+    </tr>
+    <tr>
+      <td class="row-head">零配置容器部署</td>
+      <td class="s-full col-highlight">✓ 原生支持</td>
+      <td class="s-partial">△ 模板有限</td>
+      <td class="s-partial">△ 基础模板</td>
+      <td class="s-partial">△ 部分支持</td>
+      <td class="s-partial">△ 需配置</td>
+    </tr>
+    <tr>
+      <td class="row-head">多维灰度发布</td>
+      <td class="s-full col-highlight">✓ 5维灰度</td>
+      <td class="s-partial">△ 3维</td>
+      <td class="s-partial">△ 基础灰度</td>
+      <td class="s-partial">△ 依赖插件</td>
+      <td class="s-partial">△ 4维</td>
+    </tr>
+    <tr>
+      <td class="row-head">流量镜像</td>
+      <td class="s-full col-highlight">✓ 内置</td>
+      <td class="s-full">✓ 支持</td>
+      <td class="s-partial">△ 部分</td>
+      <td class="s-partial">△ 插件</td>
+      <td class="s-full">✓ 支持</td>
+    </tr>
+    <tr>
+      <td class="row-head">AI 智能调度</td>
+      <td class="s-full col-highlight">✓ RL 算法</td>
+      <td class="s-none">✗ 无</td>
+      <td class="s-none">✗ 无</td>
+      <td class="s-none">✗ 无</td>
+      <td class="s-partial">△ 规则</td>
+    </tr>
+    <tr>
+      <td class="row-head">多云统一管理</td>
+      <td class="s-full col-highlight">✓ 5+ 云</td>
+      <td class="s-none">✗ 阿里云锁定</td>
+      <td class="s-none">✗ 腾讯云锁定</td>
+      <td class="s-full">✓ 多云原生</td>
+      <td class="s-partial">△ 部分</td>
+    </tr>
+    <tr>
+      <td class="row-head">混合云/边缘</td>
+      <td class="s-full col-highlight">✓ 全支持</td>
+      <td class="s-partial">△ 部分</td>
+      <td class="s-partial">△ 部分</td>
+      <td class="s-full">✓ 支持</td>
+      <td class="s-partial">△ 企业版</td>
+    </tr>
+    <tr>
+      <td class="row-head">GitOps 工作流</td>
+      <td class="s-full col-highlight">✓ ArgoCD</td>
+      <td class="s-partial">△ 部分</td>
+      <td class="s-partial">△ 部分</td>
+      <td class="s-full">✓ Fleet</td>
+      <td class="s-full">✓ 支持</td>
+    </tr>
+    <tr>
+      <td class="row-head">开发者体验</td>
+      <td class="s-full col-highlight">✓ CLI+IDE</td>
+      <td class="s-partial">△ 控制台</td>
+      <td class="s-partial">△ 控制台</td>
+      <td class="s-full">✓ UI友好</td>
+      <td class="s-partial">△ 复杂</td>
+    </tr>
+    <tr>
+      <td class="row-head">开源/社区版</td>
+      <td class="s-full col-highlight">✓ 完全开源</td>
+      <td class="s-none">✗ 闭源</td>
+      <td class="s-none">✗ 闭源</td>
+      <td class="s-full">✓ 开源</td>
+      <td class="s-partial">△ 上游开源</td>
+    </tr>
+    <tr>
+      <td class="row-head">企业安全合规</td>
+      <td class="s-partial col-highlight">△ 等保三级</td>
+      <td class="s-full">✓ 企业级</td>
+      <td class="s-partial">△ 基础</td>
+      <td class="s-partial">△ 社区</td>
+      <td class="s-full">✓ 最强</td>
+    </tr>
+    <tr>
+      <td class="row-head">价格竞争力</td>
+      <td class="s-full col-highlight">✓ 灵活</td>
+      <td class="s-partial">△ 贵</td>
+      <td class="s-partial">△ 贵</td>
+      <td class="s-full">✓ 免费</td>
+      <td class="s-none">✗ 昂贵</td>
+    </tr>
+    <tr>
+      <td class="row-head">技术支持</td>
+      <td class="s-full col-highlight">✓ 7×24</td>
+      <td class="s-full">✓ 企业</td>
+      <td class="s-partial">△ 工单</td>
+      <td class="s-partial">△ 社区</td>
+      <td class="s-full">✓ 企业</td>
+    </tr>
+  </table>
+
+  <div class="score-panel">
+    <div class="sp-title">📊 功能覆盖评分</div>
+    <div class="sp-item">
+      <div class="sp-label">🔥 云跃引擎</div>
+      <div class="sp-bar"><div class="sp-fill" style="width:88%; background:#3949ab"></div></div>
+      <div class="sp-val" style="color:#3949ab;">10.5/12 · 88%</div>
+    </div>
+    <div class="sp-item">
+      <div class="sp-label">阿里云 ACK</div>
+      <div class="sp-bar"><div class="sp-fill" style="width:58%; background:#ff6a00"></div></div>
+      <div class="sp-val" style="color:#ff6a00;">7/12 · 58%</div>
+    </div>
+    <div class="sp-item">
+      <div class="sp-label">腾讯云 TKE</div>
+      <div class="sp-bar"><div class="sp-fill" style="width:42%; background:#00a3ff"></div></div>
+      <div class="sp-val" style="color:#00a3ff;">5/12 · 42%</div>
+    </div>
+    <div class="sp-item">
+      <div class="sp-label">Rancher</div>
+      <div class="sp-bar"><div class="sp-fill" style="width:67%; background:#0075a8"></div></div>
+      <div class="sp-val" style="color:#0075a8;">8/12 · 67%</div>
+    </div>
+    <div class="sp-item">
+      <div class="sp-label">OpenShift</div>
+      <div class="sp-bar"><div class="sp-fill" style="width:67%; background:#ee0000"></div></div>
+      <div class="sp-val" style="color:#ee0000;">8/12 · 67%</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

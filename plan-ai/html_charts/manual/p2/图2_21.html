@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:20px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; flex:1; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.stage { position:relative; padding-top:8px; }
+.sb { position:absolute; top:0; left:0; right:0; height:4px; border-radius:2px; }
+.s1 { background:linear-gradient(90deg,#00e5ff,#0091ea); }
+.s2 { background:linear-gradient(90deg,#7c4dff,#651fff); }
+.s3 { background:linear-gradient(90deg,#00e676,#00c853); }
+.sh { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.si { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.st { font-size:15px; font-weight:700; color:#fff; }
+.ss { font-size:11px; color:#78909c; }
+.mi { display:flex; align-items:flex-start; gap:6px; margin:6px 0; font-size:11px; color:#90a4ae; line-height:1.5; }
+.mi::before { content:"✓"; color:#00e5ff; font-weight:700; }
+.kpi { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:auto; padding-top:12px; border-top:1px solid rgba(255,255,255,0.05); }
+.kc { text-align:center; padding:10px; border-radius:6px; background:rgba(255,255,255,0.02); }
+.kv { font-size:16px; font-weight:700; }
+.kl { font-size:9px; color:#78909c; margin-top:2px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-21 发展规划与里程碑 — 元界智驾三年路线图</div>
+<div class="subtitle">ROADMAP · 产品迭代 · 市场拓展 · 团队建设 · 财务目标 · 技术里程碑</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="stage"><div class="sb s1"></div>
+        <div class="sh"><div class="si" style="background:rgba(0,229,255,0.1);">🚀</div><div><div class="st">第一阶段：产品验证期</div><div class="ss">2024.01 - 2024.12</div></div></div>
+        <div class="mi">发布 V1.0 正式版，支持 10万+ 场景库</div>
+        <div class="mi">签约 15 家付费客户，ARR 突破 ¥500万</div>
+        <div class="mi">完成天使轮融资 ¥2000万</div>
+        <div class="mi">团队扩至 35 人，研发占比 70%</div>
+        <div class="mi">申请发明专利 5 项，软著 3 项</div>
+        <div class="kpi">
+          <div class="kc"><div class="kv" style="color:#00e5ff">15</div><div class="kl">付费客户</div></div>
+          <div class="kc"><div class="kv" style="color:#00e5ff">¥500万</div><div class="kl">年度ARR</div></div>
+          <div class="kc"><div class="kv" style="color:#00e5ff">35人</div><div class="kl">团队规模</div></div>
+          <div class="kc"><div class="kv" style="color:#00e5ff">10万+</div><div class="kl">场景库</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="stage"><div class="sb s2"></div>
+        <div class="sh"><div class="si" style="background:rgba(124,77,255,0.1);">📈</div><div><div class="st">第二阶段：规模扩张期</div><div class="ss">2025.01 - 2025.12</div></div></div>
+        <div class="mi">发布 V2.0，场景库 100万+，数字孪生高精度</div>
+        <div class="mi">付费客户 100+，ARR 突破 ¥4000万</div>
+        <div class="mi">进入海外市场：欧洲 + 东南亚试点</div>
+        <div class="mi">完成 A 轮融资 ¥3亿</div>
+        <div class="mi">团队扩至 80 人，建立海外办公室</div>
+        <div class="kpi">
+          <div class="kc"><div class="kv" style="color:#7c4dff">100+</div><div class="kl">付费客户</div></div>
+          <div class="kc"><div class="kv" style="color:#7c4dff">¥4000万</div><div class="kl">年度ARR</div></div>
+          <div class="kc"><div class="kv" style="color:#7c4dff">80人</div><div class="kl">团队规模</div></div>
+          <div class="kc"><div class="kv" style="color:#7c4dff">100万+</div><div class="kl">场景库</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="stage"><div class="sb s3"></div>
+        <div class="sh"><div class="si" style="background:rgba(0,230,118,0.1);">🌍</div><div><div class="st">第三阶段：生态构建期</div><div class="ss">2026.01 - 2026.12</div></div></div>
+        <div class="mi">发布 V3.0，开放场景交易平台</div>
+        <div class="mi">付费客户 200+，ARR 突破 ¥1.5亿</div>
+        <div class="mi">全球市场覆盖：中国 + 欧洲 + 北美</div>
+        <div class="mi">启动 B 轮/Pre-IPO，估值 ¥50亿+</div>
+        <div class="mi">团队扩至 150 人，3个海外子公司</div>
+        <div class="mi">主导/参与 3 项行业标准制定</div>
+        <div class="kpi">
+          <div class="kc"><div class="kv" style="color:#00e676">200+</div><div class="kl">付费客户</div></div>
+          <div class="kc"><div class="kv" style="color:#00e676">¥1.5亿</div><div class="kl">年度ARR</div></div>
+          <div class="kc"><div class="kv" style="color:#00e676">150人</div><div class="kl">团队规模</div></div>
+          <div class="kc"><div class="kv" style="color:#00e676">3项</div><div class="kl">行业标准</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">🎯 关键里程碑</div>
+      <svg width="100%" height="180" viewBox="0 0 700 180">
+        <line x1="60" y1="90" x2="640" y2="90" stroke="rgba(255,255,255,0.1)" stroke-width="3"/>
+        <g transform="translate(100,90)"><circle r="12" fill="#00e5ff"/><text y="4" text-anchor="middle" fill="#0a0a1a" font-size="8" font-weight="700">Q2</text><text y="35" text-anchor="middle" fill="#cfd8dc" font-size="10" font-weight="700">V1.0发布</text></g>
+        <g transform="translate(220,90)"><circle r="12" fill="#7c4dff"/><text y="4" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">Q4</text><text y="35" text-anchor="middle" fill="#cfd8dc" font-size="10" font-weight="700">天使轮</text></g>
+        <g transform="translate(340,90)"><circle r="12" fill="#00e676"/><text y="4" text-anchor="middle" fill="#0a0a1a" font-size="8" font-weight="700">Q2</text><text y="35" text-anchor="middle" fill="#cfd8dc" font-size="10" font-weight="700">V2.0发布</text></g>
+        <g transform="translate(460,90)"><circle r="12" fill="#ff9100"/><text y="4" text-anchor="middle" fill="#0a0a1a" font-size="8" font-weight="700">Q4</text><text y="35" text-anchor="middle" fill="#cfd8dc" font-size="10" font-weight="700">A轮融资</text></g>
+        <g transform="translate(580,90)"><circle r="12" fill="#ff5252"/><text y="4" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">Q4</text><text y="35" text-anchor="middle" fill="#cfd8dc" font-size="10" font-weight="700">V3.0发布</text></g>
+        <text x="100" y="65" text-anchor="middle" fill="#00e5ff" font-size="10" font-weight="700">产品化</text>
+        <text x="340" y="65" text-anchor="middle" fill="#00e676" font-size="10" font-weight="700">规模化</text>
+        <text x="580" y="65" text-anchor="middle" fill="#ff5252" font-size="10" font-weight="700">生态化</text>
+      </svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:60px; top:130px; width:1200px; height:800px; }
+
+/* Grafana 风格图表 */
+.chart-panel {
+  background:#fff; border:2px solid #e3eaf5;
+  border-radius:12px;
+  padding:20px;
+  height:100%;
+}
+.panel-header {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:16px;
+}
+.ph-title { font-size:16px; font-weight:700; color:#1a237e; }
+.ph-range {
+  padding:4px 12px; border-radius:6px;
+  background:#f5f7fa; font-size:11px; color:#78909c;
+}
+
+/* 图表区 */
+.chart-area {
+  position:relative; height:580px;
+  border-left:1px solid #e3eaf5;
+  border-bottom:1px solid #e3eaf5;
+}
+
+/* Y轴网格线 */
+.grid-line {
+  position:absolute; left:0; right:0;
+  border-top:1px dashed #e3eaf5;
+}
+.grid-label {
+  position:absolute; left:-50px;
+  font-size:10px; color:#90a4ae;
+  transform:translateY(-50%);
+}
+
+/* X轴标签 */
+.x-label {
+  position:absolute; bottom:-30px;
+  font-size:11px; color:#78909c;
+  text-align:center;
+  transform:translateX(-50%);
+}
+
+/* 数据系列 */
+.series-line { fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.series-area { opacity:0.1; }
+
+/* 数据点 */
+.data-point {
+  position:absolute;
+  width:10px; height:10px; border-radius:50%;
+  border:2px solid #fff;
+  box-shadow:0 1px 4px rgba(0,0,0,0.2);
+  transform:translate(-50%,-50%);
+}
+
+/* 数值标签 */
+.value-label {
+  position:absolute;
+  font-size:10px; font-weight:700;
+  transform:translate(-50%, -140%);
+  background:#fff; padding:2px 6px;
+  border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* 右侧指标面板 */
+.metrics-panel {
+  position:absolute; right:60px; top:130px;
+  width:520px;
+}
+.metric-card {
+  background:#fff; border:2px solid #e3eaf5;
+  border-radius:12px; padding:16px 20px;
+  margin-bottom:12px;
+}
+.mc-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.mc-icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; }
+.mc-title { font-size:13px; font-weight:700; color:#1a237e; }
+.mc-value { font-size:28px; font-weight:700; color:#1a237e; }
+.mc-change { font-size:11px; margin-left:auto; padding:3px 10px; border-radius:12px; }
+.mc-bar { margin-top:10px; height:6px; background:#e3eaf5; border-radius:3px; }
+.mc-bar-fill { height:100%; border-radius:3px; }
+
+/* 数据源标注 */
+.data-source {
+  position:absolute; left:60px; bottom:40px;
+  font-size:11px; color:#90a4ae;
+}
+</style>
+</head>
+<body>
+<div class="title">图2-2 云原生PaaS市场规模增长趋势 — Grafana 时序面板</div>
+<div class="subtitle">MARKET GROWTH AS TIME-SERIES DASHBOARD · 数据来源: IDC / Gartner / 中国信通院 · 单位: 亿元人民币</div>
+
+<div class="canvas">
+  <div class="chart-panel">
+    <div class="panel-header">
+      <span class="ph-title">📈 中国云原生 PaaS 市场规模 (2019-2026E)</span>
+      <span class="ph-range">Last 7 years · 1y resolution</span>
+    </div>
+    <div class="chart-area">
+      <!-- Y轴网格线和标签 -->
+      <div class="grid-line" style="top:0%"><span class="grid-label">500</span></div>
+      <div class="grid-line" style="top:20%"><span class="grid-label">400</span></div>
+      <div class="grid-line" style="top:40%"><span class="grid-label">300</span></div>
+      <div class="grid-line" style="top:60%"><span class="grid-label">200</span></div>
+      <div class="grid-line" style="top:80%"><span class="grid-label">100</span></div>
+      <div class="grid-line" style="top:100%"><span class="grid-label">0</span></div>
+
+      <!-- X轴标签 -->
+      <span class="x-label" style="left:0%">2019</span>
+      <span class="x-label" style="left:16.7%">2020</span>
+      <span class="x-label" style="left:33.3%">2021</span>
+      <span class="x-label" style="left:50%">2022</span>
+      <span class="x-label" style="left:66.7%">2023</span>
+      <span class="x-label" style="left:83.3%">2024E</span>
+      <span class="x-label" style="left:100%">2026E</span>
+
+      <!-- 中国总市场 (深蓝) -->
+      <svg style="position:absolute; left:0; top:0; width:100%; height:100%;" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1a237e" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#1a237e" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path class="series-area" d="M 0,484 L 170,435 L 340,348 L 510,261 L 680,203 L 850,145 L 1020,58 L 1020,580 L 0,580 Z" fill="url(#grad1)"/>
+        <path class="series-line" d="M 0,484 L 170,435 L 340,348 L 510,261 L 680,203 L 850,145 L 1020,58" stroke="#1a237e" stroke-width="3" fill="none"/>
+      </svg>
+      <div class="data-point" style="left:0%; top:83.6%; background:#1a237e;"></div>
+      <div class="value-label" style="left:0%; top:83.6%; color:#1a237e;">82亿</div>
+      <div class="data-point" style="left:16.7%; top:75%; background:#1a237e;"></div>
+      <div class="value-label" style="left:16.7%; top:75%; color:#1a237e;">105亿</div>
+      <div class="data-point" style="left:33.3%; top:60%; background:#1a237e;"></div>
+      <div class="value-label" style="left:33.3%; top:60%; color:#1a237e;">150亿</div>
+      <div class="data-point" style="left:50%; top:45%; background:#1a237e;"></div>
+      <div class="value-label" style="left:50%; top:45%; color:#1a237e;">195亿</div>
+      <div class="data-point" style="left:66.7%; top:35%; background:#1a237e;"></div>
+      <div class="value-label" style="left:66.7%; top:35%; color:#1a237e;">230亿</div>
+      <div class="data-point" style="left:83.3%; top:25%; background:#1a237e;"></div>
+      <div class="value-label" style="left:83.3%; top:25%; color:#1a237e;">265亿</div>
+      <div class="data-point" style="left:100%; top:10%; background:#1a237e;"></div>
+      <div class="value-label" style="left:100%; top:10%; color:#1a237e;">350亿</div>
+
+      <!-- 容器部署细分市场 (靛蓝) -->
+      <svg style="position:absolute; left:0; top:0; width:100%; height:100%;" preserveAspectRatio="none">
+        <path class="series-line" d="M 0,522 L 170,493 L 340,435 L 510,377 L 680,319 L 850,261 L 1020,174" stroke="#3949ab" stroke-width="2" stroke-dasharray="8,4" fill="none"/>
+      </svg>
+
+      <!-- 灰度发布细分市场 (青色) -->
+      <svg style="position:absolute; left:0; top:0; width:100%; height:100%;" preserveAspectRatio="none">
+        <path class="series-line" d="M 0,551 L 170,551 L 340,522 L 510,464 L 680,406 L 850,348 L 1020,261" stroke="#00838f" stroke-width="2" stroke-dasharray="4,4" fill="none"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- 右侧指标面板 -->
+<div class="metrics-panel">
+  <div class="metric-card">
+    <div class="mc-header">
+      <div class="mc-icon" style="background:#e8eaf6;">📊</div>
+      <span class="mc-title">2024E 市场规模</span>
+      <span class="mc-change" style="background:#e8f5e9; color:#2e7d32">+15.2% YoY</span>
+    </div>
+    <div class="mc-value" style="color:#1a237e;">¥265 亿</div>
+    <div class="mc-bar"><div class="mc-bar-fill" style="width:75%; background:#1a237e;"></div></div>
+  </div>
+
+  <div class="metric-card">
+    <div class="mc-header">
+      <div class="mc-icon" style="background:#e3f2fd;">🚀</div>
+      <span class="mc-title">CAGR (2022-2026)</span>
+      <span class="mc-change" style="background:#e3f2fd; color:#1565c0">高速成长期</span>
+    </div>
+    <div class="mc-value" style="color:#1565c0;">28.4%</div>
+    <div class="mc-bar"><div class="mc-bar-fill" style="width:85%; background:#1565c0;"></div></div>
+  </div>
+
+  <div class="metric-card">
+    <div class="mc-header">
+      <div class="mc-icon" style="background:#e0f7fa;">🎯</div>
+      <span class="mc-title">云跃目标市占率 (2026)</span>
+      <span class="mc-change" style="background:#fff3e0; color:#ef6c00">挑战目标</span>
+    </div>
+    <div class="mc-value" style="color:#00838f;">3.5%</div>
+    <div style="font-size:11px; color:#78909c; margin-top:6px;">对应收入 ¥12.3 亿</div>
+    <div class="mc-bar"><div class="mc-bar-fill" style="width:35%; background:#00838f;"></div></div>
+  </div>
+
+  <div class="metric-card">
+    <div class="mc-header">
+      <div class="mc-icon" style="background:#e8f5e9;">👥</div>
+      <span class="mc-title">企业容器化率 (2024)</span>
+      <span class="mc-change" style="background:#e8f5e9; color:#2e7d32">↑ 趋势</span>
+    </div>
+    <div class="mc-value" style="color:#2e7d32;">42%</div>
+    <div style="font-size:11px; color:#78909c; margin-top:6px;">预计 2026 年达到 65%</div>
+    <div class="mc-bar"><div class="mc-bar-fill" style="width:42%; background:#2e7d32;"></div></div>
+  </div>
+</div>
+
+<div class="data-source">📡 数据源: IDC《中国云原生市场跟踪报告》/ Gartner《容器管理魔力象限》/ 中国信通院《云计算发展白皮书》</div>
+
+</body>
+</html>

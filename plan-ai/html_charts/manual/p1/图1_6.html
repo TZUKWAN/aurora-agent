@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+table { width:100%; border-collapse:separate; border-spacing:10px; }
+th { height:60px; background:#212121; color:#fff; border-radius:10px; text-align:center; font-size:13px; font-weight:700; vertical-align:middle; }
+.th-sub { font-size:10px; opacity:0.7; font-weight:400; margin-top:4px; }
+.th-corner { width:200px; background:linear-gradient(135deg,#e65100,#ff9800); }
+.th-scene { background:#424242; }
+.td-row { width:200px; height:120px; background:#f5f5f5; border:2px solid #e0e0e0; border-radius:10px; text-align:center; font-size:13px; font-weight:700; color:#212121; vertical-align:middle; }
+.td-row .td-sub { font-size:10px; color:#757575; font-weight:400; margin-top:4px; }
+.cell { height:120px; background:#fff; border:2px solid #e0e0e0; border-radius:10px; padding:12px 14px; vertical-align:top; position:relative; }
+.cell:hover { border-color:#e65100; box-shadow:0 4px 16px rgba(230,81,0,0.1); }
+.ch-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+.ch-status { padding:3px 10px; border-radius:12px; font-size:10px; font-weight:700; }
+.ch-price { font-size:12px; font-weight:700; }
+.ch-spec { margin-top:6px; font-size:10px; color:#616161; line-height:1.5; }
+.ch-tag { display:inline-block; margin-top:8px; padding:3px 10px; border-radius:12px; font-size:9px; font-weight:700; }
+.st-available { background:#e8f5e9; color:#2e7d32; }
+.st-beta { background:#fff3e0; color:#ef6c00; }
+.st-soon { background:#e3f2fd; color:#1565c0; }
+.price-high { color:#e65100; }
+.price-mid { color:#ff9800; }
+.price-low { color:#2e7d32; }
+.col-rec .th-scene { background:linear-gradient(135deg,#e65100,#ff9800); }
+.rec-badge { position:absolute; top:-10px; right:10px; background:#e65100; color:#fff; padding:4px 12px; border-radius:12px; font-size:10px; font-weight:700; box-shadow:0 2px 8px rgba(230,81,0,0.3); }
+.footer { position:absolute; left:0; bottom:20px; display:flex; gap:30px; }
+.foot-item { display:flex; align-items:center; gap:8px; font-size:12px; color:#757575; }
+.foot-dot { width:10px; height:10px; border-radius:50%; }
+</style>
+</head>
+<body>
+<div class="title">图1-6 储能先知产品矩阵 — 电池规格选型手册</div>
+<div class="subtitle">PRODUCT MATRIX · 行=电池化学体系 · 列=应用场景 · 单元格=规格参数+价格+支持状态</div>
+<div class="canvas">
+  <table>
+    <tr>
+      <td class="th-corner">化学体系 \ 场景</td>
+      <td class="th-scene">发电侧储能<br><span class="th-sub">光伏/风电配套 · 100MWh+</span></td>
+      <td class="th-scene">电网侧储能<br><span class="th-sub">调峰调频 · 50-200MWh</span></td>
+      <td class="th-scene col-rec">工商业储能<br><span class="th-sub">峰谷套利 · 1-10MWh ⭐</span></td>
+      <td class="th-scene">户用储能<br><span class="th-sub">家庭备电 · 5-20kWh</span></td>
+    </tr>
+    <tr>
+      <td class="td-row">磷酸铁锂 (LFP)<br><span class="td-sub">循环 6000+次 · 安全性高</span></td>
+      <td class="cell">
+        <div class="ch-header"><span class="ch-status st-available">● 量产</span><span class="ch-price price-mid">¥0.45/Wh</span></div>
+        <div class="ch-spec">容量: 2.5MWh/集装箱<br>循环: 6000次 @80%DOD<br>质保: 10年/70%SOH</div>
+        <span class="ch-tag" style="background:#e8f5e9; color:#2e7d32">🔥 主流方案</span>
+      </td>
+      <td class="cell">
+        <div class="ch-header"><span class="ch-status st-available">● 量产</span><span class="ch-price price-mid">¥0.48/Wh</span></div>
+        <div class="ch-spec">响应: &lt;100ms (AGC)<br>效率: ≥92% 往返<br>调度: 支持源网荷储</div>
+        <span class="ch-tag" style="background:#e8f5e9; color:#2e7d32">🔥 首选</span>
+      </td>
+      <td class="cell col-rec">
+        <div class="rec-badge">🏆 推荐</div>
+        <div class="ch-header"><span class="ch-status st-available">● 量产</span><span class="ch-price price-low">¥0.52/Wh</span></div>
+        <div class="ch-spec">容量: 215kWh/柜<br>回本: 4-5年（峰谷价差0.7元）<br>智能: AI充放电策略</div>
+        <span class="ch-tag" style="background:#e8f5e9; color:#2e7d32">⭐ 爆款</span>
+      </td>
+      <td class="cell">
+        <div class="ch-header"><span class="ch-status st-soon">○ 开发中</span><span class="ch-price price-high">—</span></div>
+        <div class="ch-spec">容量: 10-15kWh/户<br>壁挂/落地式<br>光储充一体化</div>
+        <span class="ch-tag" style="background:#e3f2fd; color:#1565c0">Q3 发布</span>
+      </td>
+    </tr>
+    <tr>
+      <td class="td-row">三元锂 (NCM)<br><span class="td-sub">能量密度高 · 循环 3000次</span></td>
+      <td class="cell">
+        <div class="ch-header"><span class="ch-status st-beta">◐ 公测</span><span class="ch-price price-high">¥0.62/Wh</span></div>
+        <div class="ch-spec">容量: 3MWh/集装箱<br>能量密度: +30% vs LFP<br>需要强化热管理</div>
+        <span class="ch-tag" style="background:#fff3e0; color:#ef6c00">高能量场景</span>
+      </td>
+      <td class="cell">
+        <div class="ch-header"><span class="ch-status st-available">● 量产</span><span class="ch-price price-high">¥0.58/Wh</span></div>
+        <div class="ch-spec">响应: &lt;50ms (调频)<br>功率密度: 2C+<br>调频里程收益高</div>
+        <span class="ch-tag" style="background:#e8f5e9; color:#2e7d32">调频首选</span>
+      </td>
+      <td class="cell">
+        <div class="ch-header"><span class="ch-status st-beta">◐ 公测</span><span class="ch-price price-high">¥0.68/Wh</span></div>
+        <div class="ch-spec">容量: 100kWh/柜<br>占地面积: -40%<br>需消防升级</div>
+        <span class="ch-tag" style="background:#fff3e0; color:#ef6c00">空间受限</span>
+      </td>
+      <td class="cell">
+        <div class="ch-header"><span class="ch-status st-available">● 量产</span><span class="ch-price price-high">¥0.75/Wh</span></div>
+        <div class="ch-spec">容量: 20kWh/户<br>特斯拉 Powerwall 对标<br>高端市场</div>
+        <span class="ch-tag" style="background:#e8f5e9; color:#2e7d32">高端</span>
+      </td>
+    </tr>
+    <tr>
+      <td class="td-row">钠离子电池<br><span class="td-sub">低成本 · 低温好 · 新兴</span></td>
+      <td class="cell">
+        <div class="ch-header"><span class="ch-status st-soon">○ 规划中</span><span class="ch-price price-low">—</span></div>
+        <div class="ch-spec">预计 2025 Q2 量产<br>成本目标: ¥0.35/Wh<br>低温性能: -20°C 保持 85%</div>
+        <span class="ch-tag" style="background:#e3f2fd; color:#1565c0">2025</span>
+      </td>
+      <td class="cell">
+        <div class="ch-header"><span class="ch-status st-soon">○ 规划中</span><span class="ch-price price-low">—</span></div>
+        <div class="ch-spec">长时储能: 4-8小时<br>成本敏感场景<br>梯次利用友好</div>
+        <span class="ch-tag" style="background:#e3f2fd; color:#1565c0">2025</span>
+      </td>
+      <td class="cell">
+        <div class="ch-header"><span class="ch-status st-beta">◐ 试点</span><span class="ch-price price-mid">¥0.42/Wh</span></div>
+        <div class="ch-spec">5 个试点项目运行中<br>北方严寒地区优势<br>回本: 3.5年</div>
+        <span class="ch-tag" style="background:#fff3e0; color:#ef6c00">试点中</span>
+      </td>
+      <td class="cell">
+        <div class="ch-header"><span class="ch-status st-soon">○ 规划中</span><span class="ch-price price-low">—</span></div>
+        <div class="ch-spec">低成本户用方案<br>预计 2026 发布<br>目标: ¥0.3/Wh</div>
+        <span class="ch-tag" style="background:#e3f2fd; color:#1565c0">2026</span>
+      </td>
+    </tr>
+  </table>
+  <div class="footer">
+    <div class="foot-item"><span class="foot-dot" style="background:#00c853"></span>量产供应</div>
+    <div class="foot-item"><span class="foot-dot" style="background:#ff9100"></span>公测/试点</div>
+    <div class="foot-item"><span class="foot-dot" style="background:#78909c"></span>规划中</div>
+    <div class="foot-item">🏆 = 推荐方案 · ⭐ = 当前爆款 · 价格含 BMS + 热管理 + 集装箱</div>
+  </div>
+</div>
+</body>
+</html>

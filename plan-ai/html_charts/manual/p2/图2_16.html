@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { display:flex; flex-direction:column; gap:16px; }
+.c1 { flex:1.2; }
+.c2 { flex:1; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.pie-wrap { display:flex; align-items:center; justify-content:center; gap:30px; padding:10px; }
+.pie-info { display:flex; flex-direction:column; gap:8px; }
+.pi { display:flex; align-items:center; gap:8px; }
+.pc { width:14px; height:14px; border-radius:3px; }
+.pt { font-size:12px; color:#cfd8dc; }
+.pv { font-size:12px; font-weight:700; }
+.bar { display:flex; align-items:center; gap:10px; margin:8px 0; }
+.bl { width:120px; font-size:11px; color:#78909c; text-align:right; }
+.bbg { flex:1; height:24px; background:rgba(255,255,255,0.05); border-radius:6px; position:relative; overflow:hidden; }
+.bb { height:100%; border-radius:6px; }
+.bv { position:absolute; right:8px; top:50%; transform:translateY(-50%); font-size:11px; font-weight:700; color:#fff; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-16 市场占有率分析 — 自动驾驶仿真测试赛道</div>
+<div class="subtitle">MARKET SHARE · 全球仿真软件格局 · 中国市场特征 · 细分领域拆解</div>
+<div class="canvas">
+  <div class="col c1">
+    <div class="card">
+      <div class="ch">🌍 全球自动驾驶仿真软件市场份额 (2024)</div>
+      <div class="pie-wrap">
+        <svg width="220" height="220" viewBox="0 0 220 220">
+          <g transform="translate(110,110)">
+            <path d="M 0,-100 A 100,100 0 0,1 95.1,-30.9 L 0,0 Z" fill="#00e5ff"/>
+            <path d="M 95.1,-30.9 A 100,100 0 0,1 58.78,80.9 L 0,0 Z" fill="#7c4dff"/>
+            <path d="M 58.78,80.9 A 100,100 0 0,1 -58.78,80.9 L 0,0 Z" fill="#00e676"/>
+            <path d="M -58.78,80.9 A 100,100 0 0,1 -95.1,-30.9 L 0,0 Z" fill="#ff9100"/>
+            <path d="M -95.1,-30.9 A 100,100 0 0,1 0,-100 L 0,0 Z" fill="#ff5252"/>
+            <circle r="42" fill="#0a0a1a"/>
+            <text x="0" y="4" text-anchor="middle" font-size="10" fill="#00e5ff" font-weight="700">Top 5</text>
+            <text x="0" y="18" text-anchor="middle" font-size="14" fill="#fff" font-weight="700">78%</text>
+          </g>
+        </svg>
+        <div class="pie-info">
+          <div class="pi"><div class="pc" style="background:#00e5ff"></div><div class="pt">VTD / Hexagon</div><div class="pv" style="color:#00e5ff">22%</div></div>
+          <div class="pi"><div class="pc" style="background:#7c4dff"></div><div class="pt">CARLA / Intel</div><div class="pv" style="color:#7c4dff">18%</div></div>
+          <div class="pi"><div class="pc" style="background:#00e676"></div><div class="pt">PreScan / Siemens</div><div class="pv" style="color:#00e676">16%</div></div>
+          <div class="pi"><div class="pc" style="background:#ff9100"></div><div class="pt">dSPACE</div><div class="pv" style="color:#ff9100">12%</div></div>
+          <div class="pi"><div class="pc" style="background:#ff5252"></div><div class="pt">Cognata</div><div class="pv" style="color:#ff5252">10%</div></div>
+          <div class="pi"><div class="pc" style="background:#78909c"></div><div class="pt">其他 (含元界智驾)</div><div class="pv" style="color:#78909c">22%</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">📊 中国自动驾驶仿真市场细分</div>
+      <div class="bar"><div class="bl">车企研究院</div><div class="bbg"><div class="bb" style="width:70%;background:linear-gradient(90deg,#00e5ff,#0091ea);"></div><div class="bv">35%</div></div></div>
+      <div class="bar"><div class="bl">自动驾驶初创</div><div class="bbg"><div class="bb" style="width:60%;background:linear-gradient(90deg,#7c4dff,#651fff);"></div><div class="bv">30%</div></div></div>
+      <div class="bar"><div class="bl">Tier1 供应商</div><div class="bbg"><div class="bb" style="width:40%;background:linear-gradient(90deg,#00e676,#00c853);"></div><div class="bv">20%</div></div></div>
+      <div class="bar"><div class="bl">高校/科研</div><div class="bbg"><div class="bb" style="width:20%;background:linear-gradient(90deg,#ff9100,#ff6d00);"></div><div class="bv">10%</div></div></div>
+      <div class="bar"><div class="bl">检测/监管</div><div class="bbg"><div class="bb" style="width:10%;background:linear-gradient(90deg,#ff5252,#d50000);"></div><div class="bv">5%</div></div></div>
+    </div>
+  </div>
+  <div class="col c2">
+    <div class="card">
+      <div class="ch">🏆 中国仿真平台竞争力对比</div>
+      <div style="font-size:12px;color:#90a4ae;line-height:1.8;">
+        <div style="display:flex;gap:8px;margin:6px 0;padding:8px;border-radius:6px;background:rgba(0,229,255,0.05);"><span style="color:#00e5ff;font-weight:700;width:80px;">元界智驾</span><span>AI生成 · SaaS轻量化 · 中文本土 · ¥5-80万/年</span></div>
+        <div style="display:flex;gap:8px;margin:6px 0;padding:8px;border-radius:6px;background:rgba(255,255,255,0.02);"><span style="color:#78909c;font-weight:700;width:80px;">A公司</span><span>传统建模 · 本地部署 · 国外产品代理 · ¥100万+/年</span></div>
+        <div style="display:flex;gap:8px;margin:6px 0;padding:8px;border-radius:6px;background:rgba(255,255,255,0.02);"><span style="color:#78909c;font-weight:700;width:80px;">B公司</span><span>游戏引擎 · 可视化强 · 算法验证弱 · ¥50万+/年</span></div>
+        <div style="display:flex;gap:8px;margin:6px 0;padding:8px;border-radius:6px;background:rgba(255,255,255,0.02);"><span style="color:#78909c;font-weight:700;width:80px;">C公司</span><span>高校背景 · 学术性强 · 工程化不足 · 项目制定价</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">📈 市场规模与增长</div>
+      <svg width="100%" height="180" viewBox="0 0 500 180">
+        <g transform="translate(50,20)">
+          <line x1="40" y1="140" x2="400" y2="140" stroke="rgba(255,255,255,0.1)"/>
+          <text x="40" y="155" font-size="10" fill="#546e7a" text-anchor="middle">2022</text>
+          <text x="130" y="155" font-size="10" fill="#546e7a" text-anchor="middle">2023</text>
+          <text x="220" y="155" font-size="10" fill="#546e7a" text-anchor="middle">2024</text>
+          <text x="310" y="155" font-size="10" fill="#546e7a" text-anchor="middle">2025E</text>
+          <text x="400" y="155" font-size="10" fill="#546e7a" text-anchor="middle">2026E</text>
+          <polyline points="40,120 130,100 220,70 310,40 400,20" fill="none" stroke="#00e5ff" stroke-width="3"/>
+          <circle cx="40" cy="120" r="5" fill="#00e5ff"/>
+          <circle cx="130" cy="100" r="5" fill="#00e5ff"/>
+          <circle cx="220" cy="70" r="5" fill="#00e5ff"/>
+          <circle cx="310" cy="40" r="5" fill="#00e5ff"/>
+          <circle cx="400" cy="20" r="7" fill="#00e5ff" stroke="#0a0a1a" stroke-width="3"/>
+          <text x="40" y="110" font-size="9" fill="#00e5ff" text-anchor="middle">¥15亿</text>
+          <text x="220" y="60" font-size="9" fill="#00e5ff" text-anchor="middle">¥35亿</text>
+          <text x="400" y="12" font-size="11" fill="#00e5ff" font-weight="700" text-anchor="middle">¥80亿</text>
+          <text x="0" y="12" font-size="11" fill="#78909c">亿元</text>
+        </g>
+      </svg>
+    </div>
+    <div class="card">
+      <div class="ch">🎯 元界智驾目标</div>
+      <div style="font-size:12px;color:#90a4ae;line-height:1.8;">
+        • <strong style="color:#00e5ff;">2024年：</strong>中国市场占有率 3%，服务 50+ 客户<br>
+        • <strong style="color:#00e5ff;">2025年：</strong>中国市场占有率 8%，进入 TOP3<br>
+        • <strong style="color:#00e5ff;">2026年：</strong>中国市场占有率 15%，挑战外资龙头<br>
+        • <strong style="color:#00e5ff;">差异化：</strong>AI生成 × 轻量化SaaS × 本土合规
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

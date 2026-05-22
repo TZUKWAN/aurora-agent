@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+
+/* AWS Console 风格的卡片网格 */
+.canvas-grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap:16px;
+  height:100%;
+}
+
+/* 卡片 */
+.card {
+  background:#fff; border:2px solid #e3eaf5;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,0.04);
+  display:flex; flex-direction:column;
+}
+.card-header {
+  padding:12px 16px;
+  background:#f5f7fa;
+  border-bottom:1px solid #e3eaf5;
+  display:flex; align-items:center; gap:10px;
+}
+.card-icon { width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:14px; }
+.card-title { font-size:13px; font-weight:700; color:#1a237e; }
+.card-body { padding:14px 16px; flex:1; overflow:hidden; }
+.card-item {
+  display:flex; align-items:flex-start; gap:8px;
+  font-size:11px; color:#455a64; margin:6px 0;
+  line-height:1.5;
+}
+.card-item::before {
+  content:"•"; color:#78909c; flex-shrink:0; margin-top:2px;
+}
+.card-metric {
+  margin-top:auto; padding-top:10px;
+  border-top:1px dashed #e3eaf5;
+  display:flex; gap:12px;
+}
+.metric-pill {
+  padding:4px 10px; border-radius:10px;
+  font-size:10px; font-weight:700;
+}
+
+/* 特殊大卡片 */
+.card-kp { grid-column: span 2; }
+.card-vp { grid-column: span 2; }
+
+/* 颜色主题 */
+.card-cs .card-header { background:#e8eaf6; }
+.card-cs .card-icon { background:#3949ab; color:#fff; }
+
+.card-kp .card-header { background:#e3f2fd; }
+.card-kp .card-icon { background:#1976d2; color:#fff; }
+
+.card-vp .card-header { background:#e0f7fa; }
+.card-vp .card-icon { background:#00838f; color:#fff; }
+
+.card-ka .card-header { background:#e8f5e9; }
+.card-ka .card-icon { background:#2e7d32; color:#fff; }
+
+.card-kr .card-header { background:#fff3e0; }
+.card-kr .card-icon { background:#ef6c00; color:#fff; }
+
+.card-ch .card-header { background:#fce4ec; }
+.card-ch .card-icon { background:#c62828; color:#fff; }
+
+.card-cr .card-header { background:#f3e5f5; }
+.card-cr .card-icon { background:#7b1fa2; color:#fff; }
+
+.card-cst .card-header { background:#e0f2f1; }
+.card-cst .card-icon { background:#00695c; color:#fff; }
+
+.card-rs .card-header { background:#fff8e1; }
+.card-rs .card-icon { background:#f9a825; color:#fff; }
+
+/* 状态指示 */
+.status-dot { width:6px; height:6px; border-radius:50%; display:inline-block; margin-right:4px; }
+</style>
+</head>
+<body>
+<div class="title">图1-9 云跃引擎商业画布 — 云资源控制面板</div>
+<div class="subtitle">BUSINESS MODEL AS CLOUD CONSOLE · 区块=服务模块 · 指标=运营数据 · 状态=健康度</div>
+
+<div class="canvas">
+  <div class="canvas-grid">
+    <!-- 1. 客户细分 -->
+    <div class="card card-cs">
+      <div class="card-header">
+        <div class="card-icon">👥</div>
+        <div class="card-title">客户细分 (CS)</div>
+      </div>
+      <div class="card-body">
+        <div class="card-item">中小互联网企业（50-500人）</div>
+        <div class="card-item">传统企业数字化部门</div>
+        <div class="card-item">云原生初创公司</div>
+        <div class="card-item">SaaS 服务商（多租户场景）</div>
+        <div class="card-metric">
+          <span class="metric-pill" style="background:#e8eaf6; color:#3949ab">活跃客户 120+</span>
+          <span class="metric-pill" style="background:#e8f5e9; color:#2e7d32">NDR 125%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 价值主张（大卡片） -->
+    <div class="card card-vp card-kp">
+      <div class="card-header">
+        <div class="card-icon">💎</div>
+        <div class="card-title">价值主张 (VP) — 核心服务</div>
+      </div>
+      <div class="card-body">
+        <div class="card-item"><b>零配置部署</b>：YAML 免手写，一键生成 K8s 配置</div>
+        <div class="card-item"><b>多维灰度发布</b>：流量/用户/地域/设备四维度灰度</div>
+        <div class="card-item"><b>智能调度</b>：基于 RL 的成本-性能双目标优化</div>
+        <div class="card-item"><b>多云统一</b>：AWS/阿里/腾讯/华为云统一纳管</div>
+        <div class="card-item"><b>DevOps 闭环</b>：从 Git Push 到 Production 全自动化</div>
+        <div class="card-metric">
+          <span class="metric-pill" style="background:#e3f2fd; color:#1976d2">部署效率 ↑ 10x</span>
+          <span class="metric-pill" style="background:#e0f7fa; color:#00838f">发布风险 ↓ 80%</span>
+          <span class="metric-pill" style="background:#e8f5e9; color:#2e7d32">资源成本 ↓ 30%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 渠道通路 -->
+    <div class="card card-ch">
+      <div class="card-header">
+        <div class="card-icon">📡</div>
+        <div class="card-title">渠道通路 (CH)</div>
+      </div>
+      <div class="card-body">
+        <div class="card-item">官网 + 云市场（阿里云/腾讯云）</div>
+        <div class="card-item">技术社区 + GitHub 开源</div>
+        <div class="card-item">行业峰会 + 技术沙龙</div>
+        <div class="card-item">ISV 合作伙伴分销</div>
+        <div class="card-metric">
+          <span class="metric-pill" style="background:#fce4ec; color:#c62828">获客成本 ¥8,500</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 客户关系 -->
+    <div class="card card-cr">
+      <div class="card-header">
+        <div class="card-icon">🤝</div>
+        <div class="card-title">客户关系 (CR)</div>
+      </div>
+      <div class="card-body">
+        <div class="card-item">自助服务（文档 + 社区）</div>
+        <div class="card-item">专属客户成功经理（企业版）</div>
+        <div class="card-item">7×24 工单 + 微信群支持</div>
+        <div class="card-item">季度业务复盘 + 优化建议</div>
+        <div class="card-metric">
+          <span class="metric-pill" style="background:#f3e5f5; color:#7b1fa2">NPS 72</span>
+          <span class="metric-pill" style="background:#e8f5e9; color:#2e7d32">满意度 96%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 收入来源 -->
+    <div class="card card-rs">
+      <div class="card-header">
+        <div class="card-icon">💰</div>
+        <div class="card-title">收入来源 (RS)</div>
+      </div>
+      <div class="card-body">
+        <div class="card-item">SaaS 订阅（按集群/节点计费）</div>
+        <div class="card-item">私有化部署授权费</div>
+        <div class="card-item">企业定制开发</div>
+        <div class="card-item">培训认证服务</div>
+        <div class="card-metric">
+          <span class="metric-pill" style="background:#fff8e1; color:#f9a825">ARR ¥2.2M</span>
+          <span class="metric-pill" style="background:#e8f5e9; color:#2e7d32">毛利率 78%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 核心资源 -->
+    <div class="card card-kr">
+      <div class="card-header">
+        <div class="card-icon">⚙</div>
+        <div class="card-title">核心资源 (KR)</div>
+      </div>
+      <div class="card-body">
+        <div class="card-item">自研灰度发布引擎（专利 3 项）</div>
+        <div class="card-item">K8s 调度算法（顶会论文 2 篇）</div>
+        <div class="card-item">200+ Helm Chart 模板库</div>
+        <div class="card-item">阿里云 K8s 原班技术团队</div>
+        <div class="card-metric">
+          <span class="metric-pill" style="background:#fff3e0; color:#ef6c00">研发投入 65%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. 关键业务 -->
+    <div class="card card-ka">
+      <div class="card-header">
+        <div class="card-icon">🔧</div>
+        <div class="card-title">关键业务 (KA)</div>
+      </div>
+      <div class="card-body">
+        <div class="card-item">平台持续迭代（双周发版）</div>
+        <div class="card-item">多云适配器开发</div>
+        <div class="card-item">企业客户交付实施</div>
+        <div class="card-item">开发者生态运营</div>
+        <div class="card-metric">
+          <span class="metric-pill" style="background:#e8f5e9; color:#2e7d32">版本迭代 24/年</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. 重要合作 -->
+    <div class="card card-kp">
+      <div class="card-header">
+        <div class="card-icon">🔗</div>
+        <div class="card-title">重要合作 (KP)</div>
+      </div>
+      <div class="card-body">
+        <div class="card-item">云厂商（阿里云 / AWS / 华为）</div>
+        <div class="card-item">开源社区（CNCF / Kubernetes）</div>
+        <div class="card-item">技术媒体（InfoQ / 掘金）</div>
+        <div class="card-item">高校实验室（产学研合作）</div>
+        <div class="card-metric">
+          <span class="metric-pill" style="background:#e3f2fd; color:#1976d2">合作伙伴 40+</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. 成本结构 -->
+    <div class="card card-cst">
+      <div class="card-header">
+        <div class="card-icon">📊</div>
+        <div class="card-title">成本结构 (C$)</div>
+      </div>
+      <div class="card-body">
+        <div class="card-item">研发投入（人员 65%）</div>
+        <div class="card-item">云基础设施（测试集群）</div>
+        <div class="card-item">销售与市场（25%）</div>
+        <div class="card-item">管理运营（10%）</div>
+        <div class="card-metric">
+          <span class="metric-pill" style="background:#e0f2f1; color:#00695c">月烧 ¥380k</span>
+          <span class="metric-pill" style="background:#fff3e0; color:#ef6c00"> runway 18月</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

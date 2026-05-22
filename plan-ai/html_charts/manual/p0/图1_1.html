@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+/* Service Mesh 拓扑画布 */
+.canvas { position:absolute; left:40px; top:120px; width:1840px; height:920px; }
+
+/* 核心网关 - 六边形 */
+.gateway {
+  position:absolute; left:840px; top:380px;
+  width:240px; height:200px;
+}
+.gateway-hex {
+  width:240px; height:200px;
+  background:linear-gradient(135deg,#1a237e 0%,#3949ab 100%);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+  color:#fff; box-shadow:0 8px 32px rgba(26,35,126,0.3);
+}
+.gateway-hex .g-name { font-size:18px; font-weight:700; }
+.gateway-hex .g-desc { font-size:11px; opacity:0.85; margin-top:6px; }
+.gateway-hex .g-tech { font-size:10px; opacity:0.6; margin-top:4px; }
+
+/* 微服务节点 - 圆角矩形带状态灯 */
+.svc {
+  position:absolute;
+  width:160px; padding:14px 12px;
+  background:#fff;
+  border:2px solid #c5cae9;
+  border-radius:12px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+  transition:all 0.3s;
+}
+.svc::before {
+  content:"";
+  position:absolute; left:12px; top:-6px;
+  width:10px; height:10px; border-radius:50%;
+  background:#00c853;
+  border:2px solid #fff;
+  box-shadow:0 0 0 2px #00c853;
+}
+.svc-name { font-size:13px; font-weight:700; color:#1a237e; padding-left:16px; }
+.svc-team { font-size:10px; color:#78909c; margin-top:6px; padding-left:16px; }
+.svc-stack { font-size:9px; color:#90a4ae; margin-top:4px; padding-left:16px; }
+
+/* 各微服务位置 - 围绕网关呈星型 */
+.svc-1 { left:320px; top:180px; border-color:#ef5350; }
+.svc-1::before { background:#ef5350; box-shadow:0 0 0 2px #ef5350; }
+.svc-2 { left:620px; top:80px; border-color:#ab47bc; }
+.svc-2::before { background:#ab47bc; box-shadow:0 0 0 2px #ab47bc; }
+.svc-3 { left:1120px; top:80px; border-color:#5c6bc0; }
+.svc-3::before { background:#5c6bc0; box-shadow:0 0 0 2px #5c6bc0; }
+.svc-4 { left:1420px; top:180px; border-color:#42a5f5; }
+.svc-4::before { background:#42a5f5; box-shadow:0 0 0 2px #42a5f5; }
+.svc-5 { left:320px; top:580px; border-color:#26a69a; }
+.svc-5::before { background:#26a69a; box-shadow:0 0 0 2px #26a69a; }
+.svc-6 { left:620px; top:720px; border-color:#ffa726; }
+.svc-6::before { background:#ffa726; box-shadow:0 0 0 2px #ffa726; }
+.svc-7 { left:1120px; top:720px; border-color:#78909c; }
+.svc-7::before { background:#78909c; box-shadow:0 0 0 2px #78909c; }
+.svc-8 { left:1420px; top:580px; border-color:#8d6e63; }
+.svc-8::before { background:#8d6e63; box-shadow:0 0 0 2px #8d6e63; }
+
+/* 边 - SVG */
+.edges { position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none; }
+.edge { fill:none; stroke:#c5cae9; stroke-width:1.5; stroke-dasharray:6,4; }
+.edge-active { fill:none; stroke:#3949ab; stroke-width:2; }
+.edge-label {
+  font-size:9px; fill:#90a4ae;
+  background:#fff;
+}
+
+/* 数据流粒子 */
+.particle { fill:#3949ab; }
+
+/* 图例 */
+.legend {
+  position:absolute; right:60px; top:140px;
+  background:#f8f9fa; border-radius:10px;
+  padding:16px 20px;
+  border:1px solid #e8eaf6;
+}
+.legend-title { font-size:12px; font-weight:700; color:#1a237e; margin-bottom:10px; }
+.legend-item { display:flex; align-items:center; margin:6px 0; font-size:11px; color:#546e7a; }
+.legend-dot { width:8px; height:8px; border-radius:50%; margin-right:8px; }
+
+/* 底部指标面板 */
+.metrics {
+  position:absolute; left:60px; bottom:30px;
+  display:flex; gap:30px;
+}
+.metric {
+  background:#f8f9fa; border-radius:8px;
+  padding:10px 20px; border:1px solid #e8eaf6;
+  text-align:center;
+}
+.metric-val { font-size:20px; font-weight:700; color:#1a237e; }
+.metric-label { font-size:10px; color:#78909c; margin-top:2px; }
+</style>
+</head>
+<body>
+<div class="title">图1-1 云跃引擎组织架构 — 微服务拓扑视角</div>
+<div class="subtitle">ORGANIZATION AS SERVICE MESH · 节点=团队/微服务 · 连线=协作/调用关系 · 颜色=业务域</div>
+
+<div class="canvas">
+  <svg class="edges" viewBox="0 0 1840 920">
+    <!-- 网关到各服务的边 -->
+    <path class="edge-active" d="M 960 480 Q 800 380 400 260">
+      <animate attributeName="stroke-dashoffset" from="100" to="0" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path class="edge-active" d="M 980 460 Q 820 300 700 170">
+      <animate attributeName="stroke-dashoffset" from="100" to="0" dur="2.5s" repeatCount="indefinite"/>
+    </path>
+    <path class="edge-active" d="M 1040 460 Q 1100 300 1200 170">
+      <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1.8s" repeatCount="indefinite"/>
+    </path>
+    <path class="edge-active" d="M 1060 480 Q 1200 380 1500 260">
+      <animate attributeName="stroke-dashoffset" from="100" to="0" dur="2.2s" repeatCount="indefinite"/>
+    </path>
+    <path class="edge-active" d="M 960 520 Q 800 620 400 660">
+      <animate attributeName="stroke-dashoffset" from="100" to="0" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path class="edge-active" d="M 980 540 Q 850 650 700 760">
+      <animate attributeName="stroke-dashoffset" from="100" to="0" dur="2.3s" repeatCount="indefinite"/>
+    </path>
+    <path class="edge-active" d="M 1040 540 Q 1100 650 1200 760">
+      <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1.9s" repeatCount="indefinite"/>
+    </path>
+    <path class="edge-active" d="M 1060 520 Q 1200 620 1500 660">
+      <animate attributeName="stroke-dashoffset" from="100" to="0" dur="2.1s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- 服务间横向协作边 -->
+    <path class="edge" d="M 480 260 Q 550 200 620 140" stroke-dasharray="4,6"/>
+    <path class="edge" d="M 1500 260 Q 1430 200 1280 140" stroke-dasharray="4,6"/>
+    <path class="edge" d="M 480 660 Q 550 720 620 780" stroke-dasharray="4,6"/>
+    <path class="edge" d="M 1500 660 Q 1430 720 1280 780" stroke-dasharray="4,6"/>
+    <path class="edge" d="M 400 340 Q 500 480 600 620" stroke-dasharray="4,6"/>
+    <path class="edge" d="M 1500 340 Q 1400 480 1300 620" stroke-dasharray="4,6"/>
+  </svg>
+
+  <!-- 微服务节点 -->
+  <div class="svc svc-1">
+    <div class="svc-name">部署编排服务</div>
+    <div class="svc-team">平台工程部 · 12人</div>
+    <div class="svc-stack">K8s / Helm / ArgoCD</div>
+  </div>
+  <div class="svc svc-2">
+    <div class="svc-name">智能调度引擎</div>
+    <div class="svc-team">算法团队 · 8人</div>
+    <div class="svc-stack">TensorFlow / Ray / Volcano</div>
+  </div>
+  <div class="svc svc-3">
+    <div class="svc-name">灰度网关</div>
+    <div class="svc-team">基础设施部 · 10人</div>
+    <div class="svc-stack">Envoy / Istio / eBPF</div>
+  </div>
+  <div class="svc svc-4">
+    <div class="svc-name">观测平台</div>
+    <div class="svc-team">SRE团队 · 6人</div>
+    <div class="svc-stack">Prometheus / Grafana / Jaeger</div>
+  </div>
+  <div class="svc svc-5">
+    <div class="svc-name">多云适配器</div>
+    <div class="svc-team">云原生研发部 · 9人</div>
+    <div class="svc-stack">Terraform / Pulumi / Crossplane</div>
+  </div>
+  <div class="svc svc-6">
+    <div class="svc-name">开发者门户</div>
+    <div class="svc-team">产品工程部 · 7人</div>
+    <div class="svc-stack">Backstage / React / GraphQL</div>
+  </div>
+  <div class="svc svc-7">
+    <div class="svc-name">安全策略中心</div>
+    <div class="svc-team">安全合规部 · 5人</div>
+    <div class="svc-stack">OPA / Falco / Trivy</div>
+  </div>
+  <div class="svc svc-8">
+    <div class="svc-name">客户成功服务</div>
+    <div class="svc-team">商业化团队 · 6人</div>
+    <div class="svc-stack">HubSpot / Slack / Notion</div>
+  </div>
+
+  <!-- 核心网关 -->
+  <div class="gateway">
+    <div class="gateway-hex">
+      <div class="g-name">云跃引擎核心</div>
+      <div class="g-desc">零配置智能部署平台</div>
+      <div class="g-tech">API Gateway · Control Plane</div>
+    </div>
+  </div>
+</div>
+
+<!-- 图例 -->
+<div class="legend">
+  <div class="legend-title">业务域着色</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#ef5350"></span>计算与编排</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#ab47bc"></span>智能算法</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#5c6bc0"></span>网络与流量</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#42a5f5"></span>可观测性</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#26a69a"></span>多云基础设施</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#ffa726"></span>开发者体验</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#78909c"></span>安全与合规</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#8d6e63"></span>商业化</div>
+</div>
+
+<!-- 底部指标 -->
+<div class="metrics">
+  <div class="metric"><div class="metric-val">63</div><div class="metric-label">总人数</div></div>
+  <div class="metric"><div class="metric-val">8</div><div class="metric-label">微服务团队</div></div>
+  <div class="metric"><div class="metric-val">82%</div><div class="metric-label">研发占比</div></div>
+  <div class="metric"><div class="metric-val">12</div><div class="metric-label">平均司龄(月)</div></div>
+</div>
+
+</body>
+</html>

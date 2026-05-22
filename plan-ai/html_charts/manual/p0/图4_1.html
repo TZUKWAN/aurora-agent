@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:60px; top:130px; width:1200px; height:880px; }
+
+/* 风险矩阵 */
+.risk-matrix {
+  width:100%; height:100%;
+}
+
+.risk-grid {
+  display:grid;
+  grid-template-columns: 100px repeat(5, 1fr);
+  grid-template-rows: 60px repeat(5, 1fr);
+  gap:4px; height:700px;
+}
+
+.axis-label {
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:700; color:#78909c;
+}
+.axis-y { writing-mode:vertical-rl; text-orientation:mixed; }
+
+.risk-cell {
+  border-radius:8px; display:flex;
+  align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; color:#fff;
+  position:relative;
+}
+
+.cell-low { background:#66bb6a; }
+.cell-med { background:#ffa726; }
+.cell-high { background:#ef5350; }
+.cell-critical { background:#c62828; }
+
+/* 风险点 */
+.risk-dot {
+  position:absolute;
+  background:#fff; border:3px solid;
+  border-radius:50%; width:36px; height:36px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700;
+  box-shadow:0 2px 8px rgba(0,0,0,0.2);
+  cursor:pointer;
+}
+
+/* 右侧风险列表 */
+.risk-list {
+  position:absolute; right:60px; top:130px;
+  width:560px;
+}
+.rl-title { font-size:16px; font-weight:700; color:#1a237e; margin-bottom:16px; }
+.rl-item {
+  display:flex; align-items:flex-start; gap:12px;
+  padding:12px 14px; margin:8px 0;
+  background:#f5f7fa; border-radius:10px;
+  border:2px solid #e3eaf5;
+}
+.rl-num {
+  width:28px; height:28px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:700; color:#fff; flex-shrink:0;
+}
+.rl-info { flex:1; }
+.rl-name { font-size:13px; font-weight:700; color:#263238; }
+.rl-desc { font-size:11px; color:#78909c; margin-top:2px; }
+.rl-mitigation {
+  margin-top:6px; padding:6px 10px;
+  background:#fff; border-radius:6px;
+  font-size:10px; color:#546e7a;
+  border:1px dashed #c5cae9;
+}
+.rl-score {
+  padding:4px 12px; border-radius:12px;
+  font-size:10px; font-weight:700; flex-shrink:0;
+}
+</style>
+</head>
+<body>
+<div class="title">图4-1 云跃引擎风险矩阵 — 故障域分析</div>
+<div class="subtitle">RISK MATRIX · 横轴=发生概率 · 纵轴=影响范围 · 颜色=风险等级 · 数字=风险编号</div>
+
+<div class="canvas">
+  <div class="risk-matrix">
+    <div class="risk-grid">
+      <!-- 轴标签 -->
+      <div></div>
+      <div class="axis-label">极低</div>
+      <div class="axis-label">低</div>
+      <div class="axis-label">中</div>
+      <div class="axis-label">高</div>
+      <div class="axis-label">极高</div>
+
+      <div class="axis-label axis-y">灾难性</div>
+      <div class="risk-cell cell-med">中</div>
+      <div class="risk-cell cell-high">高</div>
+      <div class="risk-cell cell-high">高</div>
+      <div class="risk-cell cell-critical">极高</div>
+      <div class="risk-cell cell-critical">极高</div>
+
+      <div class="axis-label axis-y">严重</div>
+      <div class="risk-cell cell-low">低</div>
+      <div class="risk-cell cell-med">中</div>
+      <div class="risk-cell cell-high">高</div>
+      <div class="risk-cell cell-high">高</div>
+      <div class="risk-cell cell-critical">极高</div>
+
+      <div class="axis-label axis-y">中等</div>
+      <div class="risk-cell cell-low">低</div>
+      <div class="risk-cell cell-low">低</div>
+      <div class="risk-cell cell-med">中</div>
+      <div class="risk-cell cell-high">高</div>
+      <div class="risk-cell cell-high">高</div>
+
+      <div class="axis-label axis-y">轻微</div>
+      <div class="risk-cell cell-low">低</div>
+      <div class="risk-cell cell-low">低</div>
+      <div class="risk-cell cell-low">低</div>
+      <div class="risk-cell cell-med">中</div>
+      <div class="risk-cell cell-med">中</div>
+
+      <div class="axis-label axis-y">可忽略</div>
+      <div class="risk-cell cell-low">低</div>
+      <div class="risk-cell cell-low">低</div>
+      <div class="risk-cell cell-low">低</div>
+      <div class="risk-cell cell-low">低</div>
+      <div class="risk-cell cell-med">中</div>
+    </div>
+
+    <!-- 风险点位置 -->
+    <div class="risk-dot" style="left:68%; top:32%; border-color:#c62828; color:#c62828;">R1</div>
+    <div class="risk-dot" style="left:52%; top:48%; border-color:#ef5350; color:#ef5350;">R2</div>
+    <div class="risk-dot" style="left:36%; top:52%; border-color:#ef5350; color:#ef5350;">R3</div>
+    <div class="risk-dot" style="left:48%; top:68%; border-color:#ffa726; color:#ffa726;">R4</div>
+    <div class="risk-dot" style="left:32%; top:72%; border-color:#ffa726; color:#ffa726;">R5</div>
+    <div class="risk-dot" style="left:24%; top:80%; border-color:#66bb6a; color:#66bb6a;">R6</div>
+  </div>
+</div>
+
+<!-- 右侧风险列表 -->
+<div class="risk-list">
+  <div class="rl-title">📋 关键风险识别与应对</div>
+
+  <div class="rl-item">
+    <div class="rl-num" style="background:#c62828;">R1</div>
+    <div class="rl-info">
+      <div class="rl-name">巨头碾压风险</div>
+      <div class="rl-desc">阿里云/腾讯/华为加大投入，推出类似功能</div>
+      <div class="rl-mitigation">🛡 应对: 聚焦差异化(零配置+智能调度)，保持技术领先 6-12 个月</div>
+    </div>
+    <div class="rl-score" style="background:#ffebee; color:#c62828;">极高</div>
+  </div>
+
+  <div class="rl-item">
+    <div class="rl-num" style="background:#ef5350;">R2</div>
+    <div class="rl-info">
+      <div class="rl-name">核心技术人才流失</div>
+      <div class="rl-desc">K8s 核心专家被挖角，研发能力受损</div>
+      <div class="rl-mitigation">🛡 应对: 股权激励 + 技术文档沉淀 + 代码审查制度</div>
+    </div>
+    <div class="rl-score" style="background:#ffebee; color:#ef5350;">高</div>
+  </div>
+
+  <div class="rl-item">
+    <div class="rl-num" style="background:#ef5350;">R3</div>
+    <div class="rl-info">
+      <div class="rl-name">资金链断裂</div>
+      <div class="rl-desc">融资环境恶化，现金流不足以支撑到盈亏平衡</div>
+      <div class="rl-mitigation">🛡 应对: 控制 burn rate，18 个月 runway，提前启动融资</div>
+    </div>
+    <div class="rl-score" style="background:#ffebee; color:#ef5350;">高</div>
+  </div>
+
+  <div class="rl-item">
+    <div class="rl-num" style="background:#ffa726;">R4</div>
+    <div class="rl-info">
+      <div class="rl-name">产品安全事故</div>
+      <div class="rl-desc">平台漏洞导致客户生产环境故障</div>
+      <div class="rl-mitigation">🛡 应对: 安全渗透测试 + 混沌工程 + 完善 SLA 保障</div>
+    </div>
+    <div class="rl-score" style="background:#fff3e0; color:#ef6c00;">中</div>
+  </div>
+
+  <div class="rl-item">
+    <div class="rl-num" style="background:#ffa726;">R5</div>
+    <div class="rl-info">
+      <div class="rl-name">开源社区竞争</div>
+      <div class="rl-desc">开源替代品功能增强，冲击付费转化</div>
+      <div class="rl-mitigation">🛡 应对: 开源版保持活跃，企业版持续增值，构建生态壁垒</div>
+    </div>
+    <div class="rl-score" style="background:#fff3e0; color:#ef6c00;">中</div>
+  </div>
+
+  <div class="rl-item">
+    <div class="rl-num" style="background:#66bb6a;">R6</div>
+    <div class="rl-info">
+      <div class="rl-name">政策法规变化</div>
+      <div class="rl-desc">数据安全法/等保要求调整</div>
+      <div class="rl-mitigation">🛡 应对: 提前布局合规认证，保持政策敏感度</div>
+    </div>
+    <div class="rl-score" style="background:#e8f5e9; color:#2e7d32;">低</div>
+  </div>
+</div>
+
+</body>
+</html>

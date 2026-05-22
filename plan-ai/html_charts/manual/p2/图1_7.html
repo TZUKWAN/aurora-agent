@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.seq { display:flex; gap:0; height:100%; padding:0 40px; }
+.actor { width:180px; display:flex; flex-direction:column; align-items:center; }
+.a-icon { width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:10px; }
+.a-name { font-size:13px; font-weight:700; color:#fff; text-align:center; }
+.a-role { font-size:10px; color:#78909c; margin-top:2px; }
+.a-line { width:2px; flex:1; background:linear-gradient(180deg,#00e5ff,rgba(0,229,255,0.1)); margin-top:10px; }
+.msg { position:absolute; display:flex; align-items:center; }
+.mbox { padding:8px 14px; border-radius:8px; font-size:11px; color:#fff; max-width:280px; }
+.mr { background:rgba(0,229,255,0.15); border:1px solid #00e5ff; }
+.mb { background:rgba(124,77,255,0.15); border:1px solid #7c4dff; }
+.mg { background:rgba(0,230,118,0.15); border:1px solid #00e676; }
+.mo { background:rgba(255,145,0,0.15); border:1px solid #ff9100; }
+.marr { font-size:14px; margin:0 6px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-7 开发时序图 — 仿真测试执行流程</div>
+<div class="subtitle">SEQUENCE DIAGRAM · 用户提交 → 场景生成 → 仿真执行 → 结果分析 → 报告输出</div>
+<div class="canvas">
+  <div class="seq">
+    <div class="actor"><div class="a-icon" style="background:linear-gradient(135deg,#00e5ff,#0091ea);">👤</div><div class="a-name">测试工程师</div><div class="a-role">提交测试任务</div><div class="a-line"></div></div>
+    <div class="actor"><div class="a-icon" style="background:linear-gradient(135deg,#7c4dff,#651fff);">☁️</div><div class="a-name">API Gateway</div><div class="a-role">任务路由</div><div class="a-line"></div></div>
+    <div class="actor"><div class="a-icon" style="background:linear-gradient(135deg,#00e676,#00c853);">🎨</div><div class="a-name">场景生成器</div><div class="a-role">AI 场景合成</div><div class="a-line"></div></div>
+    <div class="actor"><div class="a-icon" style="background:linear-gradient(135deg,#ff9100,#ff6d00);">🧪</div><div class="a-name">仿真引擎</div><div class="a-role">物理仿真执行</div><div class="a-line"></div></div>
+    <div class="actor"><div class="a-icon" style="background:linear-gradient(135deg,#ff5252,#d50000);">📊</div><div class="a-name">分析引擎</div><div class="a-role">结果评估</div><div class="a-line"></div></div>
+    <div class="actor"><div class="a-icon" style="background:linear-gradient(135deg,#78909c,#546e7a);">💾</div><div class="a-name">对象存储</div><div class="a-role">结果持久化</div><div class="a-line"></div></div>
+  </div>
+  <div style="position:absolute;left:220px;top:220px;"><div class="msg"><div class="mbox mr">POST /sim/run<br>{scene_params, algo_config}</div><div class="marr" style="color:#00e5ff;">→</div></div></div>
+  <div style="position:absolute;left:400px;top:280px;"><div class="msg"><div class="marr" style="color:#7c4dff;">→</div><div class="mbox mb">转发至场景生成队列</div></div></div>
+  <div style="position:absolute;left:580px;top:340px;"><div class="msg"><div class="mbox mg">生成 1000 个场景<br>GAN + Diffusion 合成</div><div class="marr" style="color:#00e676;">→</div></div></div>
+  <div style="position:absolute;left:760px;top:400px;"><div class="msg"><div class="marr" style="color:#ff9100;">→</div><div class="mbox mo">批量并行仿真<br>GPU 集群 128×A100</div></div></div>
+  <div style="position:absolute;left:940px;top:460px;"><div class="msg"><div class="mbox" style="background:rgba(255,82,82,0.15);border:1px solid #ff5252;">执行结果 + 传感器数据</div><div class="marr" style="color:#ff5252;">→</div></div></div>
+  <div style="position:absolute;left:1120px;top:520px;"><div class="msg"><div class="marr" style="color:#ff5252;">→</div><div class="mbox" style="background:rgba(255,82,82,0.15);border:1px solid #ff5252;">覆盖率/性能/安全评估</div></div></div>
+  <div style="position:absolute;left:1300px;top:580px;"><div class="msg"><div class="mbox" style="background:rgba(120,144,156,0.15);border:1px solid #78909c;">存储结果 + 报告文件</div><div class="marr" style="color:#78909c;">→</div></div></div>
+  <div style="position:absolute;left:1120px;top:640px;"><div class="msg"><div class="marr" style="color:#78909c;">→</div><div class="mbox" style="background:rgba(120,144,156,0.15);border:1px solid #78909c;">报告已生成</div></div></div>
+  <div style="position:absolute;left:940px;top:700px;"><div class="msg"><div class="marr" style="color:#ff5252;">→</div><div class="mbox" style="background:rgba(255,82,82,0.15);border:1px solid #ff5252;">分析完成通知</div></div></div>
+  <div style="position:absolute;left:760px;top:760px;"><div class="msg"><div class="marr" style="color:#ff9100;">→</div><div class="mbox mo">仿真资源释放</div></div></div>
+  <div style="position:absolute;left:400px;top:820px;"><div class="msg"><div class="marr" style="color:#7c4dff;">→</div><div class="mbox mb">WS 推送: task_complete</div></div></div>
+  <div style="position:absolute;left:220px;top:850px;"><div class="msg"><div class="marr" style="color:#00e5ff;">→</div><div class="mbox mr">GET /report/{id}<br>下载测试报告</div></div></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:40px; top:120px; width:1840px; height:920px; }
+
+/* CNCF Landscape 风格 - 横向分层 */
+.landscape-layer {
+  display:flex; align-items:center;
+  margin:10px 0; padding:14px 20px;
+  border-radius:10px;
+  position:relative;
+}
+.layer-label {
+  width:140px; font-size:13px; font-weight:700;
+  flex-shrink:0;
+}
+.layer-items {
+  flex:1; display:flex; flex-wrap:wrap; gap:8px;
+}
+.item-pill {
+  padding:6px 14px; border-radius:20px;
+  font-size:11px; font-weight:600;
+  border:1px solid;
+  white-space:nowrap;
+}
+
+/* 各层配色 */
+.layer-1 { background:#e3f2fd; }
+.layer-1 .layer-label { color:#1565c0; }
+.layer-1 .item-pill { background:#fff; border-color:#90caf9; color:#1565c0; }
+
+.layer-2 { background:#e8eaf6; }
+.layer-2 .layer-label { color:#3949ab; }
+.layer-2 .item-pill { background:#fff; border-color:#9fa8da; color:#3949ab; }
+
+.layer-3 { background:#f3e5f5; }
+.layer-3 .layer-label { color:#7b1fa2; }
+.layer-3 .item-pill { background:#fff; border-color:#ce93d8; color:#7b1fa2; }
+
+.layer-4 { background:#fff3e0; }
+.layer-4 .layer-label { color:#ef6c00; }
+.layer-4 .item-pill { background:#fff; border-color:#ffcc80; color:#ef6c00; }
+
+.layer-5 { background:#e8f5e9; }
+.layer-5 .layer-label { color:#2e7d32; }
+.layer-5 .item-pill { background:#fff; border-color:#a5d6a7; color:#2e7d32; }
+
+.layer-6 { background:#fce4ec; }
+.layer-6 .layer-label { color:#c62828; }
+.layer-6 .item-pill { background:#fff; border-color:#f48fb1; color:#c62828; }
+
+/* 云跃引擎高亮 */
+.highlight-box {
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  background:linear-gradient(135deg,#1a237e,#3949ab);
+  color:#fff; padding:16px 28px;
+  border-radius:12px;
+  box-shadow:0 8px 32px rgba(26,35,126,0.3);
+  text-align:center;
+  z-index:100;
+}
+.highlight-box .hb-name { font-size:18px; font-weight:700; }
+.highlight-box .hb-desc { font-size:11px; opacity:0.85; margin-top:6px; }
+.highlight-box .hb-tag {
+  display:inline-block; margin-top:8px; padding:3px 12px;
+  border-radius:20px; background:rgba(255,255,255,0.2);
+  font-size:10px;
+}
+
+/* 箭头连接 */
+.flow-arrows {
+  display:flex; justify-content:center; gap:200px;
+  margin:4px 0;
+}
+.flow-arrow {
+  font-size:20px; color:#c5cae9;
+}
+
+/* 底部说明 */
+.footer-legend {
+  position:absolute; left:40px; bottom:30px;
+  display:flex; gap:30px;
+}
+.legend-item { display:flex; align-items:center; gap:8px; font-size:12px; color:#78909c; }
+.legend-pill { padding:4px 12px; border-radius:20px; font-size:10px; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="title">图2-1 云跃引擎行业产业链图谱 — 云原生技术栈全景</div>
+<div class="subtitle">INDUSTRY CHAIN AS CNCF LANDSCAPE · 分层=技术层级 · 胶囊=代表企业/技术 · 高亮=云跃引擎位置</div>
+
+<div class="canvas">
+  <!-- 上游：芯片与硬件 -->
+  <div class="landscape-layer layer-6">
+    <div class="layer-label">🔧 基础设施层</div>
+    <div class="layer-items">
+      <span class="item-pill">Intel Xeon</span>
+      <span class="item-pill">AMD EPYC</span>
+      <span class="item-pill">NVIDIA GPU</span>
+      <span class="item-pill">华为鲲鹏</span>
+      <span class="item-pill">浪潮服务器</span>
+      <span class="item-pill">H3C</span>
+      <span class="item-pill">Dell EMC</span>
+      <span class="item-pill">SSD/NVMe</span>
+      <span class="item-pill">智能网卡</span>
+      <span class="item-pill">DPU</span>
+    </div>
+  </div>
+
+  <div class="flow-arrows"><span class="flow-arrow">⬇</span><span class="flow-arrow">⬇</span><span class="flow-arrow">⬇</span></div>
+
+  <!-- IaaS 层 -->
+  <div class="landscape-layer layer-5">
+    <div class="layer-label">☁ IaaS 层</div>
+    <div class="layer-items">
+      <span class="item-pill">阿里云 ECS</span>
+      <span class="item-pill">腾讯云 CVM</span>
+      <span class="item-pill">AWS EC2</span>
+      <span class="item-pill">华为云</span>
+      <span class="item-pill">Azure VM</span>
+      <span class="item-pill">VMware</span>
+      <span class="item-pill">OpenStack</span>
+      <span class="item-pill">私有云</span>
+    </div>
+  </div>
+
+  <div class="flow-arrows"><span class="flow-arrow">⬇</span><span class="flow-arrow">⬇</span><span class="flow-arrow">⬇</span></div>
+
+  <!-- 容器与编排层 -->
+  <div class="landscape-layer layer-4">
+    <div class="layer-label">📦 容器编排层</div>
+    <div class="layer-items">
+      <span class="item-pill">Docker</span>
+      <span class="item-pill">Kubernetes</span>
+      <span class="item-pill">containerd</span>
+      <span class="item-pill">Helm</span>
+      <span class="item-pill">CRI-O</span>
+      <span class="item-pill">K3s</span>
+      <span class="item-pill">OpenShift</span>
+      <span class="item-pill">Rancher</span>
+    </div>
+  </div>
+
+  <div class="flow-arrows"><span class="flow-arrow">⬇</span><span class="flow-arrow">⬇</span><span class="flow-arrow">⬇</span></div>
+
+  <!-- 平台层（云跃引擎所在） -->
+  <div class="landscape-layer layer-3" style="position:relative; border:3px solid #7b1fa2;">
+    <div class="layer-label">🚀 PaaS 平台层</div>
+    <div class="layer-items">
+      <span class="item-pill" style="background:#f3e5f5; border-color:#7b1fa2; color:#7b1fa2; font-weight:700;">🔥 云跃引擎</span>
+      <span class="item-pill">阿里云 ACK</span>
+      <span class="item-pill">腾讯云 TKE</span>
+      <span class="item-pill">AWS EKS</span>
+      <span class="item-pill">华为云 CCE</span>
+      <span class="item-pill">Istio</span>
+      <span class="item-pill">ArgoCD</span>
+      <span class="item-pill">Jenkins X</span>
+      <span class="item-pill">Tekton</span>
+    </div>
+    <div class="highlight-box">
+      <div class="hb-name">云跃引擎</div>
+      <div class="hb-desc">零配置智能部署与多维灰度发布</div>
+      <span class="hb-tag">PaaS 平台核心位置</span>
+    </div>
+  </div>
+
+  <div class="flow-arrows"><span class="flow-arrow">⬇</span><span class="flow-arrow">⬇</span><span class="flow-arrow">⬇</span></div>
+
+  <!-- 应用开发层 -->
+  <div class="landscape-layer layer-2">
+    <div class="layer-label">💻 应用开发层</div>
+    <div class="layer-items">
+      <span class="item-pill">Spring Cloud</span>
+      <span class="item-pill">Go Micro</span>
+      <span class="item-pill">React/Vue</span>
+      <span class="item-pill">Node.js</span>
+      <span class="item-pill">Python Django</span>
+      <span class="item-pill">微服务框架</span>
+      <span class="item-pill">Serverless</span>
+      <span class="item-pill">Dapr</span>
+    </div>
+  </div>
+
+  <div class="flow-arrows"><span class="flow-arrow">⬇</span><span class="flow-arrow">⬇</span><span class="flow-arrow">⬇</span></div>
+
+  <!-- 终端用户层 -->
+  <div class="landscape-layer layer-1">
+    <div class="layer-label">👥 终端用户层</div>
+    <div class="layer-items">
+      <span class="item-pill">电商平台</span>
+      <span class="item-pill">金融科技</span>
+      <span class="item-pill">智能制造</span>
+      <span class="item-pill">SaaS 企业</span>
+      <span class="item-pill">游戏公司</span>
+      <span class="item-pill">政务云</span>
+      <span class="item-pill">医疗健康</span>
+      <span class="item-pill">物联网</span>
+    </div>
+  </div>
+
+  <!-- 底部图例 -->
+  <div class="footer-legend">
+    <div class="legend-item">
+      <span class="legend-pill" style="background:#f3e5f5; border:1px solid #7b1fa2; color:#7b1fa2">🔥</span>
+      云跃引擎所在层级
+    </div>
+    <div class="legend-item">
+      <span class="legend-pill" style="background:#e3f2fd; border:1px solid #90caf9; color:#1565c0">⬇</span>
+      技术依赖方向（上→下）
+    </div>
+    <div class="legend-item">
+      <span style="color:#78909c">产业链价值流向：芯片→云厂商→容器平台→PaaS→应用→终端用户</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

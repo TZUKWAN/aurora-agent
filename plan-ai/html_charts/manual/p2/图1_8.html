@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:28px; }
+.col { flex:1; display:flex; flex-direction:column; gap:18px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.sm { display:flex; flex-direction:column; align-items:center; gap:14px; padding:20px; }
+.st { padding:14px 28px; border-radius:12px; font-size:14px; font-weight:700; color:#fff; text-align:center; }
+.s1 { background:linear-gradient(135deg,#00e5ff,#0091ea); }
+.s2 { background:linear-gradient(135deg,#7c4dff,#651fff); }
+.s3 { background:linear-gradient(135deg,#00e676,#00c853); }
+.s4 { background:linear-gradient(135deg,#ff9100,#ff6d00); }
+.s5 { background:linear-gradient(135deg,#ff5252,#d50000); }
+.s6 { background:linear-gradient(135deg,#78909c,#546e7a); }
+.tran { display:flex; align-items:center; gap:8px; }
+.tarr { font-size:20px; }
+.tcond { font-size:10px; color:#78909c; background:rgba(255,255,255,0.05); padding:4px 10px; border-radius:10px; }
+.ov { display:flex; gap:12px; margin:10px 0; }
+.ovc { flex:1; text-align:center; padding:14px; border-radius:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.15); }
+.ovv { font-size:24px; font-weight:700; }
+.ovl { font-size:10px; color:#78909c; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-8 系统状态机 — 仿真任务生命周期</div>
+<div class="subtitle">STATE MACHINE · 任务提交 → 排队 → 执行 → 完成/失败 → 归档</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">🔄 仿真任务状态机</div>
+      <div class="sm">
+        <div class="st s1">CREATED<br><span style="font-size:11px;font-weight:400;">任务已创建</span></div>
+        <div class="tran"><div class="tarr" style="color:#00e5ff;">↓</div><div class="tcond">验证通过</div></div>
+        <div class="st s2">QUEUED<br><span style="font-size:11px;font-weight:400;">排队等待资源</span></div>
+        <div class="tran"><div class="tarr" style="color:#7c4dff;">↓</div><div class="tcond">GPU 资源分配</div></div>
+        <div class="st s3">RUNNING<br><span style="font-size:11px;font-weight:400;">仿真执行中</span></div>
+        <div style="display:flex;gap:40px;">
+          <div class="tran"><div class="tarr" style="color:#00e676;">↙</div><div class="tcond">执行成功</div></div>
+          <div class="tran"><div class="tarr" style="color:#ff5252;">↘</div><div class="tcond">执行失败/超时</div></div>
+        </div>
+        <div style="display:flex;gap:40px;">
+          <div class="st s4">COMPLETED<br><span style="font-size:11px;font-weight:400;">执行完成</span></div>
+          <div class="st s5">FAILED<br><span style="font-size:11px;font-weight:400;">执行失败</span></div>
+        </div>
+        <div class="tran" style="justify-content:center;"><div class="tarr" style="color:#ff9100;">↓</div><div class="tcond">结果分析完成</div></div>
+        <div class="st s6">ARCHIVED<br><span style="font-size:11px;font-weight:400;">已归档</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">📋 状态转换规则</div>
+      <div style="font-size:12px;color:#90a4ae;line-height:1.8;">
+        <div style="margin:8px 0;padding:10px;border-radius:8px;background:rgba(0,229,255,0.05);border-left:3px solid #00e5ff;"><strong style="color:#00e5ff;">CREATED → QUEUED</strong><br>参数校验通过，加入任务队列</div>
+        <div style="margin:8px 0;padding:10px;border-radius:8px;background:rgba(124,77,255,0.05);border-left:3px solid #7c4dff;"><strong style="color:#7c4dff;">QUEUED → RUNNING</strong><br>GPU 资源就绪，启动仿真容器</div>
+        <div style="margin:8px 0;padding:10px;border-radius:8px;background:rgba(0,230,118,0.05);border-left:3px solid #00e676;"><strong style="color:#00e676;">RUNNING → COMPLETED</strong><br>所有场景执行完毕，结果正常</div>
+        <div style="margin:8px 0;padding:10px;border-radius:8px;background:rgba(255,82,82,0.05);border-left:3px solid #ff5252;"><strong style="color:#ff5252;">RUNNING → FAILED</strong><br>执行异常/超时/资源不足</div>
+        <div style="margin:8px 0;padding:10px;border-radius:8px;background:rgba(120,144,156,0.05);border-left:3px solid #78909c;"><strong style="color:#78909c;">COMPLETED → ARCHIVED</strong><br>分析报告生成，数据归档存储</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">📊 任务状态分布</div>
+      <div class="ov">
+        <div class="ovc"><div class="ovv" style="color:#00e5ff">12%</div><div class="ovl">CREATED</div></div>
+        <div class="ovc"><div class="ovv" style="color:#7c4dff">8%</div><div class="ovl">QUEUED</div></div>
+        <div class="ovc"><div class="ovv" style="color:#00e676">65%</div><div class="ovl">RUNNING</div></div>
+        <div class="ovc"><div class="ovv" style="color:#ff9100">13%</div><div class="ovl">COMPLETED</div></div>
+        <div class="ovc"><div class="ovv" style="color:#ff5252">2%</div><div class="ovl">FAILED</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

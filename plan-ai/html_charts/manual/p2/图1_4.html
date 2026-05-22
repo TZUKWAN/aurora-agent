@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.pipeline { display:flex; align-items:center; justify-content:center; gap:12px; height:100%; padding:0 40px; }
+.stage { width:200px; display:flex; flex-direction:column; gap:10px; }
+.sh { text-align:center; padding:10px; border-radius:10px; font-size:13px; font-weight:700; color:#fff; }
+.s1 { background:linear-gradient(135deg,#00e5ff,#0091ea); }
+.s2 { background:linear-gradient(135deg,#7c4dff,#651fff); }
+.s3 { background:linear-gradient(135deg,#00e676,#00c853); }
+.s4 { background:linear-gradient(135deg,#ff9100,#ff6d00); }
+.s5 { background:linear-gradient(135deg,#ff5252,#d50000); }
+.si { padding:10px 12px; border-radius:8px; font-size:11px; color:#cfd8dc; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.03); }
+.arr { font-size:28px; color:#00e5ff; animation:pulse 2s infinite; }
+.data-line { position:absolute; height:2px; background:linear-gradient(90deg,#00e5ff,transparent); }
+.box { border:1px solid rgba(0,229,255,0.2); border-radius:12px; padding:16px; background:rgba(0,229,255,0.03); }
+.box-t { font-size:13px; font-weight:700; color:#00e5ff; margin-bottom:10px; }
+.box-i { font-size:11px; color:#90a4ae; line-height:1.7; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-4 数据处理流程 — 从路测到仿真闭环</div>
+<div class="subtitle">DATA PIPELINE · 采集 → 标注 → 挖掘 → 生成 → 验证 · 全链路自动化</div>
+<div class="canvas">
+  <div class="pipeline">
+    <div class="stage">
+      <div class="sh s1">📥 数据采集</div>
+      <div class="si">🎥 多传感器同步<br>相机 ×6 + LiDAR ×2 + Radar ×4</div>
+      <div class="si">📍 GNSS/IMU 定位<br>厘米级 RTK 精度</div>
+      <div class="si">🌡️ 环境感知<br>温度/湿度/光照/天气</div>
+      <div class="si">📊 车辆 CAN 数据<br>油门/刹车/转向/速度</div>
+    </div>
+    <div class="arr">➤</div>
+    <div class="stage">
+      <div class="sh s2">🏷️ 数据标注</div>
+      <div class="si">🤖 AI 自动标注<br>2D/3D 目标检测框</div>
+      <div class="si">👤 人工质检<br>关键帧 100% 复核</div>
+      <div class="si">📝 语义标注<br>车道线/交通标志/可行驶区域</div>
+      <div class="si">⏱️ 时序标注<br>轨迹追踪/行为意图</div>
+    </div>
+    <div class="arr">➤</div>
+    <div class="stage">
+      <div class="sh s3">🔍 场景挖掘</div>
+      <div class="si">🎯 Corner Case 提取<br>异常事件自动识别</div>
+      <div class="si">📐 场景参数化<br>场景元素解耦配置</div>
+      <div class="si">🔄 场景泛化<br>参数空间组合扩展</div>
+      <div class="si">📚 场景分类入库<br>ODD 维度标签体系</div>
+    </div>
+    <div class="arr">➤</div>
+    <div class="stage">
+      <div class="sh s4">🎨 场景生成</div>
+      <div class="si">🎭 GAN 场景合成<br>高真实感环境渲染</div>
+      <div class="si">🌧️ 域随机化<br>天气/光照/纹理变化</div>
+      <div class="si">🚗 交通流生成<br>智能体交互行为模拟</div>
+      <div class="si">📡 传感器仿真<br>噪声/畸变/遮挡建模</div>
+    </div>
+    <div class="arr">➤</div>
+    <div class="stage">
+      <div class="sh s5">✅ 仿真验证</div>
+      <div class="si">🧪 算法测试<br>感知/规控端到端</div>
+      <div class="si">📊 覆盖率分析<br>ODD 维度统计</div>
+      <div class="si">⚠️ 安全评估<br>SOTIF/功能安全</div>
+      <div class="si">📈 性能退化<br>对比基线指标</div>
+    </div>
+  </div>
+  <div style="position:absolute;bottom:30px;left:60px;right:60px;display:flex;gap:20px;">
+    <div class="box" style="flex:1;"><div class="box-t">📤 数据输出</div><div class="box-i">仿真场景库(10M+) · 测试报告 · 覆盖率矩阵 · 性能退化曲线 · 安全评估证书</div></div>
+    <div class="box" style="flex:1;"><div class="box-t">🔄 反馈闭环</div><div class="box-i">算法迭代 → 新场景需求 → 场景生成 → 回归测试 → 持续集成</div></div>
+    <div class="box" style="flex:1;"><div class="box-t">⚡ 关键指标</div><div class="box-i">日处理 5000km 路测数据 · 自动生成 10万+ 场景/天 · 全流程 &lt;24h</div></div>
+  </div>
+</div>
+</body>
+</html>

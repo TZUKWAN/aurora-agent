@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { display:flex; flex-direction:column; gap:18px; }
+.c1 { flex:1.2; }
+.c2 { flex:1; }
+.card { background:#fff; border:2px solid #e0e0e0; border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#212121; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.tbl { width:100%; border-collapse:collapse; font-size:12px; }
+.tbl th { background:#f5f5f5; padding:10px 8px; text-align:center; font-weight:700; color:#424242; border-bottom:2px solid #e0e0e0; }
+.tbl td { padding:10px 8px; text-align:center; border-bottom:1px solid #f0f0f0; color:#616161; }
+.tbl td:first-child { text-align:left; font-weight:600; color:#212121; }
+.tbl tr:hover td { background:#fafafa; }
+.tbl .sum { background:#fff3e0; font-weight:700; color:#e65100; }
+.tbl .sum td { border-top:2px solid #e65100; }
+.chart { position:relative; height:220px; }
+.bars { display:flex; align-items:flex-end; justify-content:center; gap:16px; height:160px; padding:0 20px; }
+.bar-g { display:flex; flex-direction:column; align-items:center; gap:6px; }
+.bar { width:48px; border-radius:6px 6px 0 0; position:relative; }
+.bar-v { position:absolute; top:-18px; left:50%; transform:translateX(-50%); font-size:10px; font-weight:700; white-space:nowrap; }
+.bar-l { font-size:10px; color:#757575; }
+.kpi { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+.kc { background:#f5f5f5; border-radius:8px; padding:12px; text-align:center; }
+.kv { font-size:20px; font-weight:700; }
+.kl { font-size:10px; color:#757575; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="title">图3-1 财务预测 — 储能先知三年财务模型</div>
+<div class="subtitle">FINANCIAL FORECAST · 收入 · 成本 · 利润 · 现金流 · 关键假设</div>
+<div class="canvas">
+  <div class="col c1">
+    <div class="card">
+      <div class="ch">📊 损益表预测 (万元)</div>
+      <table class="tbl">
+        <tr><th>项目</th><th>2024E</th><th>2025E</th><th>2026E</th><th>CAGR</th></tr>
+        <tr><td>SaaS订阅收入</td><td>300</td><td>2,400</td><td>9,000</td><td rowspan="4" style="color:#e65100;font-size:16px;">+280%</td></tr>
+        <tr><td>实施服务收入</td><td>150</td><td>1,000</td><td>3,500</td></tr>
+        <tr><td>增值业务收入</td><td>50</td><td>600</td><td>2,500</td></tr>
+        <tr class="sum"><td>营业收入合计</td><td>500</td><td>4,000</td><td>15,000</td></tr>
+        <tr><td>营业成本</td><td>200</td><td>1,200</td><td>4,500</td><td>-</td></tr>
+        <tr><td>研发费用</td><td>400</td><td>1,600</td><td>3,000</td><td>-</td></tr>
+        <tr><td>销售费用</td><td>200</td><td>1,000</td><td>2,500</td><td>-</td></tr>
+        <tr><td>管理费用</td><td>150</td><td>400</td><td>1,000</td><td>-</td></tr>
+        <tr class="sum"><td>净利润</td><td>-450</td><td>-200</td><td>4,000</td><td style="color:#2e7d32;">扭亏</td></tr>
+        <tr class="sum"><td>净利润率</td><td>-90%</td><td>-5%</td><td>26.7%</td><td style="color:#2e7d32;">+116.7pp</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="ch">📈 收入构成趋势</div>
+      <div class="chart">
+        <svg width="100%" height="100%" viewBox="0 0 800 220">
+          <g transform="translate(60,20)">
+            <text x="0" y="12" font-size="11" fill="#757575">收入(万元)</text>
+            <line x1="50" y1="180" x2="700" y2="180" stroke="#e0e0e0"/>
+            <text x="50" y="198" font-size="10" fill="#9e9e9e" text-anchor="middle">2024E</text>
+            <text x="250" y="198" font-size="10" fill="#9e9e9e" text-anchor="middle">2025E</text>
+            <text x="450" y="198" font-size="10" fill="#9e9e9e" text-anchor="middle">2026E</text>
+            <text x="650" y="198" font-size="10" fill="#9e9e9e" text-anchor="middle">2027E</text>
+            <rect x="30" y="160" width="40" height="20" fill="#e65100" rx="3"/><text x="50" y="174" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">500</text>
+            <rect x="30" y="60" width="40" height="100" fill="#ff9800" rx="3" opacity="0.7"/>
+            <rect x="230" y="20" width="40" height="160" fill="#e65100" rx="3"/><text x="250" y="100" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">4000</text>
+            <rect x="230" y="140" width="40" height="40" fill="#ff9800" rx="3" opacity="0.7"/>
+            <rect x="430" y="0" width="40" height="10" fill="#e65100" rx="3" opacity="0.5"/>
+            <rect x="430" y="20" width="40" height="160" fill="#e65100" rx="3"/><text x="450" y="100" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">15000</text>
+            <rect x="430" y="140" width="40" height="40" fill="#ff9800" rx="3" opacity="0.7"/>
+            <text x="720" y="30" font-size="11" fill="#e65100" font-weight="700">■ SaaS订阅</text>
+            <text x="720" y="50" font-size="11" fill="#ff9800" font-weight="700">■ 实施服务</text>
+            <text x="720" y="70" font-size="11" fill="#00acc1" font-weight="700">■ 增值服务</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="col c2">
+    <div class="card">
+      <div class="ch">💰 现金流预测</div>
+      <div class="chart">
+        <svg width="100%" height="100%" viewBox="0 0 600 220">
+          <g transform="translate(60,20)">
+            <line x1="40" y1="180" x2="480" y2="180" stroke="#e0e0e0"/>
+            <text x="40" y="198" font-size="10" fill="#9e9e9e" text-anchor="middle">2024E</text>
+            <text x="190" y="198" font-size="10" fill="#9e9e9e" text-anchor="middle">2025E</text>
+            <text x="340" y="198" font-size="10" fill="#9e9e9e" text-anchor="middle">2026E</text>
+            <text x="480" y="198" font-size="10" fill="#9e9e9e" text-anchor="middle">2027E</text>
+            <rect x="15" y="60" width="50" height="120" fill="#c62828" rx="4"/><text x="40" y="130" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">-450</text>
+            <rect x="165" y="100" width="50" height="80" fill="#c62828" rx="4" opacity="0.6"/><text x="190" y="145" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">-200</text>
+            <rect x="315" y="40" width="50" height="140" fill="#2e7d32" rx="4"/><text x="340" y="115" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">+4000</text>
+            <rect x="455" y="20" width="50" height="160" fill="#2e7d32" rx="4"/><text x="480" y="105" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">+8000</text>
+            <text x="0" y="12" font-size="11" fill="#757575">净现金流(万元)</text>
+            <line x1="40" y1="100" x2="480" y2="100" stroke="#e0e0e0" stroke-dasharray="4"/>
+            <text x="5" y="104" font-size="9" fill="#9e9e9e">0</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">🎯 关键财务指标</div>
+      <div class="kpi">
+        <div class="kc"><div class="kv" style="color:#e65100">¥1.5亿</div><div class="kl">2026E 年收入</div></div>
+        <div class="kc"><div class="kv" style="color:#ff9800">26.7%</div><div class="kl">2026E 净利率</div></div>
+        <div class="kc"><div class="kv" style="color:#2e7d32">4.2年</div><div class="kl">LTV/CAC</div></div>
+        <div class="kc"><div class="kv" style="color:#00acc1">85%</div><div class="kl">年续约率</div></div>
+        <div class="kc"><div class="kv" style="color:#5e35b1">¥28万</div><div class="kl">客单价(ARR)</div></div>
+        <div class="kc"><div class="kv" style="color:#ef6c00">12月</div><div class="kl">回本周期</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">📋 关键假设</div>
+      <div style="font-size:12px;color:#616161;line-height:1.8;">
+        • 单电站 SaaS ARR：¥5-20万/年（按容量分级）<br>
+        • 客户获取成本 CAC：¥8万/个（含直销+渠道）<br>
+        • 客户生命周期 LTV：¥112万（4.2年×续约率85%）<br>
+        • 2026年目标电站：200+ 座，渗透 3% 存量市场<br>
+        • 毛利率：70%（SaaS）/ 40%（实施服务）
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.demand-chart { display:flex; align-items:flex-end; gap:4px; height:200px; margin-bottom:20px; padding:0 40px; }
+.demand-bar { flex:1; background:linear-gradient(180deg,#e65100,#ff9800); border-radius:6px 6px 0 0; display:flex; align-items:flex-end; justify-content:center; padding-bottom:6px; color:#fff; font-size:10px; font-weight:700; }
+.demand-label { text-align:center; font-size:10px; color:#757575; margin-top:6px; }
+.dm-table { width:100%; border-collapse:separate; border-spacing:0 8px; }
+.dm-th { text-align:left; padding:10px 14px; font-size:11px; font-weight:700; color:#757575; text-transform:uppercase; letter-spacing:1px; }
+.dm-row { background:#fff; border:2px solid #e0e0e0; border-radius:10px; }
+.dm-row td { padding:12px 14px; font-size:12px; color:#424242; }
+.dm-p { padding:4px 12px; border-radius:12px; font-size:10px; font-weight:700; display:inline-block; }
+.p0 { background:#ffebee; color:#c62828; }
+.p1 { background:#fff3e0; color:#ef6c00; }
+.p2 { background:#fff8e1; color:#f9a825; }
+.p3 { background:#e8f5e9; color:#2e7d32; }
+.dm-bar { width:100px; height:6px; background:#e0e0e0; border-radius:3px; overflow:hidden; }
+.dm-bar-f { height:100%; border-radius:3px; }
+.star { font-size:14px; }
+.star.f { color:#ffca28; } .star.e { color:#e0e0e0; }
+</style>
+</head>
+<body>
+<div class="title">图2-12 储能先知客户需求分析 — 负荷削峰填谷模型</div>
+<div class="subtitle">CUSTOMER DEMAND ANALYSIS · 峰值=紧急需求 · 谷值=基础需求 · 填谷=当前满足度</div>
+<div class="canvas">
+  <div style="display:flex; gap:40px; align-items:flex-end; margin-bottom:20px;">
+    <div style="flex:1;">
+      <div style="font-size:12px; font-weight:700; color:#212121; margin-bottom:10px;">📈 客户需求强度分布（模拟日负荷曲线）</div>
+      <div class="demand-chart">
+        <div class="demand-bar" style="height:30%">谷</div>
+        <div class="demand-bar" style="height:35%">谷</div>
+        <div class="demand-bar" style="height:50%">平</div>
+        <div class="demand-bar" style="height:75%">峰</div>
+        <div class="demand-bar" style="height:95%">尖</div>
+        <div class="demand-bar" style="height:80%">峰</div>
+        <div class="demand-bar" style="height:55%">平</div>
+        <div class="demand-bar" style="height:40%">谷</div>
+        <div class="demand-bar" style="height:60%">平</div>
+        <div class="demand-bar" style="height:85%">峰</div>
+        <div class="demand-bar" style="height:70%">峰</div>
+        <div class="demand-bar" style="height:45%">平</div>
+      </div>
+      <div style="display:flex; gap:4px; padding:0 40px;">
+        <div style="flex:1; text-align:center; font-size:9px; color:#757575;">安全</div>
+        <div style="flex:1; text-align:center; font-size:9px; color:#757575;">收益</div>
+        <div style="flex:1; text-align:center; font-size:9px; color:#757575;">寿命</div>
+        <div style="flex:1; text-align:center; font-size:9px; color:#757575;">运维</div>
+        <div style="flex:1; text-align:center; font-size:9px; color:#757575;">合规</div>
+        <div style="flex:1; text-align:center; font-size:9px; color:#757575;">扩展</div>
+        <div style="flex:1; text-align:center; font-size:9px; color:#757575;">品牌</div>
+        <div style="flex:1; text-align:center; font-size:9px; color:#757575;">服务</div>
+        <div style="flex:1; text-align:center; font-size:9px; color:#757575;">数据</div>
+        <div style="flex:1; text-align:center; font-size:9px; color:#757575;">融资</div>
+        <div style="flex:1; text-align:center; font-size:9px; color:#757575;">出海</div>
+        <div style="flex:1; text-align:center; font-size:9px; color:#757575;">回收</div>
+      </div>
+    </div>
+  </div>
+  <table class="dm-table">
+    <tr><th style="width:25%">需求项</th><th style="width:12%">优先级</th><th style="width:15%">客户提及率</th><th style="width:15%">满意度权重</th><th style="width:15%">当前实现</th><th style="width:18%">竞争力</th></tr>
+    <tr class="dm-row">
+      <td><b>热失控预警</b><br><span style="font-size:10px; color:#757575;">提前15-30分钟，准确率&gt;90%</span></td>
+      <td><span class="dm-p p0">P0 · 必须有</span></td>
+      <td><div class="dm-bar"><div class="dm-bar-f" style="width:95%; background:#c62828"></div></div><span style="font-size:10px; color:#757575;">95%</span></td>
+      <td><span class="star f">★</span><span class="star f">★</span><span class="star f">★</span><span class="star f">★</span><span class="star f">★</span></td>
+      <td><span style="color:#2e7d32; font-weight:700">✓ 已实现</span></td>
+      <td><span style="color:#c62828; font-weight:700">核心优势</span></td>
+    </tr>
+    <tr class="dm-row">
+      <td><b>动态收益优化</b><br><span style="font-size:10px; color:#757575;">AI调度提升收益15-25%</span></td>
+      <td><span class="dm-p p0">P0 · 必须有</span></td>
+      <td><div class="dm-bar"><div class="dm-bar-f" style="width:88%; background:#c62828"></div></div><span style="font-size:10px; color:#757575;">88%</span></td>
+      <td><span class="star f">★</span><span class="star f">★</span><span class="star f">★</span><span class="star f">★</span><span class="star f">★</span></td>
+      <td><span style="color:#2e7d32; font-weight:700">✓ 已实现</span></td>
+      <td><span style="color:#c62828; font-weight:700">核心优势</span></td>
+    </tr>
+    <tr class="dm-row">
+      <td><b>电池寿命管理</b><br><span style="font-size:10px; color:#757575;">SOH精准估算，延寿20%</span></td>
+      <td><span class="dm-p p1">P1 · 重要</span></td>
+      <td><div class="dm-bar"><div class="dm-bar-f" style="width:72%; background:#ef6c00"></div></div><span style="font-size:10px; color:#757575;">72%</span></td>
+      <td><span class="star f">★</span><span class="star f">★</span><span class="star f">★</span><span class="star f">★</span><span class="star e">★</span></td>
+      <td><span style="color:#2e7d32; font-weight:700">✓ 已实现</span></td>
+      <td><span style="color:#ef6c00; font-weight:700">差异化</span></td>
+    </tr>
+    <tr class="dm-row">
+      <td><b>远程智能运维</b><br><span style="font-size:10px; color:#757575;">7×24监控，故障预测</span></td>
+      <td><span class="dm-p p1">P1 · 重要</span></td>
+      <td><div class="dm-bar"><div class="dm-bar-f" style="width:68%; background:#ef6c00"></div></div><span style="font-size:10px; color:#757575;">68%</span></td>
+      <td><span class="star f">★</span><span class="star f">★</span><span class="star f">★</span><span class="star f">★</span><span class="star e">★</span></td>
+      <td><span style="color:#2e7d32; font-weight:700">✓ 已实现</span></td>
+      <td><span style="color:#ef6c00; font-weight:700">差异化</span></td>
+    </tr>
+    <tr class="dm-row">
+      <td><b>电网调度对接</b><br><span style="font-size:10px; color:#757575;">AGC/AVC/一次调频</span></td>
+      <td><span class="dm-p p2">P2 · 期望</span></td>
+      <td><div class="dm-bar"><div class="dm-bar-f" style="width:55%; background:#f9a825"></div></div><span style="font-size:10px; color:#757575;">55%</span></td>
+      <td><span class="star f">★</span><span class="star f">★</span><span class="star f">★</span><span class="star e">★</span><span class="star e">★</span></td>
+      <td><span style="color:#2e7d32; font-weight:700">✓ 已实现</span></td>
+      <td><span style="color:#757575; font-weight:700">基础能力</span></td>
+    </tr>
+    <tr class="dm-row">
+      <td><b>电力交易代理</b><br><span style="font-size:10px; color:#757575;">现货交易/辅助服务</span></td>
+      <td><span class="dm-p p3">P3 · 加分</span></td>
+      <td><div class="dm-bar"><div class="dm-bar-f" style="width:38%; background:#2e7d32"></div></div><span style="font-size:10px; color:#757575;">38%</span></td>
+      <td><span class="star f">★</span><span class="star f">★</span><span class="star e">★</span><span class="star e">★</span><span class="star e">★</span></td>
+      <td><span style="color:#ef6c00; font-weight:700">◐ Beta</span></td>
+      <td><span style="color:#2e7d32; font-weight:700">未来壁垒</span></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

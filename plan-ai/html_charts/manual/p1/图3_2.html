@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { display:flex; flex-direction:column; gap:18px; }
+.c1 { flex:1; }
+.c2 { flex:1; }
+.card { background:#fff; border:2px solid #e0e0e0; border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#212121; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.rm { display:flex; align-items:center; gap:10px; margin:10px 0; padding:12px; border-radius:10px; background:#fafafa; border-left:4px solid; }
+.rm-h { flex:1; }
+.rm-t { font-size:13px; font-weight:700; color:#212121; }
+.rm-d { font-size:11px; color:#616161; margin-top:3px; line-height:1.5; }
+.rm-p { text-align:center; min-width:70px; }
+.rpv { font-size:20px; font-weight:700; }
+.rpl { font-size:9px; color:#757575; margin-top:2px; }
+.r1 { border-left-color:#c62828; } .r1 .rpv { color:#c62828; }
+.r2 { border-left-color:#ef6c00; } .r2 .rpv { color:#ef6c00; }
+.r3 { border-left-color:#ff9800; } .r3 .rpv { color:#ff9800; }
+.r4 { border-left-color:#2e7d32; } .r4 .rpv { color:#2e7d32; }
+.mtx { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:8px; margin-top:12px; }
+.mc { border:1px solid #e0e0e0; border-radius:8px; padding:12px; text-align:center; }
+.mcv { font-size:13px; font-weight:700; margin-bottom:6px; }
+.mc1 .mcv { color:#c62828; } .mc2 .mcv { color:#ef6c00; } .mc3 .mcv { color:#ff9800; } .mc4 .mcv { color:#2e7d32; }
+.mc-d { font-size:10px; color:#616161; line-height:1.5; }
+.sw { display:flex; gap:10px; margin:8px 0; }
+.swc { flex:1; padding:10px; border-radius:8px; font-size:11px; line-height:1.5; }
+.sws { background:#e3f2fd; color:#1565c0; }
+.sww { background:#fff3e0; color:#e65100; }
+</style>
+</head>
+<body>
+<div class="title">图3-2 风险分析与应对策略 — 储能先知风控矩阵</div>
+<div class="subtitle">RISK ANALYSIS · 技术 · 市场 · 运营 · 财务 · 风险等级 × 影响程度</div>
+<div class="canvas">
+  <div class="col c1">
+    <div class="card">
+      <div class="ch">⚠️ 风险识别与评估</div>
+      <div class="rm r1">
+        <div class="rm-h"><div class="rm-t">🔴 技术风险：AI 预警准确率波动</div><div class="rm-d">新型电池 chemistry 导致模型失效；极端工况下误报/漏报</div></div>
+        <div class="rm-p"><div class="rpv">高</div><div class="rpl">发生概率</div></div>
+      </div>
+      <div class="rm r1">
+        <div class="rm-h"><div class="rm-t">🔴 市场风险：巨头入场挤压</div><div class="rm-d">华为/阳光电源等大厂推出自有AI运维，价格战风险</div></div>
+        <div class="rm-p"><div class="rpv">中</div><div class="rpl">发生概率</div></div>
+      </div>
+      <div class="rm r2">
+        <div class="rm-h"><div class="rm-t">🟠 运营风险：数据安全合规</div><div class="rm-d">电站运行数据涉及电网安全，数据跨境/本地化合规要求高</div></div>
+        <div class="rm-p"><div class="rpv">中</div><div class="rpl">发生概率</div></div>
+      </div>
+      <div class="rm r2">
+        <div class="rm-h"><div class="rm-t">🟠 财务风险：回款周期长</div><div class="rm-d">国企客户账期 6-12 个月；Pre-A 轮融资不及预期</div></div>
+        <div class="rm-p"><div class="rpv">中</div><div class="rpl">发生概率</div></div>
+      </div>
+      <div class="rm r3">
+        <div class="rm-h"><div class="rm-t">🟡 人才风险：储能AI人才稀缺</div><div class="rm-d">复合型人才（电力+AI）招聘难，核心人员流失风险</div></div>
+        <div class="rm-p"><div class="rpv">中</div><div class="rpl">发生概率</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">🛡️ 风险应对矩阵</div>
+      <div class="mtx">
+        <div class="mc mc1"><div class="mcv">规避 Avoid</div><div class="mc-d">多电池 chemistry 训练数据覆盖<br>与电科院共建实验室</div></div>
+        <div class="mc mc2"><div class="mcv">减轻 Mitigate</div><div class="mc-d">差异化定位轻量SaaS<br>快速迭代避开正面竞争</div></div>
+        <div class="mc mc3"><div class="mcv">转移 Transfer</div><div class="mc-d">购买网络安全保险<br>数据本地化部署选项</div></div>
+        <div class="mc mc4"><div class="mcv">接受 Accept</div><div class="mc-d">预留 6 个月运营资金<br>核心人才股权激励绑定</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="col c2">
+    <div class="card">
+      <div class="ch">📊 风险影响 × 概率矩阵</div>
+      <svg width="100%" height="320" viewBox="0 0 600 320">
+        <rect x="80" y="20" width="480" height="280" fill="#fafafa" stroke="#e0e0e0" rx="6"/>
+        <text x="40" y="50" font-size="11" fill="#9e9e9e" text-anchor="end">高概率</text>
+        <text x="40" y="160" font-size="11" fill="#9e9e9e" text-anchor="end">中概率</text>
+        <text x="40" y="270" font-size="11" fill="#9e9e9e" text-anchor="end">低概率</text>
+        <text x="140" y="315" font-size="11" fill="#9e9e9e" text-anchor="middle">低影响</text>
+        <text x="320" y="315" font-size="11" fill="#9e9e9e" text-anchor="middle">中影响</text>
+        <text x="500" y="315" font-size="11" fill="#9e9e9e" text-anchor="middle">高影响</text>
+        <rect x="80" y="20" width="160" height="93" fill="#fff3e0" opacity="0.5"/>
+        <rect x="240" y="20" width="160" height="93" fill="#ffcc80" opacity="0.5"/>
+        <rect x="400" y="20" width="160" height="93" fill="#ffab91" opacity="0.5"/>
+        <rect x="80" y="113" width="160" height="94" fill="#e8f5e9" opacity="0.5"/>
+        <rect x="240" y="113" width="160" height="94" fill="#fff3e0" opacity="0.5"/>
+        <rect x="400" y="113" width="160" height="94" fill="#ffcc80" opacity="0.5"/>
+        <rect x="80" y="207" width="160" height="93" fill="#e8f5e9" opacity="0.5"/>
+        <rect x="240" y="207" width="160" height="93" fill="#e8f5e9" opacity="0.5"/>
+        <rect x="400" y="207" width="160" height="93" fill="#fff3e0" opacity="0.5"/>
+        <circle cx="450" cy="55" r="18" fill="#c62828" opacity="0.85"/>
+        <text x="450" y="60" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">AI准确率</text>
+        <circle cx="380" cy="55" r="16" fill="#ef6c00" opacity="0.85"/>
+        <text x="380" y="59" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">巨头入场</text>
+        <circle cx="300" cy="150" r="16" fill="#ef6c00" opacity="0.85"/>
+        <text x="300" y="154" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">数据安全</text>
+        <circle cx="350" cy="180" r="16" fill="#ef6c00" opacity="0.85"/>
+        <text x="350" y="184" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">回款周期</text>
+        <circle cx="280" cy="240" r="14" fill="#ff9800" opacity="0.85"/>
+        <text x="280" y="244" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">人才流失</text>
+      </svg>
+    </div>
+    <div class="card">
+      <div class="ch">✅ 关键风控措施</div>
+      <div class="sw">
+        <div class="swc sws"><strong>技术</strong><br>• 多电池 chemistry 数据标注<br>• 模型持续学习机制<br>• 专家规则兜底</div>
+        <div class="swc sws"><strong>市场</strong><br>• 深耕垂直场景壁垒<br>• 先发客户粘性<br>• 轻量 SaaS 差异化</div>
+      </div>
+      <div class="sw">
+        <div class="swc sws"><strong>运营</strong><br>• 等保三级认证<br>• 本地化部署选项<br>• 数据加密传输</div>
+        <div class="swc sws"><strong>财务</strong><br>• 预付款+里程碑付款<br>• 多元化融资渠道<br>• 严格现金流管控</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

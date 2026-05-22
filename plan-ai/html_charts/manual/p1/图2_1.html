@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:40px; top:120px; width:1840px; height:920px; }
+.layer { display:flex; align-items:center; padding:14px 20px; margin:10px 0; border-radius:10px; position:relative; }
+.layer-label { width:140px; font-size:13px; font-weight:700; text-align:center; flex-shrink:0; }
+.layer-items { flex:1; display:flex; flex-wrap:wrap; gap:8px; }
+.item { padding:6px 14px; border-radius:20px; font-size:11px; font-weight:600; border:1px solid; white-space:nowrap; }
+.l1 { background:#e3f2fd; } .l1 .layer-label { color:#1565c0; } .l1 .item { background:#fff; border-color:#90caf9; color:#1565c0; }
+.l2 { background:#e8eaf6; } .l2 .layer-label { color:#3949ab; } .l2 .item { background:#fff; border-color:#9fa8da; color:#3949ab; }
+.l3 { background:#f3e5f5; } .l3 .layer-label { color:#7b1fa2; } .l3 .item { background:#fff; border-color:#ce93d8; color:#7b1fa2; }
+.l4 { background:#fff3e0; } .l4 .layer-label { color:#ef6c00; } .l4 .item { background:#fff; border-color:#ffcc80; color:#ef6c00; }
+.l5 { background:#e8f5e9; } .l5 .layer-label { color:#2e7d32; } .l5 .item { background:#fff; border-color:#a5d6a7; color:#2e7d32; }
+.l6 { background:#fce4ec; } .l6 .layer-label { color:#c62828; } .l6 .item { background:#fff; border-color:#f48fb1; color:#c62828; }
+.flow { display:flex; justify-content:center; gap:200px; margin:4px 0; font-size:20px; color:#bdbdbd; }
+.hl-box { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); background:linear-gradient(135deg,#e65100,#ff9800); color:#fff; padding:16px 28px; border-radius:12px; box-shadow:0 8px 32px rgba(230,81,0,0.3); text-align:center; z-index:100; }
+.hl-box .hb-name { font-size:18px; font-weight:700; } .hl-box .hb-desc { font-size:11px; opacity:0.85; margin-top:6px; }
+.hl-box .hb-tag { display:inline-block; margin-top:8px; padding:3px 12px; border-radius:20px; background:rgba(255,255,255,0.2); font-size:10px; }
+</style>
+</head>
+<body>
+<div class="title">图2-1 储能先知行业产业链图谱 — 电力系统全景</div>
+<div class="subtitle">INDUSTRY CHAIN · 分层=电力系统环节 · 胶囊=代表企业/技术 · 高亮=储能先知位置</div>
+<div class="canvas">
+  <div class="layer l6"><div class="layer-label">🔧 上游原材料</div><div class="layer-items"><span class="item">锂矿（天齐/赣锋）</span><span class="item">钴镍资源</span><span class="item">正负极材料（贝特瑞/当升）</span><span class="item">电解液（天赐/新宙邦）</span><span class="item">隔膜（恩捷/星源）</span><span class="item">铜箔/铝箔</span></div></div>
+  <div class="flow">⬇ ⬇ ⬇</div>
+  <div class="layer l5"><div class="layer-label">⚡ 电芯制造</div><div class="layer-items"><span class="item">宁德时代 CATL</span><span class="item">比亚迪 BYD</span><span class="item">亿纬锂能</span><span class="item">中创新航</span><span class="item">国轩高科</span><span class="item">蜂巢能源</span></div></div>
+  <div class="flow">⬇ ⬇ ⬇</div>
+  <div class="layer l4"><div class="layer-label">🔌 BMS/PCS</div><div class="layer-items"><span class="item">BMS（高特/协能）</span><span class="item">PCS（阳光/科华）</span><span class="item">EMS（南瑞/国电南自）</span><span class="item">热管理（银轮/三花）</span></div></div>
+  <div class="flow">⬇ ⬇ ⬇</div>
+  <div class="layer l3" style="position:relative; border:3px solid #7b1fa2;"><div class="layer-label">🚀 系统集成</div><div class="layer-items"><span class="item" style="background:#f3e5f5; border-color:#7b1fa2; color:#7b1fa2; font-weight:700;">🔥 储能先知</span><span class="item">阳光电源</span><span class="item">海博思创</span><span class="item">南都电源</span><span class="item">科华数据</span><span class="item">远景能源</span></div><div class="hl-box"><div class="hb-name">储能先知</div><div class="hb-desc">热失控预警 + 动态寻优调度</div><span class="hb-tag">系统集成核心位置</span></div></div>
+  <div class="flow">⬇ ⬇ ⬇</div>
+  <div class="layer l2"><div class="layer-label">🏭 EPC/投资</div><div class="layer-items"><span class="item">中国电建</span><span class="item">中国能建</span><span class="item">国家电投</span><span class="item">华能集团</span><span class="item">三峡集团</span><span class="item">宁德时代时代星云</span></div></div>
+  <div class="flow">⬇ ⬇ ⬇</div>
+  <div class="layer l1"><div class="layer-label">👥 终端应用</div><div class="layer-items"><span class="item">发电侧（光伏/风电配套）</span><span class="item">电网侧（调峰调频）</span><span class="item">工商业（峰谷套利）</span><span class="item">户用储能</span><span class="item">微电网/离网</span><span class="item">数据中心备电</span></div></div>
+  <div style="position:absolute; left:40px; bottom:30px; display:flex; gap:30px;"><span style="font-size:12px; color:#757575;">🔥 = 储能先知所在层级</span><span style="font-size:12px; color:#757575;">⬇ = 产业链价值流向</span></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.rm { display:flex; align-items:center; gap:10px; margin:8px 0; padding:12px; border-radius:8px; background:rgba(255,255,255,0.03); border-left:3px solid; }
+.rm-h { flex:1; }
+.rm-t { font-size:12px; font-weight:700; color:#fff; margin-bottom:3px; }
+.rm-d { font-size:10px; color:#90a4ae; line-height:1.5; }
+.rm-p { text-align:center; min-width:60px; }
+.rpv { font-size:18px; font-weight:700; }
+.rpl { font-size:9px; color:#78909c; margin-top:2px; }
+.r1 { border-left-color:#ff5252; } .r1 .rpv { color:#ff5252; }
+.r2 { border-left-color:#ff9100; } .r2 .rpv { color:#ff9100; }
+.r3 { border-left-color:#00e5ff; } .r3 .rpv { color:#00e5ff; }
+.chart { position:relative; height:280px; }
+.sw { display:flex; gap:8px; margin:6px 0; }
+.swc { flex:1; padding:10px; border-radius:6px; font-size:10px; line-height:1.5; }
+.sws { background:rgba(0,229,255,0.05); border:1px solid rgba(0,229,255,0.2); color:#00e5ff; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图3-2 风险分析与应对策略 — 元界智驾风控矩阵</div>
+<div class="subtitle">RISK ANALYSIS · 技术 · 市场 · 运营 · 财务 · 风险等级 × 影响程度</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">⚠️ 风险识别与评估</div>
+      <div class="rm r1"><div class="rm-h"><div class="rm-t">🔴 技术风险：仿真真实度不足</div><div class="rm-d">仿真与真实路测存在 gap，客户质疑结果可信度；新型传感器缺乏物理模型。</div></div><div class="rm-p"><div class="rpv">中</div><div class="rpl">概率</div></div></div>
+      <div class="rm r1"><div class="rm-h"><div class="rm-t">🔴 市场风险：车企自研仿真工具</div><div class="rm-d">头部车企(Tesla/蔚来/小鹏)加大自研投入，减少外部采购依赖。</div></div><div class="rm-p"><div class="rpv">中</div><div class="rpl">概率</div></div></div>
+      <div class="rm r2"><div class="rm-h"><div class="rm-t">🟠 运营风险：算力成本波动</div><div class="rm-d">GPU 供需紧张导致算力成本上涨；大客户峰值需求超出集群容量。</div></div><div class="rm-p"><div class="rpv">中</div><div class="rpl">概率</div></div></div>
+      <div class="rm r2"><div class="rm-h"><div class="rm-t">🟠 财务风险：回款周期长</div><div class="rm-d">车企客户账期 6-12 个月；Pre-A 融资不及预期影响扩张节奏。</div></div><div class="rm-p"><div class="rpv">中</div><div class="rpl">概率</div></div></div>
+      <div class="rm r3"><div class="rm-h"><div class="rm-t">🟡 人才风险：仿真人才稀缺</div><div class="rm-d">自动驾驶仿真工程师供不应求；核心算法人员被大厂挖角。</div></div><div class="rm-p"><div class="rpv">低</div><div class="rpl">概率</div></div></div>
+    </div>
+    <div class="card">
+      <div class="ch">🛡️ 应对策略</div>
+      <div style="font-size:11px;color:#90a4ae;line-height:1.8;">
+        <div style="margin:6px 0;padding:8px;border-radius:6px;background:rgba(255,82,82,0.05);border-left:2px solid #ff5252;"><strong style="color:#ff5252;">仿真真实度：</strong>与路测数据闭环验证，发布仿真-真实一致性报告，参与行业标准制定</div>
+        <div style="margin:6px 0;padding:8px;border-radius:6px;background:rgba(255,145,0,0.05);border-left:2px solid #ff9100;"><strong style="color:#ff9100;">车企自研：</strong>聚焦中小客户+初创公司，提供车企自研不具备的AI生成能力</div>
+        <div style="margin:6px 0;padding:8px;border-radius:6px;background:rgba(0,229,255,0.05);border-left:2px solid #00e5ff;"><strong style="color:#00e5ff;">算力成本：</strong>多云策略+弹性伸缩+长期合约锁价；引导客户使用非峰值时段</div>
+        <div style="margin:6px 0;padding:8px;border-radius:6px;background:rgba(0,230,118,0.05);border-left:2px solid #00e676;"><strong style="color:#00e676;">人才流失：</strong>核心人员股权激励+技术合伙人制度+高校联合培养</div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">📊 风险影响 × 概率矩阵</div>
+      <svg width="100%" height="100%" viewBox="0 0 500 280">
+        <rect x="60" y="20" width="420" height="240" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.1)" rx="6"/>
+        <text x="35" y="45" font-size="10" fill="#78909c" text-anchor="end">高概率</text>
+        <text x="35" y="140" font-size="10" fill="#78909c" text-anchor="end">中概率</text>
+        <text x="35" y="235" font-size="10" fill="#78909c" text-anchor="end">低概率</text>
+        <text x="110" y="275" font-size="10" fill="#78909c" text-anchor="middle">低影响</text>
+        <text x="270" y="275" font-size="10" fill="#78909c" text-anchor="middle">中影响</text>
+        <text x="430" y="275" font-size="10" fill="#78909c" text-anchor="middle">高影响</text>
+        <rect x="60" y="20" width="140" height="80" fill="rgba(255,145,0,0.1)"/>
+        <rect x="200" y="20" width="140" height="80" fill="rgba(255,82,82,0.1)"/>
+        <rect x="340" y="20" width="140" height="80" fill="rgba(255,82,82,0.15)"/>
+        <rect x="60" y="100" width="140" height="80" fill="rgba(0,230,118,0.05)"/>
+        <rect x="200" y="100" width="140" height="80" fill="rgba(255,145,0,0.1)"/>
+        <rect x="340" y="100" width="140" height="80" fill="rgba(255,82,82,0.1)"/>
+        <rect x="60" y="180" width="140" height="80" fill="rgba(0,230,118,0.05)"/>
+        <rect x="200" y="180" width="140" height="80" fill="rgba(0,230,118,0.05)"/>
+        <rect x="340" y="180" width="140" height="80" fill="rgba(255,145,0,0.1)"/>
+        <circle cx="380" cy="50" r="16" fill="#ff5252" opacity="0.85"/>
+        <text x="380" y="55" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">车企自研</text>
+        <circle cx="280" cy="55" r="16" fill="#ff5252" opacity="0.85"/>
+        <text x="280" y="55" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">真实度</text>
+        <circle cx="280" cy="130" r="14" fill="#ff9100" opacity="0.85"/>
+        <text x="280" y="134" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">算力成本</text>
+        <circle cx="380" cy="130" r="14" fill="#ff9100" opacity="0.85"/>
+        <text x="380" y="134" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">回款周期</text>
+        <circle cx="240" cy="210" r="12" fill="#00e5ff" opacity="0.85"/>
+        <text x="240" y="214" text-anchor="middle" fill="#0a0a1a" font-size="8" font-weight="700">人才</text>
+      </svg>
+    </div>
+    <div class="card">
+      <div class="ch">✅ 关键风控措施</div>
+      <div class="sw">
+        <div class="swc sws"><strong>技术</strong><br>• 仿真-真实一致性验证<br>• 模型持续迭代<br>• 开源+闭源双轨</div>
+        <div class="swc sws"><strong>市场</strong><br>• 差异化AI能力<br>• 中小客户深耕<br>• 生态绑定</div>
+      </div>
+      <div class="sw">
+        <div class="swc sws"><strong>运营</strong><br>• 多云弹性架构<br>• 算力成本优化<br>• 客户分时段引导</div>
+        <div class="swc sws"><strong>财务</strong><br>• 预付款+里程碑<br>• 多元融资渠道<br>• 现金流预警</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

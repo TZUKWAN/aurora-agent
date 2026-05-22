@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.quad { position:relative; height:300px; border:1px solid rgba(255,255,255,0.1); border-radius:10px; background:rgba(255,255,255,0.02); }
+.ql { position:absolute; font-size:11px; color:#78909c; font-weight:700; }
+.qc { position:absolute; width:110px; padding:10px; border-radius:8px; text-align:center; font-size:11px; font-weight:700; }
+.cm { margin:10px 0; padding:12px; border-radius:8px; background:rgba(255,255,255,0.03); border-left:3px solid; }
+.cmt { font-size:12px; font-weight:700; margin-bottom:4px; }
+.cmd { font-size:11px; color:#90a4ae; line-height:1.5; }
+.sw { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.sw-c { padding:12px; border-radius:8px; font-size:11px; line-height:1.6; }
+.sw-s { background:rgba(0,229,255,0.05); border:1px solid rgba(0,229,255,0.2); color:#00e5ff; }
+.sw-w { background:rgba(124,77,255,0.05); border:1px solid rgba(124,77,255,0.2); color:#7c4dff; }
+.sw-o { background:rgba(0,230,118,0.05); border:1px solid rgba(0,230,118,0.2); color:#00e676; }
+.sw-t { background:rgba(255,82,82,0.05); border:1px solid rgba(255,82,82,0.2); color:#ff5252; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-17 市场竞争分析 — 自动驾驶仿真赛道格局</div>
+<div class="subtitle">COMPETITIVE LANDSCAPE · 直接竞品 · 间接竞品 · 差异化定位 · SWOT</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">🎯 竞争矩阵</div>
+      <div class="quad">
+        <span class="ql" style="left:8px;top:6px;">低价格</span>
+        <span class="ql" style="right:8px;top:6px;">高价格</span>
+        <span class="ql" style="left:8px;bottom:6px;">弱技术</span>
+        <span class="ql" style="right:8px;bottom:6px;">强技术</span>
+        <div style="position:absolute;left:50%;top:10px;bottom:10px;width:1px;background:rgba(255,255,255,0.1);"></div>
+        <div style="position:absolute;left:10px;right:10px;top:50%;height:1px;background:rgba(255,255,255,0.1);"></div>
+        <div class="qc" style="right:8%;top:8%;background:rgba(0,229,255,0.15);border:1px solid #00e5ff;color:#00e5ff;">元界智驾<br><span style="font-size:9px;font-weight:400;">AI SaaS</span></div>
+        <div class="qc" style="right:20%;top:35%;background:rgba(120,144,156,0.1);border:1px solid #78909c;color:#78909c;">VTD<br><span style="font-size:9px;font-weight:400;">传统龙头</span></div>
+        <div class="qc" style="right:8%;top:55%;background:rgba(120,144,156,0.1);border:1px solid #78909c;color:#78909c;">PreScan<br><span style="font-size:9px;font-weight:400;">西门子</span></div>
+        <div class="qc" style="left:8%;bottom:12%;background:rgba(120,144,156,0.1);border:1px solid #78909c;color:#78909c;">CARLA<br><span style="font-size:9px;font-weight:400;">开源</span></div>
+        <div class="qc" style="left:25%;bottom:30%;background:rgba(120,144,156,0.1);border:1px solid #78909c;color:#78909c;">游戏引擎<br><span style="font-size:9px;font-weight:400;">可视化</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">⚔️ 竞品对比</div>
+      <div class="cm" style="border-left-color:#00e5ff;"><div class="cmt" style="color:#00e5ff;">元界智驾 — AI 原生仿真平台</div><div class="cmd">✓ AI 场景生成 + Corner Case 挖掘  ✓ 轻量化 SaaS 快速部署<br>✓ 中文本土支持 + 本土合规  ✗ 品牌知名度待建立<br>价格: ¥5-80万/年 | 定位: 中小客户 + 初创公司首选</div></div>
+      <div class="cm" style="border-left-color:#78909c;"><div class="cmt" style="color:#78909c;">VTD / Hexagon — 传统仿真龙头</div><div class="cmd">✓ 行业标杆、功能全面  ✗ 价格昂贵、部署复杂、学习曲线陡峭<br>价格: $50-200万/年 | 定位: 大型车企、传统 Tier1</div></div>
+      <div class="cm" style="border-left-color:#78909c;"><div class="cmt" style="color:#78909c;">CARLA — 开源仿真平台</div><div class="cmd">✓ 免费开源、社区活跃  ✗ 需大量二次开发、无企业支持<br>价格: 免费 | 定位: 高校、个人研究者</div></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">📋 SWOT 分析</div>
+      <div class="sw">
+        <div class="sw-c sw-s"><strong>💪 优势 S</strong><br>• AI 场景生成技术领先<br>• SaaS 轻量化部署<br>• 价格竞争力强<br>• 本土合规支持</div>
+        <div class="sw-c sw-w"><strong>😰 劣势 W</strong><br>• 品牌知名度低<br>• 大客户信任建立慢<br>• 场景库积累时间较短<br>• 资金规模有限</div>
+        <div class="sw-c sw-o"><strong>🚀 机会 O</strong><br>• 自动驾驶量产爆发<br>• 仿真测试法规强制化<br>• 国产替代趋势<br>• 中小客户市场空白</div>
+        <div class="sw-c sw-t"><strong>⚠️ 威胁 T</strong><br>• 外资巨头降价竞争<br>• 开源方案生态壮大<br>• 车企自研仿真工具<br>• 技术迭代风险</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

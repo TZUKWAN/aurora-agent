@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0f0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#d500f9; letter-spacing:2px; text-shadow:0 0 20px rgba(213,0,249,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#7c4dff; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(213,0,249,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(213,0,249,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; height:100%; }
+.mod { border:1px solid rgba(213,0,249,0.2); border-radius:14px; padding:16px 18px; background:rgba(255,255,255,0.02); }
+.mh { font-size:14px; font-weight:700; color:#d500f9; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.api { margin:5px 0; padding:8px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border-left:2px solid #d500f9; font-size:10px; }
+.an { font-family:monospace; font-size:9px; color:#00e5ff; }
+.ad { font-size:9px; color:#9575cd; margin-top:2px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-5 模块接口关系 — API 调用拓扑</div>
+<div class="subtitle">MODULE INTERFACES · RESTful · gRPC · WebSocket · 微服务通信</div>
+<div class="canvas">
+  <div class="grid">
+    <div class="mod">
+      <div class="mh">🌌 数字孪生服务</div>
+      <div class="api"><div class="an">POST /api/v1/twin/rebuild</div><div class="ad">城市级重建：输入传感器数据，输出三维孪生模型</div></div>
+      <div class="api"><div class="an">GET /api/v1/twin/{cityId}</div><div class="ad">孪生查询：获取指定城市数字孪生状态</div></div>
+      <div class="api"><div class="an">POST /api/v1/twin/sync</div><div class="ad">实时同步：物理世界状态同步到孪生世界</div></div>
+      <div class="api"><div class="an">WS /ws/twin/update</div><div class="ad">增量推送：孪生世界动态更新实时推送</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">⚡ 极端场景服务</div>
+      <div class="api"><div class="an">POST /api/v1/extreme/generate</div><div class="ad">极端场景生成：AI挖掘算法薄弱点场景</div></div>
+      <div class="api"><div class="an">POST /api/v1/extreme/explore</div><div class="ad">边界探索：强化学习探索失效临界点</div></div>
+      <div class="api"><div class="an">GET /api/v1/extreme/coverage</div><div class="ad">覆盖分析：极端场景覆盖度统计报告</div></div>
+      <div class="api"><div class="an">POST /api/v1/extreme/batch</div><div class="ad">批量生成：大规模极端场景组合生成</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">🧪 虚实融合验证服务</div>
+      <div class="api"><div class="an">POST /api/v1/fusion/verify</div><div class="ad">一致性验证：仿真结果与真实路测对比</div></div>
+      <div class="api"><div class="an">POST /api/v1/fusion/calibrate</div><div class="ad">在线校准：孪生模型参数自适应校准</div></div>
+      <div class="api"><div class="an">GET /api/v1/fusion/gap</div><div class="ad">差异量化：仿真-真实差异度量报告</div></div>
+      <div class="api"><div class="an">POST /api/v1/fusion/deploy</div><div class="ad">部署验证：算法OTA前最终验证</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">🎥 感知仿真服务</div>
+      <div class="api"><div class="an">POST /api/v1/sensor/camera</div><div class="ad">相机仿真：物理级光线追踪渲染</div></div>
+      <div class="api"><div class="an">POST /api/v1/sensor/lidar</div><div class="ad">LiDAR仿真：波动光学点云生成</div></div>
+      <div class="api"><div class="an">POST /api/v1/sensor/radar</div><div class="ad">Radar仿真：电磁传播建模</div></div>
+      <div class="api"><div class="an">POST /api/v1/sensor/fusion</div><div class="ad">多传感器时空同步融合输出</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">🚶 智能体行为服务</div>
+      <div class="api"><div class="an">POST /api/v1/agent/pedestrian</div><div class="ad">行人行为：LLM驱动情绪化决策</div></div>
+      <div class="api"><div class="an">POST /api/v1/agent/vehicle</div><div class="ad">车辆行为：社会驾驶风格建模</div></div>
+      <div class="api"><div class="an">POST /api/v1/agent/traffic</div><div class="ad">交通流：城市级大规模车流模拟</div></div>
+      <div class="api"><div class="an">POST /api/v1/agent/interact</div><div class="ad">交互模型：多智能体博弈决策</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">☁️ 资源调度服务</div>
+      <div class="api"><div class="an">POST /api/v1/job/submit</div><div class="ad">任务提交：大规模仿真任务队列</div></div>
+      <div class="api"><div class="an">POST /api/v1/resource/scale</div><div class="ad">弹性扩缩容：GPU集群自动伸缩</div></div>
+      <div class="api"><div class="an">GET /api/v1/resource/usage</div><div class="ad">资源监控：算力/存储/网络实时监控</div></div>
+      <div class="api"><div class="an">POST /api/v1/render/request</div><div class="ad">渲染请求：UE5实时渲染任务分发</div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

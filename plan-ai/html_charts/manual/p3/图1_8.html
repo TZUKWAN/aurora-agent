@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0f0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#d500f9; letter-spacing:2px; text-shadow:0 0 20px rgba(213,0,249,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#7c4dff; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(213,0,249,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(213,0,249,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(213,0,249,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#d500f9; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.sm { display:flex; flex-direction:column; align-items:center; gap:12px; padding:16px; }
+.st { padding:12px 24px; border-radius:12px; font-size:13px; font-weight:700; color:#0f0a1a; text-align:center; }
+.s1 { background:linear-gradient(135deg,#d500f9,#aa00ff); }
+.s2 { background:linear-gradient(135deg,#00e5ff,#0091ea); }
+.s3 { background:linear-gradient(135deg,#ffea00,#ffab00); }
+.s4 { background:linear-gradient(135deg,#ff5252,#d50000); }
+.s5 { background:linear-gradient(135deg,#7c4dff,#651fff); }
+.tran { display:flex; align-items:center; gap:8px; }
+.tarr { font-size:18px; }
+.tcond { font-size:10px; color:#9575cd; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:10px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-8 系统状态机 — 数字孪生任务生命周期</div>
+<div class="subtitle">STATE MACHINE · 任务提交 → 孪生加载 → 场景生成 → 仿真执行 → 一致性验证 → 部署</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">🔄 数字孪生任务状态机</div>
+      <div class="sm">
+        <div class="st s1">CREATED<br><span style="font-size:10px;font-weight:400;">任务已创建</span></div>
+        <div class="tran"><div class="tarr" style="color:#d500f9;">↓</div><div class="tcond">参数校验通过</div></div>
+        <div class="st s2">TWIN_LOADING<br><span style="font-size:10px;font-weight:400;">孪生模型加载中</span></div>
+        <div class="tran"><div class="tarr" style="color:#00e5ff;">↓</div><div class="tcond">城市级模型就绪</div></div>
+        <div class="st s3">SCENE_GENERATING<br><span style="font-size:10px;font-weight:400;">极端场景生成中</span></div>
+        <div class="tran"><div class="tarr" style="color:#ffea00;">↓</div><div class="tcond">场景库构建完成</div></div>
+        <div class="st s4">SIMULATING<br><span style="font-size:10px;font-weight:400;">仿真执行中</span></div>
+        <div style="display:flex;gap:40px;">
+          <div class="tran"><div class="tarr" style="color:#ff5252;">↙</div><div class="tcond">仿真成功</div></div>
+          <div class="tran"><div class="tarr" style="color:#ff5252;">↘</div><div class="tcond">仿真失败</div></div>
+        </div>
+        <div style="display:flex;gap:40px;">
+          <div class="st s5">FUSION_VERIFY<br><span style="font-size:10px;font-weight:400;">虚实融合验证</span></div>
+          <div class="st s4" style="background:linear-gradient(135deg,#ff5252,#d50000);">FAILED<br><span style="font-size:10px;font-weight:400;">执行失败</span></div>
+        </div>
+        <div class="tran" style="justify-content:center;"><div class="tarr" style="color:#7c4dff;">↓</div><div class="tcond">一致性验证通过</div></div>
+        <div class="st s1" style="background:linear-gradient(135deg,#7c4dff,#651fff);color:#fff;">DEPLOY_READY<br><span style="font-size:10px;font-weight:400;">待部署</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">📋 状态转换规则</div>
+      <div style="font-size:12px;color:#b39ddb;line-height:1.8;">
+        <div style="margin:6px 0;padding:10px;border-radius:8px;background:rgba(213,0,249,0.05);border-left:3px solid #d500f9;"><strong style="color:#d500f9;">CREATED → TWIN_LOADING</strong><br>任务参数校验通过，启动城市级孪生模型加载</div>
+        <div style="margin:6px 0;padding:10px;border-radius:8px;background:rgba(0,229,255,0.05);border-left:3px solid #00e5ff;"><strong style="color:#00e5ff;">TWIN_LOADING → SCENE_GENERATING</strong><br>NeRF模型加载完成，开始AI极端场景生成</div>
+        <div style="margin:6px 0;padding:10px;border-radius:8px;background:rgba(255,234,0,0.05);border-left:3px solid #ffea00;"><strong style="color:#ffea00;">SCENE_GENERATING → SIMULATING</strong><br>场景库构建完成，启动GPU集群并行仿真</div>
+        <div style="margin:6px 0;padding:10px;border-radius:8px;background:rgba(255,82,82,0.05);border-left:3px solid #ff5252;"><strong style="color:#ff5252;">SIMULATING → FUSION_VERIFY</strong><br>仿真执行完毕，进入虚实一致性验证阶段</div>
+        <div style="margin:6px 0;padding:10px;border-radius:8px;background:rgba(124,77,255,0.05);border-left:3px solid #7c4dff;"><strong style="color:#7c4dff;">FUSION_VERIFY → DEPLOY_READY</strong><br>一致性验证通过，算法准备OTA部署</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

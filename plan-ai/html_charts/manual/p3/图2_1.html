@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0f0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#d500f9; letter-spacing:2px; text-shadow:0 0 20px rgba(213,0,249,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#7c4dff; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(213,0,249,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(213,0,249,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.flow { display:flex; align-items:stretch; gap:10px; height:100%; padding:0 20px; }
+.stage { flex:1; display:flex; flex-direction:column; gap:8px; }
+.sh { text-align:center; padding:10px; border-radius:10px; font-size:13px; font-weight:700; color:#0f0a1a; }
+.s1 { background:linear-gradient(135deg,#d500f9,#aa00ff); }
+.s2 { background:linear-gradient(135deg,#00e5ff,#0091ea); }
+.s3 { background:linear-gradient(135deg,#ffea00,#ffab00); }
+.s4 { background:linear-gradient(135deg,#ff5252,#d50000); }
+.s5 { background:linear-gradient(135deg,#7c4dff,#651fff); }
+.si { padding:10px; border-radius:8px; font-size:10px; color:#d1c4e9; border:1px solid rgba(213,0,249,0.15); background:rgba(255,255,255,0.03); line-height:1.5; }
+.si strong { color:#fff; }
+.arr { display:flex; align-items:center; justify-content:center; font-size:22px; color:#d500f9; }
+.kpi { position:absolute; bottom:30px; left:60px; right:60px; display:flex; gap:16px; }
+.kc { flex:1; text-align:center; padding:12px; border-radius:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(213,0,249,0.15); }
+.kv { font-size:20px; font-weight:700; color:#d500f9; }
+.kl { font-size:10px; color:#7c4dff; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-1 业务流程 — 元驾驭域数字孪生服务</div>
+<div class="subtitle">BUSINESS PROCESS · 需求对接 → 孪生重建 → 场景定制 → 仿真验证 → 部署运营</div>
+<div class="canvas">
+  <div class="flow">
+    <div class="stage">
+      <div class="sh s1">📋 需求对接</div>
+      <div class="si"><strong>城市选定</strong><br>客户指定目标城市/路段</div>
+      <div class="si"><strong>算法接入</strong><br>ROS2/Apollo接口对接</div>
+      <div class="si"><strong>验证目标</strong><br>极端场景覆盖度定义</div>
+    </div>
+    <div class="arr">➤</div>
+    <div class="stage">
+      <div class="sh s2">🏗️ 孪生重建</div>
+      <div class="si"><strong>数据采集</strong><br>多源传感器数据汇聚</div>
+      <div class="si"><strong>NeRF重建</strong><br>城市级三维建模</div>
+      <div class="si"><strong>动态同步</strong><br>实时交通流映射</div>
+    </div>
+    <div class="arr">➤</div>
+    <div class="stage">
+      <div class="sh s3">⚡ 场景定制</div>
+      <div class="si"><strong>极端挖掘</strong><br>AI边界探索算法</div>
+      <div class="si"><strong>场景泛化</strong><br>参数化变体生成</div>
+      <div class="si"><strong>社会化建模</strong><br>LLM驱动行为模拟</div>
+    </div>
+    <div class="arr">➤</div>
+    <div class="stage">
+      <div class="sh s4">🧪 仿真验证</div>
+      <div class="si"><strong>并行仿真</strong><br>GPU集群万级并发</div>
+      <div class="si"><strong>一致性校准</strong><br>仿真-真实差异量化</div>
+      <div class="si"><strong>安全评估</strong><br>SOTIF合规检查</div>
+    </div>
+    <div class="arr">➤</div>
+    <div class="stage">
+      <div class="sh s5">🚀 部署运营</div>
+      <div class="si"><strong>OTA推送</strong><br>验证通过算法上车</div>
+      <div class="si"><strong>持续监控</strong><br>真实数据回流孪生</div>
+      <div class="si"><strong>模型进化</strong><br>在线学习更新</div>
+    </div>
+  </div>
+  <div class="kpi">
+    <div class="kc"><div class="kv">7天</div><div class="kl">孪生重建周期</div></div>
+    <div class="kc"><div class="kv" style="color:#00e5ff">1000万+</div><div class="kl">孪生场景规模</div></div>
+    <div class="kc"><div class="kv" style="color:#ffea00">99.9%</div><div class="kl">极端场景覆盖</div></div>
+    <div class="kc"><div class="kv" style="color:#ff5252">5000×</div><div class="kl">效率提升</div></div>
+    <div class="kc"><div class="kv" style="color:#7c4dff">98%</div><div class="kl">虚实一致性</div></div>
+  </div>
+</div>
+</body>
+</html>

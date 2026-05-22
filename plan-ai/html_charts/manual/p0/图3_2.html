@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+
+/* 版本发布里程碑风格 */
+.timeline {
+  display:flex; align-items:flex-start;
+  gap:0; padding-top:60px;
+}
+
+.milestone {
+  flex:1; position:relative;
+  padding:0 16px;
+}
+.milestone::before {
+  content:""; position:absolute; left:0; right:0; top:24px;
+  height:4px; background:#e3eaf5;
+}
+
+.m-dot {
+  position:relative; width:52px; height:52px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; margin:0 auto 20px;
+  z-index:10; border:4px solid #fff;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.m-card {
+  background:#fff; border:2px solid;
+  border-radius:12px; padding:16px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.06);
+}
+.m-phase { font-size:12px; font-weight:700; margin-bottom:6px; }
+.m-amount { font-size:24px; font-weight:700; margin:8px 0; }
+.m-desc { font-size:11px; color:#78909c; line-height:1.5; }
+.m-tags { margin-top:10px; display:flex; flex-wrap:wrap; gap:6px; }
+.m-tag { padding:3px 10px; border-radius:10px; font-size:9px; font-weight:700; }
+
+/* 配色 */
+.m1 .m-dot { background:#78909c; }
+.m1 .m-card { border-color:#78909c; }
+.m1 .m-phase { color:#78909c; }
+.m1 .m-amount { color:#78909c; }
+.m1 .m-tag { background:#eceff1; color:#78909c; }
+
+.m2 .m-dot { background:#3949ab; }
+.m2 .m-card { border-color:#3949ab; }
+.m2 .m-phase { color:#3949ab; }
+.m2 .m-amount { color:#3949ab; }
+.m2 .m-tag { background:#e8eaf6; color:#3949ab; }
+
+.m3 .m-dot { background:#00838f; }
+.m3 .m-card { border-color:#00838f; }
+.m3 .m-phase { color:#00838f; }
+.m3 .m-amount { color:#00838f; }
+.m3 .m-tag { background:#e0f7fa; color:#00838f; }
+
+.m4 .m-dot { background:#2e7d32; }
+.m4 .m-card { border-color:#2e7d32; }
+.m4 .m-phase { color:#2e7d32; }
+.m4 .m-amount { color:#2e7d32; }
+.m4 .m-tag { background:#e8f5e9; color:#2e7d32; }
+
+.m5 .m-dot { background:#ef6c00; }
+.m5 .m-card { border-color:#ef6c00; }
+.m5 .m-phase { color:#ef6c00; }
+.m5 .m-amount { color:#ef6c00; }
+.m5 .m-tag { background:#fff3e0; color:#ef6c00; }
+
+/* 底部指标 */
+.bottom-metrics {
+  position:absolute; left:0; right:0; bottom:30px;
+  display:flex; justify-content:center; gap:40px;
+}
+.bm-item { text-align:center; }
+.bm-val { font-size:28px; font-weight:700; color:#1a237e; }
+.bm-label { font-size:11px; color:#78909c; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="title">图3-2 云跃引擎融资里程碑 — 版本发布路线</div>
+<div class="subtitle">FINANCING MILESTONES · 像软件版本发布一样标记融资节点 · 每个版本有明确的 deliverables</div>
+
+<div class="canvas">
+  <div class="timeline">
+    <!-- v0.1 种子轮 -->
+    <div class="milestone m1">
+      <div class="m-dot">🌱</div>
+      <div class="m-card">
+        <div class="m-phase">v0.1 · 种子轮</div>
+        <div class="m-amount">¥200万</div>
+        <div class="m-desc">
+          时间: 2023 Q1<br>
+          估值: ¥1000万<br>
+          出让股权: 20%
+        </div>
+        <div class="m-tags">
+          <span class="m-tag">MVP 验证</span>
+          <span class="m-tag">核心团队</span>
+          <span class="m-tag">天使投资人</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- v0.5 天使轮 -->
+    <div class="milestone m2">
+      <div class="m-dot">🚀</div>
+      <div class="m-card">
+        <div class="m-phase">v0.5 · 天使轮</div>
+        <div class="m-amount">¥800万</div>
+        <div class="m-desc">
+          时间: 2023 Q4<br>
+          估值: ¥4000万<br>
+          出让股权: 20%
+        </div>
+        <div class="m-tags">
+          <span class="m-tag">产品迭代</span>
+          <span class="m-tag">种子客户</span>
+          <span class="m-tag">VC 领投</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- v1.0 A轮 -->
+    <div class="milestone m3">
+      <div class="m-dot">⭐</div>
+      <div class="m-card">
+        <div class="m-phase">v1.0 · A轮 (当前)</div>
+        <div class="m-amount">¥3000万</div>
+        <div class="m-desc">
+          时间: 2024 Q4<br>
+          估值: ¥1.5亿<br>
+          出让股权: 20%
+        </div>
+        <div class="m-tags">
+          <span class="m-tag">规模化</span>
+          <span class="m-tag">市场扩张</span>
+          <span class="m-tag">顶级 VC</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2.0 B轮 -->
+    <div class="milestone m4">
+      <div class="m-dot">🏆</div>
+      <div class="m-card">
+        <div class="m-phase">v2.0 · B轮 (规划)</div>
+        <div class="m-amount">¥1亿</div>
+        <div class="m-desc">
+          时间: 2025 Q4<br>
+          估值: ¥5亿<br>
+          出让股权: 20%
+        </div>
+        <div class="m-tags">
+          <span class="m-tag">行业标杆</span>
+          <span class="m-tag">生态构建</span>
+          <span class="m-tag">战略投资</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- v3.0 C轮/上市 -->
+    <div class="milestone m5">
+      <div class="m-dot">🌐</div>
+      <div class="m-card">
+        <div class="m-phase">v3.0 · C轮/IPO</div>
+        <div class="m-amount">¥3亿+</div>
+        <div class="m-desc">
+          时间: 2027+<br>
+          估值: ¥20亿+<br>
+          目标: 科创板/港股
+        </div>
+        <div class="m-tags">
+          <span class="m-tag">全球化</span>
+          <span class="m-tag">上市准备</span>
+          <span class="m-tag">PE/战略</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-metrics">
+    <div class="bm-item">
+      <div class="bm-val">¥1.2亿</div>
+      <div class="bm-label">总融资额 (计划)</div>
+    </div>
+    <div class="bm-item">
+      <div class="bm-val">4轮</div>
+      <div class="bm-label">融资阶段</div>
+    </div>
+    <div class="bm-item">
+      <div class="bm-val">60%</div>
+      <div class="bm-label">创始人持股 (IPO前)</div>
+    </div>
+    <div class="bm-item">
+      <div class="bm-val">20%</div>
+      <div class="bm-label">期权池预留</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

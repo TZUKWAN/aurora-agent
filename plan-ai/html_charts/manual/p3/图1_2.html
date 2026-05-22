@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0f0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#d500f9; letter-spacing:2px; text-shadow:0 0 20px rgba(213,0,249,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#7c4dff; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(213,0,249,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(213,0,249,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(213,0,249,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#d500f9; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.layer { margin:8px 0; padding:14px; border-radius:10px; border-left:3px solid; }
+.lh { font-size:13px; font-weight:700; color:#fff; margin-bottom:6px; }
+.ld { font-size:11px; color:#b39ddb; line-height:1.6; }
+.l1 { border-left-color:#d500f9; background:rgba(213,0,249,0.05); }
+.l2 { border-left-color:#00e5ff; background:rgba(0,229,255,0.05); }
+.l3 { border-left-color:#ffea00; background:rgba(255,234,0,0.05); }
+.l4 { border-left-color:#ff5252; background:rgba(255,82,82,0.05); }
+.flow { display:flex; align-items:center; gap:8px; margin:8px 0; }
+.fbox { flex:1; padding:12px 14px; border-radius:8px; font-size:11px; color:#fff; border:1px solid; }
+.fbox strong { display:block; margin-bottom:4px; font-size:12px; }
+.f1 { background:rgba(213,0,249,0.08); border-color:#d500f9; }
+.f2 { background:rgba(0,229,255,0.08); border-color:#00e5ff; }
+.f3 { background:rgba(255,234,0,0.08); border-color:#ffea00; color:#fff; }
+.f4 { background:rgba(255,82,82,0.08); border-color:#ff5252; }
+.farr { font-size:18px; color:#d500f9; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-2 技术架构分层 — 元宇宙级仿真引擎栈</div>
+<div class="subtitle">TECH STACK · 物理世界 · 数字孪生 · 场景生成 · 算法验证 · 虚实融合</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">🏗️ 技术架构分层</div>
+      <div class="layer l4"><div class="lh">⑤ 应用与生态层</div><div class="ld">Web 元宇宙门户 · VR/AR 沉浸式体验 · 开发者平台 · 场景交易市场 · 第三方插件生态</div></div>
+      <div class="layer l3"><div class="lh">④ 算法验证层</div><div class="ld">端到端算法测试 · 数字孪生对比验证 · 安全边界探索 · 性能退化分析 · 合规报告生成</div></div>
+      <div class="layer l2"><div class="lh">③ 场景生成层</div><div class="ld">极端场景挖掘 · 对抗生成网络 · 参数化世界生成 · 交通流社会模型 · 天气光照动态系统</div></div>
+      <div class="layer l1"><div class="lh">② 数字孪生层</div><div class="ld">城市级高精度建模 · 实时传感器镜像 · 车辆动力学孪生 · 环境物理仿真 · 语义级世界理解</div></div>
+      <div class="layer l1"><div class="lh">① 基础设施层</div><div class="ld">GPU 超算集群 · 分布式存储 · 实时渲染引擎 · 5G/MEC 边缘计算 · 区块链场景确权</div></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">🔄 虚实融合数据闭环</div>
+      <div class="flow"><div class="fbox f1"><strong>物理世界采集</strong>路测车队+众包数据+交通监控</div><div class="farr">→</div><div class="fbox f2"><strong>数字孪生重建</strong>AI自动建图+语义理解+动态更新</div></div>
+      <div class="flow"><div class="fbox f2"><strong>孪生世界推演</strong>极端场景生成+边界条件探索</div><div class="farr">→</div><div class="fbox f3"><strong>算法虚拟验证</strong>在数字孪生中测试算法极限</div></div>
+      <div class="flow"><div class="fbox f3"><strong>虚实对比校准</strong>仿真结果vs真实路测一致性验证</div><div class="farr">→</div><div class="fbox f4"><strong>物理世界部署</strong>通过验证的算法OTA上车</div></div>
+      <div class="flow"><div class="fbox f4"><strong>持续监控反馈</strong>真实运行数据回流孪生系统</div><div class="farr">→</div><div class="fbox f1"><strong>孪生模型进化</strong>在线学习更新数字孪生参数</div></div>
+    </div>
+    <div class="card">
+      <div class="ch">⚡ 核心技术指标</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="text-align:center;padding:12px;background:rgba(213,0,249,0.05);border-radius:8px;border:1px solid rgba(213,0,249,0.2);"><div style="font-size:22px;font-weight:700;color:#d500f9;">1000万+</div><div style="font-size:10px;color:#9575cd;margin-top:4px;">数字孪生场景</div></div>
+        <div style="text-align:center;padding:12px;background:rgba(0,229,255,0.05);border-radius:8px;border:1px solid rgba(0,229,255,0.2);"><div style="font-size:22px;font-weight:700;color:#00e5ff;">99.9%</div><div style="font-size:10px;color:#9575cd;margin-top:4px;">极端场景覆盖</div></div>
+        <div style="text-align:center;padding:12px;background:rgba(255,234,0,0.05);border-radius:8px;border:1px solid rgba(255,234,0,0.2);"><div style="font-size:22px;font-weight:700;color:#ffea00;">5000×</div><div style="font-size:10px;color:#9575cd;margin-top:4px;">测试效率提升</div></div>
+        <div style="text-align:center;padding:12px;background:rgba(255,82,82,0.05);border-radius:8px;border:1px solid rgba(255,82,82,0.2);"><div style="font-size:22px;font-weight:700;color:#ff5252;">&lt;30ms</div><div style="font-size:10px;color:#9575cd;margin-top:4px;">单帧渲染耗时</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

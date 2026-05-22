@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.grid { display:grid; grid-template-columns: 1fr 1fr; gap:24px; height:100%; }
+.card { background:#fff; border:3px solid; border-radius:14px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.06); display:flex; flex-direction:column; }
+.ch { padding:16px 20px; color:#fff; display:flex; align-items:center; gap:14px; }
+.ca { width:52px; height:52px; border-radius:12px; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-size:24px; }
+.ci { flex:1; }
+.cn { font-size:16px; font-weight:700; }
+.cr { font-size:11px; opacity:0.9; margin-top:2px; }
+.ct { padding:4px 12px; border-radius:20px; background:rgba(255,255,255,0.2); font-size:10px; }
+.cb { padding:18px 20px; flex:1; }
+.cs { margin:10px 0; }
+.cst { font-size:11px; font-weight:700; color:#757575; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+.ci2 { display:flex; align-items:flex-start; gap:8px; font-size:12px; color:#424242; margin:6px 0; line-height:1.5; }
+.ci2::before { content:"→"; color:#e65100; font-weight:700; }
+.cm { display:flex; gap:10px; margin-top:auto; padding-top:14px; border-top:1px dashed #e0e0e0; }
+.cmi { flex:1; text-align:center; padding:8px; border-radius:8px; }
+.cmv { font-size:18px; font-weight:700; }
+.cml { font-size:9px; color:#757575; margin-top:4px; }
+.p1 { border-color:#e65100; } .p1 .ch { background:linear-gradient(135deg,#e65100,#ff9800); } .p1 .cmi { background:#fff3e0; } .p1 .cmv { color:#e65100; }
+.p2 { border-color:#00838f; } .p2 .ch { background:linear-gradient(135deg,#00838f,#00acc1); } .p2 .cmi { background:#e0f7fa; } .p2 .cmv { color:#00838f; }
+.p3 { border-color:#2e7d32; } .p3 .ch { background:linear-gradient(135deg,#2e7d32,#66bb6a); } .p3 .cmi { background:#e8f5e9; } .p3 .cmv { color:#2e7d32; }
+.p4 { border-color:#ef6c00; } .p4 .ch { background:linear-gradient(135deg,#ef6c00,#ff9800); } .p4 .cmi { background:#fff3e0; } .p4 .cmv { color:#ef6c00; }
+</style>
+</head>
+<body>
+<div class="title">图2-14 储能先知应用案例展示 — 电站运行数据墙</div>
+<div class="subtitle">CUSTOMER SUCCESS STORIES · 真实电站场景 · 量化运行成果 · 行业覆盖</div>
+<div class="canvas">
+  <div class="grid">
+    <div class="card p1">
+      <div class="ch"><div class="ca">☀</div><div class="ci"><div class="cn">某西北光伏储能电站</div><div class="cr">发电侧 · 100MW/200MWh · 配套光伏 500MW</div></div><span class="ct">标杆案例</span></div>
+      <div class="cb">
+        <div class="cs"><div class="cst">🔴 业务挑战</div><div class="ci2">弃光率 15%+，配套储能利用率低</div><div class="ci2">储能调度粗放，充放电策略单一</div><div class="ci2">BMS 预警滞后，运维人员紧张</div></div>
+        <div class="cs"><div class="cst">✅ 储能先知方案</div><div class="ci2">AI 光储协同调度，弃光率降至 3%</div><div class="ci2">动态峰谷套利 + 调峰辅助服务，收益提升 22%</div><div class="ci2">热失控预警系统，实现 0 安全事故</div></div>
+        <div class="cm"><div class="cmi"><div class="cmv">-12%</div><div class="cml">弃光率</div></div><div class="cmi"><div class="cmv">+22%</div><div class="cml">储能收益</div></div><div class="cmi"><div class="cmv">0</div><div class="cml">安全事故</div></div><div class="cmi"><div class="cmv">-50%</div><div class="cml">运维人力</div></div></div>
+      </div>
+    </div>
+    <div class="card p2">
+      <div class="ch"><div class="ca">🏭</div><div class="ci"><div class="cn">某华东工业园区</div><div class="cr">工商业 · 10MW/20MWh · 年电费 800万</div></div><span class="ct">经济性标杆</span></div>
+      <div class="cb">
+        <div class="cs"><div class="cst">🔴 业务挑战</div><div class="ci2">峰谷价差 0.8 元，但缺乏套利策略</div><div class="ci2">需量电费占电费 35%</div><div class="ci2">担心储能安全，园区人员密集</div></div>
+        <div class="cs"><div class="cst">✅ 储能先知方案</div><div class="ci2">AI 两充两放策略，年套利 120 万</div><div class="ci2">需量管理，削减峰值 30%</div><div class="ci2">Pack 级消防 + 热失控预警，安全无忧</div></div>
+        <div class="cm"><div class="cmi"><div class="cmv">4.2年</div><div class="cml">投资回收</div></div><div class="cmi"><div class="cmv">¥120万</div><div class="cml">年套利收益</div></div><div class="cmi"><div class="cmv">-30%</div><div class="cml">需量电费</div></div><div class="cmi"><div class="cmv">0</div><div class="cml">安全事故</div></div></div>
+      </div>
+    </div>
+    <div class="card p3">
+      <div class="ch"><div class="ca">⚡</div><div class="ci"><div class="cn">某南方电网独立储能电站</div><div class="cr">电网侧 · 200MW/400MWh · 调峰调频</div></div><span class="ct">电网级</span></div>
+      <div class="cb">
+        <div class="cs"><div class="cst">🔴 业务挑战</div><div class="ci2">调度响应慢，AGC 跟踪误差大</div><div class="ci2">电池衰减快，3 年容量降至 80%</div><div class="ci2">消防验收严格，多次整改</div></div>
+        <div class="cs"><div class="cst">✅ 储能先知方案</div><div class="ci2">MPC 预测控制，响应 &lt;100ms，误差 &lt;2%</div><div class="ci2">智能调度延寿策略，5 年保持 85%SOH</div><div class="ci2">Pack 级消防一次通过验收</div></div>
+        <div class="cm"><div class="cmi"><div class="cmv">&lt;100ms</div><div class="cml">响应速度</div></div><div class="cmi"><div class="cmv">&lt;2%</div><div class="cml">跟踪误差</div></div><div class="cmi"><div class="cmv">85%</div><div class="cml">5年SOH</div></div><div class="cmi"><div class="cmv">1次过</div><div class="cml">消防验收</div></div></div>
+      </div>
+    </div>
+    <div class="card p4">
+      <div class="ch"><div class="ca">🚗</div><div class="ci"><div class="cn">某光储充一体化充电站</div><div class="cr">交通 · 2MW/4MWh · 充电桩 20 台</div></div><span class="ct">新兴场景</span></div>
+      <div class="cb">
+        <div class="cs"><div class="cst">🔴 业务挑战</div><div class="ci2">变压器容量不足，扩容成本高</div><div class="ci2">充电峰时电价高，运营成本大</div><div class="ci2">光伏自发自用率低，余电上网价低</div></div>
+        <div class="cs"><div class="cst">✅ 储能先知方案</div><div class="ci2">储能削峰，变压器免扩容</div><div class="ci2">光伏+储能协同供充电，绿电比例 80%</div><div class="ci2">需量控制 + 峰谷套利，年省电费 40 万</div></div>
+        <div class="cm"><div class="cmi"><div class="cmv">¥0</div><div class="cml">扩容成本</div></div><div class="cmi"><div class="cmv">80%</div><div class="cml">绿电比例</div></div><div class="cmi"><div class="cmv">¥40万</div><div class="cml">年省电费</div></div><div class="cmi"><div class="cmv">3.5年</div><div class="cml">投资回收</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

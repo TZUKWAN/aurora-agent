@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { display:flex; flex-direction:column; gap:16px; }
+.c1 { flex:1.3; }
+.c2 { flex:1; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.tl { position:relative; padding-left:36px; }
+.tl-line { position:absolute; left:10px; top:0; bottom:0; width:2px; background:linear-gradient(180deg,#00e5ff,#7c4dff); }
+.te { position:relative; margin:16px 0; }
+.td { position:absolute; left:-30px; top:4px; width:14px; height:14px; border-radius:50%; background:#00e5ff; border:3px solid #0a0a1a; box-shadow:0 0 0 2px #00e5ff; }
+.tt { font-size:11px; font-weight:700; color:#00e5ff; margin-bottom:4px; }
+.tn { font-size:14px; font-weight:700; color:#fff; margin-bottom:4px; }
+.tc { font-size:11px; color:#90a4ae; line-height:1.6; }
+.pie-wrap { display:flex; align-items:center; justify-content:center; gap:24px; padding:10px; }
+.pie-info { display:flex; flex-direction:column; gap:6px; }
+.pi { display:flex; align-items:center; gap:8px; }
+.pc { width:14px; height:14px; border-radius:3px; }
+.pt { font-size:12px; color:#cfd8dc; }
+.pv { font-size:12px; font-weight:700; }
+.kpi { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.kc { text-align:center; padding:14px; border-radius:8px; background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.15); }
+.kv { font-size:20px; font-weight:700; }
+.kl { font-size:10px; color:#78909c; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-20 融资历程与股权结构 — 元界智驾资本化路径</div>
+<div class="subtitle">FUNDING HISTORY · 种子轮 → 天使轮 → Pre-A → A轮 · 估值增长 · 股权架构</div>
+<div class="canvas">
+  <div class="col c1">
+    <div class="card">
+      <div class="ch">📈 融资历程</div>
+      <div class="tl">
+        <div class="tl-line"></div>
+        <div class="te"><div class="td"></div><div class="tt">2023.09 · 种子轮</div><div class="tn">¥500万 · 创始人自筹 + 清华校友基金</div><div class="tc">MVP开发、核心算法验证、团队组建<br><strong style="color:#00e5ff;">投后估值 ¥2500万</strong> | 出让 20%</div></div>
+        <div class="te"><div class="td"></div><div class="tt">2024.03 · 天使轮</div><div class="tn">¥2000万 · 红杉种子 + 真格基金</div><div class="tc">产品上线、10家种子客户、场景库扩充至10万<br><strong style="color:#00e5ff;">投后估值 ¥1.2亿</strong> | 出让 16.7%</div></div>
+        <div class="te"><div class="td"></div><div class="tt">2024.09 · Pre-A轮 (进行中)</div><div class="tn">目标 ¥8000万 · 高瓴创投 + 产业资本</div><div class="tc">规模化获客、50+付费客户、进入海外市场<br><strong style="color:#00e5ff;">目标估值 ¥5亿</strong> | 出让 16%</div></div>
+        <div class="te"><div class="td" style="background:#ff9100;box-shadow:0 0 0 2px #ff9100;"></div><div class="tt">2025.06 · A轮 (规划)</div><div class="tn">目标 ¥3亿 · 头部美元基金 + 战略投资</div><div class="tc">行业领先地位、200+客户、盈亏平衡<br><strong style="color:#ff9100;">目标估值 ¥20-30亿</strong></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">💰 资金用途 (Pre-A轮 ¥8000万)</div>
+      <svg width="100%" height="140" viewBox="0 0 900 140">
+        <rect x="20" y="20" width="300" height="40" fill="#00e5ff" rx="5" opacity="0.8"/>
+        <text x="170" y="46" text-anchor="middle" fill="#0a0a1a" font-size="13" font-weight="700">研发 45% ¥3600万</text>
+        <rect x="340" y="20" width="200" height="40" fill="#7c4dff" rx="5" opacity="0.8"/>
+        <text x="440" y="46" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">市场 25% ¥2000万</text>
+        <rect x="560" y="20" width="160" height="40" fill="#00e676" rx="5" opacity="0.8"/>
+        <text x="640" y="46" text-anchor="middle" fill="#0a0a1a" font-size="13" font-weight="700">算力 20%</text>
+        <rect x="740" y="20" width="80" height="40" fill="#ff9100" rx="5" opacity="0.8"/>
+        <text x="780" y="46" text-anchor="middle" fill="#0a0a1a" font-size="12" font-weight="700">储备10%</text>
+        <text x="20" y="90" font-size="11" fill="#78909c">研发: 算法团队扩充 + 场景生成引擎 V2.0 + 数字孪生平台</text>
+        <text x="20" y="110" font-size="11" fill="#78909c">市场: 销售团队 + 品牌活动 + 标杆客户补贴 + 海外拓展</text>
+        <text x="20" y="130" font-size="11" fill="#78909c">算力: GPU集群扩容 + 云服务基础设施</text>
+      </svg>
+    </div>
+  </div>
+  <div class="col c2">
+    <div class="card">
+      <div class="ch">🏛️ 股权结构 (Pre-A轮后)</div>
+      <div class="pie-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <g transform="translate(100,100)">
+            <path d="M 0,-90 A 90,90 0 0,1 85.6,-27.8 L 0,0 Z" fill="#00e5ff"/>
+            <path d="M 85.6,-27.8 A 90,90 0 0,1 52.9,62.8 L 0,0 Z" fill="#7c4dff"/>
+            <path d="M 52.9,62.8 A 90,90 0 0,1 -52.9,62.8 L 0,0 Z" fill="#00e676"/>
+            <path d="M -52.9,62.8 A 90,90 0 0,1 -85.6,-27.8 L 0,0 Z" fill="#ff9100"/>
+            <path d="M -85.6,-27.8 A 90,90 0 0,1 0,-90 L 0,0 Z" fill="#ff5252"/>
+            <circle r="36" fill="#0a0a1a"/>
+            <text x="0" y="4" text-anchor="middle" font-size="10" fill="#00e5ff" font-weight="700">创始团队</text>
+            <text x="0" y="18" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">48%</text>
+          </g>
+        </svg>
+        <div class="pie-info">
+          <div class="pi"><div class="pc" style="background:#00e5ff"></div><div class="pt">创始团队</div><div class="pv" style="color:#00e5ff">48%</div></div>
+          <div class="pi"><div class="pc" style="background:#7c4dff"></div><div class="pt">期权池 (ESOP)</div><div class="pv" style="color:#7c4dff">12%</div></div>
+          <div class="pi"><div class="pc" style="background:#00e676"></div><div class="pt">天使轮投资人</div><div class="pv" style="color:#00e676">13.3%</div></div>
+          <div class="pi"><div class="pc" style="background:#ff9100"></div><div class="pt">种子轮投资人</div><div class="pv" style="color:#ff9100">13.6%</div></div>
+          <div class="pi"><div class="pc" style="background:#ff5252"></div><div class="pt">Pre-A轮 (待)</div><div class="pv" style="color:#ff5252">~13%</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">📊 关键估值指标</div>
+      <div class="kpi">
+        <div class="kc"><div class="kv" style="color:#00e5ff">¥1.2亿</div><div class="kl">天使轮投后估值</div></div>
+        <div class="kc"><div class="kv" style="color:#7c4dff">4.8×</div><div class="kl">6个月估值增长</div></div>
+        <div class="kc"><div class="kv" style="color:#00e676">¥800万</div><div class="kl">2024年ARR</div></div>
+        <div class="kc"><div class="kv" style="color:#ff9100">15×</div><div class="kl">ARR估值倍数</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

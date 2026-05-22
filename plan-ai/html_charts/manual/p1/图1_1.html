@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fafafa;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#e65100;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#757575;
+}
+.canvas { position:absolute; left:40px; top:120px; width:1840px; height:920px; }
+.control-center {
+  background:linear-gradient(135deg,#212121,#424242);
+  border:3px solid #e65100;
+  border-radius:12px; padding:20px 30px;
+  color:#fff; text-align:center;
+  box-shadow:0 8px 32px rgba(33,33,33,0.3);
+}
+.cc-name { font-size:22px; font-weight:700; }
+.cc-desc { font-size:12px; opacity:0.8; margin-top:6px; }
+.cc-status { display:inline-block; margin-top:10px; padding:4px 16px; border-radius:20px; background:#e65100; font-size:11px; font-weight:700; }
+.level-connector { text-align:center; font-size:24px; color:#e65100; margin:10px 0; }
+.substation-layer { display:flex; gap:16px; }
+.substation { flex:1; background:#fff; border:3px solid #424242; border-radius:10px; padding:16px; box-shadow:0 4px 16px rgba(0,0,0,0.08); }
+.sub-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; padding-bottom:10px; border-bottom:2px solid #e0e0e0; }
+.sub-icon { width:36px; height:36px; border-radius:8px; background:#e65100; color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; }
+.sub-name { font-size:14px; font-weight:700; color:#212121; }
+.sub-status { margin-left:auto; padding:3px 10px; border-radius:12px; font-size:9px; font-weight:700; }
+.status-normal { background:#e8f5e9; color:#2e7d32; }
+.status-warning { background:#fff3e0; color:#ef6c00; }
+.sub-units { display:flex; flex-wrap:wrap; gap:8px; }
+.unit-chip { padding:6px 12px; border-radius:8px; font-size:11px; font-weight:600; border:2px solid; }
+.unit-chip.c1 { background:#fff3e0; border-color:#ff9800; color:#e65100; }
+.unit-chip.c2 { background:#e0f7fa; border-color:#00bcd4; color:#00838f; }
+.unit-chip.c3 { background:#f3e5f5; border-color:#ab47bc; color:#7b1fa2; }
+.battery-layer { display:flex; gap:12px; margin-top:10px; }
+.battery-rack { flex:1; background:#fff; border:3px solid #bdbdbd; border-radius:10px; padding:14px; }
+.br-header { font-size:12px; font-weight:700; color:#424242; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.br-indicator { width:10px; height:10px; border-radius:50%; background:#00c853; box-shadow:0 0 8px #00c853; }
+.br-cells { display:flex; gap:6px; flex-wrap:wrap; }
+.cell { width:40px; height:32px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; color:#fff; }
+.cell.hot { background:linear-gradient(135deg,#e65100,#ff9800); }
+.cell.warm { background:linear-gradient(135deg,#ff9800,#ffeb3b); color:#5d4037; }
+.cell.cool { background:linear-gradient(135deg,#00bcd4,#00838f); }
+.monitor-bar { display:flex; gap:16px; margin-top:10px; }
+.monitor-panel { flex:1; background:#212121; border-radius:10px; padding:14px; color:#fff; text-align:center; }
+.mp-value { font-size:24px; font-weight:700; color:#ffeb3b; }
+.mp-label { font-size:10px; color:#9e9e9e; margin-top:4px; }
+.mp-bar { margin-top:8px; height:6px; background:#424242; border-radius:3px; overflow:hidden; }
+.mp-bar-fill { height:100%; border-radius:3px; }
+</style>
+</head>
+<body>
+<div class="title">图1-1 储能先知组织架构 — 电站 SCADA 控制层级</div>
+<div class="subtitle">ORGANIZATION AS SCADA HIERARCHY · 层级=调度→变电→储能→监控 · 颜色=温度状态</div>
+<div class="canvas">
+  <div class="control-center">
+    <div class="cc-name">🏭 储能先知总控中心</div>
+    <div class="cc-desc">电化学储能电站热失控预警与动态寻优调度平台</div>
+    <span class="cc-status">● 系统正常运行</span>
+  </div>
+  <div class="level-connector">⬇ 调度指令下发</div>
+  <div class="substation-layer">
+    <div class="substation">
+      <div class="sub-header"><div class="sub-icon">🔬</div><div class="sub-name">电芯研发部</div><span class="sub-status status-normal">正常</span></div>
+      <div class="sub-units"><span class="unit-chip c1">材料研发组</span><span class="unit-chip c1">电芯设计组</span><span class="unit-chip c2">性能测试组</span><span class="unit-chip c2">寿命预测组</span></div>
+    </div>
+    <div class="substation">
+      <div class="sub-header"><div class="sub-icon">⚡</div><div class="sub-name">BMS 算法部</div><span class="sub-status status-normal">正常</span></div>
+      <div class="sub-units"><span class="unit-chip c1">SOC 估算组</span><span class="unit-chip c1">热管理组</span><span class="unit-chip c3">均衡控制组</span><span class="unit-chip c3">故障诊断组</span></div>
+    </div>
+    <div class="substation">
+      <div class="sub-header"><div class="sub-icon">🏗</div><div class="sub-name">储能系统部</div><span class="sub-status status-normal">正常</span></div>
+      <div class="sub-units"><span class="unit-chip c2">系统集成组</span><span class="unit-chip c2">PCS 设计组</span><span class="unit-chip c1">集装箱方案组</span><span class="unit-chip c1">并网调试组</span></div>
+    </div>
+    <div class="substation">
+      <div class="sub-header"><div class="sub-icon">💹</div><div class="sub-name">能源交易部</div><span class="sub-status status-warning">高负荷</span></div>
+      <div class="sub-units"><span class="unit-chip c3">电力交易组</span><span class="unit-chip c3">需求响应组</span><span class="unit-chip c2">辅助服务组</span><span class="unit-chip c2">电价预测组</span></div>
+    </div>
+    <div class="substation">
+      <div class="sub-header"><div class="sub-icon">🛡</div><div class="sub-name">安全评估部</div><span class="sub-status status-normal">正常</span></div>
+      <div class="sub-units"><span class="unit-chip c1">热失控预警组</span><span class="unit-chip c1">消防设计组</span><span class="unit-chip c2">安全认证组</span><span class="unit-chip c2">风险评估组</span></div>
+    </div>
+    <div class="substation">
+      <div class="sub-header"><div class="sub-icon">🔧</div><div class="sub-name">运维服务部</div><span class="sub-status status-normal">正常</span></div>
+      <div class="sub-units"><span class="unit-chip c2">远程监控组</span><span class="unit-chip c2">现场运维组</span><span class="unit-chip c3">备件仓储组</span><span class="unit-chip c3">客户服务组</span></div>
+    </div>
+  </div>
+  <div class="level-connector">⬇ 设备状态采集</div>
+  <div class="battery-layer">
+    <div class="battery-rack">
+      <div class="br-header"><span class="br-indicator"></span>Rack A-1 · 磷酸铁锂 · 2.5MWh</div>
+      <div class="br-cells"><div class="cell cool">25°</div><div class="cell cool">26°</div><div class="cell cool">24°</div><div class="cell cool">25°</div><div class="cell warm">32°</div><div class="cell cool">26°</div><div class="cell cool">25°</div><div class="cell cool">24°</div><div class="cell cool">25°</div><div class="cell cool">26°</div><div class="cell cool">25°</div><div class="cell warm">33°</div></div>
+    </div>
+    <div class="battery-rack">
+      <div class="br-header"><span class="br-indicator"></span>Rack A-2 · 磷酸铁锂 · 2.5MWh</div>
+      <div class="br-cells"><div class="cell cool">24°</div><div class="cell cool">25°</div><div class="cell cool">25°</div><div class="cell cool">26°</div><div class="cell cool">24°</div><div class="cell cool">25°</div><div class="cell cool">25°</div><div class="cell cool">26°</div><div class="cell cool">24°</div><div class="cell cool">25°</div><div class="cell cool">25°</div><div class="cell cool">26°</div></div>
+    </div>
+    <div class="battery-rack">
+      <div class="br-header"><span class="br-indicator" style="background:#ff9100; box-shadow:0 0 8px #ff9100;"></span>Rack B-1 · 三元锂 · 3MWh ⚠</div>
+      <div class="br-cells"><div class="cell warm">35°</div><div class="cell warm">34°</div><div class="cell hot">42°</div><div class="cell warm">36°</div><div class="cell warm">35°</div><div class="cell warm">37°</div><div class="cell hot">45°</div><div class="cell warm">38°</div><div class="cell warm">36°</div><div class="cell warm">35°</div><div class="cell hot">48°</div><div class="cell warm">37°</div></div>
+    </div>
+    <div class="battery-rack">
+      <div class="br-header"><span class="br-indicator"></span>Rack B-2 · 三元锂 · 3MWh</div>
+      <div class="br-cells"><div class="cell cool">28°</div><div class="cell cool">27°</div><div class="cell cool">28°</div><div class="cell cool">27°</div><div class="cell cool">28°</div><div class="cell cool">27°</div><div class="cell cool">28°</div><div class="cell cool">27°</div><div class="cell cool">28°</div><div class="cell cool">27°</div><div class="cell cool">28°</div><div class="cell cool">27°</div></div>
+    </div>
+  </div>
+  <div class="monitor-bar">
+    <div class="monitor-panel"><div class="mp-value">58</div><div class="mp-label">总人数</div><div class="mp-bar"><div class="mp-bar-fill" style="width:58%; background:#ffeb3b"></div></div></div>
+    <div class="monitor-panel"><div class="mp-value">6</div><div class="mp-label">核心部门</div><div class="mp-bar"><div class="mp-bar-fill" style="width:60%; background:#00bcd4"></div></div></div>
+    <div class="monitor-panel"><div class="mp-value">24</div><div class="mp-label">技术团队</div><div class="mp-bar"><div class="mp-bar-fill" style="width:80%; background:#e65100"></div></div></div>
+    <div class="monitor-panel"><div class="mp-value">82%</div><div class="mp-label">研发占比</div><div class="mp-bar"><div class="mp-bar-fill" style="width:82%; background:#ffeb3b"></div></div></div>
+    <div class="monitor-panel"><div class="mp-value">3</div><div class="mp-label">博士学历</div><div class="mp-bar"><div class="mp-bar-fill" style="width:30%; background:#00bcd4"></div></div></div>
+    <div class="monitor-panel"><div class="mp-value" style="color:#ffeb3b;">⚠ 1</div><div class="mp-label">高温告警</div><div class="mp-bar"><div class="mp-bar-fill" style="width:15%; background:#e65100"></div></div></div>
+  </div>
+</div>
+</body>
+</html>

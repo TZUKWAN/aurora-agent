@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { display:flex; flex-direction:column; gap:16px; }
+.c1 { flex:1.2; }
+.c2 { flex:1; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.layer { margin:8px 0; padding:14px; border-radius:10px; border:1px solid; position:relative; }
+.lh { font-size:13px; font-weight:700; margin-bottom:8px; }
+.ld { display:flex; gap:10px; flex-wrap:wrap; }
+.li { padding:6px 12px; border-radius:6px; font-size:11px; }
+.l1 { border-color:rgba(0,229,255,0.3); background:rgba(0,229,255,0.05); }
+.l1 .lh { color:#00e5ff; } .l1 .li { background:rgba(0,229,255,0.1); color:#00e5ff; }
+.l2 { border-color:rgba(124,77,255,0.3); background:rgba(124,77,255,0.05); }
+.l2 .lh { color:#7c4dff; } .l2 .li { background:rgba(124,77,255,0.1); color:#7c4dff; }
+.l3 { border-color:rgba(0,230,118,0.3); background:rgba(0,230,118,0.05); }
+.l3 .lh { color:#00e676; } .l3 .li { background:rgba(0,230,118,0.1); color:#00e676; }
+.l4 { border-color:rgba(255,145,0,0.3); background:rgba(255,145,0,0.05); }
+.l4 .lh { color:#ff9100; } .l4 .li { background:rgba(255,145,0,0.1); color:#ff9100; }
+.l5 { border-color:rgba(255,82,82,0.3); background:rgba(255,82,82,0.05); }
+.l5 .lh { color:#ff5252; } .l5 .li { background:rgba(255,82,82,0.1); color:#ff5252; }
+.kpi { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.kc { text-align:center; padding:14px; border-radius:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.15); }
+.kv { font-size:20px; font-weight:700; color:#00e5ff; }
+.kl { font-size:10px; color:#78909c; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-6 部署架构 — 混合云仿真平台</div>
+<div class="subtitle">DEPLOYMENT ARCHITECTURE · 公有云 · 私有云 · 边缘节点 · K8s 编排</div>
+<div class="canvas">
+  <div class="col c1">
+    <div class="card">
+      <div class="ch">🏗️ 混合云部署架构</div>
+      <div class="layer l5"><div class="lh">🌐 接入层 (Ingress)</div><div class="ld"><div class="li">CDN 加速</div><div class="li">WAF 防火墙</div><div class="li">DDoS 防护</div><div class="li">SSL 终止</div><div class="li">负载均衡</div></div></div>
+      <div class="layer l1"><div class="lh">🖥️ 应用层 (Application)</div><div class="ld"><div class="li">Web 控制台</div><div class="li">API Gateway</div><div class="li">鉴权服务</div><div class="li">任务调度</div><div class="li">消息队列</div><div class="li">Webhook</div></div></div>
+      <div class="layer l2"><div class="lh">⚙️ 服务层 (Microservices)</div><div class="ld"><div class="li">场景生成</div><div class="li">传感器仿真</div><div class="li">车辆动力学</div><div class="li">规控验证</div><div class="li">覆盖率分析</div><div class="li">报告生成</div></div></div>
+      <div class="layer l3"><div class="lh">💾 数据层 (Data)</div><div class="ld"><div class="li">PostgreSQL</div><div class="li">MongoDB</div><div class="li">MinIO 对象存储</div><div class="li">Redis 缓存</div><div class="li">Elasticsearch</div><div class="li">Kafka 流处理</div></div></div>
+      <div class="layer l4"><div class="lh">🖥️ 算力层 (Compute)</div><div class="ld"><div class="li">GPU 集群 A100</div><div class="li">GPU 集群 V100</div><div class="li">CPU 弹性计算</div><div class="li">K8s 容器编排</div><div class="li">Slurm 作业调度</div></div></div>
+    </div>
+  </div>
+  <div class="col c2">
+    <div class="card">
+      <div class="ch">☁️ 部署模式</div>
+      <div style="margin:10px 0;padding:14px;border-radius:10px;background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.2);">
+        <div style="font-size:13px;font-weight:700;color:#00e5ff;margin-bottom:8px;">🏢 公有云 SaaS</div>
+        <div style="font-size:11px;color:#90a4ae;line-height:1.6;">中小客户即开即用 · 按仿真时长计费 · 阿里云/华为云部署 · 自动弹性扩缩容 · 数据加密隔离</div>
+      </div>
+      <div style="margin:10px 0;padding:14px;border-radius:10px;background:rgba(124,77,255,0.05);border:1px solid rgba(124,77,255,0.2);">
+        <div style="font-size:13px;font-weight:700;color:#7c4dff;margin-bottom:8px;">🏭 私有云部署</div>
+        <div style="font-size:11px;color:#90a4ae;line-height:1.6;">大型车企私有化部署 · 本地化数据存储 · 定制化场景库 · 内网安全合规 · 专属技术支持</div>
+      </div>
+      <div style="margin:10px 0;padding:14px;border-radius:10px;background:rgba(0,230,118,0.05);border:1px solid rgba(0,230,118,0.2);">
+        <div style="font-size:13px;font-weight:700;color:#00e676;margin-bottom:8px;">📦 边缘节点</div>
+        <div style="font-size:11px;color:#90a4ae;line-height:1.6;">车载/路侧边缘计算 · 实时轻量仿真 · 5G/MEC 低延迟 · OTA 场景更新 · 离线运行能力</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">📊 算力资源配置</div>
+      <div class="kpi">
+        <div class="kc"><div class="kv">128×</div><div class="kl">A100 GPU</div></div>
+        <div class="kc"><div class="kv" style="color:#7c4dff">256×</div><div class="kl">V100 GPU</div></div>
+        <div class="kc"><div class="kv" style="color:#00e676">10,000+</div><div class="kl">CPU 核心</div></div>
+        <div class="kc"><div class="kv" style="color:#ff9100">5PB</div><div class="kl">存储容量</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

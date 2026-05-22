@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+
+/* A/B 测试对比面板 */
+.ab-panel {
+  display:flex; gap:30px; height:100%;
+}
+
+.ab-side {
+  flex:1; background:#fff; border:2px solid;
+  border-radius:14px; overflow:hidden;
+  box-shadow:0 4px 16px rgba(0,0,0,0.06);
+}
+
+.ab-header {
+  padding:16px 20px; color:#fff;
+  font-size:16px; font-weight:700;
+  text-align:center;
+}
+.ab-header .ab-sub { font-size:12px; opacity:0.85; margin-top:4px; }
+
+.ab-body { padding:20px; }
+
+.metric-row {
+  background:#f5f7fa; border-radius:10px;
+  padding:14px 16px; margin:12px 0;
+}
+.mr-label { font-size:11px; color:#78909c; margin-bottom:6px; }
+.mr-value { font-size:24px; font-weight:700; }
+.mr-bar { margin-top:8px; height:8px; background:#e3eaf5; border-radius:4px; overflow:hidden; }
+.mr-bar-fill { height:100%; border-radius:4px; }
+
+/* 对照组（Before） */
+.ab-before { border-color:#78909c; }
+.ab-before .ab-header { background:#78909c; }
+.ab-before .mr-value { color:#78909c; }
+.ab-before .mr-bar-fill { background:#78909c; }
+
+/* 实验组（After） */
+.ab-after { border-color:#3949ab; }
+.ab-after .ab-header { background:linear-gradient(135deg,#3949ab,#1a237e); }
+.ab-after .mr-value { color:#3949ab; }
+.ab-after .mr-bar-fill { background:#3949ab; }
+
+/* 中间对比箭头 */
+.ab-vs {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  width:100px; flex-shrink:0;
+}
+.vs-arrow { font-size:40px; color:#3949ab; }
+.vs-label {
+  background:#3949ab; color:#fff;
+  padding:6px 14px; border-radius:20px;
+  font-size:11px; font-weight:700; margin-top:8px;
+}
+
+/* 改善幅度标签 */
+.improve-tag {
+  display:inline-block; margin-left:10px; padding:3px 10px;
+  border-radius:12px; font-size:11px; font-weight:700;
+}
+.it-up { background:#e8f5e9; color:#2e7d32; }
+.it-down { background:#e3f2fd; color:#1565c0; }
+
+/* 统计显著性 */
+.sig-note {
+  text-align:center; margin-top:20px;
+  font-size:11px; color:#78909c;
+}
+.sig-note strong { color:#3949ab; }
+</style>
+</head>
+<body>
+<div class="title">图2-15 云跃引擎应用效果数据对比 — A/B 测试面板</div>
+<div class="subtitle">BEFORE / AFTER COMPARISON · 样本=同一客户使用前后 6 个月 · 指标=核心运维 KPI</div>
+
+<div class="canvas">
+  <div class="ab-panel">
+    <!-- Before -->
+    <div class="ab-side ab-before">
+      <div class="ab-header">
+        🔴 对照组 (Before)
+        <div class="ab-sub">使用云跃引擎前 · 传统手动部署</div>
+      </div>
+      <div class="ab-body">
+        <div class="metric-row">
+          <div class="mr-label">部署频率</div>
+          <div class="mr-value">2 次 / 周</div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:15%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="mr-label">平均部署耗时</div>
+          <div class="mr-value">45 分钟</div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:75%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="mr-label">发布故障率</div>
+          <div class="mr-value">12.5%</div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="mr-label">MTTR (平均恢复)</div>
+          <div class="mr-value">18 分钟</div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:72%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="mr-label">资源利用率</div>
+          <div class="mr-value">35%</div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:35%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="mr-label">运维人力投入</div>
+          <div class="mr-value">8 人 / 团队</div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="mr-label">配置漂移事故</div>
+          <div class="mr-value">3 次 / 月</div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:60%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VS -->
+    <div class="ab-vs">
+      <div class="vs-arrow">➡</div>
+      <div class="vs-label">6个月后</div>
+    </div>
+
+    <!-- After -->
+    <div class="ab-side ab-after">
+      <div class="ab-header">
+        🟢 实验组 (After)
+        <div class="ab-sub">使用云跃引擎后 · 全自动 DevOps</div>
+      </div>
+      <div class="ab-body">
+        <div class="metric-row">
+          <div class="mr-label">部署频率</div>
+          <div class="mr-value">24 次 / 周 <span class="improve-tag it-up">+12x ↑</span></div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:95%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="mr-label">平均部署耗时</div>
+          <div class="mr-value">3.5 分钟 <span class="improve-tag it-down">-92% ↓</span></div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:10%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="mr-label">发布故障率</div>
+          <div class="mr-value">1.2% <span class="improve-tag it-down">-90% ↓</span></div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:8%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="mr-label">MTTR (平均恢复)</div>
+          <div class="mr-value">30 秒 <span class="improve-tag it-down">-97% ↓</span></div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:3%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="mr-label">资源利用率</div>
+          <div class="mr-value">72% <span class="improve-tag it-up">+106% ↑</span></div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:72%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="mr-label">运维人力投入</div>
+          <div class="mr-value">3 人 / 团队 <span class="improve-tag it-down">-63% ↓</span></div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:30%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="mr-label">配置漂移事故</div>
+          <div class="mr-value">0 次 / 月 <span class="improve-tag it-down">-100% ↓</span></div>
+          <div class="mr-bar"><div class="mr-bar-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sig-note">
+    <strong>📊 统计说明：</strong>样本量 n=42 家企业客户 · 对比周期 6 个月 · 所有指标变化均通过 paired t-test (p&lt;0.01) · 数据来源：云跃引擎客户成功团队调研
+  </div>
+</div>
+
+</body>
+</html>

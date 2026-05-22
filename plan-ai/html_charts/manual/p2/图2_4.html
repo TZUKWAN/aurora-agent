@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.bmc { display:grid; grid-template-columns:1fr 1fr 1fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:12px; height:100%; }
+.bc { border:1px solid; border-radius:12px; padding:16px; }
+.bc-t { font-size:13px; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+.bc-i { font-size:11px; line-height:1.7; }
+.kp { background:rgba(0,229,255,0.05); border-color:#00e5ff; }
+.kp .bc-t { color:#00e5ff; }
+.ka { background:rgba(124,77,255,0.05); border-color:#7c4dff; }
+.ka .bc-t { color:#7c4dff; }
+.kr { background:rgba(0,230,118,0.05); border-color:#00e676; }
+.kr .bc-t { color:#00e676; }
+.kv { background:rgba(255,145,0,0.05); border-color:#ff9100; }
+.kv .bc-t { color:#ff9100; }
+.kc { background:rgba(255,82,82,0.05); border-color:#ff5252; }
+.kc .bc-t { color:#ff5252; }
+.kr2 { background:rgba(120,144,156,0.05); border-color:#78909c; }
+.kr2 .bc-t { color:#78909c; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-4 商业模式画布 — 元界智驾价值模型</div>
+<div class="subtitle">BUSINESS MODEL CANVAS · 九要素分析 · SaaS + 私有化 + 数据服务</div>
+<div class="canvas">
+  <div class="bmc">
+    <div class="bc kp"><div class="bc-t">💡 核心价值主张</div><div class="bc-i">• AI 生成 Corner Case，测试效率提升 1000×<br>• 仿真真实度 95%+，降低真实路测风险<br>• 覆盖 ODD 全维度，支持功能安全认证<br>• 7天快速交付，缩短算法验证周期</div></div>
+    <div class="bc ka"><div class="bc-t">🎯 关键业务</div><div class="bc-i">• AI 场景生成与合成<br>• 大规模并行仿真执行<br>• 覆盖率分析与报告生成<br>• 客户培训与技术支持</div></div>
+    <div class="bc kr"><div class="bc-t">🤝 核心资源</div><div class="bc-i">• 10M+ 场景数据库<br>• GAN/Diffusion 生成模型<br>• GPU 算力集群 (128×A100)<br>• 自动驾驶领域专家团队</div></div>
+    <div class="bc kv"><div class="bc-t">💰 收入来源</div><div class="bc-i">• SaaS 订阅: ¥5-80万/年<br>• 私有化部署: ¥200-500万<br>• 仿真时长计费: ¥100/小时<br>• 定制开发: 项目制收费</div></div>
+    <div class="bc kc"><div class="bc-t">🤝 客户关系</div><div class="bc-i">• 自助服务 (基础版)<br>• 客户成功经理 (专业版)<br>• 专属技术团队 (企业版)<br>• 社区论坛 + 知识库</div></div>
+    <div class="bc kp"><div class="bc-t">🚗 客户细分</div><div class="bc-i">• 自动驾驶初创公司 (30%)<br>• 传统车企研究院 (35%)<br>• Tier1 供应商 (20%)<br>• 高校/科研机构 (10%)<br>• 监管机构/检测中心 (5%)</div></div>
+    <div class="bc ka"><div class="bc-t">📢 渠道通路</div><div class="bc-i">• 直销团队 (大客户)<br>• 官网自助下单 (中小客户)<br>• 行业展会/技术峰会<br>• 技术博客/白皮书获客<br>• 合作伙伴渠道</div></div>
+    <div class="bc kr2"><div class="bc-t">🏭 关键合作伙伴</div><div class="bc-i">• 云厂商: 阿里云/华为云/腾讯云<br>• 芯片厂商: NVIDIA/地平线/黑芝麻<br>• 车企: 联合研发/数据共享<br>• 高校: 清华/北理/同济<br>• 标准机构: 中汽中心/汽标委</div></div>
+    <div class="bc kv"><div class="bc-t">💸 成本结构</div><div class="bc-i">• 算力成本: 40% (GPU租赁/折旧)<br>• 研发投入: 35% (算法+平台)<br>• 销售市场: 15% (获客+品牌)<br>• 管理行政: 10% (运营+人力)</div></div>
+    <div class="bc kc"><div class="bc-t">⚠️ 重要合作</div><div class="bc-i">• NVIDIA Inception 计划成员<br>• 阿里云自动驾驶加速器<br>• 清华 KEG 实验室合作<br>• 中汽研检测认证合作<br>• 头部车企 POC 项目</div></div>
+  </div>
+</div>
+</body>
+</html>

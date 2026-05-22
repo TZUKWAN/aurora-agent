@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+
+/* K8s ResourceQuota 风格 */
+.quota-panel {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap:24px; height:100%;
+}
+
+.quota-card {
+  background:#fff; border:2px solid;
+  border-radius:14px; overflow:hidden;
+  box-shadow:0 4px 16px rgba(0,0,0,0.06);
+  display:flex; flex-direction:column;
+}
+.qc-header {
+  padding:14px 18px; color:#fff;
+  font-size:14px; font-weight:700;
+  display:flex; align-items:center; gap:10px;
+}
+.qc-icon { width:28px; height:28px; border-radius:6px; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-size:14px; }
+.qc-body { padding:18px; flex:1; }
+
+.quota-bar {
+  margin:14px 0;
+}
+.qb-label { display:flex; justify-content:space-between; font-size:12px; margin-bottom:6px; }
+.qb-label-name { color:#455a64; font-weight:600; }
+.qb-label-val { color:#1a237e; font-weight:700; }
+.qb-track { height:28px; background:#f5f7fa; border-radius:8px; overflow:hidden; position:relative; }
+.qb-fill { height:100%; border-radius:8px; display:flex; align-items:center; justify-content:flex-end; padding-right:10px; }
+.qb-fill-text { font-size:11px; font-weight:700; color:#fff; }
+
+.qc-total {
+  margin-top:auto; padding-top:14px;
+  border-top:2px dashed #e3eaf5;
+  text-align:center;
+}
+.qc-total-val { font-size:28px; font-weight:700; }
+.qc-total-label { font-size:11px; color:#78909c; margin-top:4px; }
+
+/* 配色 */
+.c1 { border-color:#3949ab; }
+.c1 .qc-header { background:linear-gradient(135deg,#3949ab,#5c6bc0); }
+.c1 .qb-fill { background:#3949ab; }
+.c1 .qc-total-val { color:#3949ab; }
+
+.c2 { border-color:#00838f; }
+.c2 .qc-header { background:linear-gradient(135deg,#00838f,#00acc1); }
+.c2 .qb-fill { background:#00838f; }
+.c2 .qc-total-val { color:#00838f; }
+
+.c3 { border-color:#ef6c00; }
+.c3 .qc-header { background:linear-gradient(135deg,#ef6c00,#ff9800); }
+.c3 .qb-fill { background:#ef6c00; }
+.c3 .qc-total-val { color:#ef6c00; }
+
+/* 右侧汇总 */
+.summary-panel {
+  position:absolute; right:60px; top:20px;
+  width:400px;
+  background:#f5f7fa; border-radius:12px;
+  padding:18px; border:2px solid #e3eaf5;
+}
+.sp-title { font-size:14px; font-weight:700; color:#1a237e; margin-bottom:12px; }
+.sp-item { display:flex; justify-content:space-between; margin:8px 0; font-size:12px; }
+.sp-label { color:#546e7a; }
+.sp-val { font-weight:700; color:#263238; }
+.sp-total { margin-top:10px; padding-top:10px; border-top:2px solid #e3eaf5; }
+.sp-total .sp-val { font-size:18px; color:#1a237e; }
+</style>
+</head>
+<body>
+<div class="title">图2-18 云跃引擎收入构成 — ResourceQuota 资源配额视图</div>
+<div class="subtitle">REVENUE BREAKDOWN · 像 K8s 资源配额一样分配收入 · 请求=目标 · 限制=上限</div>
+
+<div class="canvas">
+  <div class="quota-panel">
+    <!-- SaaS 订阅 -->
+    <div class="quota-card c1">
+      <div class="qc-header">
+        <div class="qc-icon">☁</div>
+        SaaS 订阅收入 (65%)
+      </div>
+      <div class="qc-body">
+        <div class="quota-bar">
+          <div class="qb-label">
+            <span class="qb-label-name">社区版 (免费)</span>
+            <span class="qb-label-val">¥0</span>
+          </div>
+          <div class="qb-track">
+            <div class="qb-fill" style="width:100%; background:#e3eaf5;">
+              <span class="qb-fill-text" style="color:#78909c;">获客入口</span>
+            </div>
+          </div>
+        </div>
+        <div class="quota-bar">
+          <div class="qb-label">
+            <span class="qb-label-name">专业版订阅</span>
+            <span class="qb-label-val">¥299/节点/月</span>
+          </div>
+          <div class="qb-track">
+            <div class="qb-fill" style="width:55%;">
+              <span class="qb-fill-text">55%</span>
+            </div>
+          </div>
+        </div>
+        <div class="quota-bar">
+          <div class="qb-label">
+            <span class="qb-label-name">企业版订阅</span>
+            <span class="qb-label-val">定制报价</span>
+          </div>
+          <div class="qb-track">
+            <div class="qb-fill" style="width:35%;">
+              <span class="qb-fill-text">35%</span>
+            </div>
+          </div>
+        </div>
+        <div class="quota-bar">
+          <div class="qb-label">
+            <span class="qb-label-name">增值服务包</span>
+            <span class="qb-label-val">¥99-999/月</span>
+          </div>
+          <div class="qb-track">
+            <div class="qb-fill" style="width:10%; background:#5c6bc0;">
+              <span class="qb-fill-text">10%</span>
+            </div>
+          </div>
+        </div>
+        <div class="qc-total">
+          <div class="qc-total-val">¥1,430,000</div>
+          <div class="qc-total-label">MRR · 占总收入 65%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 私有化部署 -->
+    <div class="quota-card c2">
+      <div class="qc-header">
+        <div class="qc-icon">🏢</div>
+        私有化部署 (25%)
+      </div>
+      <div class="qc-body">
+        <div class="quota-bar">
+          <div class="qb-label">
+            <span class="qb-label-name">企业授权费</span>
+            <span class="qb-label-val">一次性</span>
+          </div>
+          <div class="qb-track">
+            <div class="qb-fill" style="width:60%;">
+              <span class="qb-fill-text">60%</span>
+            </div>
+          </div>
+        </div>
+        <div class="quota-bar">
+          <div class="qb-label">
+            <span class="qb-label-name">实施交付费</span>
+            <span class="qb-label-val">按人天</span>
+          </div>
+          <div class="qb-track">
+            <div class="qb-fill" style="width:25%; background:#00acc1;">
+              <span class="qb-fill-text">25%</span>
+            </div>
+          </div>
+        </div>
+        <div class="quota-bar">
+          <div class="qb-label">
+            <span class="qb-label-name">年度维保</span>
+            <span class="qb-label-val">授权费 20%</span>
+          </div>
+          <div class="qb-track">
+            <div class="qb-fill" style="width:15%; background:#4dd0e1;">
+              <span class="qb-fill-text">15%</span>
+            </div>
+          </div>
+        </div>
+        <div class="qc-total">
+          <div class="qc-total-val">¥550,000</div>
+          <div class="qc-total-label">Q3 单季 · 占总收入 25%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 服务收入 -->
+    <div class="quota-card c3">
+      <div class="qc-header">
+        <div class="qc-icon">🛠</div>
+        服务与生态 (10%)
+      </div>
+      <div class="qc-body">
+        <div class="quota-bar">
+          <div class="qb-label">
+            <span class="qb-label-name">定制开发</span>
+            <span class="qb-label-val">按项目</span>
+          </div>
+          <div class="qb-track">
+            <div class="qb-fill" style="width:40%;">
+              <span class="qb-fill-text">40%</span>
+            </div>
+          </div>
+        </div>
+        <div class="quota-bar">
+          <div class="qb-label">
+            <span class="qb-label-name">培训认证</span>
+            <span class="qb-label-val">¥2999/人</span>
+          </div>
+          <div class="qb-track">
+            <div class="qb-fill" style="width:30%; background:#ff9800;">
+              <span class="qb-fill-text">30%</span>
+            </div>
+          </div>
+        </div>
+        <div class="quota-bar">
+          <div class="qb-label">
+            <span class="qb-label-name">技术支持</span>
+            <span class="qb-label-val">年度合同</span>
+          </div>
+          <div class="qb-track">
+            <div class="qb-fill" style="width:20%; background:#ffb74d;">
+              <span class="qb-fill-text">20%</span>
+            </div>
+          </div>
+        </div>
+        <div class="quota-bar">
+          <div class="qb-label">
+            <span class="qb-label-name">插件市场</span>
+            <span class="qb-label-val">抽成 20%</span>
+          </div>
+          <div class="qb-track">
+            <div class="qb-fill" style="width:10%; background:#ffe0b2;">
+              <span class="qb-fill-text" style="color:#ef6c00">10%</span>
+            </div>
+          </div>
+        </div>
+        <div class="qc-total">
+          <div class="qc-total-val">¥220,000</div>
+          <div class="qc-total-label">Q3 单季 · 占总收入 10%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 汇总 -->
+  <div class="summary-panel">
+    <div class="sp-title">📊 收入结构总览 (Q3 2024)</div>
+    <div class="sp-item"><span class="sp-label">SaaS 订阅收入</span><span class="sp-val">¥143万 (65%)</span></div>
+    <div class="sp-item"><span class="sp-label">私有化部署收入</span><span class="sp-val">¥55万 (25%)</span></div>
+    <div class="sp-item"><span class="sp-label">服务与生态收入</span><span class="sp-val">¥22万 (10%)</span></div>
+    <div class="sp-item sp-total"><span class="sp-label">季度总收入</span><span class="sp-val">¥220万</span></div>
+    <div class="sp-item"><span class="sp-label">年化收入 ARR</span><span class="sp-val" style="color:#1a237e;">¥880万</span></div>
+    <div class="sp-item"><span class="sp-label">毛利率</span><span class="sp-val" style="color:#2e7d32;">78%</span></div>
+    <div class="sp-item"><span class="sp-label">SaaS 收入占比目标 (2026)</span><span class="sp-val" style="color:#3949ab;">80%</span></div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; height:100%; }
+.mod { border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:16px 18px; background:rgba(255,255,255,0.02); }
+.mh { font-size:14px; font-weight:700; color:#00e5ff; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.feat { margin:6px 0; padding:8px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border-left:2px solid; font-size:11px; color:#cfd8dc; }
+.feat strong { color:#fff; }
+.f1 { border-left-color:#00e5ff; }
+.f2 { border-left-color:#7c4dff; }
+.f3 { border-left-color:#00e676; }
+.f4 { border-left-color:#ff9100; }
+.f5 { border-left-color:#ff5252; }
+.tier { display:flex; gap:8px; margin-top:8px; }
+.t { flex:1; text-align:center; padding:8px; border-radius:6px; font-size:10px; }
+.t1 { background:rgba(0,229,255,0.1); color:#00e5ff; }
+.t2 { background:rgba(124,77,255,0.1); color:#7c4dff; }
+.t3 { background:rgba(0,230,118,0.1); color:#00e676; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-2 产品功能矩阵 — 三层功能体系</div>
+<div class="subtitle">FEATURE MATRIX · 基础版 · 专业版 · 企业版 · 功能梯度与定价策略</div>
+<div class="canvas">
+  <div class="grid">
+    <div class="mod">
+      <div class="mh">🎨 场景生成模块</div>
+      <div class="feat f1"><strong>基础场景库</strong> — 10,000+ 预置标准场景<br><span style="color:#78909c;">✓ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f2"><strong>AI 场景合成</strong> — GAN 生成定制化场景<br><span style="color:#78909c;">✗ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f3"><strong>Corner Case 挖掘</strong> — 对抗样本自动生成<br><span style="color:#78909c;">✗ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f4"><strong>参数化配置</strong> — 场景元素自由组合<br><span style="color:#78909c;">✗ 基础版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f5"><strong>私有场景库</strong> — 企业专属场景资产管理<br><span style="color:#78909c;">✗ 基础版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="tier"><div class="t t1">基础版<br>¥5万/年</div><div class="t t2">专业版<br>¥20万/年</div><div class="t t3">企业版<br>¥80万/年</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">🧪 仿真执行模块</div>
+      <div class="feat f1"><strong>单机仿真</strong> — 本地运行基础测试<br><span style="color:#78909c;">✓ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f2"><strong>云端并行</strong> — 100 场景并发<br><span style="color:#78909c;">✗ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f3"><strong>大规模回归</strong> — 10,000+ 场景批量<br><span style="color:#78909c;">✗ 基础版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f4"><strong>CI/CD 集成</strong> — Jenkins/GitLab 插件<br><span style="color:#78909c;">✗ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f5"><strong>私有云部署</strong> — 本地化算力集群<br><span style="color:#78909c;">✗ 基础版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="tier"><div class="t t1">基础版<br>¥5万/年</div><div class="t t2">专业版<br>¥20万/年</div><div class="t t3">企业版<br>¥80万/年</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">📊 分析评估模块</div>
+      <div class="feat f1"><strong>基础报告</strong> — 通过率/失败率统计<br><span style="color:#78909c;">✓ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f2"><strong>覆盖率分析</strong> — ODD 维度覆盖度<br><span style="color:#78909c;">✗ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f3"><strong>性能退化</strong> — 版本间性能对比<br><span style="color:#78909c;">✗ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f4"><strong>安全评估</strong> — ISO 26262 / SOTIF<br><span style="color:#78909c;">✗ 基础版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f5"><strong>定制化报告</strong> — 客户品牌/模板定制<br><span style="color:#78909c;">✗ 基础版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="tier"><div class="t t1">基础版<br>¥5万/年</div><div class="t t2">专业版<br>¥20万/年</div><div class="t t3">企业版<br>¥80万/年</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">📡 传感器仿真</div>
+      <div class="feat f1"><strong>相机仿真</strong> — 单目/双目/环视<br><span style="color:#78909c;">✓ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f2"><strong>LiDAR 仿真</strong> — 16/32/64/128线<br><span style="color:#78909c;">✗ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f3"><strong>Radar 仿真</strong> — 毫米波/4D成像<br><span style="color:#78909c;">✗ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f4"><strong>传感器融合</strong> — 时间同步+空间对齐<br><span style="color:#78909c;">✗ 基础版 | ✗ 专业版 | ✓ 企业版</span></div>
+    </div>
+    <div class="mod">
+      <div class="mh">🚗 车辆动力学</div>
+      <div class="feat f1"><strong>基础动力学</strong> — 自行车模型<br><span style="color:#78909c;">✓ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f2"><strong>高精度模型</strong> — CarSim 级别<br><span style="color:#78909c;">✗ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f3"><strong>自定义车辆</strong> — 参数化车型配置<br><span style="color:#78909c;">✗ 基础版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f4"><strong>轮胎模型</strong> — Pacejka/Magic Formula<br><span style="color:#78909c;">✗ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+    </div>
+    <div class="mod">
+      <div class="mh">☁️ 平台服务</div>
+      <div class="feat f1"><strong>Web 控制台</strong> — 基础操作界面<br><span style="color:#78909c;">✓ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f2"><strong>API 接入</strong> — RESTful/gRPC 接口<br><span style="color:#78909c;">✗ 基础版 | ✓ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f3"><strong>专属支持</strong> — 7×24 技术支持<br><span style="color:#78909c;">✗ 基础版 | ✗ 专业版 | ✓ 企业版</span></div>
+      <div class="feat f4"><strong>培训服务</strong> — 上门培训+认证<br><span style="color:#78909c;">✗ 基础版 | ✗ 专业版 | ✓ 企业版</span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

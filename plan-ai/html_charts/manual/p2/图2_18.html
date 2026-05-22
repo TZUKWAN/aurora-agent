@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.center { position:absolute; left:50%; top:45%; transform:translate(-50%,-50%); width:200px; height:200px; border-radius:50%; background:linear-gradient(135deg,rgba(0,229,255,0.2),rgba(124,77,255,0.2)); border:2px solid #00e5ff; display:flex; align-items:center; justify-content:center; color:#00e5ff; font-size:18px; font-weight:700; text-align:center; box-shadow:0 0 40px rgba(0,229,255,0.2); z-index:10; }
+.ring { position:absolute; left:50%; top:45%; transform:translate(-50%,-50%); border:1px dashed rgba(0,229,255,0.15); border-radius:50%; }
+.o1 { width:480px; height:480px; }
+.o2 { width:720px; height:720px; }
+.node { position:absolute; width:150px; padding:12px; border-radius:10px; text-align:center; font-size:11px; font-weight:700; border:1px solid; }
+.nn { font-size:12px; margin-bottom:4px; }
+.nd { font-size:9px; font-weight:400; opacity:0.8; }
+.n1 { background:rgba(0,229,255,0.1); border-color:#00e5ff; color:#00e5ff; }
+.n2 { background:rgba(124,77,255,0.1); border-color:#7c4dff; color:#7c4dff; }
+.n3 { background:rgba(0,230,118,0.1); border-color:#00e676; color:#00e676; }
+.n4 { background:rgba(255,145,0,0.1); border-color:#ff9100; color:#ff9100; }
+.n5 { background:rgba(255,82,82,0.1); border-color:#ff5252; color:#ff5252; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-18 合作生态展示 — 自动驾驶产业伙伴网络</div>
+<div class="subtitle">PARTNER ECOSYSTEM · 芯片 · 云厂商 · 车企 · 高校 · 标准机构 · 资本</div>
+<div class="canvas">
+  <div class="center">元界智驾<br><span style="font-size:12px;font-weight:400;">仿真引擎</span></div>
+  <div class="ring o1"></div><div class="ring o2"></div>
+  <div class="node n1" style="left:750px;top:200px;"><div class="nn">🖥️ NVIDIA</div><div class="nd">GPU算力 · CUDA生态 · Inception计划</div></div>
+  <div class="node n1" style="left:980px;top:260px;"><div class="nn">🚗 地平线</div><div class="nd">国产芯片 · 算法协同 · 联合优化</div></div>
+  <div class="node n2" style="left:1100px;top:460px;"><div class="nn">☁️ 阿里云</div><div class="nd">云基础设施 · 自动驾驶加速器</div></div>
+  <div class="node n2" style="left:1050px;top:680px;"><div class="nn">☁️ 华为云</div><div class="nd">昇腾AI · 车企渠道共享</div></div>
+  <div class="node n3" style="left:850px;top:780px;"><div class="nn">🎓 清华大学</div><div class="nd">联合实验室 · 人才培养 · 论文合作</div></div>
+  <div class="node n3" style="left:600px;top:720px;"><div class="nn">🎓 北理工</div><div class="nd">智能网联 · 封闭场地测试</div></div>
+  <div class="node n4" style="left:480px;top:520px;"><div class="nn">🏭 中汽研</div><div class="nd">检测认证 · 标准制定 · 资质背书</div></div>
+  <div class="node n4" style="left:520px;top:300px;"><div class="nn">🏭 汽标委</div><div class="nd">行业标准 · 测试规范 · 法规对接</div></div>
+  <div class="node n5" style="left:700px;top:160px;"><div class="nn">💰 红杉资本</div><div class="nd">种子投资 · 产业资源 · 品牌背书</div></div>
+  <div class="node n5" style="left:1200px;top:200px;"><div class="nn">💰 高瓴创投</div><div class="nd">A轮领投 · 自动驾驶生态</div></div>
+  <div class="node n1" style="left:1300px;top:400px;"><div class="nn">🚗 蔚来汽车</div><div class="nd">标杆客户 · 场景数据共享</div></div>
+  <div class="node n1" style="left:1250px;top:620px;"><div class="nn">🚗 小鹏汽车</div><div class="nd">联合研发 · XNGP验证</div></div>
+</div>
+</body>
+</html>

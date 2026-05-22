@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.price-chart { position:relative; height:200px; background:#fff; border:2px solid #e0e0e0; border-radius:12px; margin-bottom:20px; overflow:hidden; }
+.pc-header { padding:10px 16px; font-size:14px; font-weight:700; color:#212121; border-bottom:1px solid #e0e0e0; }
+.pc-area { position:relative; height:140px; }
+.pc-bar { position:absolute; bottom:0; width:8%; border-radius:6px 6px 0 0; display:flex; align-items:flex-end; justify-content:center; padding-bottom:6px; color:#fff; font-size:11px; font-weight:700; }
+.channel-flow { display:flex; gap:16px; }
+.flow-stage { flex:1; background:#fff; border:3px solid; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.06); }
+.fs-header { padding:10px 14px; color:#fff; font-size:13px; font-weight:700; }
+.fs-body { padding:12px 14px; }
+.ch-item { display:flex; align-items:center; gap:8px; padding:6px 8px; margin:5px 0; background:#f5f5f5; border-radius:6px; font-size:11px; color:#424242; }
+.ch-stat { margin-left:auto; font-size:10px; color:#757575; }
+.fs-conn { display:flex; align-items:center; justify-content:center; width:50px; }
+.conn-box { width:40px; height:40px; border-radius:50%; background:#e65100; color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; }
+.conn-label { text-align:center; font-size:10px; color:#757575; margin-top:6px; }
+.s1 { border-color:#78909c; } .s1 .fs-header { background:#78909c; }
+.s2 { border-color:#3949ab; } .s2 .fs-header { background:#3949ab; }
+.s3 { border-color:#00838f; } .s3 .fs-header { background:#00838f; }
+.s4 { border-color:#ef6c00; } .s4 .fs-header { background:#ef6c00; }
+.metrics { display:flex; gap:16px; margin-top:20px; }
+.m-item { flex:1; background:#212121; border-radius:10px; padding:14px; color:#fff; text-align:center; }
+.m-val { font-size:22px; font-weight:700; color:#ffeb3b; }
+.m-label { font-size:10px; color:#9e9e9e; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="title">图1-8 储能先知营销渠道架构 — 电价曲线漏斗</div>
+<div class="subtitle">MARKETING AS ELECTRICITY PRICE CURVE · 阶段=峰谷平段 · 高度=客户量 · 转化率=价差</div>
+<div class="canvas">
+  <div class="price-chart">
+    <div class="pc-header">📈 客户获取量分布 · 模拟电价曲线</div>
+    <div class="pc-area">
+      <div class="pc-bar" style="left:2%; height:20%; background:#78909c;">谷</div>
+      <div class="pc-bar" style="left:12%; height:35%; background:#78909c;">谷</div>
+      <div class="pc-bar" style="left:22%; height:55%; background:#42a5f5;">平</div>
+      <div class="pc-bar" style="left:32%; height:80%; background:#e65100;">峰</div>
+      <div class="pc-bar" style="left:42%; height:95%; background:#c62828;">尖</div>
+      <div class="pc-bar" style="left:52%; height:75%; background:#e65100;">峰</div>
+      <div class="pc-bar" style="left:62%; height:50%; background:#42a5f5;">平</div>
+      <div class="pc-bar" style="left:72%; height:30%; background:#78909c;">谷</div>
+      <div class="pc-bar" style="left:82%; height:45%; background:#42a5f5;">平</div>
+      <div class="pc-bar" style="left:92%; height:60%; background:#e65100;">峰</div>
+    </div>
+  </div>
+  <div class="channel-flow">
+    <div class="flow-stage s1">
+      <div class="fs-header">📥 谷段获客 (Acquisition)</div>
+      <div class="fs-body">
+        <div class="ch-item">🔍 行业展会<span class="ch-stat">储能大会/光伏展</span></div>
+        <div class="ch-item">📱 行业协会<span class="ch-stat">CESA/CNESA</span></div>
+        <div class="ch-item">📝 技术白皮书<span class="ch-stat">热失控专题</span></div>
+        <div class="ch-item">🎤 标杆案例会<span class="ch-stat">3场/季度</span></div>
+      </div>
+    </div>
+    <div class="fs-conn"><div><div class="conn-box">→</div><div class="conn-label">转化率<br>18%</div></div></div>
+    <div class="flow-stage s2">
+      <div class="fs-header">⚡ 平段激活 (Activation)</div>
+      <div class="fs-body">
+        <div class="ch-item">🎁 免费诊断<span class="ch-stat">电站健康评估</span></div>
+        <div class="ch-item">📊 收益测算<span class="ch-stat">在线 ROI 工具</span></div>
+        <div class="ch-item">🏭 工厂参观<span class="ch-stat">月度开放日</span></div>
+        <div class="ch-item">💬 技术咨询<span class="ch-stat">专家 1v1</span></div>
+      </div>
+    </div>
+    <div class="fs-conn"><div><div class="conn-box">→</div><div class="conn-label">转化率<br>35%</div></div></div>
+    <div class="flow-stage s3">
+      <div class="fs-header">💰 峰段转化 (Conversion)</div>
+      <div class="fs-body">
+        <div class="ch-item">📋 方案投标<span class="ch-stat">EPC 总包</span></div>
+        <div class="ch-item">📄 合同谈判<span class="ch-stat">EMC/购销</span></div>
+        <div class="ch-item">🤝 融资租赁<span class="ch-stat">零首付方案</span></div>
+        <div class="ch-item">✍ 签约交付<span class="ch-stat">平均周期 45 天</span></div>
+      </div>
+    </div>
+    <div class="fs-conn"><div><div class="conn-box">→</div><div class="conn-label">续约率<br>85%</div></div></div>
+    <div class="flow-stage s4">
+      <div class="fs-header">🏆 尖峰留存 (Retention)</div>
+      <div class="fs-body">
+        <div class="ch-item">⭐ 客户成功<span class="ch-stat">专属 CSM</span></div>
+        <div class="ch-item">📈 扩容增购<span class="ch-stat">二期三期</span></div>
+        <div class="ch-item">👥 转介绍<span class="ch-stat">NPS 68</span></div>
+        <div class="ch-item">🏆 标杆打造<span class="ch-stat">行业示范</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="metrics">
+    <div class="m-item"><div class="m-val">¥12万</div><div class="m-label">CAC</div></div>
+    <div class="m-item"><div class="m-val">¥180万</div><div class="m-label">LTV</div></div>
+    <div class="m-item"><div class="m-val">15x</div><div class="m-label">LTV/CAC</div></div>
+    <div class="m-item"><div class="m-val">45天</div><div class="m-label">销售周期</div></div>
+    <div class="m-item"><div class="m-val">85%</div><div class="m-label">续约率</div></div>
+  </div>
+</div>
+</body>
+</html>

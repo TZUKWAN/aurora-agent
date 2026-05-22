@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.persona { display:flex; align-items:center; gap:14px; margin:10px 0; padding:14px; border-radius:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.15); }
+.pa { width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; background:linear-gradient(135deg,#00e5ff,#0091ea); }
+.pi { flex:1; }
+.pn { font-size:14px; font-weight:700; color:#fff; }
+.pp { font-size:11px; color:#00e5ff; margin-top:2px; }
+.pd { font-size:11px; color:#90a4ae; margin-top:4px; line-height:1.5; }
+.scene { margin:8px 0; padding:12px; border-radius:8px; background:rgba(255,255,255,0.03); border-left:3px solid; }
+.st { font-size:12px; font-weight:700; color:#fff; margin-bottom:4px; }
+.sd { font-size:11px; color:#90a4ae; line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-3 用户画像与使用场景 — 仿真测试用户分层</div>
+<div class="subtitle">USER PERSONA · 算法工程师 · 测试工程师 · 项目经理 · 安全工程师</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">👤 核心用户画像</div>
+      <div class="persona"><div class="pa">👨‍💻</div><div class="pi"><div class="pn">算法工程师 小王</div><div class="pp">28岁 | 自动驾驶公司 | 3年经验</div><div class="pd">"需要快速验证算法在极端场景下的表现，真实路测太危险太耗时"</div></div></div>
+      <div class="persona"><div class="pa" style="background:linear-gradient(135deg,#7c4dff,#651fff);">👩‍🔬</div><div class="pi"><div class="pn">测试工程师 李姐</div><div class="pp">32岁 | 车企研究院 | 6年经验</div><div class="pd">"需要系统性地验证功能安全，覆盖所有 ODD 场景，生成合规报告"</div></div></div>
+      <div class="persona"><div class="pa" style="background:linear-gradient(135deg,#00e676,#00c853);">👨‍💼</div><div class="pi"><div class="pn">项目经理 张总</div><div class="pp">40岁 | Tier1 供应商 | 10年经验</div><div class="pd">"需要向客户证明算法可靠性，缩短交付周期，降低测试成本"</div></div></div>
+      <div class="persona"><div class="pa" style="background:linear-gradient(135deg,#ff9100,#ff6d00);">🛡️</div><div class="pi"><div class="pn">安全工程师 赵工</div><div class="pp">35岁 | 新势力车企 | 5年经验</div><div class="pd">"需要证明 SOTIF 合规，识别未知不安全场景，通过认证审核"</div></div></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">🎯 典型使用场景</div>
+      <div class="scene" style="border-left-color:#00e5ff;"><div class="st">场景一：算法迭代验证</div><div class="sd">算法工程师提交新版本感知算法，自动触发 10,000 场景回归测试，2 小时内获得覆盖率与性能退化报告，快速判断版本质量。</div></div>
+      <div class="scene" style="border-left-color:#7c4dff;"><div class="st">场景二：Corner Case 挖掘</div><div class="sd">测试工程师输入已知事故场景，AI 自动泛化生成 100+ 变体场景，发现算法在"暴雨夜+对向眩光+行人突然冲出"组合下的失效模式。</div></div>
+      <div class="scene" style="border-left-color:#00e676;"><div class="st">场景三：客户交付证明</div><div class="sd">项目经理向 OEM 客户展示仿真测试报告，证明算法在 200+ 场景类别中通过率达 99.2%，加速客户验收与项目结项。</div></div>
+      <div class="scene" style="border-left-color:#ff9100;"><div class="st">场景四：功能安全认证</div><div class="sd">安全工程师使用平台生成 SOTIF 评估报告，证明已知+未知场景覆盖完整，支持 ISO 26262 ASIL-D 认证审核。</div></div>
+      <div class="scene" style="border-left-color:#ff5252;"><div class="st">场景五：教学与培训</div><div class="sd">高校自动驾驶课程使用基础版平台进行教学演示，学生可在虚拟环境中体验 Corner Case，零风险学习自动驾驶极限场景。</div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

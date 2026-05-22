@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:40px; top:120px; width:1840px; height:920px; }
+
+/* 服务节点 - 像 Kiali 中的 Service */
+.svc-node {
+  position:absolute;
+  background:#fff; border:2px solid;
+  border-radius:10px;
+  padding:14px 16px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.06);
+  z-index:50;
+}
+.svc-header {
+  display:flex; align-items:center; gap:8px;
+  font-size:13px; font-weight:700;
+  margin-bottom:6px;
+}
+.svc-icon { width:24px; height:24px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:12px; }
+.svc-desc { font-size:10px; color:#78909c; }
+.svc-meta { margin-top:8px; display:flex; gap:6px; }
+.svc-tag {
+  padding:2px 8px; border-radius:10px;
+  font-size:9px; font-weight:700;
+}
+
+/* 应用节点 - 像 Kiali 中的 Workload */
+.app-node {
+  position:absolute;
+  background:#fff; border:2px solid #c5cae9;
+  border-radius:8px;
+  padding:10px 12px;
+  box-shadow:0 1px 6px rgba(0,0,0,0.04);
+  z-index:40;
+}
+.app-name { font-size:11px; font-weight:600; color:#37474f; }
+.app-detail { font-size:9px; color:#90a4ae; margin-top:3px; }
+
+/* 连线 - 带流量百分比 */
+.edges { position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none; z-index:10; }
+.edge { fill:none; stroke-linecap:round; }
+.edge-label-bg { fill:#fff; rx:8; }
+.edge-label { font-size:10px; font-weight:700; text-anchor:middle; }
+
+/* 客户入口 */
+.entry-gate {
+  position:absolute; left:20px; top:400px;
+  width:140px; height:100px;
+  background:linear-gradient(135deg,#1a237e,#3949ab);
+  border-radius:12px;
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+  color:#fff; box-shadow:0 4px 16px rgba(26,35,126,0.2);
+  z-index:60;
+}
+.entry-gate .eg-title { font-size:14px; font-weight:700; }
+.entry-gate .eg-sub { font-size:10px; opacity:0.8; margin-top:4px; }
+
+/* 出口 */
+.exit-gate {
+  position:absolute; right:20px; top:400px;
+  width:140px; height:100px;
+  background:linear-gradient(135deg,#2e7d32,#66bb6a);
+  border-radius:12px;
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+  color:#fff; box-shadow:0 4px 16px rgba(46,125,50,0.2);
+  z-index:60;
+}
+
+/* 图例 */
+.legend {
+  position:absolute; right:40px; top:40px;
+  background:#f5f7fa; border-radius:10px;
+  padding:14px 18px; border:1px solid #e3eaf5;
+  width:180px;
+}
+.legend-title { font-size:12px; font-weight:700; color:#1a237e; margin-bottom:8px; }
+.legend-item { display:flex; align-items:center; gap:8px; margin:5px 0; font-size:11px; color:#546e7a; }
+.legend-box { width:14px; height:14px; border-radius:4px; border:2px solid; }
+</style>
+</head>
+<body>
+<div class="title">图1-7 云跃引擎服务体系架构 — 服务网格流量拓扑</div>
+<div class="subtitle">SERVICE MESH TOPOLOGY · 节点=服务模块 · 连线=客户流转 · 标签=转化率 / SLA</div>
+
+<div class="canvas">
+  <svg class="edges" viewBox="0 0 1840 920">
+    <!-- 入口到第一层 -->
+    <path class="edge" d="M 160 450 Q 240 350 340 220" stroke="#3949ab" stroke-width="3"/>
+    <path class="edge" d="M 160 450 Q 240 450 340 420" stroke="#3949ab" stroke-width="4"/>
+    <path class="edge" d="M 160 450 Q 240 550 340 680" stroke="#3949ab" stroke-width="2"/>
+    
+    <!-- 第一层到第二层 -->
+    <path class="edge" d="M 520 220 Q 600 200 660 160" stroke="#5c6bc0" stroke-width="2"/>
+    <path class="edge" d="M 520 220 Q 600 260 660 300" stroke="#5c6bc0" stroke-width="2"/>
+    <path class="edge" d="M 520 420 Q 600 380 660 340" stroke="#5c6bc0" stroke-width="3"/>
+    <path class="edge" d="M 520 420 Q 600 460 660 480" stroke="#5c6bc0" stroke-width="3"/>
+    <path class="edge" d="M 520 680 Q 600 640 660 580" stroke="#5c6bc0" stroke-width="2"/>
+    <path class="edge" d="M 520 680 Q 600 720 660 760" stroke="#5c6bc0" stroke-width="2"/>
+    
+    <!-- 第二层到第三层 -->
+    <path class="edge" d="M 840 160 Q 920 200 1000 220" stroke="#00838f" stroke-width="2"/>
+    <path class="edge" d="M 840 300 Q 920 340 1000 360" stroke="#00838f" stroke-width="2"/>
+    <path class="edge" d="M 840 340 Q 920 380 1000 420" stroke="#00838f" stroke-width="2"/>
+    <path class="edge" d="M 840 480 Q 920 520 1000 540" stroke="#00838f" stroke-width="3"/>
+    <path class="edge" d="M 840 580 Q 920 540 1000 500" stroke="#00838f" stroke-width="2"/>
+    <path class="edge" d="M 840 760 Q 920 720 1000 680" stroke="#00838f" stroke-width="2"/>
+    
+    <!-- 第三层到第四层 -->
+    <path class="edge" d="M 1180 220 Q 1260 260 1340 300" stroke="#2e7d32" stroke-width="2"/>
+    <path class="edge" d="M 1180 360 Q 1260 340 1340 340" stroke="#2e7d32" stroke-width="2"/>
+    <path class="edge" d="M 1180 420 Q 1260 420 1340 420" stroke="#2e7d32" stroke-width="3"/>
+    <path class="edge" d="M 1180 540 Q 1260 500 1340 460" stroke="#2e7d32" stroke-width="2"/>
+    <path class="edge" d="M 1180 500 Q 1260 540 1340 560" stroke="#2e7d32" stroke-width="2"/>
+    <path class="edge" d="M 1180 680 Q 1260 640 1340 620" stroke="#2e7d32" stroke-width="2"/>
+    
+    <!-- 第四层到出口 -->
+    <path class="edge" d="M 1520 300 Q 1600 380 1680 440" stroke="#66bb6a" stroke-width="3"/>
+    <path class="edge" d="M 1520 340 Q 1600 400 1680 450" stroke="#66bb6a" stroke-width="2"/>
+    <path class="edge" d="M 1520 420 Q 1600 430 1680 450" stroke="#66bb6a" stroke-width="3"/>
+    <path class="edge" d="M 1520 460 Q 1600 450 1680 450" stroke="#66bb6a" stroke-width="2"/>
+    <path class="edge" d="M 1520 560 Q 1600 480 1680 460" stroke="#66bb6a" stroke-width="2"/>
+    <path class="edge" d="M 1520 620 Q 1600 480 1680 460" stroke="#66bb6a" stroke-width="2"/>
+    
+    <!-- 流量标签 -->
+    <rect x="230" y="280" width="50" height="18" class="edge-label-bg" stroke="#e3eaf5" rx="4"/>
+    <text x="255" y="293" class="edge-label" fill="#3949ab">35%</text>
+    
+    <rect x="230" y="430" width="50" height="18" class="edge-label-bg" stroke="#e3eaf5" rx="4"/>
+    <text x="255" y="443" class="edge-label" fill="#3949ab">45%</text>
+    
+    <rect x="230" y="580" width="50" height="18" class="edge-label-bg" stroke="#e3eaf5" rx="4"/>
+    <text x="255" y="593" class="edge-label" fill="#3949ab">20%</text>
+    
+    <rect x="580" y="220" width="60" height="18" class="edge-label-bg" stroke="#e3eaf5" rx="4"/>
+    <text x="610" y="233" class="edge-label" fill="#5c6bc0">78% →</text>
+    
+    <rect x="580" y="440" width="60" height="18" class="edge-label-bg" stroke="#e3eaf5" rx="4"/>
+    <text x="610" y="453" class="edge-label" fill="#5c6bc0">85% →</text>
+    
+    <rect x="900" y="380" width="60" height="18" class="edge-label-bg" stroke="#e3eaf5" rx="4"/>
+    <text x="930" y="393" class="edge-label" fill="#00838f">92% →</text>
+    
+    <rect x="900" y="520" width="60" height="18" class="edge-label-bg" stroke="#e3eaf5" rx="4"/>
+    <text x="930" y="533" class="edge-label" fill="#00838f">88% →</text>
+    
+    <rect x="1240" y="350" width="60" height="18" class="edge-label-bg" stroke="#e3eaf5" rx="4"/>
+    <text x="1270" y="363" class="edge-label" fill="#2e7d32">95% →</text>
+    
+    <rect x="1240" y="470" width="60" height="18" class="edge-label-bg" stroke="#e3eaf5" rx="4"/>
+    <text x="1270" y="483" class="edge-label" fill="#2e7d32">90% →</text>
+    
+    <rect x="1580" y="430" width="60" height="18" class="edge-label-bg" stroke="#e3eaf5" rx="4"/>
+    <text x="1610" y="443" class="edge-label" fill="#66bb6a">NPS 72</text>
+  </svg>
+
+  <!-- 客户入口 -->
+  <div class="entry-gate">
+    <div class="eg-title">🚀 客户入口</div>
+    <div class="eg-sub">官网 / 销售 / 推荐</div>
+  </div>
+
+  <!-- 第一层：咨询服务 -->
+  <div class="svc-node" style="left:340px; top:160px; border-color:#3949ab;">
+    <div class="svc-header" style="color:#3949ab;">
+      <div class="svc-icon" style="background:#e8eaf6;">💬</div>
+      售前咨询
+    </div>
+    <div class="svc-desc">需求诊断 + 方案设计</div>
+    <div class="svc-meta">
+      <span class="svc-tag" style="background:#e8eaf6; color:#3949ab">SLA 4h</span>
+      <span class="svc-tag" style="background:#e8f5e9; color:#2e7d32">转化率 35%</span>
+    </div>
+  </div>
+
+  <div class="svc-node" style="left:340px; top:360px; border-color:#3949ab;">
+    <div class="svc-header" style="color:#3949ab;">
+      <div class="svc-icon" style="background:#e8eaf6;">🎯</div>
+      方案定制
+    </div>
+    <div class="svc-desc">私有化部署评估 + POC</div>
+    <div class="svc-meta">
+      <span class="svc-tag" style="background:#e8eaf6; color:#3949ab">SLA 8h</span>
+      <span class="svc-tag" style="background:#e8f5e9; color:#2e7d32">转化率 45%</span>
+    </div>
+  </div>
+
+  <div class="svc-node" style="left:340px; top:620px; border-color:#78909c;">
+    <div class="svc-header" style="color:#78909c;">
+      <div class="svc-icon" style="background:#eceff1;">📖</div>
+      自助服务
+    </div>
+    <div class="svc-desc">文档中心 + 社区论坛</div>
+    <div class="svc-meta">
+      <span class="svc-tag" style="background:#eceff1; color:#78909c">7×24</span>
+      <span class="svc-tag" style="background:#fff3e0; color:#ef6c00">转化率 20%</span>
+    </div>
+  </div>
+
+  <!-- 第二层：交付实施 -->
+  <div class="app-node" style="left:660px; top:120px;">
+    <div class="app-name">🏗 架构设计</div>
+    <div class="app-detail">K8s 集群规划</div>
+  </div>
+  <div class="app-node" style="left:660px; top:260px;">
+    <div class="app-name">⚙ 环境部署</div>
+    <div class="app-detail">Control Plane 安装</div>
+  </div>
+  <div class="app-node" style="left:660px; top:300px;">
+    <div class="app-name">🧪 POC 验证</div>
+    <div class="app-detail">灰度发布测试</div>
+  </div>
+  <div class="app-node" style="left:660px; top:440px;">
+    <div class="app-name">📚 培训交付</div>
+    <div class="app-detail">开发者 Workshop</div>
+  </div>
+  <div class="app-node" style="left:660px; top:540px;">
+    <div class="app-name">🔧 集成开发</div>
+    <div class="app-detail">CI/CD 管道接入</div>
+  </div>
+  <div class="app-node" style="left:660px; top:720px;">
+    <div class="app-name">🎓 认证考试</div>
+    <div class="app-detail">云跃认证体系</div>
+  </div>
+
+  <!-- 第三层：运维支持 -->
+  <div class="svc-node" style="left:1000px; top:180px; border-color:#00838f;">
+    <div class="svc-header" style="color:#00838f;">
+      <div class="svc-icon" style="background:#e0f7fa;">🛡</div>
+      7×24 技术支持
+    </div>
+    <div class="svc-desc">工单系统 + 专属群 + 热线</div>
+    <div class="svc-meta">
+      <span class="svc-tag" style="background:#e0f7fa; color:#00838f">P1: 15min</span>
+      <span class="svc-tag" style="background:#e8f5e9; color:#2e7d32">满意度 96%</span>
+    </div>
+  </div>
+
+  <div class="svc-node" style="left:1000px; top:320px; border-color:#00838f;">
+    <div class="svc-header" style="color:#00838f;">
+      <div class="svc-icon" style="background:#e0f7fa;">📈</div>
+      健康巡检
+    </div>
+    <div class="svc-desc">月度集群健康报告</div>
+    <div class="svc-meta">
+      <span class="svc-tag" style="background:#e0f7fa; color:#00838f">自动化</span>
+      <span class="svc-tag" style="background:#e8f5e9; color:#2e7d32">主动发现</span>
+    </div>
+  </div>
+
+  <div class="svc-node" style="left:1000px; top:480px; border-color:#00838f;">
+    <div class="svc-header" style="color:#00838f;">
+      <div class="svc-icon" style="background:#e0f7fa;">🚀</div>
+      版本升级
+    </div>
+    <div class="svc-desc">无缝滚动升级 + 回滚保障</div>
+    <div class="svc-meta">
+      <span class="svc-tag" style="background:#e0f7fa; color:#00838f">零停机</span>
+      <span class="svc-tag" style="background:#e8f5e9; color:#2e7d32">RTO &lt;5min</span>
+    </div>
+  </div>
+
+  <div class="svc-node" style="left:1000px; top:640px; border-color:#00838f;">
+    <div class="svc-header" style="color:#00838f;">
+      <div class="svc-icon" style="background:#e0f7fa;">💰</div>
+      成本优化
+    </div>
+    <div class="svc-desc">资源利用率分析 + 建议</div>
+    <div class="svc-meta">
+      <span class="svc-tag" style="background:#e0f7fa; color:#00838f">FinOps</span>
+      <span class="svc-tag" style="background:#e8f5e9; color:#2e7d32">平均省 30%</span>
+    </div>
+  </div>
+
+  <!-- 第四层：生态增值 -->
+  <div class="app-node" style="left:1340px; top:260px;">
+    <div class="app-name">🌟 合作伙伴</div>
+    <div class="app-detail">ISV 联合方案</div>
+  </div>
+  <div class="app-node" style="left:1340px; top:300px;">
+    <div class="app-name">🔌 插件市场</div>
+    <div class="app-detail">Helm Charts / Operators</div>
+  </div>
+  <div class="app-node" style="left:1340px; top:380px;">
+    <div class="app-name">🏆 最佳实践</div>
+    <div class="app-detail">行业标杆案例库</div>
+  </div>
+  <div class="app-node" style="left:1340px; top:420px;">
+    <div class="app-name">🎤 技术峰会</div>
+    <div class="app-detail">年度云原生大会</div>
+  </div>
+  <div class="app-node" style="left:1340px; top:520px;">
+    <div class="app-name">📜 白皮书</div>
+    <div class="app-detail">架构指南 + 研报</div>
+  </div>
+  <div class="app-node" style="left:1340px; top:580px;">
+    <div class="app-name">🤝 用户社区</div>
+    <div class="app-detail">GitHub + Discord</div>
+  </div>
+
+  <!-- 出口 -->
+  <div class="exit-gate">
+    <div class="eg-title">✅ 客户成功</div>
+    <div class="eg-sub">续约 / 增购 / 推荐</div>
+  </div>
+
+  <!-- 图例 -->
+  <div class="legend">
+    <div class="legend-title">服务层级</div>
+    <div class="legend-item"><span class="legend-box" style="background:#e8eaf6; border-color:#3949ab"></span>咨询服务层</div>
+    <div class="legend-item"><span class="legend-box" style="background:#fff; border-color:#5c6bc0"></span>交付实施层</div>
+    <div class="legend-item"><span class="legend-box" style="background:#e0f7fa; border-color:#00838f"></span>运维支持层</div>
+    <div class="legend-item"><span class="legend-box" style="background:#e8f5e9; border-color:#2e7d32"></span>生态增值层</div>
+    <div class="legend-item"><span style="font-size:10px; color:#78909c">连线标签 = 转化率 / SLA</span></div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.center { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:220px; height:220px; border-radius:50%; background:linear-gradient(135deg,#e65100,#ff9800); display:flex; flex-items:center; align-items:center; justify-content:center; color:#fff; text-align:center; box-shadow:0 8px 32px rgba(230,81,0,0.3); z-index:10; }
+.ct { font-size:20px; font-weight:700; line-height:1.3; }
+.orbit { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border:2px dashed #e0e0e0; border-radius:50%; }
+.o1 { width:520px; height:520px; }
+.o2 { width:780px; height:780px; }
+.o3 { width:1040px; height:1040px; }
+.node { position:absolute; width:140px; background:#fff; border:2px solid; border-radius:12px; padding:10px 8px; text-align:center; box-shadow:0 3px 12px rgba(0,0,0,0.08); }
+.nn { font-size:12px; font-weight:700; color:#212121; margin-bottom:4px; }
+.nd { font-size:9px; color:#757575; line-height:1.4; }
+.nt { display:inline-block; padding:2px 8px; border-radius:10px; font-size:9px; color:#fff; margin-top:4px; }
+.link { position:absolute; height:2px; background:linear-gradient(90deg,#e65100,transparent); transform-origin:left center; }
+</style>
+</head>
+<body>
+<div class="title">图2-18 合作生态展示 — 储能产业伙伴网络</div>
+<div class="subtitle">PARTNER ECOSYSTEM · 电池厂商 · 逆变器厂商 · 电网企业 · 科研机构 · 金融机构</div>
+<div class="canvas">
+  <div class="center"><div class="ct">储能先知<br><span style="font-size:13px;font-weight:400">AI SaaS 平台</span></div></div>
+  <div class="orbit o1"></div>
+  <div class="orbit o2"></div>
+  <div class="orbit o3"></div>
+  <div class="node" style="left:830px;top:200px;border-color:#e65100;"><div class="nn">宁德时代</div><div class="nd">电池数据接入<br>联合研发</div><span class="nt" style="background:#e65100">核心电池伙伴</span></div>
+  <div class="node" style="left:1050px;top:280px;border-color:#ff9800;"><div class="nn">阳光电源</div><div class="nd">逆变器数据对接<br>光储协同</div><span class="nt" style="background:#ff9800">逆变器伙伴</span></div>
+  <div class="node" style="left:1130px;top:500px;border-color:#00acc1;"><div class="nn">国家电网</div><div class="nd">调度数据接口<br>标准制定</div><span class="nt" style="background:#00acc1">电网伙伴</span></div>
+  <div class="node" style="left:1050px;top:720px;border-color:#2e7d32;"><div class="nn">清华电机系</div><div class="nd">电力系统算法<br>人才培养</div><span class="nt" style="background:#2e7d32">科研伙伴</span></div>
+  <div class="node" style="left:830px;top:800px;border-color:#5e35b1;"><div class="nn">红杉资本</div><div class="nd">A轮融资<br>战略资源</div><span class="nt" style="background:#5e35b1">资本伙伴</span></div>
+  <div class="node" style="left:610px;top:720px;border-color:#00838f;"><div class="nn">比亚迪储能</div><div class="nd">刀片电池数据<br>安全标准</div><span class="nt" style="background:#00838f">电池伙伴</span></div>
+  <div class="node" style="left:530px;top:500px;border-color:#ef6c00;"><div class="nn">华为数字能源</div><div class="nd">兼容性认证<br>渠道共享</div><span class="nt" style="background:#ef6c00">生态伙伴</span></div>
+  <div class="node" style="left:610px;top:280px;border-color:#c62828;"><div class="nn">中国电科院</div><div class="nd">检测认证<br>标准参与</div><span class="nt" style="background:#c62828">科研伙伴</span></div>
+  <div class="node" style="left:1180px;top:160px;border-color:#1565c0;"><div class="nn">中金资本</div><div class="nd">产业基金<br>并购资源</div><span class="nt" style="background:#1565c0">资本伙伴</span></div>
+  <div class="node" style="left:1380px;top:380px;border-color:#689f38;"><div class="nn">特来电</div><div class="nd">光储充场景<br>数据共享</div><span class="nt" style="background:#689f38">场景伙伴</span></div>
+  <div class="node" style="left:1380px;top:620px;border-color:#ad1457;"><div class="nn">普洛斯</div><div class="nd">物流园储能<br>工商业场景</div><span class="nt" style="background:#ad1457">场景伙伴</span></div>
+</div>
+</body>
+</html>

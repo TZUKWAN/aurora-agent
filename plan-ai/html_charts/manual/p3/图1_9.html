@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0f0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#d500f9; letter-spacing:2px; text-shadow:0 0 20px rgba(213,0,249,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#7c4dff; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(213,0,249,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(213,0,249,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.zone { position:absolute; border:2px dashed; border-radius:16px; padding:16px; }
+.z1 { left:30px; top:30px; width:380px; height:300px; border-color:rgba(213,0,249,0.3); background:rgba(213,0,249,0.02); }
+.z2 { left:430px; top:30px; width:480px; height:300px; border-color:rgba(0,229,255,0.3); background:rgba(0,229,255,0.02); }
+.z3 { left:930px; top:30px; width:820px; height:300px; border-color:rgba(255,234,0,0.3); background:rgba(255,234,0,0.02); }
+.z4 { left:30px; top:360px; width:1720px; height:480px; border-color:rgba(124,77,255,0.3); background:rgba(124,77,255,0.02); }
+.zt { position:absolute; top:-11px; left:16px; background:#0f0a1a; padding:0 8px; font-size:11px; font-weight:700; }
+.z1 .zt { color:#d500f9; } .z2 .zt { color:#00e5ff; } .z3 .zt { color:#ffea00; } .z4 .zt { color:#7c4dff; }
+.node { position:absolute; width:120px; padding:8px; border-radius:8px; text-align:center; font-size:10px; font-weight:700; border:1px solid; }
+.n1 { background:rgba(213,0,249,0.1); border-color:#d500f9; color:#d500f9; }
+.n2 { background:rgba(0,229,255,0.1); border-color:#00e5ff; color:#00e5ff; }
+.n3 { background:rgba(255,234,0,0.1); border-color:#ffea00; color:#ffea00; }
+.n4 { background:rgba(255,82,82,0.1); border-color:#ff5252; color:#ff5252; }
+.db { background:rgba(124,77,255,0.1); border-color:#7c4dff; color:#7c4dff; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-9 网络拓扑 — 元宇宙级分布式仿真集群</div>
+<div class="subtitle">NETWORK TOPOLOGY · 元宇宙接入 · 孪生服务 · 渲染农场 · 数据资产</div>
+<div class="canvas">
+  <div class="zone z1"><div class="zt">🌐 元宇宙接入区</div>
+    <div class="node n1" style="left:20px;top:40px;">VR头显</div>
+    <div class="node n1" style="left:160px;top:40px;">AR眼镜</div>
+    <div class="node n1" style="left:20px;top:100px;">WebXR</div>
+    <div class="node n1" style="left:160px;top:100px;">移动端</div>
+    <div class="node n1" style="left:90px;top:160px;">5G+MEC</div>
+  </div>
+  <div class="zone z2"><div class="zt">⚙️ 核心服务区</div>
+    <div class="node n2" style="left:20px;top:40px;">API Gateway</div>
+    <div class="node n2" style="left:160px;top:40px;">数字身份</div>
+    <div class="node n2" style="left:300px;top:40px;">场景交易</div>
+    <div class="node n2" style="left:20px;top:100px;">孪生引擎</div>
+    <div class="node n2" style="left:160px;top:100px;">场景生成</div>
+    <div class="node n2" style="left:300px;top:100px;">融合验证</div>
+    <div class="node n2" style="left:160px;top:160px;">K8s Master</div>
+  </div>
+  <div class="zone z3"><div class="zt">🖥️ 渲染与算力区</div>
+    <div class="node n3" style="left:20px;top:40px;">UE5渲染×128</div>
+    <div class="node n3" style="left:160px;top:40px;">NeRF节点×64</div>
+    <div class="node n3" style="left:300px;top:40px;">AI训练×256</div>
+    <div class="node n3" style="left:440px;top:40px;">物理仿真×64</div>
+    <div class="node n3" style="left:20px;top:100px;">实时渲染Pod</div>
+    <div class="node n3" style="left:160px;top:100px;">孪生重建Pod</div>
+    <div class="node n3" style="left:300px;top:100px;">场景生成Pod</div>
+    <div class="node n3" style="left:440px;top:100px;">融合验证Pod</div>
+    <div class="node n4" style="left:220px;top:160px;">Slurm调度器</div>
+  </div>
+  <div class="zone z4"><div class="zt">💾 数据资产区</div>
+    <div class="node db" style="left:20px;top:50px;">数字孪生库</div>
+    <div class="node db" style="left:160px;top:50px;">场景NFT</div>
+    <div class="node db" style="left:300px;top:50px;">区块链确权</div>
+    <div class="node db" style="left:440px;top:50px;">分布式存储</div>
+    <div class="node db" style="left:580px;top:50px;">实时数据库</div>
+    <div class="node db" style="left:720px;top:50px;">对象存储</div>
+    <div class="node db" style="left:860px;top:50px;">搜索引擎</div>
+    <div class="node db" style="left:1000px;top:50px;">流处理</div>
+    <div class="node db" style="left:1140px;top:50px;">监控告警</div>
+    <div class="node db" style="left:1280px;top:50px;">链路追踪</div>
+    <div class="node db" style="left:1420px;top:50px;">密钥管理</div>
+    <div class="node db" style="left:1560px;top:50px;">智能合约</div>
+    <div class="node n4" style="left:700px;top:160px;">跨链互操作 · 全球节点同步</div>
+  </div>
+</div>
+</body>
+</html>

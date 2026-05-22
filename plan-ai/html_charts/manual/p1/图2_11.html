@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.grid { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:24px; height:100%; }
+.card { background:#fff; border:3px solid; border-radius:14px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.06); display:flex; flex-direction:column; }
+.ch { padding:16px 20px; color:#fff; display:flex; align-items:center; gap:14px; }
+.ca { width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-size:28px; }
+.ci { flex:1; }
+.cn { font-size:18px; font-weight:700; }
+.cr { font-size:12px; opacity:0.9; margin-top:2px; }
+.ct { padding:4px 12px; border-radius:20px; background:rgba(255,255,255,0.2); font-size:10px; }
+.cb { padding:18px 20px; flex:1; }
+.cs { margin:12px 0; }
+.cst { font-size:11px; font-weight:700; color:#757575; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+.ci2 { display:flex; align-items:flex-start; gap:8px; font-size:12px; color:#424242; margin:6px 0; line-height:1.5; }
+.ci2::before { content:"•"; color:#bdbdbd; }
+.cm { display:flex; gap:10px; margin-top:auto; padding-top:14px; border-top:1px dashed #e0e0e0; }
+.cmi { flex:1; text-align:center; padding:8px; border-radius:8px; }
+.cmv { font-size:16px; font-weight:700; }
+.cml { font-size:9px; color:#757575; margin-top:2px; }
+.p1 { border-color:#e65100; } .p1 .ch { background:linear-gradient(135deg,#e65100,#ff9800); } .p1 .cmi { background:#fff3e0; } .p1 .cmv { color:#e65100; }
+.p2 { border-color:#00838f; } .p2 .ch { background:linear-gradient(135deg,#00838f,#00acc1); } .p2 .cmi { background:#e0f7fa; } .p2 .cmv { color:#00838f; }
+.p3 { border-color:#2e7d32; } .p3 .ch { background:linear-gradient(135deg,#2e7d32,#66bb6a); } .p3 .cmi { background:#e8f5e9; } .p3 .cmv { color:#2e7d32; }
+</style>
+</head>
+<body>
+<div class="title">图2-11 储能先知目标客户画像 — 电力用户负荷特性</div>
+<div class="subtitle">TARGET PERSONAS · 三类核心客户 · 负荷曲线=用电特征 · 指标=客户权重</div>
+<div class="canvas">
+  <div class="grid">
+    <div class="card p1">
+      <div class="ch"><div class="ca">🏭</div><div class="ci"><div class="cn">王建国</div><div class="cr">发电集团新能源部门总监</div></div><span class="ct">核心决策者</span></div>
+      <div class="cb">
+        <div class="cs"><div class="cst">📍 画像标签</div><div class="ci2">年龄 40-50 岁，15年+ 电力行业经验</div><div class="ci2">主导过 500MW+ 新能源项目</div><div class="ci2">对储能安全有 PTSD（经历过火灾事故）</div><div class="ci2">关注全生命周期成本而非初始投资</div></div>
+        <div class="cs"><div class="cst">⚡ 核心痛点</div><div class="ci2">新能源配储政策强制要求，但储能事故频发</div><div class="ci2">现有 BMS 预警滞后，事故后才报警</div><div class="ci2">储能调度粗放，收益不及预期</div><div class="ci2">多电站分散管理，运维效率低</div></div>
+        <div class="cs"><div class="cst">🎯 决策动机</div><div class="ci2">零安全事故（底线要求）</div><div class="ci2">提升储能电站 IRR 2-3%</div><div class="ci2">集中监控降低运维人力 50%</div></div>
+        <div class="cm"><div class="cmi"><div class="cmv">30%</div><div class="cml">客户占比</div></div><div class="cmi"><div class="cmv">¥800万</div><div class="cml">客单价</div></div><div class="cmi"><div class="cmv">95%</div><div class="cml">决策权</div></div></div>
+      </div>
+    </div>
+    <div class="card p2">
+      <div class="ch"><div class="ca">🏢</div><div class="ci"><div class="cn">李志强</div><div class="cr">工商业园区能源管理负责人</div></div><span class="ct">关键影响者</span></div>
+      <div class="cb">
+        <div class="cs"><div class="cst">📍 画像标签</div><div class="ci2">年龄 35-45 岁，负责园区电费优化</div><div class="ci2">年电费支出 500万+，峰谷价差敏感</div><div class="ci2">已有光伏，想加装储能进一步降本</div><div class="ci2">对技术细节不深入，看重 ROI 测算</div></div>
+        <div class="cs"><div class="cst">⚡ 核心痛点</div><div class="ci2">峰谷电价差大但缺乏套利策略</div><div class="ci2">需量电费占电费 30%+</div><div class="ci2">担心储能安全风险（园区人员密集）</div><div class="ci2">没有专业运维团队</div></div>
+        <div class="cs"><div class="cst">🎯 决策动机</div><div class="ci2">4-5 年回本，IRR &gt;15%</div><div class="ci2">全自动运行，无需专人值守</div><div class="ci2">安全有保障（热失控预警）</div></div>
+        <div class="cm"><div class="cmi"><div class="cmv">45%</div><div class="cml">客户占比</div></div><div class="cmi"><div class="cmv">¥120万</div><div class="cml">客单价</div></div><div class="cmi"><div class="cmv">70%</div><div class="cml">技术评估权</div></div></div>
+      </div>
+    </div>
+    <div class="card p3">
+      <div class="ch"><div class="ca">⚡</div><div class="ci"><div class="cn">张伟</div><div class="cr">电网公司调度中心工程师</div></div><span class="ct">技术把关者</span></div>
+      <div class="cb">
+        <div class="cs"><div class="cst">📍 画像标签</div><div class="ci2">年龄 30-40 岁，电网调度自动化专业</div><div class="ci2">熟悉 IEC 61850 / 104 协议</div><div class="ci2">参与过省级储能调度平台建设</div><div class="ci2">对系统稳定性和响应速度极度敏感</div></div>
+        <div class="cs"><div class="cst">⚡ 核心痛点</div><div class="ci2">储能电站并网后不可控，调度困难</div><div class="ci2">BMS 数据不透明，无法实时掌握状态</div><div class="ci2">安全事故导致电网停电，责任重大</div><div class="ci2">各厂家协议不统一，互联互通差</div></div>
+        <div class="cs"><div class="cst">🎯 决策动机</div><div class="ci2">标准协议对接（IEC/国标）</div><div class="ci2">毫秒级调度响应</div><div class="ci2">全量数据上送调度端</div></div>
+        <div class="cm"><div class="cmi"><div class="cmv">25%</div><div class="cml">客户占比</div></div><div class="cmi"><div class="cmv">¥300万</div><div class="cml">客单价</div></div><div class="cmi"><div class="cmv">60%</div><div class="cml">技术评审权</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

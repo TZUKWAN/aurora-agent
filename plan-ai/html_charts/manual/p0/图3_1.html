@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+
+/* Treemap 风格 */
+.treemap {
+  display:flex; flex-direction:column; gap:12px;
+  height:100%;
+}
+
+.treemap-row {
+  display:flex; gap:12px;
+}
+
+.treemap-block {
+  border-radius:12px; padding:20px;
+  color:#fff; position:relative;
+  overflow:hidden;
+  display:flex; flex-direction:column;
+  box-shadow:0 4px 16px rgba(0,0,0,0.1);
+}
+.tb-icon { font-size:32px; margin-bottom:10px; }
+.tb-name { font-size:16px; font-weight:700; }
+.tb-desc { font-size:11px; opacity:0.85; margin-top:4px; }
+.tb-amount { font-size:28px; font-weight:700; margin-top:auto; padding-top:14px; }
+.tb-percent { font-size:12px; opacity:0.7; }
+.tb-detail {
+  margin-top:10px; font-size:10px; opacity:0.8;
+  line-height:1.6;
+}
+
+/* 配色 */
+.b1 { background:linear-gradient(135deg,#1a237e,#3949ab); flex:4; }
+.b2 { background:linear-gradient(135deg,#00838f,#00acc1); flex:2; }
+.b3 { background:linear-gradient(135deg,#2e7d32,#66bb6a); flex:1.5; }
+.b4 { background:linear-gradient(135deg,#ef6c00,#ff9800); flex:1.5; }
+.b5 { background:linear-gradient(135deg,#c62828,#ef5350); flex:1; }
+
+/* 右侧汇总 */
+.summary {
+  position:absolute; right:60px; top:20px;
+  width:380px;
+  background:#f5f7fa; border-radius:12px;
+  padding:20px; border:2px solid #e3eaf5;
+}
+.sum-title { font-size:14px; font-weight:700; color:#1a237e; margin-bottom:14px; }
+.sum-item { display:flex; justify-content:space-between; margin:8px 0; font-size:12px; }
+.sum-label { color:#546e7a; }
+.sum-val { font-weight:700; color:#263238; }
+.sum-total { margin-top:12px; padding-top:12px; border-top:2px solid #e3eaf5; }
+.sum-total .sum-val { font-size:18px; color:#1a237e; }
+</style>
+</head>
+<body>
+<div class="title">图3-1 云跃引擎资金用途分布 — 资源配额树状图</div>
+<div class="subtitle">FUNDING ALLOCATION · 面积=资金占比 · 颜色=业务域 · 总额=种子轮+天使轮 ¥1000万</div>
+
+<div class="canvas">
+  <div class="treemap">
+    <div class="treemap-row" style="flex:4;">
+      <div class="treemap-block b1">
+        <div class="tb-icon">💻</div>
+        <div class="tb-name">产品研发 (40%)</div>
+        <div class="tb-desc">Platform Engineering + AI Lab</div>
+        <div class="tb-detail">
+          核心平台开发 35% · 算法研究 25%<br>
+          云适配器开发 20% · 安全合规 15% · 测试QA 5%
+        </div>
+        <div class="tb-amount">¥400万</div>
+        <div class="tb-percent">研发人员 42 人 · 月均 ¥33万</div>
+      </div>
+    </div>
+    <div class="treemap-row" style="flex:2;">
+      <div class="treemap-block b2" style="flex:2;">
+        <div class="tb-icon">📢</div>
+        <div class="tb-name">市场与销售 (20%)</div>
+        <div class="tb-desc">Growth + Sales + Brand</div>
+        <div class="tb-detail">
+          数字营销 40% · 销售团队 35% · 品牌活动 15% · 渠道合作 10%
+        </div>
+        <div class="tb-amount">¥200万</div>
+        <div class="tb-percent">市场人员 12 人 · 月均 ¥17万</div>
+      </div>
+      <div class="treemap-block b3" style="flex:1.5;">
+        <div class="tb-icon">🏢</div>
+        <div class="tb-name">运营与管理 (15%)</div>
+        <div class="tb-desc">Ops + HR + Finance + Legal</div>
+        <div class="tb-detail">
+          办公场地 40% · 人力行政 30% · 财务法务 20% · 其他 10%
+        </div>
+        <div class="tb-amount">¥150万</div>
+        <div class="tb-percent">月均 ¥12.5万</div>
+      </div>
+      <div class="treemap-block b4" style="flex:1.5;">
+        <div class="tb-icon">☁</div>
+        <div class="tb-name">基础设施 (15%)</div>
+        <div class="tb-desc">Cloud + IDC + Dev/Test</div>
+        <div class="tb-detail">
+          云资源 60% · 测试集群 25% · 开发环境 10% · 域名/工具 5%
+        </div>
+        <div class="tb-amount">¥150万</div>
+        <div class="tb-percent">月均 ¥12.5万</div>
+      </div>
+      <div class="treemap-block b5" style="flex:1;">
+        <div class="tb-icon">🔄</div>
+        <div class="tb-name">储备金 (10%)</div>
+        <div class="tb-desc">Emergency + Opportunity Fund</div>
+        <div class="tb-detail">
+          应急资金 70% · 战略机会 30%
+        </div>
+        <div class="tb-amount">¥100万</div>
+        <div class="tb-percent">机动调配</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary">
+    <div class="sum-title">📊 资金使用计划总览</div>
+    <div class="sum-item"><span class="sum-label">融资总额</span><span class="sum-val">¥1,000 万</span></div>
+    <div class="sum-item"><span class="sum-label">研发占比</span><span class="sum-val">40% (¥400万)</span></div>
+    <div class="sum-item"><span class="sum-label">市场占比</span><span class="sum-val">20% (¥200万)</span></div>
+    <div class="sum-item"><span class="sum-label">运营占比</span><span class="sum-val">15% (¥150万)</span></div>
+    <div class="sum-item"><span class="sum-label">基础设施</span><span class="sum-val">15% (¥150万)</span></div>
+    <div class="sum-item"><span class="sum-label">储备金</span><span class="sum-val">10% (¥100万)</span></div>
+    <div class="sum-item sum-total"><span class="sum-label">预计 runway</span><span class="sum-val">18 个月</span></div>
+    <div class="sum-item"><span class="sum-label">月均 burn rate</span><span class="sum-val">¥55 万</span></div>
+    <div class="sum-item"><span class="sum-label">Milestone</span><span class="sum-val">A轮前达到 ¥50万 MRR</span></div>
+  </div>
+</div>
+
+</body>
+</html>

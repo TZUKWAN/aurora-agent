@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { display:flex; flex-direction:column; gap:16px; }
+.c1 { flex:1.2; }
+.c2 { flex:1; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.org { display:flex; flex-direction:column; align-items:center; gap:12px; }
+.l1 { width:260px; padding:14px; background:linear-gradient(135deg,#00e5ff,#0091ea); border-radius:12px; text-align:center; color:#0a0a1a; font-size:15px; font-weight:700; }
+.l2r { display:flex; gap:16px; }
+.l2 { width:180px; padding:12px; border:1px solid; border-radius:10px; text-align:center; font-size:13px; font-weight:700; }
+.l3r { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; max-width:900px; }
+.l3 { width:130px; padding:10px 8px; border-radius:8px; text-align:center; font-size:11px; border:1px solid; }
+.l3 strong { display:block; font-size:12px; margin-bottom:4px; }
+.conn { width:2px; height:12px; background:#00e5ff; }
+.hc { display:flex; align-items:center; gap:12px; margin:10px 0; }
+.ha { width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; color:#0a0a1a; background:linear-gradient(135deg,#00e5ff,#0091ea); }
+.hi { flex:1; }
+.hn { font-size:14px; font-weight:700; color:#fff; }
+.hp { font-size:11px; color:#00e5ff; margin-top:2px; }
+.hd { font-size:11px; color:#90a4ae; margin-top:3px; line-height:1.5; }
+.kpi { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:12px; }
+.kc { text-align:center; padding:12px; border-radius:8px; background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.15); }
+.kv { font-size:20px; font-weight:700; color:#00e5ff; }
+.kl { font-size:10px; color:#78909c; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-19 团队架构 — 元界智驾核心团队</div>
+<div class="subtitle">TEAM STRUCTURE · 创始人 · 技术团队 · 顾问委员会 · 股权结构</div>
+<div class="canvas">
+  <div class="col c1">
+    <div class="card">
+      <div class="ch">🏗️ 组织架构</div>
+      <div class="org">
+        <div class="l1">CEO / 联合创始人</div>
+        <div class="conn"></div>
+        <div class="l2r">
+          <div class="l2" style="border-color:#00e5ff;color:#00e5ff;">CTO / 算法总监</div>
+          <div class="l2" style="border-color:#7c4dff;color:#7c4dff;">工程总监</div>
+          <div class="l2" style="border-color:#00e676;color:#00e676;">安全总监</div>
+        </div>
+        <div class="conn"></div>
+        <div class="l3r">
+          <div class="l3" style="border-color:#00e5ff;"><strong style="color:#00e5ff;">感知算法部</strong>6人<br>视觉/LiDAR/融合</div>
+          <div class="l3" style="border-color:#00e5ff;"><strong style="color:#00e5ff;">规控算法部</strong>5人<br>规划/决策/控制</div>
+          <div class="l3" style="border-color:#7c4dff;"><strong style="color:#7c4dff;">仿真平台部</strong>8人<br>引擎/渲染/物理</div>
+          <div class="l3" style="border-color:#7c4dff;"><strong style="color:#7c4dff;">车联网部</strong>4人<br>V2X/云端/OTA</div>
+          <div class="l3" style="border-color:#00e676;"><strong style="color:#00e676;">功能安全部</strong>3人<br>SOTIF/FuSa</div>
+          <div class="l3" style="border-color:#00e676;"><strong style="color:#00e676;">测试验证部</strong>4人<br>场地/道路/认证</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">📊 团队规模</div>
+      <div class="kpi">
+        <div class="kc"><div class="kv">35</div><div class="kl">总人数</div></div>
+        <div class="kc"><div class="kv" style="color:#7c4dff">70%</div><div class="kl">研发占比</div></div>
+        <div class="kc"><div class="kv" style="color:#00e676">22</div><div class="kl">硕博学历</div></div>
+        <div class="kc"><div class="kv" style="color:#ff9100">6年+</div><div class="kl">核心平均经验</div></div>
+        <div class="kc"><div class="kv" style="color:#ff5252">15</div><div class="kl">自动驾驶背景</div></div>
+        <div class="kc"><div class="kv" style="color:#78909c">8篇</div><div class="kl">顶会论文</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="col c2">
+    <div class="card">
+      <div class="ch">👤 核心创始团队</div>
+      <div class="hc"><div class="ha">陈</div><div class="hi"><div class="hn">陈逸飞 CEO</div><div class="hp">清华计算机博士</div><div class="hd">前百度 Apollo 算法负责人，主导 L4 仿真系统建设，10年自动驾驶经验</div></div></div>
+      <div class="hc"><div class="ha" style="background:linear-gradient(135deg,#7c4dff,#651fff);">刘</div><div class="hi"><div class="hn">刘思远 CTO</div><div class="hp">MIT CSAIL 博士</div><div class="hd">前 Waymo 仿真工程师，专注神经网络场景生成，CVPR/ICCV 论文 6 篇</div></div></div>
+      <div class="hc"><div class="ha" style="background:linear-gradient(135deg,#00e676,#00c853);">王</div><div class="hi"><div class="hn">王浩然 工程VP</div><div class="hp">北大软件工程硕士</div><div class="hd">前阿里云弹性计算技术负责人，GPU 集群调度专家，K8s 社区贡献者</div></div></div>
+    </div>
+    <div class="card">
+      <div class="ch">🎓 顾问委员会</div>
+      <div class="hc"><div class="ha" style="background:#ff9100;width:42px;height:42px;font-size:16px;">李</div><div class="hi"><div class="hn">李院士 首席科学顾问</div><div class="hd">中国工程院院士，智能网联汽车专家，国家新能源汽车标准委主任</div></div></div>
+      <div class="hc"><div class="ha" style="background:#ff5252;width:42px;height:42px;font-size:16px;">张</div><div class="hi"><div class="hn">张教授 算法顾问</div><div class="hd">斯坦福 CS 教授，计算机视觉领域权威，ImageNet 核心贡献者</div></div></div>
+      <div class="hc"><div class="ha" style="background:#78909c;width:42px;height:42px;font-size:16px;">赵</div><div class="hi"><div class="hn">赵总 产业顾问</div><div class="hd">前中汽研副院长，自动驾驶测试认证领域 20 年经验</div></div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

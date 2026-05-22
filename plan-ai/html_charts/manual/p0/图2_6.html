@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:1920px; height:1080px;
+  background:#fff;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow:hidden;
+}
+.title {
+  position:absolute; left:60px; top:40px;
+  font-size:28px; font-weight:700; color:#1a237e;
+  letter-spacing:2px;
+}
+.subtitle {
+  position:absolute; left:60px; top:78px;
+  font-size:14px; color:#78909c;
+}
+
+.canvas { position:absolute; left:40px; top:120px; width:1840px; height:920px; }
+
+/* 算法流程管道 */
+.pipeline-flow {
+  display:flex; align-items:flex-start;
+  gap:0; height:100%;
+}
+
+.stage-col {
+  width:320px; padding:0 10px;
+  position:relative;
+}
+.stage-header {
+  padding:10px 16px; border-radius:10px 10px 0 0;
+  color:#fff; font-size:14px; font-weight:700;
+  text-align:center;
+}
+.stage-body {
+  background:#f5f7fa; border:2px solid;
+  border-top:none; border-radius:0 0 10px 10px;
+  padding:14px; min-height:600px;
+}
+
+.data-block {
+  background:#fff; border:1px solid #e3eaf5;
+  border-radius:8px; padding:10px 12px;
+  margin:8px 0;
+  font-size:11px; color:#455a64;
+}
+.data-block .db-label { font-size:9px; color:#78909c; margin-bottom:3px; }
+.data-block .db-value { font-weight:600; color:#263238; }
+
+/* 箭头连接 */
+.col-connector {
+  display:flex; align-items:center; justify-content:center;
+  width:60px; padding-top:40px;
+}
+.conn-arrow-box {
+  width:50px; height:50px; border-radius:50%;
+  background:#3949ab; color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; font-weight:700;
+  box-shadow:0 4px 12px rgba(57,73,171,0.3);
+}
+.conn-label {
+  text-align:center; font-size:10px; color:#78909c;
+  margin-top:8px; font-weight:600;
+}
+
+/* 各阶段配色 */
+.s-input .stage-header { background:#78909c; }
+.s-input .stage-body { border-color:#78909c; }
+
+.s-preprocess .stage-header { background:#3949ab; }
+.s-preprocess .stage-body { border-color:#3949ab; }
+
+.s-algo1 .stage-header { background:#7b1fa2; }
+.s-algo1 .stage-body { border-color:#7b1fa2; }
+
+.s-algo2 .stage-header { background:#ef6c00; }
+.s-algo2 .stage-body { border-color:#ef6c00; }
+
+.s-output .stage-header { background:#2e7d32; }
+.s-output .stage-body { border-color:#2e7d32; }
+
+.s-feedback .stage-header { background:#00838f; }
+.s-feedback .stage-body { border-color:#00838f; }
+
+/* 算法核心高亮 */
+.algo-core {
+  background:linear-gradient(135deg,#f3e5f5,#e1bee7);
+  border:2px solid #7b1fa2;
+  border-radius:10px; padding:14px;
+  margin:10px 0;
+}
+.ac-title { font-size:12px; font-weight:700; color:#7b1fa2; margin-bottom:8px; }
+.ac-item { font-size:10px; color:#455a64; margin:4px 0; display:flex; align-items:center; gap:6px; }
+.ac-item::before { content:"▸"; color:#7b1fa2; }
+
+/* 右侧指标 */
+.algo-metrics {
+  position:absolute; right:40px; top:20px;
+  width:280px;
+}
+.am-card {
+  background:#fff; border:2px solid #e3eaf5;
+  border-radius:10px; padding:14px; margin-bottom:10px;
+}
+.am-title { font-size:12px; font-weight:700; color:#1a237e; margin-bottom:8px; }
+.am-row { display:flex; justify-content:space-between; margin:6px 0; font-size:11px; }
+.am-label { color:#78909c; }
+.am-val { font-weight:700; color:#263238; }
+</style>
+</head>
+<body>
+<div class="title">图2-6 云跃引擎核心算法流程 — 数据流管道视图</div>
+<div class="subtitle">ALGORITHM PIPELINE · 输入→预处理→灰度分流→智能调度→输出→反馈闭环</div>
+
+<div class="canvas">
+  <div class="pipeline-flow">
+    <!-- Stage 1: 输入 -->
+    <div class="stage-col s-input">
+      <div class="stage-header">📥 输入层 (Input)</div>
+      <div class="stage-body">
+        <div class="data-block">
+          <div class="db-label">SOURCE 1</div>
+          <div class="db-value">应用代码变更 (Git Diff)</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">SOURCE 2</div>
+          <div class="db-value">用户行为特征向量</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">SOURCE 3</div>
+          <div class="db-value">集群资源实时监控</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">SOURCE 4</div>
+          <div class="db-value">历史部署成功率数据</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">SOURCE 5</div>
+          <div class="db-value">业务 KPI 指标 (QPS/延迟)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-connector">
+      <div>
+        <div class="conn-arrow-box">→</div>
+        <div class="conn-label">数据清洗<br>+ 归一化</div>
+      </div>
+    </div>
+
+    <!-- Stage 2: 预处理 -->
+    <div class="stage-col s-preprocess">
+      <div class="stage-header">🔧 预处理 (Preprocess)</div>
+      <div class="stage-body">
+        <div class="data-block">
+          <div class="db-label">STEP 1</div>
+          <div class="db-value">变更影响范围分析</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">STEP 2</div>
+          <div class="db-value">依赖拓扑构建 (DAG)</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">STEP 3</div>
+          <div class="db-value">风险评估模型评分</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">STEP 4</div>
+          <div class="db-value">用户分群特征提取</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">STEP 5</div>
+          <div class="db-value">资源需求预测</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-connector">
+      <div>
+        <div class="conn-arrow-box">→</div>
+        <div class="conn-label">特征向量<br>128-dim</div>
+      </div>
+    </div>
+
+    <!-- Stage 3: 灰度分流算法 -->
+    <div class="stage-col s-algo1">
+      <div class="stage-header">🔀 算法1: 多维灰度分流</div>
+      <div class="stage-body">
+        <div class="algo-core">
+          <div class="ac-title">Multi-Dimensional Routing</div>
+          <div class="ac-item">用户维度: 新/老用户、会员等级</div>
+          <div class="ac-item">地域维度: 省份、城市、机房</div>
+          <div class="ac-item">设备维度: OS、App版本、浏览器</div>
+          <div class="ac-item">流量维度: 比例(1%→5%→25%→100%)</div>
+          <div class="ac-item">业务维度: 核心/非核心接口</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">OUTPUT</div>
+          <div class="db-value">流量分配权重矩阵 W<sub>ij</sub></div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">CONSTRAINT</div>
+          <div class="db-value">ΣW<sub>ij</sub> = 1, 故障回滚 &lt;30s</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-connector">
+      <div>
+        <div class="conn-arrow-box">→</div>
+        <div class="conn-label">联合优化<br>目标函数</div>
+      </div>
+    </div>
+
+    <!-- Stage 4: 智能调度算法 -->
+    <div class="stage-col s-algo2">
+      <div class="stage-header">⚡ 算法2: RL 智能调度</div>
+      <div class="stage-body">
+        <div class="algo-core">
+          <div class="ac-title">Deep RL Scheduler (PPO)</div>
+          <div class="ac-item">State: 节点资源 + Pod 需求 + 历史负载</div>
+          <div class="ac-item">Action: 节点选择 + 优先级 + 亲和规则</div>
+          <div class="ac-item">Reward: -成本 -延迟 +吞吐量 +稳定性</div>
+          <div class="ac-item">Network: GNN + Transformer 编码</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">OUTPUT</div>
+          <div class="db-value">最优调度决策 π*(s)</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">CONSTRAINT</div>
+          <div class="db-value">资源利用率 65-85%，SLA &gt;99.9%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-connector">
+      <div>
+        <div class="conn-arrow-box">→</div>
+        <div class="conn-label">执行部署<br>+ 监控</div>
+      </div>
+    </div>
+
+    <!-- Stage 5: 输出 -->
+    <div class="stage-col s-output">
+      <div class="stage-header">✅ 输出层 (Output)</div>
+      <div class="stage-body">
+        <div class="data-block">
+          <div class="db-label">DEPLOY</div>
+          <div class="db-value">自动化部署指令序列</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">TRAFFIC</div>
+          <div class="db-value">Envoy 路由规则更新</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">ROLLBACK</div>
+          <div class="db-value">自动回滚触发条件</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">ALERT</div>
+          <div class="db-value">异常告警策略配置</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">REPORT</div>
+          <div class="db-value">部署效果评估报告</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-connector">
+      <div>
+        <div class="conn-arrow-box" style="background:#00838f;">↻</div>
+        <div class="conn-label">反馈闭环<br>强化学习</div>
+      </div>
+    </div>
+
+    <!-- Stage 6: 反馈 -->
+    <div class="stage-col s-feedback">
+      <div class="stage-header">↻ 反馈闭环 (Feedback)</div>
+      <div class="stage-body">
+        <div class="data-block">
+          <div class="db-label">METRIC 1</div>
+          <div class="db-value">部署成功率 (Target &gt;99.5%)</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">METRIC 2</div>
+          <div class="db-value">MTTR 平均恢复时间</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">METRIC 3</div>
+          <div class="db-value">资源成本节省比例</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">METRIC 4</div>
+          <div class="db-value">用户投诉率变化</div>
+        </div>
+        <div class="data-block">
+          <div class="db-label">UPDATE</div>
+          <div class="db-value">RL 策略网络参数 θ<sub>t+1</sub></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 右侧算法指标 -->
+  <div class="algo-metrics">
+    <div class="am-card">
+      <div class="am-title">🎯 灰度分流算法指标</div>
+      <div class="am-row"><span class="am-label">分流维度数</span><span class="am-val">5 维</span></div>
+      <div class="am-row"><span class="am-label">最小分流粒度</span><span class="am-val">0.1%</span></div>
+      <div class="am-row"><span class="am-label">回滚触发时延</span><span class="am-val">&lt; 30s</span></div>
+      <div class="am-row"><span class="am-label">误杀率</span><span class="am-val">&lt; 0.05%</span></div>
+    </div>
+    <div class="am-card">
+      <div class="am-title">⚡ 智能调度算法指标</div>
+      <div class="am-row"><span class="am-label">调度决策时延</span><span class="am-val">&lt; 50ms</span></div>
+      <div class="am-row"><span class="am-label">资源利用率提升</span><span class="am-val">+23%</span></div>
+      <div class="am-row"><span class="am-label">P95 延迟降低</span><span class="am-val">-18%</span></div>
+      <div class="am-row"><span class="am-label">成本节省</span><span class="am-val">-30%</span></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

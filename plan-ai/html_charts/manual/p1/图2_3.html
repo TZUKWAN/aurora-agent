@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.log-container { display:flex; flex-direction:column; gap:12px; }
+.log-entry { display:flex; gap:16px; align-items:flex-start; }
+.log-ts { width:160px; flex-shrink:0; text-align:right; font-size:13px; font-weight:700; color:#757575; padding-top:14px; }
+.log-line { display:flex; flex-direction:column; align-items:center; }
+.log-dot { width:16px; height:16px; border-radius:50%; background:#e65100; border:3px solid #fff; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+.log-vline { width:2px; flex:1; background:#e0e0e0; min-height:20px; }
+.log-card { flex:1; background:#fff; border:2px solid; border-radius:10px; padding:14px 18px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+.log-level { display:inline-block; padding:3px 10px; border-radius:8px; font-size:10px; font-weight:700; margin-bottom:8px; }
+.log-title { font-size:14px; font-weight:700; color:#212121; margin-bottom:6px; }
+.log-desc { font-size:11px; color:#616161; line-height:1.5; }
+.log-impact { margin-top:10px; padding-top:10px; border-top:1px dashed #e0e0e0; font-size:10px; color:#424242; }
+.log-impact strong { color:#e65100; }
+.l-info { border-color:#1565c0; } .l-info .log-level { background:#e3f2fd; color:#1565c0; }
+.l-warn { border-color:#ff9100; } .l-warn .log-level { background:#fff3e0; color:#ef6c00; }
+.l-crit { border-color:#c62828; } .l-crit .log-level { background:#ffebee; color:#c62828; }
+.l-success { border-color:#2e7d32; } .l-success .log-level { background:#e8f5e9; color:#2e7d32; }
+.ip { position:absolute; right:0; top:0; width:320px; background:#212121; border-radius:12px; padding:18px; color:#fff; }
+.ip-t { font-size:14px; font-weight:700; margin-bottom:14px; color:#ffeb3b; }
+.ip-item { margin:12px 0; }
+.ip-l { font-size:11px; color:#9e9e9e; margin-bottom:4px; }
+.ip-bar { height:8px; background:#424242; border-radius:4px; overflow:hidden; }
+.ip-bar-f { height:100%; border-radius:4px; }
+.ip-v { font-size:12px; font-weight:700; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="title">图2-3 储能行业政策支持时间线 — 调度日志视图</div>
+<div class="subtitle">POLICY TIMELINE AS DISPATCH LOG · 每条政策=调度指令 · 级别=INFO/WARN/CRIT · 影响=执行结果</div>
+<div class="canvas">
+  <div class="log-container">
+    <div class="log-entry">
+      <div class="log-ts">2017.10</div>
+      <div class="log-line"><div class="log-dot"></div><div class="log-vline"></div></div>
+      <div class="log-card l-info">
+        <span class="log-level">[INFO]</span>
+        <div class="log-title">十九大报告：推进能源革命</div>
+        <div class="log-desc">首次将储能列入国家能源发展战略，明确储能是构建清洁低碳能源体系的关键技术。</div>
+        <div class="log-impact"><strong>影响:</strong> 储能产业正式纳入国家顶层设计</div>
+      </div>
+    </div>
+    <div class="log-entry">
+      <div class="log-ts">2021.07</div>
+      <div class="log-line"><div class="log-dot"></div><div class="log-vline"></div></div>
+      <div class="log-card l-crit">
+        <span class="log-level">[CRITICAL]</span>
+        <div class="log-title">《关于加快推动新型储能发展的指导意见》</div>
+        <div class="log-desc">国家发改委/能源局联合发布：2025年装机30GW+，2030年全面市场化。明确储能独立市场主体地位。</div>
+        <div class="log-impact"><strong>影响:</strong> 行业爆发起点，储能电站可独立参与电力市场交易</div>
+      </div>
+    </div>
+    <div class="log-entry">
+      <div class="log-ts">2022.03</div>
+      <div class="log-line"><div class="log-dot"></div><div class="log-vline"></div></div>
+      <div class="log-card l-warn">
+        <span class="log-level">[WARNING]</span>
+        <div class="log-title">《"十四五"新型储能发展实施方案》</div>
+        <div class="log-desc">细化技术路线：锂电为主，钠电/液流/压缩空气多元化。强调安全管理，要求建立储能电站全生命周期监管。</div>
+        <div class="log-impact"><strong>影响:</strong> 热失控预警成为强制要求，安全市场打开</div>
+      </div>
+    </div>
+    <div class="log-entry">
+      <div class="log-ts">2023.09</div>
+      <div class="log-line"><div class="log-dot"></div><div class="log-vline"></div></div>
+      <div class="log-card l-success">
+        <span class="log-level">[SUCCESS]</span>
+        <div class="log-title">电力现货市场全面铺开</div>
+        <div class="log-desc">山西/广东/山东等现货市场正式运行，储能可通过峰谷价差套利，部分省份价差扩大至 3-4 倍。</div>
+        <div class="log-impact"><strong>影响:</strong> 工商业储能经济性凸显，IRR 提升至 15-25%</div>
+      </div>
+    </div>
+    <div class="log-entry">
+      <div class="log-ts">2024.01</div>
+      <div class="log-line"><div class="log-dot"></div><div class="log-vline"></div></div>
+      <div class="log-card l-warn">
+        <span class="log-level">[WARNING]</span>
+        <div class="log-title">《关于加强电化学储能电站安全管理的通知》</div>
+        <div class="log-desc">国家能源局：强制要求储能电站配置热失控监测预警系统，消防验收不合格不得并网。</div>
+        <div class="log-impact"><strong>影响:</strong> 储能先知核心功能成为行业刚需，市场准入门槛</div>
+      </div>
+    </div>
+    <div class="log-entry">
+      <div class="log-ts">2025+</div>
+      <div class="log-line"><div class="log-dot" style="background:#ffeb3b; border-color:#ffeb3b;"></div></div>
+      <div class="log-card l-info">
+        <span class="log-level">[PREDICTED]</span>
+        <div class="log-title">容量电价机制 + 辅助服务市场全面开放</div>
+        <div class="log-desc">预计出台储能容量电价，保障储能基础收益；调频/备用/黑启动等辅助服务品种全面开放。</div>
+        <div class="log-impact"><strong>影响:</strong> 储能商业模式从单一峰谷套利走向多元收益</div>
+      </div>
+    </div>
+  </div>
+  <div class="ip">
+    <div class="ip-t">📊 政策红利量化</div>
+    <div class="ip-item"><div class="ip-l">直接市场规模拉动</div><div class="ip-bar"><div class="ip-bar-f" style="width:90%; background:#e65100;"></div></div><div class="ip-v" style="color:#e65100;">预计新增 ¥500 亿/年</div></div>
+    <div class="ip-item"><div class="ip-l">热失控预警强制要求</div><div class="ip-bar"><div class="ip-bar-f" style="width:100%; background:#ffeb3b;"></div></div><div class="ip-v" style="color:#ffeb3b;">100% 新建电站需配</div></div>
+    <div class="ip-item"><div class="ip-l">峰谷价差扩大省份</div><div class="ip-bar"><div class="ip-bar-f" style="width:75%; background:#00bcd4;"></div></div><div class="ip-v" style="color:#00bcd4;">25 省价差 &gt;0.7 元</div></div>
+    <div class="ip-item"><div class="ip-l">储能先知政策匹配度</div><div class="ip-bar"><div class="ip-bar-f" style="width:95%; background:#2e7d32;"></div></div><div class="ip-v" style="color:#2e7d32;">高度契合 (95/100)</div></div>
+  </div>
+</div>
+</body>
+</html>

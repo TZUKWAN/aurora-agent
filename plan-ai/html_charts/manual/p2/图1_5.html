@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; height:100%; }
+.mod { border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:16px 18px; background:rgba(255,255,255,0.02); }
+.mh { font-size:14px; font-weight:700; color:#00e5ff; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.api { margin:6px 0; padding:8px 10px; border-radius:6px; background:rgba(0,229,255,0.05); border-left:2px solid #00e5ff; font-size:11px; }
+.an { font-family:monospace; font-size:10px; color:#7c4dff; }
+.ad { font-size:10px; color:#90a4ae; margin-top:2px; }
+.flow { display:flex; align-items:center; gap:6px; margin:8px 0; }
+.fbox { padding:8px 12px; border-radius:8px; font-size:11px; color:#fff; text-align:center; }
+.f1 { background:rgba(0,229,255,0.15); border:1px solid #00e5ff; }
+.f2 { background:rgba(124,77,255,0.15); border:1px solid #7c4dff; }
+.f3 { background:rgba(0,230,118,0.15); border:1px solid #00e676; }
+.farr { font-size:16px; color:#00e5ff; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-5 模块接口关系 — API 调用拓扑</div>
+<div class="subtitle">MODULE INTERFACES · RESTful API · gRPC · 消息队列 · 微服务通信拓扑</div>
+<div class="canvas">
+  <div class="grid">
+    <div class="mod">
+      <div class="mh">🎨 场景生成服务</div>
+      <div class="api"><div class="an">POST /api/v1/scene/generate</div><div class="ad">场景生成：输入参数配置，输出仿真场景文件</div></div>
+      <div class="api"><div class="an">GET /api/v1/scene/{id}</div><div class="ad">场景查询：获取指定场景详情与预览</div></div>
+      <div class="api"><div class="an">POST /api/v1/scene/batch</div><div class="ad">批量生成：并发生成多组场景组合</div></div>
+      <div class="api"><div class="an">WS /ws/scene/progress</div><div class="ad">进度推送：实时返回生成进度与状态</div></div>
+      <div class="flow"><div class="fbox f1">场景生成</div><div class="farr">→</div><div class="fbox f2">场景数据库</div></div>
+      <div class="flow"><div class="fbox f1">场景生成</div><div class="farr">→</div><div class="fbox f3">仿真调度器</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">🧪 仿真执行服务</div>
+      <div class="api"><div class="an">POST /api/v1/sim/run</div><div class="ad">启动仿真：加载场景+算法，执行测试</div></div>
+      <div class="api"><div class="an">GET /api/v1/sim/{id}/status</div><div class="ad">状态查询：获取仿真运行状态与日志</div></div>
+      <div class="api"><div class="an">POST /api/v1/sim/batch</div><div class="ad">批量仿真：并行执行大规模回归测试</div></div>
+      <div class="api"><div class="an">POST /api/v1/sim/stop/{id}</div><div class="ad">终止仿真：强制停止指定仿真任务</div></div>
+      <div class="flow"><div class="fbox f2">场景数据库</div><div class="farr">→</div><div class="fbox f3">仿真执行</div></div>
+      <div class="flow"><div class="fbox f3">仿真执行</div><div class="farr">→</div><div class="fbox f1">结果分析</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">📊 结果分析服务</div>
+      <div class="api"><div class="an">GET /api/v1/report/{simId}</div><div class="ad">测试报告：生成完整测试报告(PDF/HTML)</div></div>
+      <div class="api"><div class="an">GET /api/v1/coverage/analysis</div><div class="ad">覆盖率分析：ODD维度覆盖度统计</div></div>
+      <div class="api"><div class="an">POST /api/v1/regression/compare</div><div class="ad">回归对比：多版本算法性能退化对比</div></div>
+      <div class="api"><div class="an">GET /api/v1/metrics/dashboard</div><div class="ad">指标看板：实时测试指标聚合展示</div></div>
+      <div class="flow"><div class="fbox f3">仿真执行</div><div class="farr">→</div><div class="fbox f1">结果数据库</div></div>
+      <div class="flow"><div class="fbox f1">结果分析</div><div class="farr">→</div><div class="fbox f2">告警通知</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">📡 传感器仿真服务</div>
+      <div class="api"><div class="an">POST /api/v1/sensor/camera</div><div class="ad">相机仿真：生成带噪声的相机图像</div></div>
+      <div class="api"><div class="an">POST /api/v1/sensor/lidar</div><div class="ad">LiDAR仿真：输出点云数据(PCD)</div></div>
+      <div class="api"><div class="an">POST /api/v1/sensor/radar</div><div class="ad">Radar仿真：生成目标列表与RCS</div></div>
+      <div class="api"><div class="an">POST /api/v1/sensor/fusion</div><div class="ad">多传感器融合：时间同步+空间对齐</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">☁️ 资源调度服务</div>
+      <div class="api"><div class="an">POST /api/v1/job/submit</div><div class="ad">任务提交：加入仿真任务队列</div></div>
+      <div class="api"><div class="an">GET /api/v1/job/queue</div><div class="ad">队列查询：查看待执行与执行中任务</div></div>
+      <div class="api"><div class="an">POST /api/v1/resource/scale</div><div class="ad">弹性扩缩容：自动调整GPU集群规模</div></div>
+      <div class="api"><div class="an">GET /api/v1/resource/usage</div><div class="ad">资源监控：GPU/CPU/内存实时使用率</div></div>
+    </div>
+    <div class="mod">
+      <div class="mh">🔐 用户与权限服务</div>
+      <div class="api"><div class="an">POST /api/v1/auth/login</div><div class="ad">用户登录：JWT Token 认证</div></div>
+      <div class="api"><div class="an">GET /api/v1/user/projects</div><div class="ad">项目列表：获取用户可见项目</div></div>
+      <div class="api"><div class="an">POST /api/v1/role/assign</div><div class="ad">权限分配：RBAC 角色权限管理</div></div>
+      <div class="api"><div class="an">GET /api/v1/audit/log</div><div class="ad">审计日志：操作记录追踪</div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

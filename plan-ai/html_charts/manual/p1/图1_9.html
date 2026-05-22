@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.grid { display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap:14px; height:100%; }
+.card { background:#fff; border:2px solid #e0e0e0; border-radius:12px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.04); display:flex; flex-direction:column; }
+.card-h { padding:12px 16px; background:#f5f5f5; border-bottom:2px solid #e0e0e0; display:flex; align-items:center; gap:10px; }
+.card-i { width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:14px; }
+.card-t { font-size:13px; font-weight:700; color:#212121; }
+.card-b { padding:14px 16px; flex:1; overflow:hidden; }
+.card-it { display:flex; align-items:flex-start; gap:8px; font-size:11px; color:#424242; margin:5px 0; line-height:1.4; }
+.card-it::before { content:"•"; color:#9e9e9e; flex-shrink:0; margin-top:2px; }
+.card-m { margin-top:auto; padding-top:10px; border-top:1px dashed #e0e0e0; display:flex; gap:10px; }
+.tag { padding:4px 10px; border-radius:10px; font-size:10px; font-weight:700; }
+.kp { grid-column: span 2; } .vp { grid-column: span 2; }
+.c1 .card-h { background:#e3f2fd; } .c1 .card-i { background:#1565c0; color:#fff; }
+.c2 .card-h { background:#e0f7fa; } .c2 .card-i { background:#00838f; color:#fff; }
+.c3 .card-h { background:#e8f5e9; } .c3 .card-i { background:#2e7d32; color:#fff; }
+.c4 .card-h { background:#fff3e0; } .c4 .card-i { background:#ef6c00; color:#fff; }
+.c5 .card-h { background:#fce4ec; } .c5 .card-i { background:#c62828; color:#fff; }
+.c6 .card-h { background:#f3e5f5; } .c6 .card-i { background:#7b1fa2; color:#fff; }
+.c7 .card-h { background:#e8eaf6; } .c7 .card-i { background:#3949ab; color:#fff; }
+.c8 .card-h { background:#fff8e1; } .c8 .card-i { background:#f9a825; color:#fff; }
+.c9 .card-h { background:#e0f2f1; } .c9 .card-i { background:#00695c; color:#fff; }
+</style>
+</head>
+<body>
+<div class="title">图1-9 储能先知商业画布 — 电力调度控制台</div>
+<div class="subtitle">BUSINESS MODEL AS DISPATCH CONSOLE · 区块=控制模块 · 指标=实时数据 · 状态=健康度</div>
+<div class="canvas">
+  <div class="grid">
+    <div class="card c1">
+      <div class="card-h"><div class="card-i">👥</div><div class="card-t">客户细分 (CS)</div></div>
+      <div class="card-b">
+        <div class="card-it">发电集团（光伏/风电配套储能）</div>
+        <div class="card-it">电网公司（调峰调频独立储能）</div>
+        <div class="card-it">工商业用户（峰谷套利/需量管理）</div>
+        <div class="card-it">工业园区（光储充一体化）</div>
+        <div class="card-m"><span class="tag" style="background:#e3f2fd; color:#1565c0">客户 35+</span><span class="tag" style="background:#e8f5e9; color:#2e7d32">NDR 130%</span></div>
+      </div>
+    </div>
+    <div class="card c2 vp kp">
+      <div class="card-h"><div class="card-i">💎</div><div class="card-t">价值主张 (VP) — 核心服务</div></div>
+      <div class="card-b">
+        <div class="card-it"><b>热失控预警</b>：提前 15-30 分钟预警，准确率 92%</div>
+        <div class="card-it"><b>动态寻优调度</b>：AI 算法提升电站收益 15-25%</div>
+        <div class="card-it"><b>BMS 全生命周期管理</b>：SOC/SOH 精准估算，延寿 20%</div>
+        <div class="card-it"><b>一站式储能解决方案</b>：设计+设备+施工+运维全包</div>
+        <div class="card-m"><span class="tag" style="background:#e0f7fa; color:#00838f">收益提升 15-25%</span><span class="tag" style="background:#e8f5e9; color:#2e7d32">寿命延长 20%</span><span class="tag" style="background:#fff3e0; color:#ef6c00">安全事故 0 起</span></div>
+      </div>
+    </div>
+    <div class="card c3">
+      <div class="card-h"><div class="card-i">📡</div><div class="card-t">渠道通路 (CH)</div></div>
+      <div class="card-b">
+        <div class="card-it">储能行业展会 + 技术峰会</div>
+        <div class="card-it">发电/电网集团招投标</div>
+        <div class="card-it">EMC 合同能源管理公司</div>
+        <div class="card-it">光伏 EPC 合作伙伴分销</div>
+        <div class="card-m"><span class="tag" style="background:#fce4ec; color:#c62828">获客成本 ¥12万</span></div>
+      </div>
+    </div>
+    <div class="card c4">
+      <div class="card-h"><div class="card-i">🤝</div><div class="card-t">客户关系 (CR)</div></div>
+      <div class="card-b">
+        <div class="card-it">项目制交付 + 专属项目经理</div>
+        <div class="card-it">7×24 远程监控 + 应急响应</div>
+        <div class="card-it">季度业务复盘 + 优化建议</div>
+        <div class="card-it">行业沙龙 + 技术交流会</div>
+        <div class="card-m"><span class="tag" style="background:#f3e5f5; color:#7b1fa2">NPS 68</span><span class="tag" style="background:#e8f5e9; color:#2e7d32">满意度 94%</span></div>
+      </div>
+    </div>
+    <div class="card c5">
+      <div class="card-h"><div class="card-i">💰</div><div class="card-t">收入来源 (RS)</div></div>
+      <div class="card-b">
+        <div class="card-it">储能系统设备销售（60%）</div>
+        <div class="card-it">EPC 工程总包（20%）</div>
+        <div class="card-it">运维服务年费（10%）</div>
+        <div class="card-it">电力交易分成（10%）</div>
+        <div class="card-m"><span class="tag" style="background:#fff8e1; color:#f9a825">ARR ¥880万</span><span class="tag" style="background:#e8f5e9; color:#2e7d32">毛利率 35%</span></div>
+      </div>
+    </div>
+    <div class="card c6">
+      <div class="card-h"><div class="card-i">⚙</div><div class="card-t">核心资源 (KR)</div></div>
+      <div class="card-b">
+        <div class="card-it">热失控预警算法（3项专利）</div>
+        <div class="card-it">BMS 动态调度核心代码</div>
+        <div class="card-it">宁德时代/比亚迪供应链关系</div>
+        <div class="card-it">电网调度协议对接经验</div>
+        <div class="card-m"><span class="tag" style="background:#fff3e0; color:#ef6c00">研发投入 55%</span></div>
+      </div>
+    </div>
+    <div class="card c7">
+      <div class="card-h"><div class="card-i">🔧</div><div class="card-t">关键业务 (KA)</div></div>
+      <div class="card-b">
+        <div class="card-it">储能系统设计与集成</div>
+        <div class="card-it">BMS 算法持续迭代</div>
+        <div class="card-it">电站并网与调试交付</div>
+        <div class="card-it">远程运维与数据分析</div>
+        <div class="card-m"><span class="tag" style="background:#e8f5e9; color:#2e7d32">交付周期 90天</span></div>
+      </div>
+    </div>
+    <div class="card c8">
+      <div class="card-h"><div class="card-i">🔗</div><div class="card-t">重要合作 (KP)</div></div>
+      <div class="card-b">
+        <div class="card-it">电芯供应商（宁德/比亚迪/亿纬）</div>
+        <div class="card-it">PCS 厂商（阳光/科华/上能）</div>
+        <div class="card-it">电网公司（国电/华能/中广核）</div>
+        <div class="card-it">科研院所（清华/浙大/中科院）</div>
+        <div class="card-m"><span class="tag" style="background:#e3f2fd; color:#1565c0">合作伙伴 25+</span></div>
+      </div>
+    </div>
+    <div class="card c9">
+      <div class="card-h"><div class="card-i">📊</div><div class="card-t">成本结构 (C$)</div></div>
+      <div class="card-b">
+        <div class="card-it">电芯采购成本（50%）</div>
+        <div class="card-it">研发投入（25%）</div>
+        <div class="card-it">销售与管理（15%）</div>
+        <div class="card-it">生产运营（10%）</div>
+        <div class="card-m"><span class="tag" style="background:#e0f2f1; color:#00695c">月烧 ¥48万</span><span class="tag" style="background:#fff3e0; color:#ef6c00">runway 20月</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

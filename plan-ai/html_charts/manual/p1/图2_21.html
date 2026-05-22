@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.row { display:flex; gap:20px; height:100%; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:#fff; border:2px solid #e0e0e0; border-radius:14px; padding:18px 22px; flex:1; position:relative; overflow:hidden; }
+.stage { position:absolute; top:0; left:0; right:0; height:6px; }
+.s1 { background:linear-gradient(90deg,#e65100,#ff9800); }
+.s2 { background:linear-gradient(90deg,#00acc1,#4dd0e1); }
+.s3 { background:linear-gradient(90deg,#2e7d32,#66bb6a); }
+.sh { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.si { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; }
+.st { font-size:16px; font-weight:700; color:#212121; }
+.ss { font-size:11px; color:#757575; margin-top:2px; }
+.mi { display:flex; align-items:flex-start; gap:8px; margin:8px 0; font-size:12px; color:#424242; line-height:1.5; }
+.mi::before { content:"✓"; color:#e65100; font-weight:700; }
+.kpi { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:auto; padding-top:12px; border-top:1px dashed #e0e0e0; }
+.kc { background:#f5f5f5; border-radius:6px; padding:10px; text-align:center; }
+.kv { font-size:18px; font-weight:700; }
+.kl { font-size:9px; color:#757575; margin-top:2px; }
+</style>
+</head>
+<body>
+<div class="title">图2-21 发展规划与里程碑 — 储能先知三年路线图</div>
+<div class="subtitle">ROADMAP · 产品迭代 · 市场拓展 · 团队建设 · 财务目标 · 技术里程碑</div>
+<div class="canvas">
+  <div class="row">
+    <div class="col">
+      <div class="card"><div class="stage s1"></div>
+        <div class="sh"><div class="si" style="background:#fff3e0;">🚀</div><div><div class="st">第一阶段：产品验证期</div><div class="ss">2024.01 - 2024.12</div></div></div>
+        <div class="mi">完成 V1.0 产品发布：AI预警 + 智能调度 + 数字孪生</div>
+        <div class="mi">签约 5 个标杆电站（光伏/电网/工商业各2+）</div>
+        <div class="mi">团队扩至 20 人，研发占比 60%</div>
+        <div class="mi">获得天使轮融资 ¥1200万</div>
+        <div class="mi">申请发明专利 5 项，软著 3 项</div>
+        <div class="kpi">
+          <div class="kc"><div class="kv" style="color:#e65100">5</div><div class="kl">标杆电站</div></div>
+          <div class="kc"><div class="kv" style="color:#e65100">¥500万</div><div class="kl">年度收入</div></div>
+          <div class="kc"><div class="kv" style="color:#e65100">20人</div><div class="kl">团队规模</div></div>
+          <div class="kc"><div class="kv" style="color:#e65100">99%+</div><div class="kl">预警准确率</div></div>
+        </div>
+      </div>
+      <div class="card"><div class="stage s2"></div>
+        <div class="sh"><div class="si" style="background:#e0f7fa;">📈</div><div><div class="st">第二阶段：规模扩张期</div><div class="ss">2025.01 - 2025.12</div></div></div>
+        <div class="mi">发布 V2.0：多电站集群调度 + 海外市场版</div>
+        <div class="mi">进入 10+ 省份，覆盖电站 50+</div>
+        <div class="mi">启动海外市场：东南亚 + 中东试点</div>
+        <div class="mi">完成 A 轮融资 ¥1.5亿</div>
+        <div class="mi">团队扩至 60 人，建立区域服务中心</div>
+        <div class="kpi">
+          <div class="kc"><div class="kv" style="color:#00acc1">50+</div><div class="kl">服务电站</div></div>
+          <div class="kc"><div class="kv" style="color:#00acc1">¥4000万</div><div class="kl">年度收入</div></div>
+          <div class="kc"><div class="kv" style="color:#00acc1">60人</div><div class="kl">团队规模</div></div>
+          <div class="kc"><div class="kv" style="color:#00acc1">盈亏平衡</div><div class="kl">财务目标</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card"><div class="stage s3"></div>
+        <div class="sh"><div class="si" style="background:#e8f5e9;">🌍</div><div><div class="st">第三阶段：生态构建期</div><div class="ss">2026.01 - 2026.12</div></div></div>
+        <div class="mi">发布 V3.0：储能交易市场接入 + 碳资产管理</div>
+        <div class="mi">国内电站覆盖 200+，海外 30+</div>
+        <div class="mi">构建储能数据开放平台，接入第三方开发者</div>
+        <div class="mi">启动 B 轮/Pre-IPO 融资，估值 ¥30亿+</div>
+        <div class="mi">团队扩至 150 人，建立海外子公司</div>
+        <div class="mi">申报国家级专精特新"小巨人"</div>
+        <div class="kpi">
+          <div class="kc"><div class="kv" style="color:#2e7d32">200+</div><div class="kl">服务电站</div></div>
+          <div class="kc"><div class="kv" style="color:#2e7d32">¥1.5亿</div><div class="kl">年度收入</div></div>
+          <div class="kc"><div class="kv" style="color:#2e7d32">150人</div><div class="kl">团队规模</div></div>
+          <div class="kc"><div class="kv" style="color:#2e7d32">30%+</div><div class="kl">净利润率</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch" style="margin-bottom:12px;">🎯 关键里程碑</div>
+        <svg width="100%" height="240" viewBox="0 0 800 240">
+          <line x1="60" y1="120" x2="740" y2="120" stroke="#e0e0e0" stroke-width="3"/>
+          <g transform="translate(100,120)"><circle r="14" fill="#e65100"/><text y="5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">Q2</text><text y="40" text-anchor="middle" fill="#424242" font-size="11" font-weight="700">V1.0发布</text><text y="55" text-anchor="middle" fill="#757575" font-size="9">2024</text></g>
+          <g transform="translate(240,120)"><circle r="14" fill="#ff9800"/><text y="5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">Q4</text><text y="40" text-anchor="middle" fill="#424242" font-size="11" font-weight="700">天使轮</text><text y="55" text-anchor="middle" fill="#757575" font-size="9">2024</text></g>
+          <g transform="translate(380,120)"><circle r="14" fill="#00acc1"/><text y="5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">Q2</text><text y="40" text-anchor="middle" fill="#424242" font-size="11" font-weight="700">V2.0发布</text><text y="55" text-anchor="middle" fill="#757575" font-size="9">2025</text></g>
+          <g transform="translate(520,120)"><circle r="14" fill="#00acc1"/><text y="5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">Q4</text><text y="40" text-anchor="middle" fill="#424242" font-size="11" font-weight="700">A轮融资</text><text y="55" text-anchor="middle" fill="#757575" font-size="9">2025</text></g>
+          <g transform="translate(660,120)"><circle r="14" fill="#2e7d32"/><text y="5" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">Q4</text><text y="40" text-anchor="middle" fill="#424242" font-size="11" font-weight="700">V3.0发布</text><text y="55" text-anchor="middle" fill="#757575" font-size="9">2026</text></g>
+          <text x="100" y="80" text-anchor="middle" fill="#e65100" font-size="11" font-weight="700">产品MVP</text>
+          <text x="380" y="80" text-anchor="middle" fill="#00acc1" font-size="11" font-weight="700">规模化</text>
+          <text x="660" y="80" text-anchor="middle" fill="#2e7d32" font-size="11" font-weight="700">生态化</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

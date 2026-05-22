@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#fafafa; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#e65100; letter-spacing:2px; }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#757575; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.col { display:flex; gap:28px; height:100%; }
+.main { flex:1; display:flex; flex-direction:column; gap:20px; }
+.side { width:500px; display:flex; flex-direction:column; gap:20px; }
+.card { background:#fff; border:2px solid #e0e0e0; border-radius:14px; padding:20px 24px; }
+.ch { font-size:15px; font-weight:700; color:#212121; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.pie-wrap { display:flex; align-items:center; justify-content:center; height:300px; gap:40px; }
+.pie-info { display:flex; flex-direction:column; gap:10px; }
+.pi { display:flex; align-items:center; gap:10px; }
+.pc { width:18px; height:18px; border-radius:4px; }
+.pt { font-size:13px; color:#424242; }
+.pv { font-size:13px; font-weight:700; }
+.rk { display:flex; gap:14px; margin-top:14px; }
+.rc { flex:1; background:#f5f5f5; border-radius:10px; padding:14px; }
+.rct { font-size:12px; font-weight:700; color:#424242; margin-bottom:8px; }
+.rcl { display:flex; align-items:center; gap:8px; margin:6px 0; }
+.rnb { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff; }
+.n1 { background:#e65100; } .n2 { background:#ff9800; } .n3 { background:#bdbdbd; }
+.rna { font-size:12px; color:#424242; }
+.timeline { position:relative; height:200px; }
+</style>
+</head>
+<body>
+<div class="title">图2-16 储能市场占有率分析 — 能源电网生态版图</div>
+<div class="subtitle">MARKET SHARE ANALYSIS · 全球储能系统集成商格局 · 中国企业崛起 · 细分市场拆解</div>
+<div class="canvas">
+  <div class="col">
+    <div class="main">
+      <div class="card">
+        <div class="ch">🌍 全球储能系统集成商市场份额 (2024)</div>
+        <div class="pie-wrap">
+          <svg width="300" height="300" viewBox="0 0 300 300">
+            <g transform="translate(150,150)">
+              <circle r="120" fill="#fff" stroke="#f5f5f5" stroke-width="2"/>
+              <path d="M 0,-120 A 120,120 0 0,1 114.13,-37.08 L 0,0 Z" fill="#e65100"/>
+              <path d="M 114.13,-37.08 A 120,120 0 0,1 60.83,103.62 L 0,0 Z" fill="#ff9800"/>
+              <path d="M 60.83,103.62 A 120,120 0 0,1 -80.62,89.11 L 0,0 Z" fill="#00acc1"/>
+              <path d="M -80.62,89.11 A 120,120 0 0,1 -117.56,-24.27 L 0,0 Z" fill="#2e7d32"/>
+              <path d="M -117.56,-24.27 A 120,120 0 0,1 0,-120 L 0,0 Z" fill="#bdbdbd"/>
+              <circle r="50" fill="#fff"/>
+              <text x="0" y="-6" text-anchor="middle" font-size="12" fill="#9e9e9e">Top 10</text>
+              <text x="0" y="10" text-anchor="middle" font-size="18" fill="#212121" font-weight="700">82%</text>
+            </g>
+          </svg>
+          <div class="pie-info">
+            <div class="pi"><div class="pc" style="background:#e65100"></div><div class="pt">阳光电源 / Sungrow</div><div class="pv" style="color:#e65100">14.5%</div></div>
+            <div class="pi"><div class="pc" style="background:#ff9800"></div><div class="pt">比亚迪 / BYD</div><div class="pv" style="color:#ff9800">12.3%</div></div>
+            <div class="pi"><div class="pc" style="background:#00acc1"></div><div class="pt">特斯拉 / Tesla</div><div class="pv" style="color:#00acc1">10.8%</div></div>
+            <div class="pi"><div class="pc" style="background:#2e7d32"></div><div class="pt">Fluence / Wartsila</div><div class="pv" style="color:#2e7d32">9.2%</div></div>
+            <div class="pi"><div class="pc" style="background:#bdbdbd"></div><div class="pt">其他 / Others</div><div class="pv" style="color:#757575">53.2%</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch">📊 细分市场占比</div>
+        <svg width="100%" height="200" viewBox="0 0 1200 200">
+          <g transform="translate(40,20)">
+            <text x="0" y="12" font-size="12" fill="#424242" font-weight="700">发电侧储能</text>
+            <rect x="0" y="18" width="380" height="24" fill="#e65100" rx="4"/>
+            <text x="190" y="34" font-size="13" fill="#fff" font-weight="700" text-anchor="middle">38%</text>
+            <text x="390" y="34" font-size="11" fill="#9e9e9e">中国装机 55GW+</text>
+            <text x="0" y="62" font-size="12" fill="#424242" font-weight="700">电网侧储能</text>
+            <rect x="0" y="68" width="250" height="24" fill="#ff9800" rx="4"/>
+            <text x="125" y="84" font-size="13" fill="#fff" font-weight="700" text-anchor="middle">25%</text>
+            <text x="260" y="84" font-size="11" fill="#9e9e9e">调峰调频刚需</text>
+            <text x="0" y="112" font-size="12" fill="#424242" font-weight="700">工商业储能</text>
+            <rect x="0" y="118" width="200" height="24" fill="#00acc1" rx="4"/>
+            <text x="100" y="134" font-size="13" fill="#fff" font-weight="700" text-anchor="middle">20%</text>
+            <text x="210" y="134" font-size="11" fill="#9e9e9e">峰谷套利驱动</text>
+            <text x="0" y="162" font-size="12" fill="#424242" font-weight="700">户用储能</text>
+            <rect x="0" y="168" width="170" height="24" fill="#2e7d32" rx="4"/>
+            <text x="85" y="184" font-size="13" fill="#fff" font-weight="700" text-anchor="middle">17%</text>
+            <text x="180" y="184" font-size="11" fill="#9e9e9e">欧美高渗透率</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="side">
+      <div class="card">
+        <div class="ch">🏆 全球储能企业 TOP5</div>
+        <div class="rk">
+          <div class="rc">
+            <div class="rct">按出货量 (MWh)</div>
+            <div class="rcl"><div class="rnb n1">1</div><div class="rna">宁德时代 180GWh</div></div>
+            <div class="rcl"><div class="rnb n2">2</div><div class="rna">比亚迪 98GWh</div></div>
+            <div class="rcl"><div class="rnb n3">3</div><div class="rna">亿纬锂能 48GWh</div></div>
+            <div class="rcl"><div class="rnb n3">4</div><div class="rna">瑞浦兰钧 35GWh</div></div>
+            <div class="rcl"><div class="rnb n3">5</div><div class="rna">海辰储能 28GWh</div></div>
+          </div>
+          <div class="rc">
+            <div class="rct">按营收 (亿元)</div>
+            <div class="rcl"><div class="rnb n1">1</div><div class="rna">阳光电源 722亿</div></div>
+            <div class="rcl"><div class="rnb n2">2</div><div class="rna">比亚迪 6023亿</div></div>
+            <div class="rcl"><div class="rnb n3">3</div><div class="rna">宁德时代 4009亿</div></div>
+            <div class="rcl"><div class="rnb n3">4</div><div class="rna">派能科技 58亿</div></div>
+            <div class="rcl"><div class="rnb n3">5</div><div class="rna">科华数据 81亿</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch">📈 中国企业全球占比趋势</div>
+        <div class="timeline">
+          <svg width="100%" height="100%" viewBox="0 0 400 200">
+            <line x1="40" y1="170" x2="380" y2="170" stroke="#e0e0e0"/>
+            <line x1="40" y1="20" x2="40" y2="170" stroke="#e0e0e0"/>
+            <text x="40" y="185" font-size="10" fill="#9e9e9e" text-anchor="middle">2020</text>
+            <text x="125" y="185" font-size="10" fill="#9e9e9e" text-anchor="middle">2021</text>
+            <text x="210" y="185" font-size="10" fill="#9e9e9e" text-anchor="middle">2022</text>
+            <text x="295" y="185" font-size="10" fill="#9e9e9e" text-anchor="middle">2023</text>
+            <text x="380" y="185" font-size="10" fill="#9e9e9e" text-anchor="middle">2024</text>
+            <text x="25" y="170" font-size="10" fill="#9e9e9e" text-anchor="end">30%</text>
+            <text x="25" y="95" font-size="10" fill="#9e9e9e" text-anchor="end">60%</text>
+            <text x="25" y="20" font-size="10" fill="#9e9e9e" text-anchor="end">90%</text>
+            <polyline points="40,145 125,120 210,80 295,45 380,30" fill="none" stroke="#e65100" stroke-width="3"/>
+            <circle cx="40" cy="145" r="6" fill="#e65100"/>
+            <circle cx="125" cy="120" r="6" fill="#e65100"/>
+            <circle cx="210" cy="80" r="6" fill="#e65100"/>
+            <circle cx="295" cy="45" r="6" fill="#e65100"/>
+            <circle cx="380" cy="30" r="8" fill="#e65100" stroke="#fff" stroke-width="3"/>
+            <text x="380" y="20" font-size="12" fill="#e65100" font-weight="700" text-anchor="middle">85%</text>
+            <text x="40" y="155" font-size="10" fill="#e65100" text-anchor="middle">38%</text>
+          </svg>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch">⚡ 储能先知定位</div>
+        <div style="font-size:13px; color:#424242; line-height:1.7;">
+          • <strong style="color:#e65100">差异化定位</strong>：专注储能运维与安全的AI SaaS，非硬件集成商<br>
+          • <strong style="color:#e65100">目标市场</strong>：工商业储能 + 发电侧储能（2B市场）<br>
+          • <strong style="color:#e65100">竞争策略</strong>：软件定义运维，OPEX模式替代CAPEX<br>
+          • <strong style="color:#e65100">预估份额</strong>：国内工商业储能软件市场 5%（2026）
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

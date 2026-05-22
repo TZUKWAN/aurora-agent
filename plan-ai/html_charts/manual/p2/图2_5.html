@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.chan { display:flex; align-items:center; gap:12px; margin:10px 0; padding:12px; border-radius:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.1); }
+.ca { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; background:rgba(0,229,255,0.1); }
+.ci { flex:1; }
+.cn { font-size:13px; font-weight:700; color:#fff; }
+.cd { font-size:11px; color:#90a4ae; margin-top:3px; line-height:1.5; }
+.ck { margin-left:auto; text-align:center; }
+.ckv { font-size:16px; font-weight:700; color:#00e5ff; }
+.ckl { font-size:9px; color:#78909c; margin-top:2px; }
+.funnel { display:flex; flex-direction:column; align-items:center; gap:10px; padding:20px; }
+.f { display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:13px; border-radius:8px; }
+.f1 { width:360px; height:50px; background:linear-gradient(135deg,#00e5ff,#0091ea); }
+.f2 { width:280px; height:50px; background:linear-gradient(135deg,#7c4dff,#651fff); }
+.f3 { width:200px; height:50px; background:linear-gradient(135deg,#00e676,#00c853); }
+.f4 { width:140px; height:50px; background:linear-gradient(135deg,#ff9100,#ff6d00); }
+.f5 { width:90px; height:50px; background:linear-gradient(135deg,#ff5252,#d50000); }
+.farr { font-size:16px; color:#78909c; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-5 市场推广策略 — 获客漏斗与渠道矩阵</div>
+<div class="subtitle">GO-TO-MARKET · 内容营销 · 行业活动 · 直销 · 渠道合作 · 客户成功</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">📢 推广渠道矩阵</div>
+      <div class="chan"><div class="ca">📝</div><div class="ci"><div class="cn">内容营销</div><div class="cd">技术博客/白皮书/案例研究/视频教程<br>SEO + 知乎/CSDN/自动驾驶社区</div></div><div class="ck"><div class="ckv">30%</div><div class="ckl">获客占比</div></div></div>
+      <div class="chan"><div class="ca" style="background:rgba(124,77,255,0.1);">🎤</div><div class="ci"><div class="cn">行业活动</div><div class="cd">自动驾驶峰会/技术展会/学术会议<br>演讲赞助 + 展台展示 + 现场演示</div></div><div class="ck"><div class="ckv" style="color:#7c4dff">25%</div><div class="ckl">获客占比</div></div></div>
+      <div class="chan"><div class="ca" style="background:rgba(0,230,118,0.1);">🤝</div><div class="ci"><div class="cn">直销团队</div><div class="cd">大客户拜访/POC 演示/方案定制<br>聚焦 TOP50 车企 + Tier1 供应商</div></div><div class="ck"><div class="ckv" style="color:#00e676">25%</div><div class="ckl">获客占比</div></div></div>
+      <div class="chan"><div class="ca" style="background:rgba(255,145,0,0.1);">🔗</div><div class="ci"><div class="cn">渠道合作</div><div class="cd">云厂商联合销售/芯片厂商绑定<br>系统集成商/咨询公司转介绍</div></div><div class="ck"><div class="ckv" style="color:#ff9100">15%</div><div class="ckl">获客占比</div></div></div>
+      <div class="chan"><div class="ca" style="background:rgba(255,82,82,0.1);">🎓</div><div class="ci"><div class="cn">高校合作</div><div class="cd">教育版免费使用/联合实验室/课程植入<br>培养未来客户 + 人才储备</div></div><div class="ck"><div class="ckv" style="color:#ff5252">5%</div><div class="ckl">获客占比</div></div></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">🔻 获客漏斗</div>
+      <div class="funnel">
+        <div class="f f1">认知 Awareness — 10,000 人/月</div>
+        <div class="farr">↓</div>
+        <div class="f f2">兴趣 Interest — 2,000 人/月</div>
+        <div class="farr">↓</div>
+        <div class="f f3">评估 Evaluation — 400 人/月</div>
+        <div class="farr">↓</div>
+        <div class="f f4">试用 Trial — 80 人/月</div>
+        <div class="farr">↓</div>
+        <div class="f f5">付费 Paid — 20 人/月</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">📊 关键转化指标</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="text-align:center;padding:12px;border-radius:8px;background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.15);"><div style="font-size:20px;font-weight:700;color:#00e5ff;">20%</div><div style="font-size:10px;color:#78909c;margin-top:4px;">认知→兴趣转化率</div></div>
+        <div style="text-align:center;padding:12px;border-radius:8px;background:rgba(124,77,255,0.05);border:1px solid rgba(124,77,255,0.15);"><div style="font-size:20px;font-weight:700;color:#7c4dff;">20%</div><div style="font-size:10px;color:#78909c;margin-top:4px;">兴趣→评估转化率</div></div>
+        <div style="text-align:center;padding:12px;border-radius:8px;background:rgba(0,230,118,0.05);border:1px solid rgba(0,230,118,0.15);"><div style="font-size:20px;font-weight:700;color:#00e676;">20%</div><div style="font-size:10px;color:#78909c;margin-top:4px;">评估→试用转化率</div></div>
+        <div style="text-align:center;padding:12px;border-radius:8px;background:rgba(255,145,0,0.05);border:1px solid rgba(255,145,0,0.15);"><div style="font-size:20px;font-weight:700;color:#ff9100;">25%</div><div style="font-size:10px;color:#78909c;margin-top:4px;">试用→付费转化率</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

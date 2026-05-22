@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0f0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#d500f9; letter-spacing:2px; text-shadow:0 0 20px rgba(213,0,249,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#7c4dff; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(213,0,249,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(213,0,249,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; }
+.seq { display:flex; gap:0; height:100%; padding:0 30px; }
+.actor { width:160px; display:flex; flex-direction:column; align-items:center; }
+.a-icon { width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:8px; }
+.a-name { font-size:12px; font-weight:700; color:#fff; text-align:center; }
+.a-role { font-size:9px; color:#9575cd; margin-top:2px; }
+.a-line { width:2px; flex:1; background:linear-gradient(180deg,#d500f9,rgba(213,0,249,0.1)); margin-top:8px; }
+.msg { position:absolute; display:flex; align-items:center; }
+.mbox { padding:7px 12px; border-radius:7px; font-size:10px; color:#fff; max-width:240px; }
+.m1 { background:rgba(213,0,249,0.15); border:1px solid #d500f9; }
+.m2 { background:rgba(0,229,255,0.15); border:1px solid #00e5ff; }
+.m3 { background:rgba(255,234,0,0.15); border:1px solid #ffea00; }
+.m4 { background:rgba(255,82,82,0.15); border:1px solid #ff5252; }
+.marr { font-size:12px; margin:0 5px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图1-7 开发时序图 — 数字孪生测试执行流程</div>
+<div class="subtitle">SEQUENCE DIAGRAM · 孪生重建 → 场景生成 → 仿真验证 → 一致性校准 → 部署</div>
+<div class="canvas">
+  <div class="seq">
+    <div class="actor"><div class="a-icon" style="background:linear-gradient(135deg,#d500f9,#aa00ff);">👤</div><div class="a-name">算法工程师</div><div class="a-role">提交测试</div><div class="a-line"></div></div>
+    <div class="actor"><div class="a-icon" style="background:linear-gradient(135deg,#00e5ff,#0091ea);">🌌</div><div class="a-name">孪生引擎</div><div class="a-role">重建世界</div><div class="a-line"></div></div>
+    <div class="actor"><div class="a-icon" style="background:linear-gradient(135deg,#ffea00,#ffab00);">⚡</div><div class="a-name">场景生成器</div><div class="a-role">极端场景</div><div class="a-line"></div></div>
+    <div class="actor"><div class="a-icon" style="background:linear-gradient(135deg,#ff5252,#d50000);">🧪</div><div class="a-name">仿真验证</div><div class="a-role">算法测试</div><div class="a-line"></div></div>
+    <div class="actor"><div class="a-icon" style="background:linear-gradient(135deg,#7c4dff,#651fff);">🔄</div><div class="a-name">融合引擎</div><div class="a-role">一致性</div><div class="a-line"></div></div>
+    <div class="actor"><div class="a-icon" style="background:linear-gradient(135deg,#78909c,#546e7a);">🚗</div><div class="a-name">车辆OTA</div><div class="a-role">部署上车</div><div class="a-line"></div></div>
+  </div>
+  <div style="position:absolute;left:180px;top:200px;"><div class="msg"><div class="mbox m1">提交测试任务<br>{城市ID,算法版本}</div><div class="marr" style="color:#d500f9;">→</div></div></div>
+  <div style="position:absolute;left:340px;top:260px;"><div class="msg"><div class="marr" style="color:#00e5ff;">→</div><div class="mbox m2">加载城市孪生模型</div></div></div>
+  <div style="position:absolute;left:500px;top:320px;"><div class="msg"><div class="mbox m3">生成1000+极端场景<br>边界探索+对抗生成</div><div class="marr" style="color:#ffea00;">→</div></div></div>
+  <div style="position:absolute;left:660px;top:380px;"><div class="msg"><div class="marr" style="color:#ff5252;">→</div><div class="mbox m4">并行仿真执行<br>GPU集群256×A100</div></div></div>
+  <div style="position:absolute;left:820px;top:440px;"><div class="msg"><div class="mbox" style="background:rgba(124,77,255,0.15);border:1px solid #7c4dff;">仿真结果+传感器数据</div><div class="marr" style="color:#7c4dff;">→</div></div></div>
+  <div style="position:absolute;left:980px;top:500px;"><div class="msg"><div class="marr" style="color:#7c4dff;">→</div><div class="mbox" style="background:rgba(124,77,255,0.15);border:1px solid #7c4dff;">一致性验证报告</div></div></div>
+  <div style="position:absolute;left:1140px;top:560px;"><div class="msg"><div class="mbox m1">校准参数+部署包</div><div class="marr" style="color:#d500f9;">→</div></div></div>
+  <div style="position:absolute;left:1300px;top:620px;"><div class="msg"><div class="marr" style="color:#78909c;">→</div><div class="mbox" style="background:rgba(120,144,156,0.15);border:1px solid #78909c;">OTA推送完成</div></div></div>
+  <div style="position:absolute;left:1140px;top:700px;"><div class="msg"><div class="marr" style="color:#78909c;">→</div><div class="mbox" style="background:rgba(120,144,156,0.15);border:1px solid #78909c;">运行数据回流</div></div></div>
+  <div style="position:absolute;left:980px;top:760px;"><div class="msg"><div class="marr" style="color:#7c4dff;">→</div><div class="mbox" style="background:rgba(124,77,255,0.15);border:1px solid #7c4dff;">孪生模型进化</div></div></div>
+</div>
+</body>
+</html>

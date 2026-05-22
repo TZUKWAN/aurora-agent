@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1920px; height:1080px; background:#0a0a1a; font-family:"Microsoft YaHei","PingFang SC",sans-serif; overflow:hidden; }
+.title { position:absolute; left:60px; top:40px; font-size:28px; font-weight:700; color:#00e5ff; letter-spacing:2px; text-shadow:0 0 20px rgba(0,229,255,0.4); }
+.subtitle { position:absolute; left:60px; top:78px; font-size:14px; color:#546e7a; }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px); background-size:40px 40px; }
+.canvas { position:absolute; left:60px; top:130px; width:1800px; height:880px; display:flex; gap:24px; }
+.col { flex:1; display:flex; flex-direction:column; gap:16px; }
+.card { background:rgba(255,255,255,0.03); border:1px solid rgba(0,229,255,0.2); border-radius:14px; padding:18px 22px; }
+.ch { font-size:15px; font-weight:700; color:#00e5ff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.feat { margin:8px 0; padding:12px; border-radius:8px; background:rgba(255,255,255,0.03); border-left:3px solid; }
+.ft { font-size:13px; font-weight:700; color:#fff; margin-bottom:4px; }
+.fd { font-size:11px; color:#90a4ae; line-height:1.5; }
+.comp { display:flex; gap:12px; margin:10px 0; }
+.ca,.cb { flex:1; padding:12px; border-radius:8px; }
+.ca { background:rgba(0,229,255,0.05); border:1px solid rgba(0,229,255,0.2); }
+.cb { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); }
+.ct { font-size:12px; font-weight:700; margin-bottom:6px; }
+.ci { font-size:11px; color:#90a4ae; line-height:1.6; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="title">图2-12 核心技术优势 — 元界智驾差异化竞争力</div>
+<div class="subtitle">CORE ADVANTAGES · 场景生成 · 仿真精度 · 测试效率 · 安全合规</div>
+<div class="canvas">
+  <div class="col">
+    <div class="card">
+      <div class="ch">🌟 五大核心技术优势</div>
+      <div class="feat" style="border-left-color:#00e5ff;"><div class="ft">🎨 AI 端到端场景生成</div><div class="fd">业界首创 GAN+Diffusion 融合生成架构，从自然语言描述直接生成可执行的仿真场景，场景真实度达 95%+，生成速度 &lt;50ms/场景。传统方案需人工建模数小时/场景。</div></div>
+      <div class="feat" style="border-left-color:#7c4dff;"><div class="ft">🔍 Corner Case 自动挖掘</div><div class="fd">基于对抗攻击原理自动发现算法薄弱点，覆盖 99.7% 已知危险场景类型，并持续挖掘未知 unsafe scenarios。传统路测需数万公里才能遇到的极端场景，仿真平台可批量生成。</div></div>
+      <div class="feat" style="border-left-color:#00e676;"><div class="ft">⚡ 千倍测试效率提升</div><div class="fd">GPU 集群并行仿真，单日可完成等效 1000 万公里路测的验证量。支持 10,000+ 场景并发执行，算法迭代周期从 2 周缩短至 1 天。</div></div>
+      <div class="feat" style="border-left-color:#ff9100;"><div class="ft">📡 多传感器物理级仿真</div><div class="fd">基于光线追踪的相机/LiDAR/Radar 仿真，噪声模型经真实传感器标定验证，仿真-真实 gap &lt;5%。支持传感器故障注入与多模态融合测试。</div></div>
+      <div class="feat" style="border-left-color:#ff5252;"><div class="ft">🛡️ 功能安全合规内置</div><div class="fd">原生支持 ISO 26262 / SOTIF / ASPICE 流程，自动生成合规报告。安全评估引擎内置 500+ 安全检查项，一次测试即可完成认证所需证据收集。</div></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="ch">⚔️ 竞品对比分析</div>
+      <div class="comp">
+        <div class="ca"><div class="ct" style="color:#00e5ff;">元界智驾</div><div class="ci">✓ AI 自动生成场景<br>✓ Corner Case 挖掘<br>✓ 云端 SaaS 轻量化<br>✓ 7天快速交付<br>✓ 价格 ¥5-80万/年<br>✓ 中文本土支持</div></div>
+        <div class="cb"><div class="ct" style="color:#78909c;">国外竞品 (CARLA/VTD)</div><div class="ci">✗ 场景需手工建模<br>✗ 无 AI 挖掘能力<br>✗ 重量级本地部署<br>✗ 交付周期 2-3月<br>✗ 价格 $50-200万/年<br>✗ 中文支持弱</div></div>
+      </div>
+      <div class="comp">
+        <div class="ca"><div class="ct" style="color:#00e5ff;">元界智驾</div><div class="ci">✓ 10M+ 预置场景库<br>✓ 传感器物理级仿真<br>✓ CI/CD 原生集成<br>✓ 功能安全合规<br>✓ 持续更新迭代</div></div>
+        <div class="cb"><div class="ct" style="color:#78909c;">国内竞品 (某仿真平台)</div><div class="ci">✗ 场景库 1万+<br>✗ 传感器简化模型<br>✗ 无 CI/CD 集成<br>✗ 安全合规需定制<br>✗ 更新频率低</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">🏆 技术壁垒</div>
+      <div style="font-size:12px;color:#90a4ae;line-height:1.8;">
+        • <strong style="color:#00e5ff;">数据壁垒：</strong>10M+ 场景数据积累，持续增长的 Corner Case 库<br>
+        • <strong style="color:#00e5ff;">算法壁垒：</strong>GAN+Diffusion 融合生成，顶会论文 8 篇，专利 5 项<br>
+        • <strong style="color:#00e5ff;">工程壁垒：</strong>GPU 集群调度优化，万级并发仿真稳定性 99.9%<br>
+        • <strong style="color:#00e5ff;">生态壁垒：</strong>50+ 车企/Tier1 客户，形成场景共享网络效应<br>
+        • <strong style="color:#00e5ff;">认证壁垒：</strong>中汽研合作认证，ISO 26262 工具链资质
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
