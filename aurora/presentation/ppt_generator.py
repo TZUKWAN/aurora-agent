@@ -27,16 +27,16 @@ class PPTGenerator:
     def generate(self, project_info: Dict, competition_id: str = "internet_plus") -> Dict:
         """
         Generate PPT content.
-        
+
         Args:
             project_info: Project details
             competition_id: Target competition
-        
+
         Returns:
             PPT structure with slides
         """
         slides = []
-        
+
         for slide_def in self.SLIDE_STRUCTURE:
             slide = {
                 "id": slide_def["id"],
@@ -45,7 +45,7 @@ class PPTGenerator:
                 "content_type": slide_def["content_type"],
             }
             slides.append(slide)
-        
+
         return {
             "competition": competition_id,
             "slide_count": len(slides),
@@ -182,7 +182,7 @@ class PPTGenerator:
         script = ""
         for slide in ppt_content["slides"]:
             script += f"【{slide['title']}】\n"
-            
+
             if slide["id"] == "cover":
                 script += "尊敬的评委老师，大家好！我是来自XX大学的XX，很高兴向大家介绍我们的项目。\n\n"
             elif slide["id"] == "problem":
@@ -193,5 +193,5 @@ class PPTGenerator:
                 script += "以上就是我们项目的全部内容，感谢您的聆听！欢迎提问！\n\n"
             else:
                 script += f"接下来，我将为大家介绍{slide['title']}...\n\n"
-        
+
         return script

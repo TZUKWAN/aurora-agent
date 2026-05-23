@@ -2,7 +2,7 @@
 
 import asyncio
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from aurora.swarm.bus import SwarmBus
 from aurora.swarm.decomposer import TaskDecomposer
@@ -177,7 +177,7 @@ class SwarmOrchestrator:
     def _estimate_complexity(self, message: str) -> int:
         """Estimate message complexity on a scale of 1-5."""
         complexity = 1
-        
+
         if any(phrase in message for phrase in ["帮我", "请帮我", "协助我"]):
             complexity += 1
         if any(phrase in message for phrase in ["商业计划书", "完整方案", "参赛项目"]):

@@ -1,7 +1,6 @@
 """Business plan generator for AuroraAgent."""
 
-import json
-from typing import Dict, List
+from typing import Dict
 
 from aurora.competition.database import CompetitionDatabase
 
@@ -81,17 +80,17 @@ class BusinessPlanGenerator:
     def generate(self, project_info: Dict, competition_id: str = "internet_plus") -> Dict:
         """
         Generate a complete business plan.
-        
+
         Args:
             project_info: Project details
             competition_id: Competition ID for template selection
-        
+
         Returns:
             Complete business plan structure
         """
         comp = self._comp_db.get_competition(competition_id)
         template = self._get_template(competition_id)
-        
+
         plan = {
             "metadata": {
                 "competition": comp.name if comp else "通用",
@@ -115,16 +114,16 @@ class BusinessPlanGenerator:
         """Generate a single section."""
         if section_id not in self.SECTION_TEMPLATES:
             return ""
-        
-        template = self.SECTION_TEMPLATES[section_id]
+
+        self.SECTION_TEMPLATES[section_id]
         return self._generate_section(project_info, section_id, {})
 
     def _generate_section(self, project_info: Dict, section_id: str, template: Dict) -> str:
         """Generate section content."""
-        tech = project_info.get("technology", "")
-        market = project_info.get("target_market", "")
-        team = project_info.get("team_background", "")
-        
+        project_info.get("technology", "")
+        project_info.get("target_market", "")
+        project_info.get("team_background", "")
+
         section_generators = {
             "executive_summary": lambda: self._gen_executive_summary(project_info),
             "project_overview": lambda: self._gen_project_overview(project_info),
@@ -254,7 +253,7 @@ class BusinessPlanGenerator:
 【中期计划（1-3年）】
 - 完善产品功能，拓展市场覆盖
 - 建立销售团队，扩大营收规模
-- 完成{A轮}融资，加速发展
+- 完成A轮融资，加速发展
 
 【长期计划（3-5年）】
 - 成为{info.get('technology', '')}领域领先企业
@@ -293,7 +292,7 @@ class BusinessPlanGenerator:
 本轮融资{info.get('funding', '50万')}，出让{info.get('equity', '10%')}股权。"""
 
     def _gen_risk_assessment(self, info: Dict) -> str:
-        return f"""【技术风险】
+        return """【技术风险】
 - 风险：技术迭代快，可能被超越
 - 应对：持续研发投入，保持技术领先
 
@@ -322,20 +321,20 @@ class BusinessPlanGenerator:
         """Export business plan to DOCX."""
         try:
             from docx import Document
-            from docx.shared import Pt
             from docx.enum.text import WD_ALIGN_PARAGRAPH
-            
+            from docx.shared import Pt
+
             doc = Document()
-            
+
             title = doc.add_heading(plan['metadata']['competition'] + '商业计划书', 0)
             title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            
+
             for section_id in self.SECTIONS:
                 section = plan['sections'][section_id]
                 doc.add_heading(section['title'], level=1)
                 doc.add_paragraph(section['content'])
                 doc.add_page_break()
-            
+
             doc.save(filepath)
             return {"success": True, "message": f"已导出到 {filepath}"}
         except ImportError:
@@ -346,13 +345,13 @@ class BusinessPlanGenerator:
         content = f"# {plan['metadata']['competition']}商业计划书\n\n"
         content += f"**生成时间**: {plan['metadata']['generated_at']}\n"
         content += f"**目标赛道**: {plan['metadata']['track']}\n\n"
-        
+
         for section_id in self.SECTIONS:
             section = plan['sections'][section_id]
             content += f"## {section['title']}\n\n"
             content += section['content'] + "\n\n---\n\n"
-        
+
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
-        
+
         return {"success": True, "message": f"已导出到 {filepath}"}

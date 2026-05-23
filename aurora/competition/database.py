@@ -1,10 +1,7 @@
 """Competition database for AuroraAgent."""
 
-import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, List, Optional
-
-import yaml
 
 
 @dataclass
@@ -235,7 +232,7 @@ class CompetitionDatabase:
         keyword = keyword.lower()
         results = []
         for comp in self._competitions.values():
-            if (keyword in comp.name.lower() or 
+            if (keyword in comp.name.lower() or
                 keyword in comp.full_name.lower() or
                 keyword in comp.id.lower()):
                 results.append(comp)
