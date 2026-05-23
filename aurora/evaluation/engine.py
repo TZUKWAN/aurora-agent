@@ -314,7 +314,13 @@ class EvaluationEngine:
         if "盈利" in revenue or "收入" in revenue:
             score += 20
             feedback += "盈利模式明确"
-        if market and int(market.replace("亿", "").replace("万", "")) > 10:
+        try:
+            market_num = int(market.replace("亿", "").replace("万", "").replace(",", ""))
+            if market_num > 10:
+                score += 15
+                feedback += "，市场规模大"
+        except (ValueError, TypeError):
+            pass
             score += 15
             feedback += "，市场规模大"
         
