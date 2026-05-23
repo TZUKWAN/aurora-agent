@@ -1,6 +1,5 @@
 """Task decomposer for AuroraAgent's swarm system."""
 
-import json
 from typing import Dict, List
 
 
@@ -9,8 +8,8 @@ class TaskDecomposer:
 
     def decompose(self, task: str) -> List[Dict[str, str]]:
         """Decompose a task into smaller subtasks."""
-        keywords = self._extract_keywords(task)
-        
+        self._extract_keywords(task)
+
         if "商业计划书" in task or "BP" in task:
             return self._decompose_business_plan(task)
         elif "PPT" in task or "路演" in task or "答辩" in task:

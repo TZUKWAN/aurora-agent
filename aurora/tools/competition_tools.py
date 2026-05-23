@@ -66,10 +66,10 @@ def _competition_search_handler(args):
     keyword = args.get("keyword", "")
     db = CompetitionDatabase()
     results = db.search_competitions(keyword)
-    
+
     if not results:
         return json.dumps({"result": "未找到匹配的竞赛", "data": []}, ensure_ascii=False)
-    
+
     data = []
     for comp in results:
         data.append({
@@ -80,14 +80,14 @@ def _competition_search_handler(args):
             "level": comp.level,
             "category": comp.category
         })
-    
+
     return json.dumps({"result": f"找到 {len(data)} 个匹配的竞赛", "data": data}, ensure_ascii=False)
 
 
 def _track_matcher_handler(args):
     """Match project to competition tracks."""
     matcher = TrackMatcher()
-    
+
     project_info = {
         "technology": args.get("technology", ""),
         "business_model": args.get("business_model", ""),
@@ -96,11 +96,11 @@ def _track_matcher_handler(args):
         "team_background": args.get("team_background", ""),
         "project_stage": args.get("project_stage", "")
     }
-    
+
     competition_id = args.get("competition_id")
-    
+
     results = matcher.match(project_info, competition_id)
-    
+
     return json.dumps({
         "result": f"找到 {len(results)} 个匹配的赛道",
         "matches": results
@@ -112,10 +112,10 @@ def _competition_info_handler(args):
     comp_id = args.get("competition_id")
     db = CompetitionDatabase()
     comp = db.get_competition(comp_id)
-    
+
     if not comp:
         return json.dumps({"error": f"未找到竞赛: {comp_id}"}, ensure_ascii=False)
-    
+
     tracks = []
     for track in comp.tracks:
         tracks.append({
@@ -123,7 +123,7 @@ def _competition_info_handler(args):
             "description": track.description,
             "eligibility": track.eligibility
         })
-    
+
     timeline = []
     for event in comp.timeline:
         timeline.append({
@@ -131,7 +131,7 @@ def _competition_info_handler(args):
             "start_date": event.start_date,
             "end_date": event.end_date
         })
-    
+
     dimensions = []
     for dim in comp.evaluation_dimensions:
         dimensions.append({
@@ -139,7 +139,7 @@ def _competition_info_handler(args):
             "weight": dim.weight,
             "description": dim.description
         })
-    
+
     return json.dumps({
         "id": comp.id,
         "name": comp.name,
@@ -159,7 +159,7 @@ def _list_competitions_handler(args):
     """List all available competitions."""
     db = CompetitionDatabase()
     competitions = db.list_competitions()
-    
+
     data = []
     for comp in competitions:
         data.append({
@@ -170,5 +170,5 @@ def _list_competitions_handler(args):
             "category": comp.category,
             "track_count": len(comp.tracks)
         })
-    
+
     return json.dumps({"result": f"共有 {len(data)} 个竞赛", "data": data}, ensure_ascii=False)

@@ -1,6 +1,6 @@
 """Track matching engine for AuroraAgent."""
 
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 from aurora.competition.database import CompetitionDatabase, CompetitionInfo, TrackInfo
 
@@ -18,7 +18,7 @@ class TrackMatcher:
     ) -> List[Dict]:
         """
         Match project to tracks.
-        
+
         Args:
             project_info: Dictionary containing project details:
                 - technology: 技术领域
@@ -28,7 +28,7 @@ class TrackMatcher:
                 - team_background: 团队背景
                 - project_stage: 项目阶段
             competition_id: Optional competition ID to filter by
-        
+
         Returns:
             List of matching tracks with confidence scores
         """
@@ -41,7 +41,7 @@ class TrackMatcher:
         for comp in competitions:
             if not comp:
                 continue
-            
+
             for track in comp.tracks:
                 score = self._calculate_match_score(project_info, track, comp)
                 if score >= 0.3:

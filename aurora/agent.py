@@ -1,6 +1,5 @@
 """Core agent for AuroraAgent."""
 
-import asyncio
 import json
 import logging
 from typing import Any, Dict, List, Optional
@@ -24,10 +23,10 @@ class AuroraAgent:
         self.config = config or load_config()
         self.tools = ToolRegistry()
         self._register_all_tools()
-        
+
         self.messages: List[Dict[str, str]] = []
         self._setup_provider()
-        
+
         self.swarm_orchestrator = SwarmOrchestrator(
             run_fn=self.run,
             llm_call_fn=self._call_llm,
@@ -47,7 +46,7 @@ class AuroraAgent:
     def _setup_provider(self):
         """Setup LLM provider."""
         provider_name = self.config.model.provider
-        
+
         if provider_name == "openai-compat":
             from openai import AsyncOpenAI
             self.client = AsyncOpenAI(
@@ -79,37 +78,37 @@ class AuroraAgent:
     async def run(self, user_input: str) -> str:
         """Main entry point for the agent."""
         self.messages.append({"role": "user", "content": user_input})
-        
+
         if self.swarm_orchestrator.should_trigger(user_input):
             logger.info("Triggering Swarm for complex task")
             result = await self.swarm_orchestrator.run(user_input)
         else:
             result = await self._process_message(user_input)
-        
+
         self.messages.append({"role": "assistant", "content": result})
-        
+
         return result
 
     async def _process_message(self, user_input: str) -> str:
         """Process a single message."""
         messages = self._build_messages()
-        
+
         tool_schemas = self.tools.get_schemas()
-        
+
         if tool_schemas:
             response = await self._call_llm_with_tools(messages, tool_schemas)
         else:
             response = await self._call_llm(messages)
-        
+
         return response
 
     def _build_messages(self) -> List[Dict[str, str]]:
         """Build message history for LLM call."""
         messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-        
+
         recent_messages = self.messages[-self.config.context.keep_recent:]
         messages.extend(recent_messages)
-        
+
         return messages
 
     async def _call_llm(
@@ -130,9 +129,9 @@ class AuroraAgent:
                     max_tokens=4096,
                     temperature=0.7
                 )
-                
+
                 message = response.choices[0].message
-                
+
                 if message.tool_calls:
                     # If custom tool_dispatch is provided (from Swarm), use it
                     if tool_dispatch:
@@ -157,18 +156,18 @@ class AuroraAgent:
     async def _handle_tool_call_with_dispatch(self, message, tool_dispatch) -> str:
         """Handle tool calls with custom dispatch function."""
         results = []
-        
+
         for tool_call in message.tool_calls:
             tool_name = tool_call.function.name
             try:
                 args = json.loads(tool_call.function.arguments)
             except json.JSONDecodeError:
                 args = {}
-            
+
             # Use the custom dispatch function (from FilteredToolRegistry)
             result = tool_dispatch(tool_name, args)
             results.append(result)
-        
+
         if len(results) == 1:
             try:
                 result_data = json.loads(results[0])
@@ -195,9 +194,9 @@ class AuroraAgent:
                 max_tokens=4096,
                 temperature=0.7
             )
-            
+
             message = response.choices[0].message
-            
+
             if message.tool_calls:
                 return await self._handle_tool_call(message)
             else:
@@ -209,23 +208,23 @@ class AuroraAgent:
     async def _handle_tool_call(self, message) -> str:
         """Handle tool calls from LLM."""
         results = []
-        
+
         for tool_call in message.tool_calls:
             tool_name = tool_call.function.name
             try:
                 args = json.loads(tool_call.function.arguments)
             except json.JSONDecodeError:
                 args = {}
-            
+
             result = self.tools.dispatch(tool_name, args)
             results.append(result)
-        
+
         if len(results) == 1:
             try:
                 result_data = json.loads(results[0])
                 if "error" in result_data:
                     return f"工具调用失败：{result_data['error']}"
-                
+
                 return self._format_tool_result(result_data)
             except json.JSONDecodeError:
                 return results[0]
@@ -236,7 +235,7 @@ class AuroraAgent:
         """Format tool result for user."""
         if "result" in result:
             output = result["result"]
-            
+
             if "data" in result:
                 data = result["data"]
                 if isinstance(data, list):
@@ -250,7 +249,7 @@ class AuroraAgent:
                                 output += f"   {desc}\n"
                         else:
                             output += f"{i}. {item}\n"
-            
+
             if "matches" in result:
                 matches = result["matches"]
                 output += "\n\n推荐赛道：\n"
@@ -260,15 +259,15 @@ class AuroraAgent:
                     if "reasons" in match:
                         for reason in match["reasons"]:
                             output += f"   - {reason}\n"
-            
+
             if "suggestions" in result:
                 suggestions = result["suggestions"]
                 output += "\n\n优化建议：\n"
                 for i, suggestion in enumerate(suggestions, 1):
                     output += f"{i}. {suggestion}\n"
-            
+
             return output
-        
+
         return json.dumps(result, ensure_ascii=False, indent=2)
 
     def clear_history(self):

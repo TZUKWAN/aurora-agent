@@ -28,7 +28,7 @@ class SwarmBus:
         """Send a message to the bus."""
         async with self._lock:
             self._messages.append(message)
-            
+
             if message.recipient in self._listeners:
                 for queue in self._listeners[message.recipient]:
                     await queue.put(message)
