@@ -25,6 +25,7 @@ dependencies = [
     "psycopg2-binary>=2.9",
     "redis>=5.0",
     "beautifulsoup4>=4.12",
+    "duckduckgo-search>=5.3.1",
     "playwright>=1.40.0",
 ]
 
