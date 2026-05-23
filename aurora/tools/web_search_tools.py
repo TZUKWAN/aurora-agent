@@ -3,7 +3,7 @@
 import logging
 from typing import Dict, List, Any
 try:
-    from duckduckgo_search import DDGS
+    from ddgs import DDGS
     HAS_DDGS = True
 except ImportError:
     HAS_DDGS = False
@@ -18,7 +18,7 @@ def search_market_data(query: str, max_results: int = 3) -> str:
     Use this to get accurate CAGR, market caps, or regulatory guidelines.
     """
     if not HAS_DDGS:
-        return "Search tool unavailable (requires duckduckgo-search). Use estimated plausible data."
+        return "Search tool unavailable (requires ddgs). Use estimated plausible data."
         
     try:
         results = []
@@ -36,7 +36,6 @@ def search_market_data(query: str, max_results: int = 3) -> str:
         return f"Search error: {str(e)}"
 
 def _register_tools(registry: ToolRegistry):
-    """Register web search tools."""
     registry.register(
         name="search_market_data",
         description="Search real-time web for market size, policies, or competitor info. Requires internet.",
