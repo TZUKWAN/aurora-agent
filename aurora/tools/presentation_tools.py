@@ -25,6 +25,21 @@ def _register_tools(registry):
     )
 
     registry.register(
+        "ppt_export",
+        "导出PPT为.pptx文件",
+        {
+            "type": "object",
+            "properties": {
+                "ppt_content": {"type": "object", "description": "PPT JSON结构"},
+                "filepath": {"type": "string", "description": "输出文件路径"},
+                "theme": {"type": "string", "description": "主题(business_blue/tech/morandi)", "enum": ["business_blue", "tech", "morandi"]}
+            },
+            "required": ["ppt_content", "filepath"]
+        },
+        _ppt_export_handler
+    )
+
+    registry.register(
         "script_generate",
         "生成引人入胜的现场路演逐字讲稿",
         {
@@ -65,18 +80,40 @@ def _ppt_generate_handler(args):
         logger.info("Generating PPT structure...")
         ppt_content = generator.generate(project_info, competition_id)
 
-        # Ensure return contract
         if not ppt_content or "slides" not in ppt_content:
             raise ValueError("PPT Generator failed to produce 'slides'.")
 
         return json.dumps({
-            "result": "PPT内容生成完成",
+            "result": "PPT content generated",
             "slide_count": ppt_content.get("slide_count", len(ppt_content["slides"])),
             "slides": ppt_content["slides"]
         }, ensure_ascii=False)
     except Exception as e:
         logger.error(f"Failed to generate PPT outline: {e}")
-        return json.dumps({"error": f"PPT大纲生成失败: {str(e)}"}, ensure_ascii=False)
+        return json.dumps({"error": f"PPT generation failed: {str(e)}"}, ensure_ascii=False)
+
+
+def _ppt_export_handler(args):
+    """Export PPT JSON to .pptx file."""
+    try:
+        ppt_content = args.get("ppt_content")
+        if not ppt_content:
+            return json.dumps({"error": "ppt_content is required"}, ensure_ascii=False)
+
+        filepath = args.get("filepath")
+        if not filepath:
+            return json.dumps({"error": "filepath is required"}, ensure_ascii=False)
+
+        theme = args.get("theme", "business_blue")
+
+        from aurora.presentation.pptx_exporter import PPTXExporter
+        exporter = PPTXExporter(theme=theme)
+        result = exporter.export(ppt_content, filepath)
+
+        return json.dumps(result, ensure_ascii=False)
+    except Exception as e:
+        logger.error(f"PPT export failed: {e}")
+        return json.dumps({"success": False, "message": f"Export failed: {str(e)}"}, ensure_ascii=False)
 
 
 def _script_generate_handler(args):

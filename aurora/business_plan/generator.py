@@ -1,6 +1,10 @@
 """Business plan generator for AuroraAgent."""
 
-from typing import Dict
+import os
+from datetime import datetime
+from typing import Dict, Optional
+import json
+from aurora.config import load_config, Config
 
 from aurora.competition.database import CompetitionDatabase
 
@@ -74,10 +78,30 @@ class BusinessPlanGenerator:
         },
     }
 
-    def __init__(self):
+    def __init__(self, config: Optional[Config] = None):
         self._comp_db = CompetitionDatabase()
+        self.config = config or load_config()
+        self.llm_client = self._init_llm()
 
-    def generate(self, project_info: Dict, competition_id: str = "internet_plus") -> Dict:
+        try:
+            from aurora.business_plan.outline_parser import SecretOutlineParser
+            self.outline_parser = SecretOutlineParser()
+        except Exception:
+            self.outline_parser = None
+
+    
+    def _init_llm(self):
+        try:
+            import os
+            from openai import OpenAI
+            return OpenAI(
+                api_key=self.config.model.api_key or os.environ.get("AURORA_API_KEY"),
+                base_url=self.config.model.base_url or os.environ.get("AURORA_BASE_URL")
+            )
+        except Exception:
+            return None
+
+    def generate(self, project_info: Dict, competition_id: str = "internet_plus", session_id: str = None) -> Dict:
         """
         Generate a complete business plan.
 
@@ -95,7 +119,7 @@ class BusinessPlanGenerator:
             "metadata": {
                 "competition": comp.name if comp else "通用",
                 "track": project_info.get("track", ""),
-                "generated_at": "2026-05-22",
+                "generated_at": datetime.now().strftime("%Y-%m-%d"),
             },
             "sections": {},
         }
@@ -115,15 +139,50 @@ class BusinessPlanGenerator:
         if section_id not in self.SECTION_TEMPLATES:
             return ""
 
-        self.SECTION_TEMPLATES[section_id]
         return self._generate_section(project_info, section_id, {})
 
     def _generate_section(self, project_info: Dict, section_id: str, template: Dict) -> str:
-        """Generate section content."""
-        project_info.get("technology", "")
-        project_info.get("target_market", "")
-        project_info.get("team_background", "")
+        """Generate section content using LLM and Proprietary Prompts."""
+        custom_prompts = {}
+        if self.outline_parser is not None:
+            custom_prompts = self.outline_parser.get_section_prompts()
+        constraints = custom_prompts.get(section_id, "")
 
+        # If we have an LLM configured, use it instead of static templates
+        if self.llm_client:
+            model_name = self.config.model.name or os.environ.get("AURORA_MODEL", "glm-4.7-flash")
+
+            system_msg = "你是顶级商业计划书主笔。必须严格遵守以下段落行文规范。绝不使用模板套话。"
+            if constraints:
+                system_msg += f"\n\n【最高写作铁律与结构要求】：\n{constraints}"
+
+            prompt = (
+                f"项目信息：\n{json.dumps(project_info, ensure_ascii=False, indent=2)}\n\n"
+                f"请为你撰写【{section_id}】章节的全部正文文本。直接输出不排版。"
+            )
+
+            try:
+                resp = self.llm_client.chat.completions.create(
+                    model=model_name,
+                    messages=[
+                        {"role": "system", "content": system_msg},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.7,
+                    max_tokens=8192
+                )
+                msg = resp.choices[0].message
+                content = msg.content or ""
+                if not content.strip():
+                    rc = getattr(msg, 'reasoning_content', None)
+                    if rc and rc.strip():
+                        content = rc
+                return content
+            except Exception as e:
+                import logging
+                logging.getLogger(__name__).error(f"LLM fail: {e}")
+
+        # Fallback to static generators if no API
         section_generators = {
             "executive_summary": lambda: self._gen_executive_summary(project_info),
             "project_overview": lambda: self._gen_project_overview(project_info),
@@ -143,135 +202,210 @@ class BusinessPlanGenerator:
         return ""
 
     def _gen_executive_summary(self, info: Dict) -> str:
+        tech = info.get('technology', '相关技术')
+        market = info.get('target_market', '目标市场')
+        problem = info.get('problem', '行业痛点')
+        product = info.get('product', '产品')
         return f"""【项目概述】
-本项目致力于{info.get('technology', '')}领域的创新应用，旨在解决{info.get('problem', '')}的痛点。
+{product}基于{tech}，面向{market}，解决{problem}。
 
 【核心亮点】
-1. 创新性：{info.get('technology', '')}技术创新，具备独特竞争优势
-2. 市场潜力：面向{info.get('target_market', '')}市场，需求旺盛
-3. 团队实力：{info.get('team_background', '')}背景，执行力强
+1. 技术创新：基于{tech}的差异化技术方案
+2. 市场机会：{market}存在明确未被满足的需求
+3. 商业闭环：清晰的盈利模式与增长路径
 
 【融资需求】
-计划融资{info.get('funding', '50万')}元，主要用于产品研发、市场推广和团队建设。"""
+计划融资{info.get('funding', '50万')}元，主要用于产品研发、市场验证和团队扩充。
+
+注意：以上内容为模板框架，需要根据实际项目数据补充具体数字和案例。"""
 
     def _gen_project_overview(self, info: Dict) -> str:
+        tech = info.get('technology', '相关技术')
+        problem = info.get('problem', '行业痛点')
+        solution = info.get('solution', '解决方案')
+        market = info.get('target_market', '目标市场')
         return f"""【项目背景】
-当前{info.get('technology', '')}行业面临{info.get('problem', '')}的挑战，传统解决方案存在诸多不足。
+{market}领域长期面临{problem}。现有方案存在效率低、成本高、覆盖不足等问题。
 
 【行业痛点】
-- 痛点1：现有产品功能单一，无法满足多元化需求
-- 痛点2：成本高昂，中小企业难以承受
-- 痛点3：用户体验不佳，缺乏创新交互方式
+[需要补充具体数据：市场规模、用户调研数据、行业报告引用]
+- 痛点1：[具体痛点 + 数据支撑]
+- 痛点2：[具体痛点 + 用户反馈]
+- 痛点3：[具体痛点 + 竞品缺陷]
 
 【解决方案】
-本项目提出基于{info.get('technology', '')}的创新解决方案，通过{info.get('solution', '')}实现突破。
+基于{tech}，通过{solution}解决上述痛点。
 
 【核心价值】
-为{info.get('target_market', '')}提供高效、便捷、低成本的{info.get('product', '')}服务。"""
+为{market}用户提供[具体可量化的价值，如"效率提升X%"、"成本降低Y%"]。
+
+注意：需要补充真实市场数据和用户调研支撑。"""
 
     def _gen_market_analysis(self, info: Dict) -> str:
+        tech = info.get('technology', '相关技术')
+        market = info.get('target_market', '目标市场')
         return f"""【目标市场】
-目标客户群体为{info.get('target_market', '')}，主要包括企业用户和个人用户。
+{market}，需要细分到具体客户群体和场景。
 
 【市场规模】
-根据行业报告，{info.get('technology', '')}市场规模预计达{info.get('market_size', '百亿')}级，年增长率超过{info.get('growth_rate', '30%')}。
+[需要补充：TAM/SAM/SOM分析，引用权威数据源]
+- TAM（总可用市场）：[数据 + 来源]
+- SAM（可服务市场）：[数据 + 来源]
+- SOM（可获得市场）：[数据 + 来源]
 
 【用户画像】
-- 年龄分布：25-45岁为主
-- 职业特征：企业管理者、创业者、技术从业者
-- 需求特点：注重效率、关注成本、追求创新
+[需要补充真实用户调研]
+- 核心用户群：[具体特征]
+- 使用场景：[具体场景描述]
+- 付费意愿：[调研数据]
 
 【竞争分析】
-目前市场主要竞争者包括{info.get('competitors', '头部企业')}，本项目通过差异化定位和技术创新形成竞争优势。
+[需要补充竞品对比矩阵表格，列出3-5个核心竞品的参数对比]
 
 【SWOT分析】
-- 优势：技术领先、团队专业、模式创新
-- 劣势：品牌认知度较低、资金有限
-- 机会：政策支持、市场增长、技术变革
-- 威胁：竞争加剧、技术迭代快"""
+- 优势(S)：[基于项目实际情况，需要具体]
+- 劣势(W)：[诚实评估]
+- 机会(O)：[市场趋势数据支撑]
+- 威胁(T)：[竞争对手动态]
+
+注意：所有数据需引用权威来源，避免"百亿市场"等空洞表述。"""
 
     def _gen_product_service(self, info: Dict) -> str:
+        tech = info.get('technology', '相关技术')
+        product = info.get('product', '产品')
         return f"""【产品介绍】
-{info.get('product', '')}是一款基于{info.get('technology', '')}的创新产品，具备{info.get('features', '多项核心功能')}。
+{product}基于{tech}构建，核心功能包括[需要补充功能清单]。
 
 【核心技术】
-采用{info.get('technology', '')}核心技术，拥有自主知识产权，技术壁垒高。
+[需要补充：技术架构图、核心技术指标、与传统方案的定量对比]
 
 【创新点】
-1. 技术创新：{info.get('innovation_tech', '独特算法')}
-2. 模式创新：{info.get('innovation_business', '全新商业模式')}
-3. 体验创新：{info.get('innovation_experience', '用户体验优化')}
+1. [具体技术创新，附技术指标对比]
+2. [模式创新，附用户验证数据]
+3. [体验创新，附用户测试反馈]
 
 【发展阶段】
-目前处于{info.get('stage', '创意/初创/成长')}阶段，已完成{info.get('milestones', '核心功能开发')}。
+当前状态：[需要补充已完成的里程碑]
+下一步计划：[需要补充开发路线图]
 
 【知识产权】
-已申请{info.get('patents', '多项专利')}，拥有完整知识产权保护。"""
+[需要补充：已申请/获批的专利、软著清单]
+
+注意：技术指标需要用数据说话，避免笼统描述。"""
 
     def _gen_business_model(self, info: Dict) -> str:
+        product = info.get('product', '产品')
+        market = info.get('target_market', '目标市场')
         return f"""【价值主张】
-为{info.get('target_market', '')}提供{info.get('value_proposition', '高效、便捷')}的{info.get('product', '')}解决方案。
+为{market}提供[具体价值，需量化]的{product}服务。
 
 【收入模型】
-- 主要收入：{info.get('revenue_main', '订阅服务')}
-- 其他收入：{info.get('revenue_other', '定制开发、技术咨询')}
+[需要补充具体的定价和收入预测]
+- 主要收入来源：[定价 + 预期客户数]
+- 客单价：[具体数字]
+- 复购率/续费率：[预期数据]
 
 【成本结构】
-- 研发成本：人员薪酬、技术投入
-- 运营成本：服务器、营销推广
-- 管理成本：办公场地、日常开支
+[需要补充具体数字]
+- 固定成本：[人力、场地等，具体金额]
+- 变动成本：[服务器、获客成本等，具体金额]
+- 盈亏平衡点(BEP)：[预计第X个月]
 
 【渠道通路】
-- 线上渠道：官网、社交媒体、行业平台
-- 线下渠道：展会、合作伙伴、直销团队
+[需要补充具体的获客渠道和转化率预估]
 
 【客户关系】
-采用{info.get('customer_relation', '会员制')}模式，提供{info.get('service_level', '7x24小时')}服务支持。"""
+[需要补充客户留存策略和具体运营指标]
+
+注意：所有财务预测必须有推导逻辑，禁止"一年回本三年上市"式吹嘘。"""
 
     def _gen_marketing_strategy(self, info: Dict) -> str:
+        market = info.get('target_market', '目标市场')
         return f"""【定价策略】
-采用{info.get('pricing_model', '分层定价')}策略，满足不同客户需求。
+[需要补充具体定价方案和定价逻辑]
 
 【推广策略】
-- 内容营销：行业分析、案例分享、技术干货
-- 社群运营：建立用户社区、举办线上活动
-- 合作伙伴：与{info.get('partners', '行业龙头')}建立战略合作
+- 获客渠道1：[渠道名 + 预计获客成本CAC]
+- 获客渠道2：[渠道名 + 预计转化率]
+- 内容营销：[具体内容形式和发布计划]
 
 【渠道策略】
-- 线上：SEO优化、SEM投放、社交媒体运营
-- 线下：行业展会、路演活动、客户拜访
+[需要补充具体的合作渠道和谈判进展]
 
 【用户获取】
-通过{info.get('acquisition', '产品试用、推荐奖励')}等方式获取首批种子用户。"""
+冷启动方案：[首批种子用户获取的具体执行方案]
+增长模型：[需要提供用户增长公式和关键假设]
+
+注意：营销策略需要有预算分配和ROI预估。"""
 
     def _gen_operation_plan(self, info: Dict) -> str:
-        return f"""【短期计划（0-1年）】
-- 完成核心功能开发和测试
-- 上线MVP版本，获取种子用户
-- 建立运营体系和服务流程
+        return """【短期计划（0-6个月）】
+[需要补充具体的里程碑节点和时间表]
+- 里程碑1：[具体目标 + 完成时间]
+- 里程碑2：[具体目标 + 完成时间]
 
-【中期计划（1-3年）】
-- 完善产品功能，拓展市场覆盖
-- 建立销售团队，扩大营收规模
-- 完成A轮融资，加速发展
+【中期计划（6-18个月）】
+[需要补充具体的业务目标和资源需求]
+- 目标1：[可量化的目标]
+- 目标2：[可量化的目标]
 
-【长期计划（3-5年）】
-- 成为{info.get('technology', '')}领域领先企业
-- 拓展国际市场，实现全球化布局
-- 打造生态体系，构建竞争壁垒"""
+【长期计划（18-36个月）】
+[需要补充具体的扩张计划和战略目标]
+
+注意：每个里程碑需要有明确的负责人、时间节点和验收标准。"""
 
     def _gen_team_introduction(self, info: Dict) -> str:
         return f"""【团队成员】
-{info.get('team_background', '团队成员来自知名高校和企业')}，具备丰富的行业经验和专业能力。
+[需要补充每位核心成员的具体信息]
+- 姓名 | 职位 | 背景 | 核心贡献
+[格式化的团队表格]
 
 【组织架构】
-- 核心团队：{info.get('team_size', '5人')}
-- 顾问团队：行业专家和投资顾问
+[需要补充组织架构图和汇报关系]
 
 【股权结构】
-创始人占比{info.get('founder_share', '60%')}，团队期权{info.get('option_pool', '20%')}，预留{info.get('reserve', '20%')}用于融资。"""
+[需要补充合理的股权分配方案]
+注意：互联网+等赛事要求体现"师生共创"，需说明导师的技术贡献和利益绑定。
+
+注意：团队介绍需要突出成员与项目的匹配度，而非空泛的背景描述。"""
 
     def _gen_financial_analysis(self, info: Dict) -> str:
+        sandbox_result = self._run_financial_sandbox(info)
+        if sandbox_result:
+            return self._format_sandbox_result(info, sandbox_result)
+        return self._gen_financial_fallback(info)
+
+    def _run_financial_sandbox(self, info: Dict):
+        try:
+            from aurora.financial.engine import FinancialSandbox
+            unit_price = info.get("unit_price")
+            initial_vol = info.get("initial_monthly_vol")
+            if unit_price is not None and initial_vol is not None:
+                return FinancialSandbox.calculate_projection(
+                    unit_price=float(unit_price),
+                    initial_monthly_vol=int(initial_vol),
+                    monthly_growth_rate=float(info.get("monthly_growth_rate", 0.05)),
+                    fixed_monthly_cost=float(info.get("fixed_monthly_cost", 50000)),
+                    unit_variable_cost=float(info.get("unit_variable_cost", 0)),
+                )
+        except Exception:
+            pass
+        return None
+
+    def _format_sandbox_result(self, info: Dict, result: dict) -> str:
+        proj = result["projections"]
+        lines = ["【财务沙盘预测（基于确定性模型）】", ""]
+        for p in proj:
+            lines.append(f"  第{p['year']}年：收入 {p['revenue']:,.0f}元 / 成本 {p['total_cost']:,.0f}元 / 净利润 {p['net_profit']:,.0f}元 / 毛利率 {p['gross_margin']*100:.1f}%")
+        lines.append(f"\n  盈亏平衡点：第{result['break_even_month']}个月")
+        lines.append(f"  3年总营收：{result['total_3yr_revenue']:,.0f}元")
+        lines.append(f"  3年总利润：{result['total_3yr_profit']:,.0f}元")
+        lines.append("")
+        lines.append(f"【融资计划】")
+        lines.append(f"本轮融资{info.get('funding', '50万')}，出让{info.get('equity', '10%')}股权。")
+        return "\n".join(lines)
+
+    def _gen_financial_fallback(self, info: Dict) -> str:
         return f"""【收入预测】
 - 第1年：{info.get('year1_revenue', '100万')}
 - 第2年：{info.get('year2_revenue', '500万')}
@@ -318,27 +452,16 @@ class BusinessPlanGenerator:
         return templates.get(competition_id, {})
 
     def export_to_docx(self, plan: Dict, filepath: str):
-        """Export business plan to DOCX."""
+        """Export business plan to DOCX using DocxBuilder."""
         try:
-            from docx import Document
-            from docx.enum.text import WD_ALIGN_PARAGRAPH
-            from docx.shared import Pt
-
-            doc = Document()
-
-            title = doc.add_heading(plan['metadata']['competition'] + '商业计划书', 0)
-            title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-
-            for section_id in self.SECTIONS:
-                section = plan['sections'][section_id]
-                doc.add_heading(section['title'], level=1)
-                doc.add_paragraph(section['content'])
-                doc.add_page_break()
-
-            doc.save(filepath)
-            return {"success": True, "message": f"已导出到 {filepath}"}
+            from aurora.business_plan.docx_builder import DocxBuilder
+            builder = DocxBuilder()
+            comp_name = plan.get("metadata", {}).get("competition", "")
+            return builder.build(plan, filepath, competition_name=comp_name)
         except ImportError:
-            return {"success": False, "message": "需要安装 python-docx 库"}
+            return {"success": False, "message": "python-docx is required"}
+        except Exception as e:
+            return {"success": False, "message": f"Export failed: {str(e)}"}
 
     def export_to_markdown(self, plan: Dict, filepath: str):
         """Export business plan to Markdown."""
@@ -347,7 +470,9 @@ class BusinessPlanGenerator:
         content += f"**目标赛道**: {plan['metadata']['track']}\n\n"
 
         for section_id in self.SECTIONS:
-            section = plan['sections'][section_id]
+            section = plan['sections'].get(section_id)
+            if not section:
+                continue
             content += f"## {section['title']}\n\n"
             content += section['content'] + "\n\n---\n\n"
 

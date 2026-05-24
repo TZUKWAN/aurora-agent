@@ -44,7 +44,7 @@ class TrackMatcher:
 
             for track in comp.tracks:
                 score = self._calculate_match_score(project_info, track, comp)
-                if score >= 0.3:
+                if score >= 0.15:
                     results.append({
                         "competition_id": comp.id,
                         "competition_name": comp.name,
@@ -105,6 +105,36 @@ class TrackMatcher:
             if "可持续" in social:
                 factors.append(0.2)
 
+        elif "公益" in track_desc:
+            if any(kw in social for kw in ["公益", "慈善", "志愿", "社会福利"]):
+                factors.append(0.3)
+            if "社会" in social or "公共" in social:
+                factors.append(0.2)
+
+        elif "红色" in track_desc or "革命" in track_desc:
+            if any(kw in social for kw in ["红色", "革命", "党建", "传承"]):
+                factors.append(0.3)
+            if "教育" in market or "文化" in tech:
+                factors.append(0.2)
+
+        elif "社区" in track_desc or "治理" in track_desc:
+            if any(kw in market for kw in ["社区", "基层", "治理", "公共管理"]):
+                factors.append(0.3)
+            if any(kw in social for kw in ["社区", "民生", "治理"]):
+                factors.append(0.2)
+
+        elif "创客" in track_desc or "创意" in track_desc:
+            if any(kw in tech for kw in ["创客", "创意", "DIY", "开源"]):
+                factors.append(0.3)
+            if "初创" in stage or "创意" in stage:
+                factors.append(0.2)
+
+        elif "劳务" in track_desc or "品牌" in track_desc:
+            if any(kw in market for kw in ["劳务", "人力资源", "就业", "培训"]):
+                factors.append(0.3)
+            if "就业" in social or "品牌" in business:
+                factors.append(0.2)
+
         elif "科技" in track_desc or "创新" in track_desc:
             if any(kw in tech for kw in ["ai", "人工智能", "大数据", "物联网", "区块链"]):
                 factors.append(0.3)
@@ -118,11 +148,14 @@ class TrackMatcher:
                 factors.append(0.1)
 
         if factors:
-            score = min(sum(factors), 1.0) * track.weight
+            score = min(sum(factors), 1.0)
         else:
-            score = track.weight * 0.2
+            score = 0.2
 
-        return min(score, 1.0)
+        # Boost score by track weight for ranking purposes
+        score = min(score * (0.5 + track.weight), 1.0)
+
+        return score
 
     def _get_match_reasons(
         self,
@@ -147,6 +180,26 @@ class TrackMatcher:
         elif "文化" in track_desc:
             if "文化" in project_info.get("technology", ""):
                 reasons.append("项目具有文化创意属性")
+
+        elif "公益" in track_desc:
+            if any(kw in project_info.get("social_impact", "") for kw in ["公益", "慈善"]):
+                reasons.append("项目具有公益属性")
+
+        elif "红色" in track_desc or "革命" in track_desc:
+            if any(kw in project_info.get("social_impact", "") for kw in ["红色", "革命", "传承"]):
+                reasons.append("项目具有红色文化属性")
+
+        elif "社区" in track_desc or "治理" in track_desc:
+            if any(kw in project_info.get("target_market", "") for kw in ["社区", "治理"]):
+                reasons.append("项目聚焦社区治理领域")
+
+        elif "创客" in track_desc:
+            if any(kw in project_info.get("technology", "") for kw in ["创客", "创意"]):
+                reasons.append("项目具有创客创意属性")
+
+        elif "劳务" in track_desc:
+            if any(kw in project_info.get("target_market", "") for kw in ["劳务", "就业"]):
+                reasons.append("项目与劳务品牌领域相关")
 
         reasons.append(f"该赛道权重: {track.weight * 100:.0f}%")
         return reasons

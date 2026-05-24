@@ -2,16 +2,37 @@
 
 import json
 import logging
+import uuid
 from typing import Any, Dict, List, Optional
 
 from aurora.config import Config, load_config
+from aurora.context import ContextCompressor
+from aurora.guardrails import ToolGuardrails
+from aurora.hooks import HookEvent, HookManager
+from aurora.history import ConversationHistory
+from aurora.memory.session_db import MemoryManager
 from aurora.prompts.system import SYSTEM_PROMPT
+from aurora.recovery import RecoveryManager
+from aurora.security import SecurityManager
 from aurora.swarm.orchestrator import SwarmOrchestrator
 from aurora.tools.business_plan_tools import _register_tools as bp_register_tools
 from aurora.tools.competition_tools import _register_tools as comp_register_tools
 from aurora.tools.evaluation_tools import _register_tools as eval_register_tools
 from aurora.tools.presentation_tools import _register_tools as pres_register_tools
+from aurora.tools.web_search_tools import _register_tools as web_register_tools
 from aurora.tools.registry import ToolRegistry
+from aurora.tools.quality_tools import _register_tools as quality_register_tools
+from aurora.tools.competitor_tools import _register_tools as competitor_register_tools
+from aurora.instructions.loader import InstructionLoader
+from aurora.tools.editor_tools import _register_tools as editor_register_tools
+from aurora.tools.defense_tools import _register_tools as defense_register_tools
+from aurora.tools.image_tools import _register_tools as image_register_tools
+from aurora.tools.visual_tools import _register_tools as visual_register_tools
+from aurora.tools.team_tools import _register_tools as team_register_tools
+from aurora.tools.export_tools import _register_tools as export_register_tools
+from aurora.tools.dachuang_tools import _register_tools as dachuang_register_tools
+from aurora.tools.loop_tools import _register_tools as loop_register_tools
+from aurora.loop import LoopManager
 
 logger = logging.getLogger(__name__)
 
@@ -21,19 +42,46 @@ class AuroraAgent:
 
     def __init__(self, config: Optional[Config] = None):
         self.config = config or load_config()
-        self.tools = ToolRegistry()
+        self.hooks = HookManager()
+        self.tools = ToolRegistry(hooks=self.hooks)
+        self.loop_manager = LoopManager(hooks=self.hooks)
         self._register_all_tools()
 
-        self.messages: List[Dict[str, str]] = []
+        self.history = ConversationHistory()
+        self.memory = MemoryManager()
+        self.session_id: Optional[str] = None
+
         self._setup_provider()
+
+        self.context_compressor = ContextCompressor(
+            compress_threshold=self.config.context.compress_threshold,
+            keep_recent=self.config.context.keep_recent,
+        )
+
+        # Security and recovery subsystems
+        self.guardrails = ToolGuardrails()
+        self.security = SecurityManager()
+        self.recovery = RecoveryManager()
+        self.hooks.register(HookEvent.TOOL_PRE_DISPATCH, self.guardrails.check_hook, priority=10)
+        self.hooks.register(HookEvent.TOOL_PRE_DISPATCH, self.security.check_hook, priority=20)
+        self.hooks.register(HookEvent.TOOL_ERROR, self.recovery.handle_error_hook, priority=50)
+
+        # Connect LLM client to context compressor for intelligent summarization
+        self.context_compressor.llm_client = self.client
+        self.context_compressor.model_name = self.model_name
 
         self.swarm_orchestrator = SwarmOrchestrator(
             run_fn=self.run,
             llm_call_fn=self._call_llm,
             tools_registry=self.tools,
-            hooks=None,
+            hooks=self.hooks,
             max_workers=3
         )
+
+    @property
+    def messages(self) -> List[Dict[str, str]]:
+        """Backward-compatible access to message list."""
+        return self.history.get_messages()
 
     def _register_all_tools(self):
         """Register all tools."""
@@ -41,6 +89,17 @@ class AuroraAgent:
         bp_register_tools(self.tools)
         eval_register_tools(self.tools)
         pres_register_tools(self.tools)
+        web_register_tools(self.tools)
+        quality_register_tools(self.tools)
+        editor_register_tools(self.tools)
+        competitor_register_tools(self.tools)
+        defense_register_tools(self.tools)
+        image_register_tools(self.tools)
+        visual_register_tools(self.tools)
+        team_register_tools(self.tools)
+        export_register_tools(self.tools)
+        dachuang_register_tools(self.tools)
+        loop_register_tools(self.tools, loop_manager=self.loop_manager)
         logger.info(f"Registered {len(self.tools.list_tools())} tools")
 
     def _setup_provider(self):
@@ -75,9 +134,41 @@ class AuroraAgent:
             )
             self.model_name = self.config.model.name
 
+    def start_session(self, project_info: Dict = None) -> str:
+        """Start a new session or auto-generate ID."""
+        self.session_id = uuid.uuid4().hex[:12]
+        if project_info:
+            self.memory.create_or_update_session(self.session_id, project_info)
+        else:
+            self.memory.create_or_update_session(self.session_id, {})
+        return self.session_id
+
+    def load_session(self, session_id: str) -> bool:
+        """Load a previous session."""
+        data = self.memory.load_session(session_id)
+        if not data:
+            return False
+        self.session_id = session_id
+        self.history.clear()
+
+        msgs = self.memory.load_messages(session_id)
+        for m in msgs:
+            self.history.add(m["role"], m["content"])
+        return True
+
+    def list_sessions(self) -> List[Dict[str, Any]]:
+        """List all sessions."""
+        return self.memory.list_sessions()
+
     async def run(self, user_input: str) -> str:
         """Main entry point for the agent."""
-        self.messages.append({"role": "user", "content": user_input})
+        # Auto-start session if none active
+        if not self.session_id:
+            self.start_session({"input": user_input})
+
+        self.hooks.emit(HookEvent.AGENT_MESSAGE, {"input": user_input})
+        self.history.add("user", user_input)
+        self.memory.save_message(self.session_id, "user", user_input)
 
         if self.swarm_orchestrator.should_trigger(user_input):
             logger.info("Triggering Swarm for complex task")
@@ -85,9 +176,19 @@ class AuroraAgent:
         else:
             result = await self._process_message(user_input)
 
-        self.messages.append({"role": "assistant", "content": result})
+        self.hooks.emit(HookEvent.AGENT_RESPONSE, {"response": result})
+        self.history.add("assistant", result)
+        self.memory.save_message(self.session_id, "assistant", result)
 
         return result
+
+    def edit_message(self, index: int, new_content: str) -> bool:
+        """Edit a message and truncate subsequent history."""
+        return self.history.edit(index, new_content)
+
+    def undo(self) -> bool:
+        """Undo last edit operation."""
+        return self.history.undo()
 
     async def _process_message(self, user_input: str) -> str:
         """Process a single message."""
@@ -96,7 +197,7 @@ class AuroraAgent:
         tool_schemas = self.tools.get_schemas()
 
         if tool_schemas:
-            response = await self._call_llm_with_tools(messages, tool_schemas)
+            response = await self._call_llm(messages, tools=tool_schemas)
         else:
             response = await self._call_llm(messages)
 
@@ -104,10 +205,21 @@ class AuroraAgent:
 
     def _build_messages(self) -> List[Dict[str, str]]:
         """Build message history for LLM call."""
-        messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+        system_content = SYSTEM_PROMPT
 
-        recent_messages = self.messages[-self.config.context.keep_recent:]
-        messages.extend(recent_messages)
+        # Inject hierarchical instructions
+        loader = InstructionLoader()
+        instruction_addition = loader.get_system_prompt_addition()
+        if instruction_addition:
+            system_content += "\n\n" + instruction_addition
+
+        messages = [{"role": "system", "content": system_content}]
+
+        recent = self.history.get_messages()[-self.config.context.keep_recent:]
+        messages.extend(recent)
+
+        # Apply context compression
+        messages = self.context_compressor.compress(messages, system_content)
 
         return messages
 
@@ -115,48 +227,88 @@ class AuroraAgent:
         self,
         messages: List[Dict[str, str]],
         tools: List[Dict[str, Any]] = None,
-        tool_dispatch=None
+        tool_dispatch=None,
+        max_rounds: int = 10,
     ) -> str:
-        """Call LLM with optional tool support."""
+        """Call LLM with multi-round ReAct tool calling support."""
+        dispatch_fn = tool_dispatch or self.tools.dispatch
         try:
-            # If tools are provided, use tool-enabled call
-            if tools:
-                response = await self.client.chat.completions.create(
-                    model=self.model_name,
-                    messages=messages,
-                    tools=tools,
-                    tool_choice="auto",
-                    max_tokens=4096,
-                    temperature=0.7
-                )
+            for round_idx in range(max_rounds):
+                if tools:
+                    response = await self.client.chat.completions.create(
+                        model=self.model_name,
+                        messages=messages,
+                        tools=tools,
+                        tool_choice="auto",
+                        max_tokens=4096,
+                        temperature=0.7,
+                    )
+                else:
+                    response = await self.client.chat.completions.create(
+                        model=self.model_name,
+                        messages=messages,
+                        max_tokens=4096,
+                        temperature=0.7,
+                    )
 
                 message = response.choices[0].message
 
-                if message.tool_calls:
-                    # If custom tool_dispatch is provided (from Swarm), use it
-                    if tool_dispatch:
-                        return await self._handle_tool_call_with_dispatch(message, tool_dispatch)
-                    else:
-                        return await self._handle_tool_call(message)
-                else:
-                    return message.content or ""
-            else:
-                # Simple call without tools
-                response = await self.client.chat.completions.create(
-                    model=self.model_name,
-                    messages=messages,
-                    max_tokens=4096,
-                    temperature=0.7
-                )
-                return response.choices[0].message.content or ""
+                if not tools or not message.tool_calls:
+                    return self._extract_content(message)
+
+                tool_results = self._execute_tool_calls(message, dispatch_fn)
+
+                messages.append({
+                    "role": "assistant",
+                    "content": self._extract_content(message) or None,
+                    "tool_calls": [
+                        {
+                            "id": tc.id,
+                            "type": "function",
+                            "function": {
+                                "name": tc.function.name,
+                                "arguments": tc.function.arguments,
+                            },
+                        }
+                        for tc in message.tool_calls
+                    ],
+                })
+                for tr in tool_results:
+                    messages.append({
+                        "role": "tool",
+                        "tool_call_id": tr["tool_call_id"],
+                        "content": tr["result"],
+                    })
+
+            return self._extract_content(message)
         except Exception as e:
             logger.exception("LLM call failed")
-            return f"很抱歉，处理您的请求时出现错误：{str(e)}"
+            return f"Error processing request: {str(e)}"
 
-    async def _handle_tool_call_with_dispatch(self, message, tool_dispatch) -> str:
-        """Handle tool calls with custom dispatch function."""
+    @staticmethod
+    def _extract_content(message) -> str:
+        """Extract content from LLM message, handling reasoning_content."""
+        content = message.content or ""
+        if content.strip():
+            return content
+        rc = getattr(message, 'reasoning_content', None)
+        if rc and rc.strip():
+            return rc
+        return ""
+
+    async def _handle_tool_call_with_dispatch(self, message, tool_dispatch, original_messages=None) -> str:
+        """Compat: handle tool calls with custom dispatch via single synthesis round."""
+        tool_results = self._execute_tool_calls(message, tool_dispatch)
+        return await self._synthesize_tool_response(message, tool_results, original_messages)
+
+    async def _handle_tool_call(self, message, original_messages=None) -> str:
+        """Compat: handle tool calls via single synthesis round."""
+        tool_results = self._execute_tool_calls(message, self.tools.dispatch)
+        return await self._synthesize_tool_response(message, tool_results, original_messages)
+
+    def _execute_tool_calls(self, message, dispatch_fn) -> List[Dict]:
+        """Execute all tool calls and collect results."""
         results = []
-
         for tool_call in message.tool_calls:
             tool_name = tool_call.function.name
             try:
@@ -164,72 +316,67 @@ class AuroraAgent:
             except json.JSONDecodeError:
                 args = {}
 
-            # Use the custom dispatch function (from FilteredToolRegistry)
-            result = tool_dispatch(tool_name, args)
-            results.append(result)
+            result_str = dispatch_fn(tool_name, args)
+            results.append({
+                "tool_call_id": tool_call.id,
+                "tool_name": tool_name,
+                "result": result_str,
+            })
+        return results
 
-        if len(results) == 1:
-            try:
-                result_data = json.loads(results[0])
-                if "error" in result_data:
-                    return f"工具调用失败：{result_data['error']}"
-                return self._format_tool_result(result_data)
-            except json.JSONDecodeError:
-                return results[0]
-        else:
-            return "\n\n".join(results)
-
-    async def _call_llm_with_tools(
-        self,
-        messages: List[Dict[str, str]],
-        tools: List[Dict[str, Any]]
-    ) -> str:
-        """Call LLM with tool support."""
+    async def _synthesize_tool_response(self, message, tool_results, original_messages=None) -> str:
+        """Send tool results back to LLM for natural language synthesis."""
         try:
+            assistant_msg = {"role": "assistant", "content": self._extract_content(message) or None}
+            if message.tool_calls:
+                assistant_msg["tool_calls"] = [
+                    {
+                        "id": tc.id,
+                        "type": "function",
+                        "function": {
+                            "name": tc.function.name,
+                            "arguments": tc.function.arguments,
+                        },
+                    }
+                    for tc in message.tool_calls
+                ]
+
+            tool_messages = []
+            for tr in tool_results:
+                tool_messages.append({
+                    "role": "tool",
+                    "tool_call_id": tr["tool_call_id"],
+                    "content": tr["result"],
+                })
+
+            base_messages = original_messages or self._build_messages()
+            synthesis_messages = base_messages + [assistant_msg] + tool_messages
+
             response = await self.client.chat.completions.create(
                 model=self.model_name,
-                messages=messages,
-                tools=tools,
-                tool_choice="auto",
+                messages=synthesis_messages,
                 max_tokens=4096,
-                temperature=0.7
+                temperature=0.7,
             )
+            return self._extract_content(response.choices[0].message)
 
-            message = response.choices[0].message
-
-            if message.tool_calls:
-                return await self._handle_tool_call(message)
-            else:
-                return message.content or ""
         except Exception as e:
-            logger.exception("LLM call with tools failed")
-            return f"很抱歉，处理您的请求时出现错误：{str(e)}"
+            logger.exception("Tool result synthesis failed")
+            return self._fallback_format_results(tool_results)
 
-    async def _handle_tool_call(self, message) -> str:
-        """Handle tool calls from LLM."""
-        results = []
-
-        for tool_call in message.tool_calls:
-            tool_name = tool_call.function.name
+    def _fallback_format_results(self, tool_results: List[Dict]) -> str:
+        """Fallback: format tool results directly if LLM synthesis fails."""
+        parts = []
+        for tr in tool_results:
             try:
-                args = json.loads(tool_call.function.arguments)
-            except json.JSONDecodeError:
-                args = {}
-
-            result = self.tools.dispatch(tool_name, args)
-            results.append(result)
-
-        if len(results) == 1:
-            try:
-                result_data = json.loads(results[0])
+                result_data = json.loads(tr["result"])
                 if "error" in result_data:
-                    return f"工具调用失败：{result_data['error']}"
-
-                return self._format_tool_result(result_data)
+                    parts.append(f"[{tr['tool_name']}] Error: {result_data['error']}")
+                else:
+                    parts.append(self._format_tool_result(result_data))
             except json.JSONDecodeError:
-                return results[0]
-        else:
-            return "\n\n".join(results)
+                parts.append(tr["result"])
+        return "\n\n".join(parts)
 
     def _format_tool_result(self, result: Dict) -> str:
         """Format tool result for user."""
@@ -239,10 +386,10 @@ class AuroraAgent:
             if "data" in result:
                 data = result["data"]
                 if isinstance(data, list):
-                    output += "\n\n匹配结果：\n"
+                    output += "\n\nResults:\n"
                     for i, item in enumerate(data, 1):
                         if isinstance(item, dict):
-                            name = item.get("name", item.get("id", f"项目{i}"))
+                            name = item.get("name", item.get("id", f"Item {i}"))
                             desc = item.get("description", item.get("full_name", ""))
                             output += f"{i}. {name}\n"
                             if desc:
@@ -252,17 +399,17 @@ class AuroraAgent:
 
             if "matches" in result:
                 matches = result["matches"]
-                output += "\n\n推荐赛道：\n"
+                output += "\n\nRecommended tracks:\n"
                 for i, match in enumerate(matches, 1):
                     confidence = match.get("confidence", 0)
-                    output += f"{i}. {match.get('track_name', '')} (匹配度: {confidence*100:.0f}%)\n"
+                    output += f"{i}. {match.get('track_name', '')} (confidence: {confidence*100:.0f}%)\n"
                     if "reasons" in match:
                         for reason in match["reasons"]:
                             output += f"   - {reason}\n"
 
             if "suggestions" in result:
                 suggestions = result["suggestions"]
-                output += "\n\n优化建议：\n"
+                output += "\n\nSuggestions:\n"
                 for i, suggestion in enumerate(suggestions, 1):
                     output += f"{i}. {suggestion}\n"
 
@@ -272,7 +419,7 @@ class AuroraAgent:
 
     def clear_history(self):
         """Clear message history."""
-        self.messages = []
+        self.history.clear()
 
     def get_tool_list(self) -> List[str]:
         """Get list of registered tools."""

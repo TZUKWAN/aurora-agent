@@ -29,6 +29,9 @@ output/
 output_v2/
 D:*
 
+# Environment
+.env
+
 # Temp files
 *.tmp
 *.temp
@@ -45,3 +48,4 @@ img_insert_progress.json
 test_extracted.png
 test_middle.png
 test_newest.png
+商业计划书大纲2026.docx

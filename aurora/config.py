@@ -2,7 +2,7 @@
 
 import os
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Dict, Optional
 
 import yaml
 
@@ -63,8 +63,53 @@ class Config:
     loop: LoopConfig = field(default_factory=LoopConfig)
 
 
+MODEL_PROFILES: Dict[str, Dict[str, str]] = {
+    "glm": {
+        "name": "glm-4.7-flash",
+        "base_url": "https://open.bigmodel.cn/api/paas/v4",
+        "api_key_env": "AURORA_API_KEY",
+    },
+    "deepseek": {
+        "name": "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
+        "base_url": "https://api.siliconflow.cn/v1",
+        "api_key_env": "AURORA_API_KEY",
+    },
+    "deepseek-v3": {
+        "name": "deepseek-ai/DeepSeek-V3-0324",
+        "base_url": "https://api.siliconflow.cn/v1",
+        "api_key_env": "AURORA_API_KEY",
+    },
+    "qwen": {
+        "name": "Qwen/Qwen3-8B",
+        "base_url": "https://api.siliconflow.cn/v1",
+        "api_key_env": "AURORA_API_KEY",
+    },
+}
+
+
+def apply_model_profile(config: Config, profile_name: str) -> Config:
+    """Apply a named model profile to config."""
+    profile = MODEL_PROFILES.get(profile_name)
+    if not profile:
+        return config
+    config.model.name = profile["name"]
+    config.model.base_url = profile["base_url"]
+    api_key = os.environ.get(profile.get("api_key_env", "AURORA_API_KEY"), "")
+    if api_key:
+        config.model.api_key = api_key
+    return config
+
+
 def load_config(config_path: Optional[str] = None) -> Config:
     """Load configuration from file and environment variables."""
+    # Auto-load .env file if python-dotenv is available (skip in tests)
+    if "PYTEST_CURRENT_TEST" not in os.environ:
+        try:
+            from dotenv import load_dotenv
+            load_dotenv()
+        except ImportError:
+            pass
+
     config = Config()
 
     if config_path and os.path.exists(config_path):
@@ -111,8 +156,28 @@ def load_config(config_path: Optional[str] = None) -> Config:
     if 'AURORA_MODEL' in os.environ:
         config.model.name = os.environ['AURORA_MODEL']
 
+    # Named model profile overrides individual env vars
+    profile = os.environ.get('AURORA_PROFILE', '')
+    if profile:
+        config = apply_model_profile(config, profile)
+
     # Expand paths
     config.session.db_path = os.path.expanduser(config.session.db_path)
     config.session.workspace = os.path.expanduser(config.session.workspace)
 
+    return config
+
+
+def validate_config(config: Config) -> Config:
+    """Validate required configuration and raise clear errors."""
+    if not config.model.api_key:
+        raise ValueError(
+            "AURORA_API_KEY is required. "
+            "Set it via environment variable or config.yaml."
+        )
+    if not config.model.base_url:
+        raise ValueError(
+            "AURORA_BASE_URL is required. "
+            "Set it via environment variable or config.yaml."
+        )
     return config

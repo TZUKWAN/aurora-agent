@@ -1,6 +1,13 @@
 """PPT generator for AuroraAgent."""
 
-from typing import Dict, List
+from typing import Dict, List, Optional
+
+
+def export_to_pptx(ppt_content: Dict, filepath: str, theme: str = "business_blue") -> Dict:
+    """Export PPT JSON to .pptx file."""
+    from aurora.presentation.pptx_exporter import PPTXExporter
+    exporter = PPTXExporter(theme=theme)
+    return exporter.export(ppt_content, filepath)
 
 
 class PPTGenerator:

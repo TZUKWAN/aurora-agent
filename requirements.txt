@@ -33,6 +33,7 @@ redis>=5.0
 
 # Web scraping
 beautifulsoup4>=4.12
+duckduckgo-search>=5.3.1
 
 # CLI
 prompt_toolkit>=3.0

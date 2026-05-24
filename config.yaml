@@ -1,7 +1,7 @@
 model:
   provider: openai-compat
-  name: gpt-4o
-  base_url: https://api.openai.com/v1
+  name: glm-4.7-flash
+  base_url: https://open.bigmodel.cn/api/paas/v4
   api_key: ${AURORA_API_KEY}
   max_turns: 50
 

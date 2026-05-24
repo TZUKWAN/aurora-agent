@@ -1,0 +1,158 @@
+{
+  "name": "白玉三维逻辑竞赛框架",
+  "source": "武汉理工大学管理学院白玉教授",
+  "description": "基于白玉教授在全国多所高校讲座中系统提出的竞赛方法论，覆盖选题、内容、呈现三个维度",
+  "dimensions": {
+    "selection": {
+      "name": "选题逻辑",
+      "principle": "选题决定项目的上限，好的选题是成功的一半",
+      "core_quote": "优秀的参赛项目绝非偶然的创意迸发，而是具备完整价值链与可持续生命力的系统工程",
+      "criteria": [
+        {"id": "innovation", "name": "创新性", "description": "项目必须有明显的创新点，无论在技术、模式还是应用层面"},
+        {"id": "practicality", "name": "实用性", "description": "项目必须解决真实存在的问题，而非纸上谈兵"},
+        {"id": "feasibility", "name": "可行性", "description": "在现有资源和时间条件下，项目是可以实施的"}
+      ],
+      "directions": [
+        "紧跟国家战略导向（乡村振兴、双碳目标、数字经济、新质生产力）",
+        "关注行业痛点和技术瓶颈",
+        "结合学校学科优势和科研积累",
+        "寻找跨界融合的创新机会"
+      ],
+      "pitfalls": [
+        {"id": "too_broad", "name": "选题过大", "description": "试图解决所有问题，反而没有聚焦"},
+        {"id": "chasing_trends", "name": "追逐热点", "description": "盲目追逐当前热点，缺乏深入理解"},
+        {"id": "beyond_capability", "name": "脱离能力", "description": "选题超出团队能力边界"},
+        {"id": "homogeneous", "name": "同质化", "description": "与已有项目高度雷同"}
+      ],
+      "weight_in_competition": 0.4
+    },
+    "content": {
+      "name": "内容逻辑",
+      "principle": "项目的核心价值必须通过严谨的内容呈现来体现",
+      "bp_requirements": {
+        "market": "痛点必须有具体数据支撑，不允许'市场很大'，必须给出定量预估使用数据",
+        "business_model": "商业模式要清晰可行，必须有BEP、ROI、Milestones",
+        "finance": "财务预测要合理有据，不允许'一年回本三年上市'的无脑吹嘘",
+        "competition": "竞争分析要客观深度，必须包含核心指标的多维对比矩阵",
+        "team": "必须强调核心导师行业地位、师生共创、技术原始创新归属"
+      },
+      "report_pitfalls": [
+        {"id": "superficial_literature", "name": "文献综述流于形式", "description": "大量引用但不分析，缺乏批判性分析"},
+        {"id": "unclear_method", "name": "研究方法描述不清", "description": "方法不当或描述不完整"},
+        {"id": "shallow_data", "name": "数据分析浅薄", "description": "停留在表面缺乏深度"},
+        {"id": "over_extrapolate", "name": "过度推论", "description": "结论与数据不匹配"},
+        {"id": "poor_format", "name": "格式粗糙", "description": "参考文献不规范，细节缺失"}
+      ],
+      "weight_in_competition": 0.35
+    },
+    "presentation": {
+      "name": "呈现逻辑",
+      "principle": "电梯原理——在有限时间内展现最精彩内容，让人不能眨眼",
+      "core_quote": "在路演时要是内心的流露，运用电梯原理，在有限的时间内展现出最精彩的内容，让人不能眨眼",
+      "time_structure": {
+        "total_minutes": 15,
+        "presentation_minutes": 9,
+        "qa_minutes": 6,
+        "scoring": "100分制"
+      },
+      "key_moments": [
+        {"timepoint": "0-1min", "action": "开场冲击力，迅速抓住评委注意力"},
+        {"timepoint": "1-3min", "action": "核心创新点必须在前3分钟内呈现"},
+        {"timepoint": "3-7min", "action": "数据与案例支撑，竞品对比"},
+        {"timepoint": "7-9min", "action": "项目价值升华，结尾要有高度"},
+        {"timepoint": "9-15min", "action": "现场问答，准备10+防御性问题"}
+      ],
+      "ppt_principles": [
+        "简洁专业，避免信息过载",
+        "重点突出，核心亮点一目了然",
+        "视觉统一，风格专业一致",
+        "数据可视化，用图表替代文字",
+        "少字多图，大数额视觉冲击"
+      ],
+      "pitfalls": [
+        {"id": "overtime", "name": "超时", "description": "内容过多时间不够"},
+        {"id": "reading", "name": "念稿", "description": "照PPT逐字念缺乏互动"},
+        {"id": "panic", "name": "答辩慌乱", "description": "面对提问紧张答非所问"},
+        {"id": "uncoordinated", "name": "团队不协调", "description": "成员间抢答或沉默"}
+      ],
+      "weight_in_competition": 0.25
+    }
+  },
+  "five_barriers": {
+    "name": "创业企业五道槛",
+    "description": "针对创业企业发展迅速但又快速倒下的现实问题",
+    "barriers": [
+      {"id": "mindset", "name": "浮躁心态", "problem": "创业者容易急于求成，缺乏耐心和长期规划", "solution": "静下心来思考如何创业，等待我们的是明天的成功"},
+      {"id": "thinking", "name": "线性思维", "problem": "习惯用简单线性方式思考问题，缺乏系统性全局性思维", "solution": "培养多角度思维，从人力技术等多维度理解管理"},
+      {"id": "talent", "name": "人才瓶颈", "problem": "人才储备和培养跟不上企业发展需求", "solution": "引入专业人士，破血缘关系网。熟人亲友可能能共患难但很难求发展"},
+      {"id": "regulation", "name": "规章瓶颈", "problem": "制度建设和规范化管理滞后", "solution": "建立现代企业制度，从人治走向法治"},
+      {"id": "organization", "name": "组织瓶颈", "problem": "组织架构和管理体系无法适应企业快速增长的需要", "solution": "优化组织结构，提升管理能力"}
+    ],
+    "core_insight": "创业企业要破血缘关系，破关系网。品质没有守住，自然就被市场抛弃了。专精特新是企业做大做强的必由之路"
+  },
+  "three_stages": {
+    "name": "创业三阶段",
+    "description": "白玉教授提出的创业企业成长阶段模型",
+    "stages": [
+      {"stage": 1, "name": "模仿创新", "description": "初创时期的模仿创新，企业起步阶段通过模仿学习借鉴已有模式进行创新"},
+      {"stage": 2, "name": "弯道超车", "description": "在模仿中改进实现弯道超车，在模仿基础上进行改进和优化寻找超越竞争对手的机会"},
+      {"stage": 3, "name": "革命性发明", "description": "当企业达到约5亿元生产规模时可以考虑革命性的自主创新与发明", "threshold_revenue_cny": "500000000"}
+    ]
+  },
+  "industry_chain_positioning": {
+    "name": "产业链定位法则",
+    "principles": [
+      "项目必须明确在产业链中的位置（上游/中游/下游）",
+      "必须用实际例子替代晦涩的专业术语",
+      "必须量化项目对产业链的改善效果"
+    ],
+    "core_quote": "项目要和产业链结合，抓住社会中本行业的痛点"
+  },
+  "competition_differentiation": {
+    "internet_plus": {
+      "name": "互联网+大学生创新创业大赛",
+      "positioning": "具有高等教育全局意义的赛事",
+      "philosophy": "以赛促学、以赛促教、以赛促创",
+      "evaluation": {
+        "innovation": 30,
+        "team": 25,
+        "business_model": 25,
+        "employment": 10,
+        "education": 10
+      }
+    },
+    "challenge_cup": {
+      "name": "挑战杯全国大学生课外学术科技作品竞赛",
+      "positioning": "中国大学生科技创新的最高荣誉赛事",
+      "evaluation": {
+        "social_value": 25,
+        "tech_innovation": 25,
+        "business_model": 20,
+        "team_collaboration": 20,
+        "prospects": 10
+      }
+    },
+    "red_tour": {
+      "name": "青年红色筑梦之旅赛道",
+      "key_aspects": [
+        "组别设计：分为公益组、商业组等不同组别",
+        "内涵要求：必须体现服务乡村振兴、社区治理等国家战略",
+        "团队修养：需要具备政治素养、专业能力和创新精神",
+        "设计方向：紧扣国家战略需求解决实际问题",
+        "项目名称：准确有吸引力体现核心价值",
+        "PPT设计：简洁专业重点突出"
+      ],
+      "evaluation": {
+        "social_benefit": 30,
+        "innovation": 25,
+        "sustainability": 25,
+        "team": 20
+      }
+    }
+  },
+  "recommended_books": [
+    {"title": "活着就是为了改变世界：乔布斯改变世界的密码", "focus": "创新精神"},
+    {"title": "任正非：永远思考失败", "focus": "危机意识"},
+    {"title": "从0到1：开启商业与未来的秘密", "focus": "创新思维"}
+  ]
+}

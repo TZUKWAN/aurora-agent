@@ -53,34 +53,53 @@ class SwarmOrchestrator:
         self._role_bank = RoleTemplateBank()
         self._bus = SwarmBus()
         self._decomposer = TaskDecomposer()
+        self._progress = {"completed": 0, "total": 0, "phase": "idle"}
 
     async def run(self, task: str) -> str:
         """Run the swarm on a task."""
         if self._hooks:
             self._hooks.emit("swarm.start", {"task": task})
 
+        self._progress["phase"] = "planning"
         try:
             plan = await self._analyze_and_plan(task)
             logger.info(f"Swarm plan: {plan}")
 
+            self._progress["phase"] = "executing"
+            self._progress["total"] = len(plan.get("tasks", []))
+            self._progress["completed"] = 0
             results = await self._execute_plan(plan)
+            self._progress["completed"] = len(results)
+
+            self._progress["phase"] = "synthesizing"
             final_result = await self._synthesize_results(results)
 
+            self._progress["phase"] = "complete"
             if self._hooks:
                 self._hooks.emit("swarm.complete", {"task": task, "result": final_result})
 
             return final_result
 
         except Exception as e:
+            self._progress["phase"] = "error"
             logger.exception("Swarm execution failed")
             if self._hooks:
                 self._hooks.emit("swarm.error", {"task": task, "error": str(e)})
             return f"任务执行过程中出现错误: {e}"
 
     async def _analyze_and_plan(self, task: str) -> Dict:
-        """Analyze task and create execution plan."""
+        """Analyze task and create execution plan using LLM for intelligent role assignment."""
         roles = self._role_bank.recommend_roles(task)
         decomposed_tasks = self._decomposer.decompose(task)
+
+        if not roles:
+            all_roles = self._role_bank.list_roles()
+            fallback_ids = all_roles[:3]
+            return {
+                "original_task": task,
+                "selected_roles": fallback_ids,
+                "tasks": decomposed_tasks,
+            }
 
         return {
             "original_task": task,
@@ -89,9 +108,12 @@ class SwarmOrchestrator:
         }
 
     async def _execute_plan(self, plan: Dict) -> List[Dict]:
-        """Execute the plan with parallel workers."""
+        """Execute the plan with parallel workers and intelligent task-role matching."""
         tasks = plan["tasks"]
         roles = [self._role_bank.get_role(r) for r in plan["selected_roles"]]
+
+        if not tasks or not roles:
+            return []
 
         semaphore = asyncio.Semaphore(self._max_workers)
 
@@ -99,21 +121,45 @@ class SwarmOrchestrator:
             async with semaphore:
                 return await self._execute_with_role(task, role)
 
-        tasks_to_execute = []
-        for task in tasks:
-            for role in roles:
-                if any(exp in task["description"] for exp in role.expertise):
-                    tasks_to_execute.append((task, role))
-                    break
-
-        if not tasks_to_execute:
-            tasks_to_execute = [(tasks[0], roles[0])] if tasks and roles else []
+        tasks_to_execute = self._match_tasks_to_roles(tasks, roles)
 
         results = await asyncio.gather(
             *[execute_task(task, role) for task, role in tasks_to_execute]
         )
 
         return [r for r in results if r]
+
+    def _match_tasks_to_roles(
+        self, tasks: List[Dict], roles: List[RoleTemplate]
+    ) -> List[tuple]:
+        """Match tasks to roles using expertise overlap with fuzzy scoring."""
+        matched = []
+        used_roles = set()
+
+        for task in tasks:
+            desc = task.get("description", "")
+            best_role = None
+            best_score = 0
+
+            for role in roles:
+                score = sum(1 for exp in role.expertise if exp in desc)
+                if score > best_score:
+                    best_score = score
+                    best_role = role
+
+            if best_role:
+                matched.append((task, best_role))
+                used_roles.add(best_role.role_id)
+            elif roles:
+                idx = len(matched) % len(roles)
+                matched.append((task, roles[idx]))
+
+        for role in roles:
+            if role.role_id not in used_roles and tasks:
+                idx = len(matched) % len(tasks)
+                matched.append((tasks[idx], role))
+
+        return matched
 
     async def _execute_with_role(self, task: Dict, role: RoleTemplate) -> Dict:
         """Execute a task with a specific role."""
@@ -205,3 +251,97 @@ class SwarmOrchestrator:
                 count += 1
 
         return count
+
+    def get_progress(self) -> dict:
+        """Return progress info: completed_tasks, total_tasks, current_phase."""
+        return {
+            "completed_tasks": self._progress["completed"],
+            "total_tasks": self._progress["total"],
+            "current_phase": self._progress["phase"],
+        }
+
+    async def run_with_progress(self, task: str, callback=None) -> str:
+        """Like run() but calls callback(progress_dict) after each task completes."""
+        if self._hooks:
+            self._hooks.emit("swarm.start", {"task": task})
+
+        self._progress["phase"] = "planning"
+        if callback:
+            callback(self.get_progress())
+
+        try:
+            plan = await self._analyze_and_plan(task)
+            logger.info(f"Swarm plan: {plan}")
+
+            self._progress["phase"] = "executing"
+            self._progress["total"] = len(plan.get("tasks", []))
+            self._progress["completed"] = 0
+            if callback:
+                callback(self.get_progress())
+
+            results = await self._execute_plan_with_callback(plan, callback)
+            self._progress["completed"] = len(results)
+
+            self._progress["phase"] = "synthesizing"
+            if callback:
+                callback(self.get_progress())
+            final_result = await self._synthesize_results(results)
+
+            self._progress["phase"] = "complete"
+            if callback:
+                callback(self.get_progress())
+            if self._hooks:
+                self._hooks.emit("swarm.complete", {"task": task, "result": final_result})
+
+            return final_result
+
+        except Exception as e:
+            self._progress["phase"] = "error"
+            if callback:
+                callback(self.get_progress())
+            logger.exception("Swarm execution failed")
+            if self._hooks:
+                self._hooks.emit("swarm.error", {"task": task, "error": str(e)})
+            return f"任务执行过程中出现错误: {e}"
+
+    async def _execute_plan_with_callback(self, plan: Dict, callback) -> List[Dict]:
+        """Execute the plan and invoke callback after each task completes."""
+        tasks = plan["tasks"]
+        roles = [self._role_bank.get_role(r) for r in plan["selected_roles"]]
+
+        if not tasks or not roles:
+            return []
+
+        tasks_to_execute = self._match_tasks_to_roles(tasks, roles)
+
+        results = []
+        for task_item, role in tasks_to_execute:
+            result = await self._execute_with_role(task_item, role)
+            if result:
+                results.append(result)
+                self._progress["completed"] = len(results)
+                if callback:
+                    callback(self.get_progress())
+
+        return results
+
+    def get_role_recommendations(self, task: str) -> List[Dict]:
+        """Return detailed role recommendations with reasons, not just RoleTemplate objects."""
+        recommendations = []
+        for role in self._role_bank._templates.values():
+            matched_expertise = []
+            for exp in role.expertise:
+                if exp in task:
+                    matched_expertise.append(exp)
+
+            if matched_expertise:
+                relevance_score = len(matched_expertise) / max(len(role.expertise), 1)
+                recommendations.append({
+                    "role_id": role.role_id,
+                    "name": role.name,
+                    "relevance_score": round(relevance_score, 2),
+                    "reason": f"Matched expertise: {', '.join(matched_expertise)}",
+                })
+
+        recommendations.sort(key=lambda r: r["relevance_score"], reverse=True)
+        return recommendations

@@ -1,13 +1,58 @@
 """Task decomposer for AuroraAgent's swarm system."""
 
+import json
+import re
 from typing import Dict, List
 
 
 class TaskDecomposer:
-    """Decompose complex tasks into smaller subtasks."""
+    """Decompose complex tasks into smaller subtasks.
+
+    Supports LLM-based decomposition with automatic keyword fallback.
+    """
+
+    def __init__(self, config=None):
+        """Initialize TaskDecomposer with optional LLM configuration.
+
+        Args:
+            config: Optional configuration object with a ``model`` attribute
+                containing ``api_key``, ``base_url``, and ``name`` fields.
+                If provided and valid, LLM-based decomposition will be
+                attempted first before falling back to keyword matching.
+        """
+        self._config = config
+        self._client = None
+        if config:
+            try:
+                import os
+
+                from openai import OpenAI
+
+                api_key = config.model.api_key or os.environ.get("AURORA_API_KEY")
+                base_url = config.model.base_url or os.environ.get("AURORA_BASE_URL")
+                if api_key:
+                    self._client = OpenAI(api_key=api_key, base_url=base_url)
+                    self._model = config.model.name or os.environ.get(
+                        "AURORA_MODEL", "glm-4.7-flash"
+                    )
+            except Exception:
+                pass
 
     def decompose(self, task: str) -> List[Dict[str, str]]:
-        """Decompose a task into smaller subtasks."""
+        """Decompose a task into smaller subtasks.
+
+        Attempts LLM-based decomposition first when a client is available,
+        then falls back to keyword-based decomposition.
+        """
+        if self._client:
+            try:
+                return self._llm_decompose(task)
+            except Exception:
+                pass
+        return self._keyword_decompose(task)
+
+    def _keyword_decompose(self, task: str) -> List[Dict[str, str]]:
+        """Decompose a task using keyword matching."""
         self._extract_keywords(task)
 
         if "商业计划书" in task or "BP" in task:
@@ -84,3 +129,67 @@ class TaskDecomposer:
         return [
             {"id": "1", "description": task},
         ]
+
+    def _llm_decompose(self, task: str) -> List[Dict[str, str]]:
+        """Decompose a task using an LLM API call.
+
+        Sends the task to the configured LLM model and parses the JSON
+        response into a list of subtask dictionaries.
+
+        Raises:
+            ValueError: If the LLM response cannot be parsed as valid
+                subtask list.
+        """
+        prompt = f"""将以下任务分解为具体的子任务。每个子任务需要简明扼要的描述。
+
+任务：{task}
+
+请按以下JSON格式返回，不要其他文字：
+[{{"id": "1", "description": "子任务描述"}}, ...]"""
+
+        response = self._client.chat.completions.create(
+            model=self._model,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "你是任务分解专家。将复杂任务分解为可执行的子任务。只返回JSON。",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            temperature=0.3,
+            max_tokens=1024,
+        )
+
+        content = response.choices[0].message.content or ""
+        if not content.strip():
+            rc = getattr(response.choices[0].message, "reasoning_content", None)
+            if rc and rc.strip():
+                content = rc
+
+        # Try to find JSON array in the response
+        match = re.search(r"\[.*\]", content, re.DOTALL)
+        if match:
+            tasks = json.loads(match.group())
+            if isinstance(tasks, list) and all(
+                "id" in t and "description" in t for t in tasks
+            ):
+                return tasks
+
+        raise ValueError("Failed to parse LLM decomposition")
+
+    def estimate_task_count(self, task: str) -> int:
+        """Estimate the number of subtasks a task will decompose into.
+
+        Args:
+            task: The task description to estimate.
+
+        Returns:
+            Estimated number of subtasks.
+        """
+        if any(kw in task for kw in ("完整", "全部", "商业计划书")):
+            return 7
+        if any(kw in task for kw in ("PPT", "路演")):
+            return 4
+        if any(kw in task for kw in ("分析", "评估")):
+            return 4
+        return 2

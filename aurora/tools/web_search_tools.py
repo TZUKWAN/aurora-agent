@@ -39,7 +39,7 @@ def _register_tools(registry: ToolRegistry):
     registry.register(
         name="search_market_data",
         description="Search real-time web for market size, policies, or competitor info. Requires internet.",
-        func=search_market_data,
+        handler=search_market_data,
         parameters={
             "type": "object",
             "properties": {

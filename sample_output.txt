@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "D:\SophiaAgentWork\aurora-agent\run_sample_zhipu.py", line 42, in <module>
+    print(f"\n\u2705 成功！计划书大纲及图表截图已装配完成，文件落地: {output_file}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2705' in position 2: illegal multibyte sequence
+====== 正在激活 AuroraAgent 核心管道 ======
+正在使用模型: glm-4.7-flash
+
+正在启动 DOCX 混排引擎与无头浏览器出图模块，请稍候(这会消耗大模型API)...
+Traceback (most recent call last):
+  File "D:\SophiaAgentWork\aurora-agent\run_sample_zhipu.py", line 42, in <module>
+    print(f"\n\u2705 成功！计划书大纲及图表截图已装配完成，文件落地: {output_file}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2705' in position 2: illegal multibyte sequence
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\SophiaAgentWork\aurora-agent\run_sample_zhipu.py", line 49, in <module>
+    print(f"\n\u274c 系统启动失败: {str(e)}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'gbk' codec can't encode character '\u274c' in position 2: illegal multibyte sequence
